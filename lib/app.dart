@@ -1,3 +1,5 @@
+import 'package:bounty_hub_client/data/repositories/authentication_repository.dart';
+import 'package:bounty_hub_client/ui/pages/dashboard/dashboard.dart';
 import 'package:bounty_hub_client/ui/pages/login/view/login_page.dart';
 import 'package:bounty_hub_client/ui/pages/splash/splash.dart';
 import 'package:flutter/material.dart';
@@ -5,14 +7,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/authorization_bloc.dart';
 import 'bloc/authorization_state.dart';
 import 'data/repositories/user_repository.dart';
+import 'utils/ui/colors.dart';
 
 class MyApp extends StatefulWidget {
 
   final UserRepository _userRepository;
 
-  MyApp({Key key, UserRepository userRepository})
-      : assert(userRepository != null),
+  final LoginRepository _loginRepository;
+
+  MyApp({Key key, UserRepository userRepository, LoginRepository loginRepository})
+      : assert(userRepository != null), assert(loginRepository != null),
         _userRepository = userRepository,
+        _loginRepository = loginRepository,
         super(key: key);
 
   @override
@@ -21,6 +27,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   UserRepository get userRepository => widget._userRepository;
+  LoginRepository get loginRepository => widget._loginRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +35,8 @@ class _MyAppState extends State<MyApp> {
       title: 'BountyHub',
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
-        primaryColor: Color(0xff39b2f0),
-        accentColor: Colors.grey[800],
+        primaryColor: AppColors.primaryColor,
+        accentColor: AppColors.accentColor,
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
@@ -38,9 +45,10 @@ class _MyAppState extends State<MyApp> {
           } else if (state is Unauthenticated) {
             return LoginPage(
               userRepository: userRepository,
+              loginRepository: loginRepository,
             );
           } else if (state is Authenticated) {
-            return SplashPage();
+            return DashboardPage();
           } else {
             return SplashPage();
           }

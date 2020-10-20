@@ -40,6 +40,7 @@ dependencies:
   # view / model
   formz: ^0.3.1
   equatable: ^1.2.5
+  webview_flutter: ^1.0.3
 
   # shared preferences
   flutter_secure_storage: ^3.3.5
@@ -68,7 +69,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - icons/
+    - assets/icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

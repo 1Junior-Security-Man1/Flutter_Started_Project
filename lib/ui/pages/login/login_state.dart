@@ -8,6 +8,15 @@ class InitialState extends LoginState {
   List<Object> get props => [];
 }
 
+class CaptchaSentState extends LoginState {
+  final String email;
+
+  CaptchaSentState(this.email);
+
+  @override
+  List<Object> get props => [email];
+}
+
 class LoadingState extends LoginState {
   @override
   List<Object> get props => [];

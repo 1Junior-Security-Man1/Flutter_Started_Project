@@ -1,26 +1,30 @@
 
 import 'package:bounty_hub_client/bloc/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/authorization_bloc.dart';
-import 'package:bounty_hub_client/bloc/authorization_state.dart';
+import 'package:bounty_hub_client/data/repositories/authentication_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
-import 'package:bounty_hub_client/utils/edit_text_utils.dart';
+import 'package:bounty_hub_client/utils/ui/colors.dart';
+import 'package:bounty_hub_client/utils/ui/styles.dart';
+import 'package:bounty_hub_client/utils/validation/captcha.dart';
+import 'package:bounty_hub_client/utils/validation/form_validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 
 class LoginPage extends StatelessWidget {
   final UserRepository userRepository;
+  final LoginRepository loginRepository;
 
-  LoginPage({Key key, @required this.userRepository})
-      : assert(userRepository != null),
+  LoginPage({Key key, @required this.userRepository, @required this.loginRepository})
+      : assert(userRepository != null), assert(loginRepository != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(
-      create: (context) => LoginCubit(userRepository: userRepository),
+      create: (context) => LoginCubit(userRepository: userRepository, loginRepository: loginRepository),
       child: Scaffold(
         body: LoginForm(),
       ),
@@ -58,23 +62,13 @@ class _LoginFormState extends State<LoginForm> {
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
           return Scaffold(
-            body: Container(
-              child: SingleChildScrollView(
-                child: Row(
+              backgroundColor: AppColors.backgroundColor,
+              body: SingleChildScrollView(
+                child: Column(
                   children: <Widget>[
-                    Container(
-                      child: Container(
-                        color: Theme.of(context).primaryColor,
-                        child: Column(
-                          children: <Widget>[
-                            Header(),
-                            getContent(state),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                    Header(),
+                    getContent(state)
+                  ]
               ),
             )
           );
@@ -92,9 +86,26 @@ class _LoginFormState extends State<LoginForm> {
       return LoadingIndicator();
     } else if (state is LoginCompleteState) {
       BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
+    } else if (state is CaptchaSentState) {
+      return CaptchaInput();
     } else {
       return EmailInput();
     }
+  }
+}
+
+class CaptchaInput extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        height: 1000,
+        child: Captcha((String secret) {
+          context.bloc<LoginCubit>().captchaSecret(secret);
+        }),
+      ),
+    );
   }
 }
 
@@ -106,21 +117,28 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(32),
+        margin: EdgeInsets.only(top: 42),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(padding: const EdgeInsets.all(8.0),
-              child: Image(image: AssetImage('icons/logo.png'),
-                width: 120,
-                height: 120,
+            Padding(padding: const EdgeInsets.all(80.0),
+              child: Image(image: AssetImage('assets/icons/logo.png'),
+                width: 200,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 40.0, bottom: 8.0),
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 36.0, bottom: 8.0),
               child: Text(
-                "BountyHub is the place for implementing your business ideas",
-                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16, color: Colors.white),
+                "Sign in to",
+                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16, color: AppColors.textColor),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0, bottom: 8.0),
+              child: Text(
+                "Bountyhub Platform",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -145,26 +163,26 @@ class EmailInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-      const EdgeInsets.only(top: 48, bottom: 16.0, left: 16.0, right: 16.0),
+      const EdgeInsets.only(top: 16.0, bottom: 16.0, left: 16.0, right: 16.0),
       child: Column(
         children: <Widget>[
           Form(
             key: _formKey,
-            child: Container(
-              width: 200,
-              child: EditTextUtils().getCustomEditTextArea(
-                  labelValue: "E-mail",
-                  hintValue: "E-mail",
+            child: Center(
+              child: Container(
+                constraints: BoxConstraints(maxWidth: 300),
+                child: TextFormField(
                   controller: _emailTextController,
-                  keyboardType: TextInputType.number,
-                  icon: Icons.email,
-                  validator: (value) {
-                    return validateEmail(value);
-                  }),
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                  validator: (value) => FormValidation.validateEmail(value),
+                  decoration: WidgetsStyle.textFieldStyle('E-Mail', 'E-Mail', Icons.email),
+                ),
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 20.0, bottom: 8.0),
             child: RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
@@ -173,7 +191,7 @@ class EmailInput extends StatelessWidget {
               },
               color: Theme.of(context).primaryColor,
               child: Text(
-                "Submit",
+                "GET AUTHORIZATION CODE",
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -181,13 +199,6 @@ class EmailInput extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String validateEmail(String value) {
-    if (!value.contains('@'))
-      return 'Invalid email';
-    else
-      return null;
   }
 }
 

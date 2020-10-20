@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class SplashPage extends StatefulWidget {
+class DashboardPage extends StatefulWidget {
   @override
-  _SplashPageState createState() => _SplashPageState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: Text('Splash')
+          child: Text('Dashboard')
       ),
     );
   }
