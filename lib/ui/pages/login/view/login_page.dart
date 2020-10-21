@@ -1,8 +1,6 @@
 
 import 'package:bounty_hub_client/bloc/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/authorization_bloc.dart';
-import 'package:bounty_hub_client/data/repositories/authentication_repository.dart';
-import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -14,17 +12,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 
 class LoginPage extends StatelessWidget {
-  final UserRepository userRepository;
-  final LoginRepository loginRepository;
 
-  LoginPage({Key key, @required this.userRepository, @required this.loginRepository})
-      : assert(userRepository != null), assert(loginRepository != null),
-        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(
-      create: (context) => LoginCubit(userRepository: userRepository, loginRepository: loginRepository),
+      create: (context) => LoginCubit(),
       child: Scaffold(
         body: LoginForm(),
       ),

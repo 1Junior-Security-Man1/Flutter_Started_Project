@@ -11,23 +11,11 @@ import 'utils/ui/colors.dart';
 
 class MyApp extends StatefulWidget {
 
-  final UserRepository _userRepository;
-
-  final LoginRepository _loginRepository;
-
-  MyApp({Key key, UserRepository userRepository, LoginRepository loginRepository})
-      : assert(userRepository != null), assert(loginRepository != null),
-        _userRepository = userRepository,
-        _loginRepository = loginRepository,
-        super(key: key);
-
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  UserRepository get userRepository => widget._userRepository;
-  LoginRepository get loginRepository => widget._loginRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +31,7 @@ class _MyAppState extends State<MyApp> {
           if (state is Uninitialized) {
             return SplashPage();
           } else if (state is Unauthenticated) {
-            return LoginPage(
-              userRepository: userRepository,
-              loginRepository: loginRepository,
-            );
+            return LoginPage();
           } else if (state is Authenticated) {
             return DashboardPage();
           } else {

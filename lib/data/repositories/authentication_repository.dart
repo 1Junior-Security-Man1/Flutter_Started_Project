@@ -3,11 +3,9 @@ import 'package:bounty_hub_client/network/server_api.dart';
 
 class LoginRepository {
 
-  final RestClient restClient;
-
-  LoginRepository(this.restClient);
+  //final RestClient restClient;
 
   void authenticate(String email) {
-    restClient.getAuthenticateCode(AuthRequest('','','',email,''));
+    //restClient.getAuthenticateCode(AuthRequest('','','',email,''));
   }
 }

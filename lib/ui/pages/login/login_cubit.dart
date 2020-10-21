@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:bounty_hub_client/data/repositories/authentication_repository.dart';
-import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'login_state.dart';
 import 'dart:developer' as developer;
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit({UserRepository userRepository, LoginRepository loginRepository}) : super(InitialState());
+
+  LoginCubit() : super(InitialState());
 
   void authorize(String email) {
     emit(LoadingState());
