@@ -11,7 +11,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: Text('Dashboard')
+          child: Text('Welcome to BountyHub!')
       ),
     );
   }

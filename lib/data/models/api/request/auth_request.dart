@@ -12,10 +12,10 @@ class AuthRequest {
   String get domain => _domain;
 
   AuthRequest(
+      String email,
       String checkCode,
       String captchaType,
       String secret,
-      String email,
       String domain){
     _checkCode = checkCode;
     _captchaType = captchaType;

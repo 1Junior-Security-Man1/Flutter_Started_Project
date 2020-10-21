@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Captcha extends StatefulWidget{
+
   Function callback;
-  Captcha(this.callback, {void Function(String secret) onCaptchaCompleted});
+  Captcha(this.callback, {void Function(String captchaCode) onCaptchaCompleted});
 
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +25,7 @@ class CaptchaState extends State<Captcha>{
   Widget build(BuildContext context) {
     return Center(
         child: WebView(
-          initialUrl: Urls.captchaUrl,
+          initialUrl: Constants.captchaUrl,
           javascriptMode: JavascriptMode.unrestricted,
           javascriptChannels: Set.from([
             JavascriptChannel(
@@ -39,5 +40,4 @@ class CaptchaState extends State<Captcha>{
         )
     );
   }
-
 }

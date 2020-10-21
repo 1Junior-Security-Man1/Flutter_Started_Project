@@ -9,7 +9,7 @@ part of 'server_api.dart';
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://api.bountyhub.io/api/';
+    this.baseUrl ??= 'https://api.bountyhub.io/api';
   }
 
   final Dio _dio;
@@ -17,13 +17,13 @@ class _RestClient implements RestClient {
   String baseUrl;
 
   @override
-  getAuthenticateCode(authRequest) async {
+  authenticate(authRequest) async {
     ArgumentError.checkNotNull(authRequest, 'authRequest');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(authRequest?.toJson() ?? <String, dynamic>{});
-    await _dio.request<void>('api/users/authenticate',
+    await _dio.request<void>('/users/authenticate',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -32,5 +32,30 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     return Future.value(null);
+  }
+
+  @override
+  confirmCode(email, code, grantType) async {
+    ArgumentError.checkNotNull(email, 'email');
+    ArgumentError.checkNotNull(code, 'code');
+    ArgumentError.checkNotNull(grantType, 'grantType');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      'email': email,
+      'code': code,
+      'grant_type': grantType
+    };
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/oauth/code',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = TokenResponse.fromJson(_result.data);
+    return Future.value(value);
   }
 }

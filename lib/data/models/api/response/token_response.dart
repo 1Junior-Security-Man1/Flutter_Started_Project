@@ -33,9 +33,9 @@ class TokenResponse {
 }
 
   TokenResponse.fromJson(dynamic json) {
-    _accessToken = json["accessToken"];
-    _tokenType = json["tokenType"];
-    _expiresIn = json["expiresIn"];
+    _accessToken = json["access_token"];
+    _tokenType = json["token_type"];
+    _expiresIn = json["expires_in"];
     _emailConfirmed = json["emailConfirmed"];
     _roles = json["roles"] != null ? json["roles"].cast<String>() : [];
     _userId = json["userId"];
@@ -44,9 +44,9 @@ class TokenResponse {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map["accessToken"] = _accessToken;
-    map["tokenType"] = _tokenType;
-    map["expiresIn"] = _expiresIn;
+    map["access_token"] = _accessToken;
+    map["token_type"] = _tokenType;
+    map["expires_in"] = _expiresIn;
     map["emailConfirmed"] = _emailConfirmed;
     map["roles"] = _roles;
     map["userId"] = _userId;

@@ -305,6 +305,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
+  logger:
+    dependency: "direct main"
+    description:
+      name: logger
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.4"
   logging:
     dependency: transitive
     description:
@@ -375,13 +382,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.2"
-  pin_entry_text_field:
-    dependency: "direct main"
-    description:
-      name: pin_entry_text_field
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   pool:
     dependency: transitive
     description:

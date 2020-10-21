@@ -1,26 +1,21 @@
-
 import 'package:bounty_hub_client/bloc/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/authorization_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
+import 'package:bounty_hub_client/ui/widgets/entry_code_text_field.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/validation/captcha.dart';
 import 'package:bounty_hub_client/utils/validation/form_validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 
 class LoginPage extends StatelessWidget {
 
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<LoginCubit>(
-      create: (context) => LoginCubit(),
-      child: Scaffold(
-        body: LoginForm(),
-      ),
+    return Scaffold(
+      body: LoginForm(),
     );
   }
 }
@@ -46,7 +41,10 @@ class _LoginFormState extends State<LoginForm> {
             SnackBar(
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text(message), Icon(Icons.error)],
+                children: [
+                  Text(message, style: TextStyle(color: Colors.white),),
+                  Icon(Icons.error)
+                ],
               ),
               backgroundColor: Colors.red,
             ),
@@ -73,32 +71,17 @@ class _LoginFormState extends State<LoginForm> {
   getContent(LoginState state) {
     if (state is InitialState) {
       return EmailInput();
-    } else if (state is ConfirmCodeState) {
-      return ConfirmationCodeInput();
+    } else if (state is ConfirmCodeInputState) {
+      return ConfirmCodeInput();
     } else if (state is LoadingState) {
-      return LoadingIndicator();
+      return Loading();
     } else if (state is LoginCompleteState) {
       BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
-    } else if (state is CaptchaSentState) {
+    } else if (state is CaptchaInputState) {
       return CaptchaInput();
     } else {
       return EmailInput();
     }
-  }
-}
-
-class CaptchaInput extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: 1000,
-        child: Captcha((String secret) {
-          context.bloc<LoginCubit>().captchaSecret(secret);
-        }),
-      ),
-    );
   }
 }
 
@@ -141,7 +124,46 @@ class Header extends StatelessWidget {
   }
 }
 
-class LoadingIndicator extends StatelessWidget {
+class CaptchaInput extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 48.0),
+              child: RaisedButton(
+                onPressed: () {
+                  context.bloc<LoginCubit>().resetState();
+                },
+                color: Theme.of(context).primaryColor,
+                child: Text(
+                  "BACK",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
+              child: Text(
+                'Before continue, please complete the captcha below.',
+                style: TextStyle(fontSize: 16, color: AppColors.textColor),
+                textAlign: TextAlign.center,),
+            ),
+            Container(
+              height: 800,
+              child: Captcha((String captchaCode) {
+                context.bloc<LoginCubit>().authenticate(captchaCode);
+              }),
+            ),
+          ],
+        ),
+    );
+  }
+}
+
+class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
     child: CircularProgressIndicator(),
@@ -167,7 +189,7 @@ class EmailInput extends StatelessWidget {
                 child: TextFormField(
                   controller: _emailTextController,
                   keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
+                  textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.validateEmail(value),
                   decoration: WidgetsStyle.textFieldStyle('E-Mail', 'E-Mail', Icons.email),
                 ),
@@ -179,7 +201,7 @@ class EmailInput extends StatelessWidget {
             child: RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  context.bloc<LoginCubit>().authorize(_emailTextController.value.text);
+                  context.bloc<LoginCubit>().onEmailSubmitted(_emailTextController.value.text);
                 }
               },
               color: Theme.of(context).primaryColor,
@@ -195,7 +217,8 @@ class EmailInput extends StatelessWidget {
   }
 }
 
-class ConfirmationCodeInput extends StatelessWidget {
+class ConfirmCodeInput extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -204,22 +227,54 @@ class ConfirmationCodeInput extends StatelessWidget {
             top: 48, bottom: 16.0, left: 16.0, right: 16.0),
         child: Column(
           children: <Widget>[
-            PinEntryTextField(
-                fields: 6,
-                onSubmit: (String code) {
-                  context.bloc<LoginCubit>().confirmCode(code);
-                }),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
+              child: Text(
+                'Please check your email and confirm your Authorization',
+                style: TextStyle(fontSize: 16, color: AppColors.textColor),
+                textAlign: TextAlign.center,),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: PinEntryTextField(
+                textInputType: TextInputType.text,
+                  fields: 5,
+                  onSubmit: (String code) {
+                    context.bloc<LoginCubit>().onConfirmCodeSubmitted(code);
+                  }),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                onPressed: () {
-                  context.bloc<LoginCubit>().appStart();
-                },
-                color: Colors.orange,
-                child: Text(
-                  "Back",
-                  style: TextStyle(color: Colors.white),
-                ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: RaisedButton(
+                      onPressed: () {
+                        context.bloc<LoginCubit>().resetState();
+                        },
+                      color: Theme.of(context).primaryColor,
+                      child: Text(
+                        "BACK TO LOGIN",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10,),
+                  Expanded(
+                    flex: 1,
+                    child: RaisedButton(
+                      onPressed: () {
+                        context.bloc<LoginCubit>().confirmCode();
+                        },
+                      color: Theme.of(context).primaryColor,
+                      child: Text(
+                        "CONFIRM",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             )
           ],

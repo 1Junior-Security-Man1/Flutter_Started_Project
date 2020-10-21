@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
+import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'authentication_event.dart';
 import 'authorization_state.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
 
-  AuthenticationBloc() : super(Uninitialized());
+  final UserRepository _userRepository;
+
+  AuthenticationBloc(this._userRepository) : super(Uninitialized());
 
   @override
   Stream<AuthenticationState> mapEventToState(
@@ -12,8 +15,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       ) async* {
 
     if (event is AppStarted) {
-      //final bool hasToken = await _userRepository.getAccessToken() != null;
-      final bool hasToken = false;
+      final bool hasToken = await _userRepository.getAccessToken() != null;
       if (hasToken) {
         yield Authenticated();
       } else {
