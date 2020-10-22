@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 abstract class LoginState extends Equatable {}
 
@@ -19,28 +20,33 @@ class LoadingState extends LoginState {
   List<Object> get props => [];
 }
 
-class EmailSentState extends LoginState {
-  @override
-  List<Object> get props => [];
-}
-
 class ConfirmCodeInputState extends LoginState {
   @override
   List<Object> get props => [];
 }
 
 class LoginCompleteState extends LoginState {
+  final String token;
 
-  LoginCompleteState();
+  LoginCompleteState({@required this.token});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [token];
 }
 
-class ExceptionState extends LoginState {
+class EmailExceptionState extends LoginState {
   final String message;
 
-  ExceptionState(this.message);
+  EmailExceptionState(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class ConfirmCodeExceptionState extends LoginState {
+  final String message;
+
+  ConfirmCodeExceptionState(this.message);
 
   @override
   List<Object> get props => [message];

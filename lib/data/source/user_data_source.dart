@@ -12,5 +12,5 @@ abstract class UserDataSource {
 
   String getConfirmCode();
 
-  void saveAccessToken(TokenResponse response);
+  TokenResponse saveAccessToken(TokenResponse response);
 }

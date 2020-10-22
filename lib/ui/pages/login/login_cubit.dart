@@ -34,13 +34,13 @@ class LoginCubit extends Cubit<LoginState> {
         case DioError:
           final response = (obj as DioError).response;
           if(response != null && response.data['message'] != null) {
-            emit(ExceptionState(response.data['message']));
+            emit(EmailExceptionState(response.data['message']));
           } else {
-            emit(ExceptionState('Something went wrong, please try later'));
+            emit(EmailExceptionState('Something went wrong, please try later'));
           }
           break;
         default:
-          emit(ExceptionState('Something went wrong, please try later'));
+          emit(EmailExceptionState('Something went wrong, please try later'));
       }
     });
   }
@@ -49,19 +49,19 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoadingState());
     _loginRepository.confirmCode(_userRepository.getEmail(), _userRepository.getConfirmCode())
         .then((value) => _userRepository.saveAccessToken(value))
-        .then((it){ emit(LoginCompleteState()); })
+        .then((value) => emit(LoginCompleteState(token: value.accessToken)))
         .catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
           final response = (obj as DioError).response;
           if(response != null && response.data['message'] != null) {
-            emit(ExceptionState(response.data['message']));
+            emit(ConfirmCodeExceptionState(response.data['message']));
           } else {
-            emit(ExceptionState('Something went wrong, please try later'));
+            emit(ConfirmCodeExceptionState('Something went wrong, please try later'));
           }
           break;
         default:
-          emit(ExceptionState('Something went wrong, please try later'));
+          emit(ConfirmCodeExceptionState('Something went wrong, please try later'));
       }
     });
   }

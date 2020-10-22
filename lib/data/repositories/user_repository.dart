@@ -17,8 +17,9 @@ class UserRepository extends UserDataSource {
   }
 
   @override
-  void saveAccessToken(TokenResponse response) {
+  TokenResponse saveAccessToken(TokenResponse response) {
     AppData.instance.saveAccessToken(response);
+    return response;
   }
 
   @override

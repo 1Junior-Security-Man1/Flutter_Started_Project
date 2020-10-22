@@ -1,5 +1,4 @@
-import 'package:bounty_hub_client/bloc/authentication_event.dart';
-import 'package:bounty_hub_client/bloc/authorization_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/dashboard/dashboard.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
 import 'package:bounty_hub_client/ui/widgets/entry_code_text_field.dart';
@@ -30,25 +29,15 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-      listener: (context, loginState) {
-        String message;
-        if (loginState is ExceptionState) {
-          message = loginState.message;
+      listener: (context, state) {
+        if(state is LoginCompleteState) {
+          navigateToApp(state);
+          return;
         }
-        Scaffold.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(
-            SnackBar(
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(message, style: TextStyle(color: Colors.white),),
-                  Icon(Icons.error)
-                ],
-              ),
-              backgroundColor: Colors.red,
-            ),
-          );
+
+        if (state is EmailExceptionState || state is ConfirmCodeExceptionState) {
+          showSnackBar(state);
+        }
       },
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
@@ -58,7 +47,7 @@ class _LoginFormState extends State<LoginForm> {
                 child: Column(
                   children: <Widget>[
                     Header(),
-                    getContent(state)
+                    buildContent(context, state)
                   ]
               ),
             )
@@ -68,20 +57,53 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  getContent(LoginState state) {
-    if (state is InitialState) {
+  buildContent(BuildContext context, LoginState state) {
+    if (state is InitialState || state is EmailExceptionState) {
       return EmailInput();
-    } else if (state is ConfirmCodeInputState) {
+    } else if (state is ConfirmCodeInputState || state is ConfirmCodeExceptionState) {
       return ConfirmCodeInput();
     } else if (state is LoadingState) {
       return Loading();
-    } else if (state is LoginCompleteState) {
-      BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
     } else if (state is CaptchaInputState) {
       return CaptchaInput();
+    } else if(state is LoginCompleteState) {
+      return ConfirmCodeInput();
     } else {
       return EmailInput();
     }
+  }
+
+  navigateToApp(LoginCompleteState state) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => DashboardPage(),
+      ), (route) => false,
+    );
+  }
+
+  showSnackBar(LoginState state) {
+    String message;
+    if (state is EmailExceptionState) {
+      message = state.message;
+    } else if (state is ConfirmCodeExceptionState) {
+      message = state.message;
+    }
+
+    Scaffold.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(message, style: TextStyle(color: Colors.white),),
+              Icon(Icons.error)
+            ],
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
   }
 }
 
