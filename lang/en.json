@@ -1,0 +1,11 @@
+{
+  "sign_in_to": "Sign in to",
+  "app_name": "Bountyhub Platform",
+  "back": "BACK",
+  "complete_captcha": "Before continue, please complete the captcha below.",
+  "email": "E-Mail",
+  "get_authorization_code": "GET AUTHORIZATION CODE",
+  "check_to_confirm_authorization": "Please check your email and confirm your Authorization",
+  "back_to_login": "BACK TO LOGIN",
+  "confirm": "CONFIRM"
+}

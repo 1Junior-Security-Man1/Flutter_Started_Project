@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:bounty_hub_client/data/repositories/login_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
+import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
 import 'package:dio/dio.dart';
-import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
 

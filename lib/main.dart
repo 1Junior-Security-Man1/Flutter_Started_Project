@@ -1,6 +1,6 @@
 import 'package:bounty_hub_client/data/repositories/login_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
-import 'package:bounty_hub_client/ui/pages/splash/view/splash_cubit.dart';
+import 'file:///D:/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/splash/splash_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app.dart';
@@ -17,5 +17,5 @@ void main() {
     BlocProvider(create: (context) => LoginCubit(LoginRepository(client), UserRepository())),
     BlocProvider(create: (context) => AuthenticationBloc(UserRepository())..add(AppStarted())),
     // provide other blocs & cubits here
-  ], child: MyApp()));
+  ], child: App()));
 }

@@ -2,6 +2,7 @@ import 'package:bounty_hub_client/ui/pages/dashboard/dashboard.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
 import 'package:bounty_hub_client/ui/widgets/entry_code_text_field.dart';
+import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/validation/captcha.dart';
@@ -120,14 +121,14 @@ class Header extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(padding: const EdgeInsets.all(80.0),
-              child: Image(image: AssetImage('assets/icons/logo.png'),
+              child: Image(image: AssetImage('assets/images/logo.png'),
                 width: 200,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 36.0, bottom: 8.0),
               child: Text(
-                "Sign in to",
+                AppLocalizations.of(context).get('sign_in_to'),
                 style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16, color: AppColors.textColor),
                 textAlign: TextAlign.center,
               ),
@@ -135,7 +136,7 @@ class Header extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0, bottom: 8.0),
               child: Text(
-                "Bountyhub Platform",
+                AppLocalizations.of(context).get('app_name'),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),
                 textAlign: TextAlign.center,
               ),
@@ -161,7 +162,7 @@ class CaptchaInput extends StatelessWidget {
                 },
                 color: Theme.of(context).primaryColor,
                 child: Text(
-                  "BACK",
+                  AppLocalizations.of(context).get('back'),
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -169,7 +170,7 @@ class CaptchaInput extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
               child: Text(
-                'Before continue, please complete the captcha below.',
+                AppLocalizations.of(context).get('complete_captcha'),
                 style: TextStyle(fontSize: 16, color: AppColors.textColor),
                 textAlign: TextAlign.center,),
             ),
@@ -213,7 +214,7 @@ class EmailInput extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.validateEmail(value),
-                  decoration: WidgetsStyle.textFieldStyle('E-Mail', 'E-Mail', Icons.email),
+                  decoration: WidgetsStyle.textFieldStyle(AppLocalizations.of(context).get('email'), AppLocalizations.of(context).get('email'), Icons.email),
                 ),
               ),
             ),
@@ -228,7 +229,7 @@ class EmailInput extends StatelessWidget {
               },
               color: Theme.of(context).primaryColor,
               child: Text(
-                "GET AUTHORIZATION CODE",
+                AppLocalizations.of(context).get('get_authorization_code'),
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -252,7 +253,7 @@ class ConfirmCodeInput extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
               child: Text(
-                'Please check your email and confirm your Authorization',
+                AppLocalizations.of(context).get('check_to_confirm_authorization'),
                 style: TextStyle(fontSize: 16, color: AppColors.textColor),
                 textAlign: TextAlign.center,),
             ),
@@ -277,7 +278,7 @@ class ConfirmCodeInput extends StatelessWidget {
                         },
                       color: Theme.of(context).primaryColor,
                       child: Text(
-                        "BACK TO LOGIN",
+                        AppLocalizations.of(context).get('back_to_login'),
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -291,7 +292,7 @@ class ConfirmCodeInput extends StatelessWidget {
                         },
                       color: Theme.of(context).primaryColor,
                       child: Text(
-                        "CONFIRM",
+                        AppLocalizations.of(context).get('confirm'),
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

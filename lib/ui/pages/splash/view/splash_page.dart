@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bounty_hub_client/ui/pages/dashboard/dashboard.dart';
 import 'package:bounty_hub_client/ui/pages/login/view/login_page.dart';
 import 'package:flutter/material.dart';
