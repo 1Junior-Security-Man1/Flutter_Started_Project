@@ -10,63 +10,58 @@ class LoginCubit extends Cubit<LoginState> {
 
   final UserRepository _userRepository;
 
-  LoginCubit(this._loginRepository, this._userRepository) : super(InitialState());
+  LoginCubit(this._loginRepository, this._userRepository) : super(LoginState());
 
   void onEmailSubmitted(String email) {
-    _userRepository.setEmail(email);
-    emit(LoadingState());
+    emit(state.copyWith(status: LoginStatus.loading));
     Future.delayed(Duration(seconds: 1), () {
-      emit(CaptchaInputState());
+      emit(state.copyWith(status: LoginStatus.captcha, email: email));
     });
   }
 
-  void onConfirmCodeSubmitted(String confirmCode) {
-    _userRepository.setConfirmCode(confirmCode);
+  void onBackButtonClick() {
+    emit(state.copyWith(status: LoginStatus.email));
   }
 
   void authenticate(String captchaCode) {
-    emit(LoadingState());
-    _loginRepository.authenticate(_userRepository.getEmail(), captchaCode)
+    emit(state.copyWith(status: LoginStatus.loading));
+    _loginRepository.authenticate(state.email, captchaCode)
         .then((it){
-      emit(ConfirmCodeInputState());
+      emit(state.copyWith(status: LoginStatus.confirmCode));
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
           final response = (obj as DioError).response;
           if(response != null && response.data['message'] != null) {
-            emit(EmailExceptionState(response.data['message']));
+            emit(state.copyWith(status: LoginStatus.emailError, errorMessage: response.data['message']));
           } else {
-            emit(EmailExceptionState('Something went wrong, please try later'));
+            emit(state.copyWith(status: LoginStatus.emailError, errorMessage: 'Something went wrong, please try later'));
           }
           break;
         default:
-          emit(EmailExceptionState('Something went wrong, please try later'));
+          emit(state.copyWith(status: LoginStatus.emailError, errorMessage: 'Something went wrong, please try later'));
       }
     });
   }
 
-  void confirmCode() {
-    emit(LoadingState());
-    _loginRepository.confirmCode(_userRepository.getEmail(), _userRepository.getConfirmCode())
+  void confirmCode(String code) {
+    emit(state.copyWith(status: LoginStatus.loading));
+    _loginRepository.confirmCode(state.email, code)
         .then((value) => _userRepository.saveAccessToken(value))
-        .then((value) => emit(LoginCompleteState(token: value.accessToken)))
+        .then((value) => emit(state.copyWith(status: LoginStatus.complete)))
         .catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
           final response = (obj as DioError).response;
           if(response != null && response.data['message'] != null) {
-            emit(ConfirmCodeExceptionState(response.data['message']));
+            emit(state.copyWith(status: LoginStatus.confirmCodeError, errorMessage: response.data['message']));
           } else {
-            emit(ConfirmCodeExceptionState('Something went wrong, please try later'));
+            emit(state.copyWith(status: LoginStatus.confirmCodeError, errorMessage: 'Something went wrong, please try later'));
           }
           break;
         default:
-          emit(ConfirmCodeExceptionState('Something went wrong, please try later'));
+          emit(state.copyWith(status: LoginStatus.confirmCodeError, errorMessage: 'Something went wrong, please try later'));
       }
     });
-  }
-
-  void resetState() {
-    emit(InitialState());
   }
 }

@@ -5,9 +5,7 @@ import 'package:logger/logger.dart';
 
 class SplashCubit extends Cubit<SplashState> {
 
-  final UserRepository _userRepository;
-
   var logger = Logger();
 
-  SplashCubit(this._userRepository) : super(InitialState());
+  SplashCubit() : super(InitialState());
 }

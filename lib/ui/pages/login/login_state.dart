@@ -1,53 +1,34 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
-abstract class LoginState extends Equatable {}
+enum LoginStatus{ email, captcha, confirmCode, complete, emailError, confirmCodeError, loading }
 
-class InitialState extends LoginState {
-  @override
-  List<Object> get props => [];
-}
+class LoginState extends Equatable {
+  const LoginState({
+    this.status = LoginStatus.email,
+    this.errorMessage,
+    this.email,
+    this.confirmCode,
+  });
 
-class CaptchaInputState extends LoginState {
-  CaptchaInputState();
+  final LoginStatus status;
+  final String errorMessage;
+  final String email;
+  final String confirmCode;
 
-  @override
-  List<Object> get props => [];
-}
-
-class LoadingState extends LoginState {
-  @override
-  List<Object> get props => [];
-}
-
-class ConfirmCodeInputState extends LoginState {
-  @override
-  List<Object> get props => [];
-}
-
-class LoginCompleteState extends LoginState {
-  final String token;
-
-  LoginCompleteState({@required this.token});
-
-  @override
-  List<Object> get props => [token];
-}
-
-class EmailExceptionState extends LoginState {
-  final String message;
-
-  EmailExceptionState(this.message);
+  LoginState copyWith({
+    LoginStatus status,
+    String errorMessage,
+    String email,
+    String confirmCode,
+  }) {
+    return LoginState(
+      status: status ?? this.status,
+      errorMessage: errorMessage ?? this.errorMessage,
+      email: email ?? this.email,
+      confirmCode: confirmCode ?? this.confirmCode,
+    );
+  }
 
   @override
-  List<Object> get props => [message];
-}
-
-class ConfirmCodeExceptionState extends LoginState {
-  final String message;
-
-  ConfirmCodeExceptionState(this.message);
-
-  @override
-  List<Object> get props => [message];
+  List<Object> get props => [email, status, errorMessage, confirmCode];
 }

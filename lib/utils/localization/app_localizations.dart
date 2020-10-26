@@ -4,16 +4,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AppLocalizations {
+class Strings {
   final Locale locale;
 
-  AppLocalizations(this.locale);
+  Strings(this.locale);
 
-  static AppLocalizations of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations);
+  static Strings of(BuildContext context) {
+    return Localizations.of<Strings>(context, Strings);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<Strings> delegate = _AppLocalizationsDelegate();
 
   Map<String, String> _localizedStrings;
 
@@ -33,7 +33,7 @@ class AppLocalizations {
   }
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<Strings> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -43,8 +43,8 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  Future<AppLocalizations> load(Locale locale) async {
-    AppLocalizations localizations = new AppLocalizations(locale);
+  Future<Strings> load(Locale locale) async {
+    Strings localizations = new Strings(locale);
     await localizations.load();
     return localizations;
   }

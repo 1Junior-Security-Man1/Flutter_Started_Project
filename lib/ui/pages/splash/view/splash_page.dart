@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bounty_hub_client/ui/pages/dashboard/dashboard.dart';
 import 'package:bounty_hub_client/ui/pages/login/view/login_page.dart';
+import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   startNavigateWithDelay() async {
-    var duration = new Duration(seconds: 2);
+    var duration = new Duration(seconds: 3);
     return new Timer(duration, () {
       if(widget.authorized) {
         navigateToDashboardPage();
@@ -48,13 +49,39 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Splash screen',
-          style: TextStyle(
-            fontSize: 18.0,
-          ),
+      body: Container(
+        color: AppColors.backgroundColor,
+        child: Column(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage('assets/images/page_bg.png'),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Center(
+                      child: Image.asset('assets/images/bountyhub.png', width: MediaQuery.of(context).size.width / 3,),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          ],
         ),
-      ),
+      )
     );
   }
 }

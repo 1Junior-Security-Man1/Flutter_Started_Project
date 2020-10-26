@@ -1,7 +1,6 @@
 import 'package:bounty_hub_client/bloc/authorization_bloc.dart';
 import 'package:bounty_hub_client/bloc/authorization_state.dart';
-import 'package:bounty_hub_client/ui/pages/dashboard/dashboard.dart';
-import 'package:bounty_hub_client/ui/pages/login/view/login_page.dart';
+import 'package:bounty_hub_client/ui/pages/splash/view/splash_page.dart';
 import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +20,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       title: 'BountyHub',
       theme: ThemeData(
+        fontFamily: 'Montserrat',
         primarySwatch: Colors.lightBlue,
         primaryColor: AppColors.primaryColor,
         accentColor: AppColors.accentColor,
@@ -29,7 +29,7 @@ class _AppState extends State<App> {
         Locale('en', 'US'),
       ],
       localizationsDelegates: [
-        AppLocalizations.delegate,
+        Strings.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
@@ -44,11 +44,7 @@ class _AppState extends State<App> {
       },
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          if (state is Authenticated) {
-            return DashboardPage();
-          } else {
-            return LoginPage();
-          }
+          return SplashPage(state is Authenticated);
         },
       ),
     );

@@ -4,13 +4,5 @@ abstract class UserDataSource {
 
   Future<String> getAccessToken();
 
-  void setEmail(String email);
-
-  void setConfirmCode(String confirmCode);
-
-  String getEmail();
-
-  String getConfirmCode();
-
   TokenResponse saveAccessToken(TokenResponse response);
 }
