@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bounty_hub_client/ui/pages/dashboard/dashboard.dart';
+import 'package:bounty_hub_client/ui/pages/campaigns/view/campaigns_page.dart';
 import 'package:bounty_hub_client/ui/pages/login/view/login_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class _SplashPageState extends State<SplashPage> {
 
   navigateToDashboardPage() {
     Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) => DashboardPage()
+        builder: (context) => CampaignsPage()
     )
     );
   }

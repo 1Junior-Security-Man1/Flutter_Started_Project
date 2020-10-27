@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class DashboardPage extends StatefulWidget {
+class CampaignsPage extends StatefulWidget {
   @override
-  _DashboardPageState createState() => _DashboardPageState();
+  _CampaignsPageState createState() => _CampaignsPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _CampaignsPageState extends State<CampaignsPage> {
 
   @override
   Widget build(BuildContext context) {

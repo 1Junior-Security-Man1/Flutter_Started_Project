@@ -15,9 +15,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       ) async* {
 
     if (event is AppStarted) {
-      final String token = await _userRepository.getAccessToken();
-      if (token != null) {
-        yield Authenticated(token: token);
+      final String accessToken = await _userRepository.getAccessToken();
+      if (accessToken != null && accessToken.isNotEmpty) {
+        yield Authenticated(token: accessToken);
       } else {
         yield Unauthenticated();
       }

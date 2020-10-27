@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/ui/pages/dashboard/dashboard.dart';
+import 'package:bounty_hub_client/ui/pages/campaigns/view/campaigns_page.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
@@ -96,7 +96,7 @@ class _LoginFormState extends State<LoginForm> {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => DashboardPage(),
+        builder: (BuildContext context) => CampaignsPage(),
       ), (route) => false,
     );
   }
@@ -249,7 +249,9 @@ class _LoginState extends State<Login> {
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.email(context, value),
-                  decoration: WidgetsDecoration.appTextFormStyle(Strings.of(context).get('email'), 'assets/images/email.png',
+                  decoration: WidgetsDecoration.appTextFormStyle(Strings.of(context).get('email'),
+                      'assets/images/email.png',
+                      widget.state.email != null ? 'assets/images/input_completed.png' : null,
                       widget.state.status == LoginStatus.email || widget.state.status == LoginStatus.emailError),
                 ),
                 SizedBox(
@@ -260,7 +262,9 @@ class _LoginState extends State<Login> {
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.confirmCode(context, value, widget.state),
-                  decoration: WidgetsDecoration.appTextFormStyle(Strings.of(context).get('confirmation_code'), 'assets/images/confirm_code_key.png',
+                  decoration: WidgetsDecoration.appTextFormStyle(Strings.of(context).get('confirmation_code'),
+                      'assets/images/confirm_code_key.png',
+                      null,
                       widget.state.status == LoginStatus.confirmCode || widget.state.status == LoginStatus.confirmCodeError),
                 ),
                 SizedBox(

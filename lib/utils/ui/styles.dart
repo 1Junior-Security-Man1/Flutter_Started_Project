@@ -13,7 +13,7 @@ class WidgetsDecoration {
     );
   }
 
-  static InputDecoration appTextFormStyle(String hint, String prefixIcon, bool enabled) {
+  static InputDecoration appTextFormStyle(String hint, String prefixIcon, String suffixIcon, bool enabled) {
     return InputDecoration(
       contentPadding: const EdgeInsets.all(24.0),
       prefixIcon: Padding(
@@ -21,6 +21,11 @@ class WidgetsDecoration {
               left: Dimens.input_text_prefix_icon_padding,
               right: Dimens.input_text_prefix_icon_padding
           ), child: Image.asset(prefixIcon, width: 50)),
+      suffixIcon: Padding(
+          padding: const EdgeInsets.only(
+              left: Dimens.input_text_prefix_icon_padding,
+              right: Dimens.input_text_prefix_icon_padding
+          ), child: suffixIcon != null ? Image.asset(suffixIcon, width: 36) : Container(width: 0)),
       fillColor: Colors.white,
       filled: true,
       isDense: true,
