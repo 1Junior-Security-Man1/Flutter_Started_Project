@@ -27,7 +27,7 @@ void main() {
     BlocProvider(create: (context) => SplashCubit()),
     BlocProvider(create: (context) => MainCubit(taskRepository)),
     BlocProvider(create: (context) => LoginCubit(loginRepository, userRepository)),
-    BlocProvider(create: (context) => TasksCubit(taskRepository)),
+    BlocProvider(create: (context) => TasksCubit(taskRepository, userRepository)),
     // provide other blocs & cubits here
   ], child: App()));
   appConfig();

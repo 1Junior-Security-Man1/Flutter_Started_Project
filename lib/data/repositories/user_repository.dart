@@ -14,4 +14,8 @@ class UserRepository extends UserDataSource {
     AppData.instance.saveAccessToken(response);
     return response;
   }
+
+  Future<String> getUserId() async {
+    return AppData.instance.getUserId();
+  }
 }

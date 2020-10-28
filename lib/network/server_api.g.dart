@@ -60,7 +60,8 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getTasks(page, size, status, sort, running, accessMode) async {
+  getTasks(userId, page, size, status, sort, running, accessMode) async {
+    ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(page, 'page');
     ArgumentError.checkNotNull(size, 'size');
     ArgumentError.checkNotNull(status, 'status');
@@ -69,6 +70,7 @@ class _RestClient implements RestClient {
     ArgumentError.checkNotNull(accessMode, 'accessMode');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
+      'userId': userId,
       'page': page,
       'size': size,
       'status': status,

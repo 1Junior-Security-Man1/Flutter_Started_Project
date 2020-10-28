@@ -3,6 +3,7 @@ import 'package:bounty_hub_client/ui/pages/tasks/tasks_state.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/view/list/tasks_list_item.dart';
 import 'package:bounty_hub_client/ui/widgets/app_list_bottom_loader.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
+import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,12 @@ class _TasksListState extends State<TasksList> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<TasksCubit, TasksState>(
       listener: (context, state) {
@@ -40,9 +47,13 @@ class _TasksListState extends State<TasksList> {
               return const EmptyDataPlaceHolder();
             }
             return Container(
-              margin: EdgeInsets.all(Dimens.content_padding),
+              margin: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding, bottom: Dimens.content_padding),
               decoration: BoxDecoration(
                 color: Colors.white,
+                border: Border.all(
+                  color: AppColors.borderColor,
+                  width: 1,
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ListView.builder(
@@ -64,18 +75,15 @@ class _TasksListState extends State<TasksList> {
     );
   }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   void _onScroll() {
-    if (_isBottom) _tasksCubit.fetchTasks();
+    if (_isBottom) {
+      _tasksCubit.fetchTasks();
+    }
   }
 
   bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
+    if (!_scrollController.hasClients)
+      return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);

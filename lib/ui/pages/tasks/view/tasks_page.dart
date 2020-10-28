@@ -28,50 +28,56 @@ class _TasksPageState extends State<TasksPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColors.pageBackgroundColor,
-        elevation: 0,
-        leading: Center(
-          child: Container(
-            child: Stack(
-              children: [
-                IconButton(
-                  icon: Image.asset(
-                    'assets/images/filter.png',
-                    width: 26,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: AppColors.pageBackgroundColor,
+          elevation: 0,
+          leading: Center(
+            child: Container(
+              child: Stack(
+                children: [
+                  IconButton(
+                    icon: Image.asset(
+                      'assets/images/filter.png',
+                      width: 26,
+                    ),
+                    onPressed: () {
+                      // do something
+                    },
                   ),
-                  onPressed: () {
-                    // do something
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        title: Text(
-          Strings.of(context).get('tasks_list'),
-          style: TextStyle(
-            color: AppColors.navigationWidgetsColor,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Image.asset(
-              'assets/images/settings.png',
-              width: 26,
+          title: Text(
+            Strings.of(context).get('tasks_list'),
+            style: TextStyle(
+              color: AppColors.navigationWidgetsColor,
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
             ),
-            onPressed: () {
-              // do something
-            },
           ),
-        ],
+          actions: <Widget>[
+            IconButton(
+              icon: Image.asset(
+                'assets/images/settings.png',
+                width: 26,
+              ),
+              onPressed: () {
+                // do something
+              },
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.pageBackgroundColor,
+        body: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: TasksList(),
+        ),
       ),
-      backgroundColor: AppColors.pageBackgroundColor,
-      body: TasksList(),
     );
   }
 }

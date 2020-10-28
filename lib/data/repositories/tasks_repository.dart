@@ -9,7 +9,7 @@ class TaskRepository extends TaskDataSource {
   TaskRepository(this.client);
 
   @override
-  Future<TasksResponse> getTasks(int page) {
-    return client.getTasks(page, 10, 'APPROVED', 'rewardAmount,desc', true, 'PUBLIC');
+  Future<TasksResponse> getTasks(String userId, int page) {
+    return client.getTasks(userId, page, 10, 'APPROVED', 'rewardAmount,desc', true, 'PUBLIC');
   }
 }

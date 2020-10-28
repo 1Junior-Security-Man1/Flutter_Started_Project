@@ -18,7 +18,7 @@ class TasksState extends Equatable {
   TasksState copyWith({
     TasksStatus status,
     List<Task> tasks,
-    bool hasReachedMax,
+    bool hasReachedMax
   }) {
     return TasksState(
       status: status ?? this.status,

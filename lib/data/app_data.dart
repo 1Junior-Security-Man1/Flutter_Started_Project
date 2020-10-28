@@ -11,9 +11,14 @@ class AppData {
   
   void saveAccessToken(TokenResponse data) {
     _storage.write(key: 'ACCESS_TOKEN', value: data.accessToken);
+    _storage.write(key: 'USER_ID', value: data.userId);
   }
 
   Future<String> getAccessToken() {
     return _storage.read(key: 'ACCESS_TOKEN');
+  }
+
+  Future<String> getUserId() {
+    return _storage.read(key: 'USER_ID');
   }
 }

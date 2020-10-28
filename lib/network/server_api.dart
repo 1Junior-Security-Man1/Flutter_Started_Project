@@ -36,5 +36,5 @@ abstract  class RestClient {
   Future<TokenResponse> confirmCode(@Query('email') String email, @Query('code') String code, @Query('grant_type') String grantType);
 
   @GET("/items/filtered")
-  Future<TasksResponse> getTasks(@Query('page') int page, @Query('size') int size, @Query('status') String status, @Query('sort') String sort, @Query('running') bool running, @Query('accessMode') String accessMode);
+  Future<TasksResponse> getTasks(@Query('userId') String userId, @Query('page') int page, @Query('size') int size, @Query('status') String status, @Query('sort') String sort, @Query('running') bool running, @Query('accessMode') String accessMode);
 }
