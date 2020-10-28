@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/ui/pages/campaigns/view/campaigns_page.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
+import 'package:bounty_hub_client/ui/pages/main/view/main_page.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/app_check_box.dart';
 import 'package:bounty_hub_client/ui/widgets/app_text_field.dart';
@@ -96,7 +96,7 @@ class _LoginFormState extends State<LoginForm> {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => CampaignsPage(),
+        builder: (BuildContext context) => MainPage(),
       ), (route) => false,
     );
   }

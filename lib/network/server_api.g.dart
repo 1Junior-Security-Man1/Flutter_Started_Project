@@ -58,4 +58,35 @@ class _RestClient implements RestClient {
     final value = TokenResponse.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  getTasks(page, size, status, sort, running, accessMode) async {
+    ArgumentError.checkNotNull(page, 'page');
+    ArgumentError.checkNotNull(size, 'size');
+    ArgumentError.checkNotNull(status, 'status');
+    ArgumentError.checkNotNull(sort, 'sort');
+    ArgumentError.checkNotNull(running, 'running');
+    ArgumentError.checkNotNull(accessMode, 'accessMode');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      'page': page,
+      'size': size,
+      'status': status,
+      'sort': sort,
+      'running': running,
+      'accessMode': accessMode
+    };
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/items/filtered',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = TasksResponse.fromJson(_result.data);
+    return Future.value(value);
+  }
 }

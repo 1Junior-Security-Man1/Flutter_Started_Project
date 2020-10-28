@@ -1,4 +1,5 @@
 import 'package:bounty_hub_client/data/models/api/request/auth_request.dart';
+import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
 import 'package:bounty_hub_client/network/interceptors/oauth_interceptor.dart';
 import 'package:dio/dio.dart';
@@ -33,4 +34,7 @@ abstract  class RestClient {
 
   @POST("/oauth/code")
   Future<TokenResponse> confirmCode(@Query('email') String email, @Query('code') String code, @Query('grant_type') String grantType);
+
+  @GET("/items/filtered")
+  Future<TasksResponse> getTasks(@Query('page') int page, @Query('size') int size, @Query('status') String status, @Query('sort') String sort, @Query('running') bool running, @Query('accessMode') String accessMode);
 }

@@ -12,5 +12,7 @@
   "confirmation_code": "Authorization Code",
   "email_used_next_time": "This email will be used next time log in with this Social Network",
   "invalid_email": "Invalid email",
-  "invalid_code": "Invalid authorization code"
+  "invalid_code": "Invalid authorization code",
+  "tasks_list": "Tasks List",
+  "empty_data_message": "No Data Found"
 }

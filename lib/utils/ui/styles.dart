@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/app.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'dimens.dart';
@@ -10,6 +11,16 @@ class WidgetsDecoration {
         colors: <Color>[AppColors.primaryColor, AppColors.accentColor],
     ),
       borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    );
+  }
+
+  static BoxDecoration appNavigationStyle() {
+    return BoxDecoration(
+      borderRadius: BorderRadius.only(
+          topRight: Radius.circular(20), topLeft: Radius.circular(22.0)),
+      boxShadow: [
+        BoxShadow(color: Colors.grey[200], spreadRadius: 0, blurRadius: 6),
+      ],
     );
   }
 
