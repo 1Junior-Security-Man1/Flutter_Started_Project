@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:bounty_hub_client/data/models/entity/task.dart';
+import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_state.dart';

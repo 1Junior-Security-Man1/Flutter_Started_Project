@@ -14,5 +14,11 @@
   "invalid_email": "Invalid email",
   "invalid_code": "Invalid authorization code",
   "tasks_list": "Tasks List",
-  "empty_data_message": "No Data Found"
+  "empty_data_message": "No Data Found",
+  "budget_left": "Budget Left",
+  "take_task": "Take task",
+  "participants": "Participants",
+  "cant_do": "What you can't do:",
+  "instruction": "Instruction",
+  "social_link": "Social link"
 }

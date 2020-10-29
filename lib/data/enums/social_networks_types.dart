@@ -1,19 +1,20 @@
 import 'package:enum_to_string/enum_to_string.dart';
 
 enum SocialNetworkType {
-  FACEBOOK, //+
+  FACEBOOK,
   VK,
   DISCORD,
-  TWITTER, //+
+  TWITTER,
   REDDIT,
   BITCOIN_TALK,
-  YOUTUBE, //+
-  SLACK, //+
-  MEDIUM, //+
+  YOUTUBE,
+  SLACK,
+  MEDIUM,
   TELEGRAM,
-  INSTAGRAM, //+
+  INSTAGRAM,
   OTHER,
   LINKEDIN,
+  TIKTOK,
 }
 
 SocialNetworkType fromString(String value) {

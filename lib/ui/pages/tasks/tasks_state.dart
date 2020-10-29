@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/data/models/entity/task.dart';
+import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:equatable/equatable.dart';
 
 enum TasksStatus{ initial, success, failure }

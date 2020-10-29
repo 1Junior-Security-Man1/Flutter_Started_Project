@@ -1,7 +1,10 @@
+import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
+import 'package:bounty_hub_client/ui/pages/main/main_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/view/tasks_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -23,8 +26,11 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: getNavMenu().elementAt(_selectedIndex),
+      body: BlocProvider(
+        create: (_) => MainCubit(context.repository<TaskRepository>()),
+        child: Center(
+          child: getNavMenu().elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: Container(
         decoration: WidgetsDecoration.appNavigationStyle(),

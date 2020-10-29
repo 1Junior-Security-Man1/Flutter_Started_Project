@@ -1,5 +1,5 @@
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
-import 'package:bounty_hub_client/data/models/entity/task.dart';
+import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/data/source/task_data_source.dart';
 import 'package:bounty_hub_client/network/server_api.dart';
 

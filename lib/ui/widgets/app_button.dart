@@ -8,6 +8,7 @@ class AppButton extends StatefulWidget {
   final String text;
   final Function onPressed;
   final BoxDecoration decoration;
+  final Color textColor;
 
   const AppButton(
       {Key key,
@@ -16,6 +17,7 @@ class AppButton extends StatefulWidget {
         this.onPressed,
         this.decoration,
         this.text,
+        this.textColor,
       })
       : super(key: key);
 
@@ -43,7 +45,7 @@ class _AppButtonState extends State<AppButton> {
               widget.text,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: AppColors.buttonTextColor,
+                  color: widget.textColor == null ?AppColors.buttonDefaultTextColor : widget.textColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
               ),

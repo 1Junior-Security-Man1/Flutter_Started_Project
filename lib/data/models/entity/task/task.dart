@@ -1,5 +1,5 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
-import 'package:bounty_hub_client/data/models/entity/task_category.dart';
+import 'package:bounty_hub_client/data/models/entity/task/task_category.dart';
 
 class Task {
   String id;
@@ -127,7 +127,6 @@ class Task {
   }
 
   SocialNetworkType getSocialNetwork() {
-    SocialNetworkType type = categories != null && categories.isNotEmpty && categories.first.socialNetworkType != null ? fromString(categories.first.socialNetworkType.toUpperCase()) : SocialNetworkType.OTHER;
-    return type;
+    return categories != null && categories.isNotEmpty && categories.first.socialNetworkType != null ? fromString(categories.first.socialNetworkType.toUpperCase()) : SocialNetworkType.OTHER;
   }
 }

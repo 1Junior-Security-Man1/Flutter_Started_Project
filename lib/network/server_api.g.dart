@@ -110,4 +110,23 @@ class _RestClient implements RestClient {
     final value = Task.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  getCampaign(campaignId) async {
+    ArgumentError.checkNotNull(campaignId, 'campaignId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/campaigns/$campaignId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Campaign.fromJson(_result.data);
+    return Future.value(value);
+  }
 }

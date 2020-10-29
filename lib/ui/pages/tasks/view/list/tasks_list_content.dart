@@ -8,12 +8,12 @@ import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TasksList extends StatefulWidget {
+class TasksListContent extends StatefulWidget {
   @override
-  _TasksListState createState() => _TasksListState();
+  _TasksListContentState createState() => _TasksListContentState();
 }
 
-class _TasksListState extends State<TasksList> {
+class _TasksListContentState extends State<TasksListContent> {
   final _scrollController = ScrollController();
   TasksCubit _tasksCubit;
 
@@ -22,12 +22,7 @@ class _TasksListState extends State<TasksList> {
     super.initState();
     _scrollController.addListener(_onScroll);
     _tasksCubit = context.bloc<TasksCubit>();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
+    _tasksCubit.fetchTasks();
   }
 
   @override
@@ -80,5 +75,12 @@ class _TasksListState extends State<TasksList> {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
   }
 }
