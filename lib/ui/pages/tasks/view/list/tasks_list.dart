@@ -3,8 +3,8 @@ import 'package:bounty_hub_client/ui/pages/tasks/tasks_state.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/view/list/tasks_list_item.dart';
 import 'package:bounty_hub_client/ui/widgets/app_list_bottom_loader.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
-import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
+import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,14 +48,7 @@ class _TasksListState extends State<TasksList> {
             }
             return Container(
               margin: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding, bottom: Dimens.content_padding),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color: AppColors.borderColor,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(12),
-              ),
+              decoration: WidgetsDecoration.appCardStyle(),
               child: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
                   return index >= state.tasks.length

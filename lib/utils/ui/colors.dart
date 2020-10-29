@@ -6,8 +6,9 @@ class AppColors {
   static const Color primaryColor = Color(0xff9271FF);
   static const Color accentColor = Color(0xff67A3F7);
   static const Color secondaryColor = Color(0xff6AD7F7);
-  static const Color navigationWidgetsColor = Color(0xFF4b57aa);
+  static const Color navigationWidgetsColor = Color(0xFF6771C1);
   static const Color navigationBackgroundColor = Color(0xFFFDFEFF);
+  static const Color appBarTextColor = Color(0xFF4B57AA);
   static const Color backgroundColor = Color(0xFFFFFFFF);
   static const Color pageBackgroundColor = Color(0xFFF3F6FD);
   static const Color inputTextColor = Color(0xFF000000);

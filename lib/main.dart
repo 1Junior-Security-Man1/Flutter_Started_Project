@@ -3,7 +3,9 @@ import 'package:bounty_hub_client/data/repositories/login_repository.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/ui/pages/main/main_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/sample/sample_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/splash/splash_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,10 +26,12 @@ void main() {
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => AuthenticationBloc(userRepository)..add(AppStarted())),
+    BlocProvider(create: (context) => SampleCubit(userRepository)),
     BlocProvider(create: (context) => SplashCubit()),
     BlocProvider(create: (context) => MainCubit(taskRepository)),
     BlocProvider(create: (context) => LoginCubit(loginRepository, userRepository)),
     BlocProvider(create: (context) => TasksCubit(taskRepository, userRepository)),
+    BlocProvider(create: (context) => TaskDetailsCubit(taskRepository, campaignRepository)),
     // provide other blocs & cubits here
   ], child: App()));
   appConfig();

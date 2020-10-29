@@ -1,6 +1,7 @@
 import 'package:bounty_hub_client/data/models/api/request/auth_request.dart';
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
+import 'package:bounty_hub_client/data/models/entity/task.dart';
 import 'package:bounty_hub_client/network/interceptors/oauth_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -37,4 +38,7 @@ abstract  class RestClient {
 
   @GET("/items/filtered")
   Future<TasksResponse> getTasks(@Query('userId') String userId, @Query('page') int page, @Query('size') int size, @Query('status') String status, @Query('sort') String sort, @Query('running') bool running, @Query('accessMode') String accessMode);
+
+  @GET("/items/{itemId}")
+  Future<Task> getTask(@Path('itemId') String taskId);
 }

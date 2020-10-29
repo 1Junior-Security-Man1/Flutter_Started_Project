@@ -55,7 +55,7 @@ class _TasksPageState extends State<TasksPage> {
           title: Text(
             Strings.of(context).get('tasks_list'),
             style: TextStyle(
-              color: AppColors.navigationWidgetsColor,
+              color: AppColors.appBarTextColor,
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),

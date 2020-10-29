@@ -3,6 +3,7 @@ import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
 import 'package:bounty_hub_client/ui/pages/main/view/main_page.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/app_check_box.dart';
+import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
 import 'package:bounty_hub_client/ui/widgets/app_text_field.dart';
 import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -67,7 +68,7 @@ class _LoginFormState extends State<LoginForm> {
                             children: <Widget>[
                               Header(state: state),
                               Container(
-                                child: buildContent(context, state),
+                                child: _buildContent(context, state),
                               )
                             ]
                         ),
@@ -82,7 +83,7 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  buildContent(BuildContext context, LoginState state) {
+  _buildContent(BuildContext context, LoginState state) {
     if (state.status == LoginStatus.loading) {
       return Loading();
     } else if (state.status == LoginStatus.captcha) {
@@ -187,13 +188,6 @@ class CaptchaInput extends StatelessWidget {
         ],
     );
   }
-}
-
-class Loading extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Center(
-    child: CircularProgressIndicator(),
-  );
 }
 
 class Login extends StatefulWidget {

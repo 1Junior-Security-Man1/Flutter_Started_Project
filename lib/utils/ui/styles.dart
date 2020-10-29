@@ -1,9 +1,27 @@
-import 'package:bounty_hub_client/app.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'dimens.dart';
 
 class WidgetsDecoration {
+
+  static BoxDecoration appCardStyle() {
+    return BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey[300].withOpacity(0.1),
+          spreadRadius: 5,
+          blurRadius: 7,
+          offset: Offset(1, 10),
+        ),
+      ],
+      color: Colors.white,
+      border: Border.all(
+        color: AppColors.borderColor,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(12),
+    );
+  }
 
   static BoxDecoration appButtonStyle() {
     return BoxDecoration(
