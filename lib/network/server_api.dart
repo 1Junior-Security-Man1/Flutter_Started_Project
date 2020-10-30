@@ -1,8 +1,10 @@
 import 'package:bounty_hub_client/data/models/api/request/auth_request.dart';
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
+import 'package:bounty_hub_client/data/models/api/response/user_tasks_response.dart';
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
+import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:bounty_hub_client/network/interceptors/oauth_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -45,4 +47,13 @@ abstract  class RestClient {
 
   @GET("/campaigns/{campaignId}")
   Future<Campaign> getCampaign(@Path('campaignId') String campaignId);
+
+  @GET("/users/{userId}/item/{taskId}")
+  Future<UserTask> getUserTask(@Path('userId') String userId, @Path('taskId') String taskId, @Query('redirectUrl') String redirectUrl);
+
+  @GET("/user-items/list")
+  Future<UserTasksResponse> getUserTasks(@Query('userId') String userId, @Query('page') int page, @Query('size') int size);
+
+  @POST("/user-items/{userId}/reserve/{taskId}")
+  Future<UserTask> takeTask(@Path('userId') String userId, @Path('taskId') String taskId);
 }

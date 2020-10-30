@@ -1,5 +1,6 @@
 import 'package:bounty_hub_client/data/repositories/campaigns_repository.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
+import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/view/task_details_content.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -20,7 +21,11 @@ class TaskDetailsPage extends StatelessWidget {
       appBar: _buildAppBar(context),
       backgroundColor: AppColors.pageBackgroundColor,
       body: BlocProvider(
-        create: (_) => TaskDetailsCubit(context.repository<TaskRepository>(), context.repository<CampaignRepository>()),
+        create: (_) => TaskDetailsCubit(
+            context.repository<TaskRepository>(),
+            context.repository<CampaignRepository>(),
+            context.repository<UserRepository>(),
+        ),
         child: TaskDetailsContent(taskId, title),
       ),
     );

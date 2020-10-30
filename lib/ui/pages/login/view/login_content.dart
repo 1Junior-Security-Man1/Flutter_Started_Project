@@ -1,6 +1,7 @@
 import 'package:bounty_hub_client/ui/pages/login/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
 import 'package:bounty_hub_client/ui/pages/main/view/main_page.dart';
+import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/app_check_box.dart';
 import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
@@ -32,7 +33,10 @@ class _LoginFormState extends State<LoginForm> {
         }
 
         if (state.status == LoginStatus.emailError || state.status == LoginStatus.confirmCodeError) {
-          showSnackBar(state);
+          showDialog(
+            context: context,
+            builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : Strings.of(context).get('default_error_message')),
+          );
         }
       },
       child: BlocBuilder<LoginCubit, LoginState>(
@@ -86,29 +90,6 @@ class _LoginFormState extends State<LoginForm> {
         builder: (BuildContext context) => MainPage(),
       ), (route) => false,
     );
-  }
-
-  showSnackBar(LoginState state) {
-    Scaffold.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(state.errorMessage,
-                style: TextStyle(color: Colors.white),
-                overflow: TextOverflow.ellipsis,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                child: Icon(Icons.error),
-              )
-            ],
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
   }
 }
 

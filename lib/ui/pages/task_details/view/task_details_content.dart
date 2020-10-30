@@ -1,10 +1,12 @@
 import 'package:bounty_hub_client/network/download/image_url_provider.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/task_details_state.dart';
+import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
 import 'package:bounty_hub_client/ui/widgets/social_image.dart';
+import 'package:bounty_hub_client/ui/widgets/task_status_bar.dart';
 import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
@@ -37,30 +39,35 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
   Widget build(BuildContext context) {
     return BlocListener<TaskDetailsCubit, TaskDetailsState>(
       listener: (context, state) {
-
+        if (state.userTaskStatus == UserTaskStatus.take_failure) {
+          showDialog(
+            context: context,
+            builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : Strings.of(context).get('default_error_message')),
+          );
+        }
       },
       child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: _buildContent(context, state),
+            child: _buildUI(context, state),
           );
         },
       ),
     );
   }
 
-  _buildContent(BuildContext context, TaskDetailsState state) {
+  _buildUI(BuildContext context, TaskDetailsState state) {
     if(state.status == TaskDetailsStatus.loading) {
       return Loading();
     } else if(state.status == TaskDetailsStatus.success) {
-      return _buildTaskDetails(state);
+      return _buildContent(state);
     } else {
       return EmptyDataPlaceHolder();
     }
   }
 
-  StatelessWidget _buildTaskDetails(TaskDetailsState state) {
+  StatelessWidget _buildContent(TaskDetailsState state) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -81,8 +88,8 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
                   child: Column(
                     children: [
                       _buildCampaignSocials(state),
-                      _buildTaskBudgetProgress(state),
-                      _buildTaskButton(state),
+                      _buildTaskBudget(state),
+                      _buildTaskStatus(),
                     ],
                   ),
                 ),
@@ -246,14 +253,31 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
     );
   }
 
-  AppButton _buildTaskButton(TaskDetailsState state) {
-    return AppButton(
-      onPressed: () {},
-      decoration: WidgetsDecoration.appButtonStyle(),
-      text: Strings.of(context).get('take_task'),
-      width: MediaQuery.of(context).size.width / 2 - 20,
-      height: Dimens.app_button_height,
-      textColor: Colors.white,
+  Widget _buildTaskStatus() {
+    return BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
+      builder: (context, state) {
+        if(state.userTaskStatus == UserTaskStatus.loading) {
+          return Loading();
+        } else if(state.userTaskStatus == UserTaskStatus.success && state.userTask != null) {
+          return TaskStatusBar(
+            status: state.userTask.getTaskStatus(),
+            approveDate: checkNullInt(state.userTask.approveDate),
+            confirmationDaysCount: checkNullInt(state.userTask.confirmationDaysCount, defaultValue: 1),
+            height: Dimens.app_button_height,
+          );
+        } else {
+          return AppButton(
+            decoration: WidgetsDecoration.appButtonStyle(),
+            text: Strings.of(context).get('take_task'),
+            width: MediaQuery.of(context).size.width / 2 - 20,
+            height: Dimens.app_button_height,
+            textColor: Colors.white,
+            onPressed: () {
+              _cubit.onTakeTaskClick();
+            },
+          );
+        }
+      }
     );
   }
 
@@ -347,7 +371,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
     );
   }
 
-  Container _buildTaskBudgetProgress(TaskDetailsState state) {
+  Container _buildTaskBudget(TaskDetailsState state) {
     return Container(
       margin: EdgeInsets.all(Dimens.content_padding),
       child: Stack(

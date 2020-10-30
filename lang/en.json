@@ -20,5 +20,13 @@
   "participants": "Participants",
   "cant_do": "What you can't do:",
   "instruction": "Instruction",
-  "social_link": "Social link"
+  "social_link": "Social link",
+  "in_progress": "In progress",
+  "verifying": "Verifying",
+  "approved": "Approved",
+  "rejected": "Rejected",
+  "re_confirm": "Re-Confirm",
+  "paid": "Paid",
+  "canceled": "Canceled",
+  "default_error_message": "Something went wrong, please try again later."
 }

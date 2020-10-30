@@ -1,11 +1,11 @@
-String checkNullString(String value) {
-  return value == null ? '' : value;
+String checkNullString(String value, {String defaultValue = ''}) {
+  return value == null ? defaultValue : value;
 }
 
-int checkNullInt(int value) {
-  return value == null ? 0 : value;
+int checkNullInt(int value, {int defaultValue = 0}) {
+  return value == null ? defaultValue : value;
 }
 
-double checkNullDouble(double value) {
-  return value == null ? 0.0 : value;
+double checkNullDouble(double value, {double defaultValue = 0.0}) {
+  return value == null ? defaultValue : value;
 }

@@ -32,6 +32,13 @@ class WidgetsDecoration {
     );
   }
 
+  static BoxDecoration appDisabledButtonStyle() {
+    return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    );
+  }
+
   static BoxDecoration appNavigationStyle() {
     return BoxDecoration(
       borderRadius: BorderRadius.only(

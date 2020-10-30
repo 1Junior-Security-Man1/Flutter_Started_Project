@@ -1,4 +1,5 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
+import 'package:enum_to_string/enum_to_string.dart';
 
 class CampaignSocials {
   String id;
@@ -20,6 +21,7 @@ class CampaignSocials {
   }
 
   SocialNetworkType getSocialNetwork() {
-    return campaignSocial != null && campaignSocial.isNotEmpty ? fromString(campaignSocial.toUpperCase()) : SocialNetworkType.OTHER;
+    return campaignSocial != null && campaignSocial.isNotEmpty
+        ? EnumToString.fromString(SocialNetworkType.values, campaignSocial.toUpperCase()) : SocialNetworkType.OTHER;
   }
 }

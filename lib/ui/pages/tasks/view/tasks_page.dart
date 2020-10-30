@@ -1,7 +1,5 @@
-import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
-import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/tasks/view/list/tasks_list_content.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/view/tasks_content.dart';
 import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
@@ -16,8 +14,8 @@ class TasksPage extends StatelessWidget {
       appBar: _buildAppBar(context),
       backgroundColor: AppColors.pageBackgroundColor,
       body: BlocProvider(
-        create: (_) => TasksCubit(context.repository<TaskRepository>(), context.repository<UserRepository>()),
-        child: TasksListContent(),
+        create: (_) => TasksCubit(),
+        child: TasksContent(),
       ),
     );
   }

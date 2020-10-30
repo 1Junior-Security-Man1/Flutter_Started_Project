@@ -45,7 +45,7 @@ class _AppButtonState extends State<AppButton> {
               widget.text,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: widget.textColor == null ?AppColors.buttonDefaultTextColor : widget.textColor,
+                  color: widget.textColor == null ? AppColors.buttonDefaultTextColor : widget.textColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
               ),

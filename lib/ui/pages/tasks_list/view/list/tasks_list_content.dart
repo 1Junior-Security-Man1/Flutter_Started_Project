@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/ui/pages/tasks/tasks_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/tasks/tasks_state.dart';
-import 'package:bounty_hub_client/ui/pages/tasks/view/list/tasks_list_item.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/tasks_list_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/tasks_list_state.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/view/list/tasks_list_item.dart';
 import 'package:bounty_hub_client/ui/widgets/app_list_bottom_loader.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
@@ -15,19 +15,19 @@ class TasksListContent extends StatefulWidget {
 
 class _TasksListContentState extends State<TasksListContent> {
   final _scrollController = ScrollController();
-  TasksCubit _tasksCubit;
+  TasksListCubit _tasksCubit;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    _tasksCubit = context.bloc<TasksCubit>();
+    _tasksCubit = context.bloc<TasksListCubit>();
     _tasksCubit.fetchTasks();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TasksCubit, TasksState>(
+    return BlocConsumer<TasksListCubit, TasksListState>(
       listener: (context, state) {
         if (!state.hasReachedMax && _isBottom) {
           _tasksCubit.fetchTasks();
@@ -35,21 +35,25 @@ class _TasksListContentState extends State<TasksListContent> {
       },
       builder: (context, state) {
         switch (state.status) {
-          case TasksStatus.failure:
+          case TasksListStatus.failure:
             return const EmptyDataPlaceHolder();
-          case TasksStatus.success:
+          case TasksListStatus.success:
             if (state.tasks.isEmpty) {
               return const EmptyDataPlaceHolder();
             }
             return Container(
-              margin: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding, bottom: Dimens.content_padding),
+              margin: EdgeInsets.only(
+                left: Dimens.content_padding,
+                right: Dimens.content_padding,
+                bottom: Dimens.content_internal_padding,
+              ),
               decoration: WidgetsDecoration.appCardStyle(),
               child: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
                   return index >= state.tasks.length
                       ? BottomLoader()
                       : TasksListItem(task: state.tasks[index]);
-                },
+                  },
                 itemCount: state.hasReachedMax
                     ? state.tasks.length
                     : state.tasks.length + 1,

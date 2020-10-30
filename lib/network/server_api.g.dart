@@ -129,4 +129,70 @@ class _RestClient implements RestClient {
     final value = Campaign.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  getUserTask(userId, taskId, redirectUrl) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(taskId, 'taskId');
+    ArgumentError.checkNotNull(redirectUrl, 'redirectUrl');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{'redirectUrl': redirectUrl};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/users/$userId/item/$taskId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserTask.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  getUserTasks(userId, page, size) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(page, 'page');
+    ArgumentError.checkNotNull(size, 'size');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      'userId': userId,
+      'page': page,
+      'size': size
+    };
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/user-items/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserTasksResponse.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  takeTask(userId, taskId) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(taskId, 'taskId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/user-items/$userId/reserve/$taskId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserTask.fromJson(_result.data);
+    return Future.value(value);
+  }
 }

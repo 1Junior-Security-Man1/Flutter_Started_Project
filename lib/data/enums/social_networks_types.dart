@@ -1,5 +1,3 @@
-import 'package:enum_to_string/enum_to_string.dart';
-
 enum SocialNetworkType {
   FACEBOOK,
   VK,
@@ -15,8 +13,4 @@ enum SocialNetworkType {
   OTHER,
   LINKEDIN,
   TIKTOK,
-}
-
-SocialNetworkType fromString(String value) {
-  return EnumToString.fromString(SocialNetworkType.values, value);
 }

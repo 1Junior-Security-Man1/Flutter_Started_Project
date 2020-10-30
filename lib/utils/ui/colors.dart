@@ -23,4 +23,7 @@ class AppColors {
   static const Color progressTextColor = Color(0xFFB5BBD3);
   static const Color currencyTextColor = Color(0xFF4FD69C);
   static const Color participantsTextColor = Color(0xFF6225AA);
+  static const Color stepTextColor = Color(0xFFE8EBF3);
+  static const Color errorBackgroundColor = Color(0xFFffffff);
+  static const Color errorTextColor = Color(0xFFbf3938);
 }
