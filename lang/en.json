@@ -1,32 +1,32 @@
 {
-  "sign_in_to": "Sign in to",
-  "app_name": "Bountyhub Platform",
-  "back": "BACK",
-  "complete_captcha": "Before continue, please complete the captcha below.",
-  "email": "Your email",
-  "get_authorization_code": "Get Authorization Code",
-  "check_to_confirm_authorization": "Please check your email and confirm your Authorization",
-  "back_to_login": "BACK TO LOGIN",
-  "confirm": "CONFIRM",
-  "send_authorization_code": "We will send authorization code to your Email address",
-  "confirmation_code": "Authorization Code",
-  "email_used_next_time": "This email will be used next time log in with this Social Network",
-  "invalid_email": "Invalid email",
-  "invalid_code": "Invalid authorization code",
-  "tasks_list": "Tasks List",
-  "empty_data_message": "No Data Found",
-  "budget_left": "Budget Left",
-  "take_task": "Take task",
-  "participants": "Participants",
-  "cant_do": "What you can't do:",
-  "instruction": "Instruction",
-  "social_link": "Social link",
-  "in_progress": "In progress",
-  "verifying": "Verifying",
-  "approved": "Approved",
-  "rejected": "Rejected",
-  "re_confirm": "Re-Confirm",
-  "paid": "Paid",
-  "canceled": "Canceled",
-  "default_error_message": "Something went wrong, please try again later."
+  Sign in to
+  Bountyhub Platform
+  BACK
+  Before continue, please complete the captcha below.
+  Your email
+  Get Authorization Code
+  Please check your email and confirm your Authorization
+  BACK TO LOGIN
+  CONFIRM
+  We will send authorization code to your Email address
+  Authorization Code
+  This email will be used next time log in with this Social Network
+  Invalid email
+  Invalid authorization code
+  Tasks List
+  No Data Found
+  Budget Left
+  Take task
+  Participants
+  What you can't do:
+  Instruction
+  Social link
+  In progress
+  Verifying
+  Approved
+  Rejected
+  Re-Confirm
+  Paid
+  Canceled
+  Something went wrong, please try again later.
 }
