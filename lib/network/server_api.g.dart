@@ -195,4 +195,22 @@ class _RestClient implements RestClient {
     final value = UserTask.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  getUser() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/users/current',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = User.fromJson(_result.data);
+    return Future.value(value);
+  }
 }

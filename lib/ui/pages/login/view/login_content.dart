@@ -22,51 +22,52 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
-        if(state.status == LoginStatus.complete) {
+        if (state.status == LoginStatus.complete) {
           navigateToApp(state);
           return;
         }
 
-        if (state.status == LoginStatus.emailError || state.status == LoginStatus.confirmCodeError) {
+        if (state.status == LoginStatus.emailError ||
+            state.status == LoginStatus.confirmCodeError) {
           showDialog(
             context: context,
-            builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : Strings.of(context).get('default_error_message')),
+            builder: (_) => AnimatedAlertBuilder(
+                message: state.errorMessage != null
+                    ? state.errorMessage
+                    : Strings.of(context).get('default_error_message')),
           );
         }
       },
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
           return Container(
-                child: Stack(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height / 2,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('assets/images/page_bg.png'),
-                        ),
-                      ),
+            child: Stack(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height / 2,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/images/page_bg.png'),
                     ),
-                    Container(
-                      child: SingleChildScrollView(
-                        child: Column(
-                            children: <Widget>[
-                              Header(state: state),
-                              Container(
-                                child: _buildContent(context, state),
-                              )
-                            ]
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
+                Container(
+                  child: SingleChildScrollView(
+                    child: Column(children: <Widget>[
+                      Header(state: state),
+                      Container(
+                        child: _buildContent(context, state),
+                      )
+                    ]),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -88,7 +89,8 @@ class _LoginFormState extends State<LoginForm> {
       context,
       MaterialPageRoute(
         builder: (BuildContext context) => MainPage(),
-      ), (route) => false,
+      ),
+      (route) => false,
     );
   }
 }
@@ -106,7 +108,8 @@ class Header extends StatelessWidget {
           padding: const EdgeInsets.only(top: 36.0),
           height: (MediaQuery.of(context).size.height / 2) - 120,
           child: Center(
-            child: Image.asset('assets/images/bountyhub.png',
+            child: Image.asset(
+              'assets/images/bountyhub.png',
               width: Dimens.login_logo_width,
             ),
           ),
@@ -116,7 +119,11 @@ class Header extends StatelessWidget {
             context.bloc<LoginCubit>().onBackButtonClick();
           },
           child: Opacity(
-            opacity: state.status == LoginStatus.captcha || state.status == LoginStatus.confirmCode || state.status == LoginStatus.confirmCodeError ? 1.0 : 0.0,
+            opacity: state.status == LoginStatus.captcha ||
+                    state.status == LoginStatus.confirmCode ||
+                    state.status == LoginStatus.confirmCodeError
+                ? 1.0
+                : 0.0,
             child: Container(
               margin: const EdgeInsets.only(left: 35.0, top: 70.0),
               child: Icon(
@@ -141,7 +148,11 @@ class CaptchaInput extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
           child: Text(
             Strings.of(context).get('complete_captcha'),
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.white, height: 1.3),
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+                color: Colors.white,
+                height: 1.3),
             textAlign: TextAlign.center,
           ),
         ),
@@ -174,10 +185,16 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    if(widget.state.status == LoginStatus.confirmCode || widget.state.status == LoginStatus.confirmCodeError) {
+    if (widget.state.status == LoginStatus.confirmCode ||
+        widget.state.status == LoginStatus.confirmCodeError) {
       _emailTextController.text = widget.state.email;
       _confirmCodeTextController.text = widget.state.confirmCode;
     }
+
+    _emailTextController.addListener(() {
+      context.bloc<LoginCubit>().emailIsValid(
+          FormValidation.email(context, _emailTextController.text) == null);
+    });
   }
 
   @override
@@ -190,15 +207,24 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-      const EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding),
+      padding: const EdgeInsets.only(
+          left: Dimens.content_padding, right: Dimens.content_padding),
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+            padding:
+                const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
             child: Text(
-              Strings.of(context).get(widget.state.status == LoginStatus.email || widget.state.status == LoginStatus.emailError ? 'send_authorization_code' : 'check_to_confirm_authorization'),
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.white, height: 1.3),
+              Strings.of(context).get(
+                  widget.state.status == LoginStatus.email ||
+                          widget.state.status == LoginStatus.emailError
+                      ? 'send_authorization_code'
+                      : 'check_to_confirm_authorization'),
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  color: Colors.white,
+                  height: 1.3),
               textAlign: TextAlign.center,
             ),
           ),
@@ -206,27 +232,36 @@ class _LoginState extends State<Login> {
             key: _formKey,
             child: Column(
               children: [
-                AppTextField(controller: _emailTextController,
+                AppTextField(
+                  controller: _emailTextController,
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.email(context, value),
-                  decoration: WidgetsDecoration.appTextFormStyle(Strings.of(context).get('email'),
+                  decoration: WidgetsDecoration.appTextFormStyle(
+                      Strings.of(context).get('email'),
                       'assets/images/email.png',
-                      widget.state.email != null ? 'assets/images/input_completed.png' : null,
-                      widget.state.status == LoginStatus.email || widget.state.status == LoginStatus.emailError),
+                      widget.state.email != null
+                          ? 'assets/images/input_completed.png'
+                          : null,
+                      widget.state.status == LoginStatus.email ||
+                          widget.state.status == LoginStatus.emailError),
                 ),
                 SizedBox(
                   height: Dimens.content_padding,
                 ),
-                AppTextField(controller: _confirmCodeTextController,
-                  inputFormatters: [ UpperCaseTextFormatter() ],
+                AppTextField(
+                  controller: _confirmCodeTextController,
+                  inputFormatters: [UpperCaseTextFormatter()],
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.done,
-                  validator: (value) => FormValidation.confirmCode(context, value, widget.state),
-                  decoration: WidgetsDecoration.appTextFormStyle(Strings.of(context).get('confirmation_code'),
+                  validator: (value) =>
+                      FormValidation.confirmCode(context, value, widget.state),
+                  decoration: WidgetsDecoration.appTextFormStyle(
+                      Strings.of(context).get('confirmation_code'),
                       'assets/images/confirm_code_key.png',
                       null,
-                      widget.state.status == LoginStatus.confirmCode || widget.state.status == LoginStatus.confirmCodeError),
+                      widget.state.status == LoginStatus.confirmCode ||
+                          widget.state.status == LoginStatus.confirmCodeError),
                 ),
                 SizedBox(
                   height: 26.0,
@@ -256,21 +291,33 @@ class _LoginState extends State<Login> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 26.0, bottom: 8.0),
+            padding: const EdgeInsets.only(
+                left: 8.0, right: 8.0, top: 26.0, bottom: 8.0),
             child: Padding(
               padding: const EdgeInsets.only(left: 42.0, right: 42.0),
               child: AppButton(
                 onPressed: () {
-                  if(_formKey.currentState.validate()) {
-                    if (widget.state.status == LoginStatus.email || widget.state.status == LoginStatus.emailError) {
-                      context.bloc<LoginCubit>().onEmailSubmitted(_emailTextController.value.text);
+                  if (_formKey.currentState.validate()) {
+                    if (widget.state.status == LoginStatus.email ||
+                        widget.state.status == LoginStatus.emailError) {
+                      context
+                          .bloc<LoginCubit>()
+                          .onEmailSubmitted(_emailTextController.value.text);
                     } else {
-                      context.bloc<LoginCubit>().confirmCode(_confirmCodeTextController.value.text);
+                      context
+                          .bloc<LoginCubit>()
+                          .confirmCode(_confirmCodeTextController.value.text);
                     }
                   }
                 },
+                textColor: AppColors.buttonDefaultTextColorSecondary,
+                enable: widget.state.emailIsValid,
                 decoration: WidgetsDecoration.appButtonStyle(),
-                text: Strings.of(context).get(widget.state.status == LoginStatus.email || widget.state.status == LoginStatus.emailError ? 'get_authorization_code' : 'confirm'),
+                text: Strings.of(context).get(
+                    widget.state.status == LoginStatus.email ||
+                            widget.state.status == LoginStatus.emailError
+                        ? 'get_authorization_code'
+                        : 'confirm'),
                 height: Dimens.app_button_height,
               ),
             ),

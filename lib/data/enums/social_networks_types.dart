@@ -13,4 +13,5 @@ enum SocialNetworkType {
   OTHER,
   LINKEDIN,
   TIKTOK,
+  GOOGLE,
 }

@@ -6,14 +6,20 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 class App extends StatefulWidget {
-
   @override
   _AppState createState() => _AppState();
 }
 
 class _AppState extends State<App> {
+  @override
+  void initState() {
+      getApplicationSupportDirectory().then((value) => Hive.init(value.path));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

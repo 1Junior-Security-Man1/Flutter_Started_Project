@@ -37,6 +37,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
 
   @override
   Widget build(BuildContext context) {
+    //todo использовать BlocConsumer
     return BlocListener<TaskDetailsCubit, TaskDetailsState>(
       listener: (context, state) {
         if (state.userTaskStatus == UserTaskStatus.take_failure) {

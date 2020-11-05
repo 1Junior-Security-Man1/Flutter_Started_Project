@@ -4,6 +4,7 @@ import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/user_tasks_response.dart';
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
+import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:bounty_hub_client/network/interceptors/oauth_interceptor.dart';
 import 'package:dio/dio.dart';
@@ -56,4 +57,7 @@ abstract  class RestClient {
 
   @POST("/user-items/{userId}/reserve/{taskId}")
   Future<UserTask> takeTask(@Path('userId') String userId, @Path('taskId') String taskId);
+
+  @GET("/users/current")
+  Future<User> getUser();
 }

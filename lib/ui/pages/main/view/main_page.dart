@@ -1,5 +1,6 @@
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/ui/pages/main/main_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/profile/profile_page.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/view/tasks_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
@@ -90,7 +91,7 @@ class _MainPageState extends State<MainPage> {
   List<Widget> getNavMenu() {
     return <Widget>[
       TasksPage(),
-      Text('Profile'), // TODO
+      ProfilePage(),
       Text('Notifications'), // TODO
     ];
   }

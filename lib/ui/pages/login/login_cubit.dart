@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bounty_hub_client/data/repositories/login_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
+import 'package:bounty_hub_client/utils/validation/form_validation.dart';
 import 'package:dio/dio.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -63,5 +64,9 @@ class LoginCubit extends Cubit<LoginState> {
           emit(state.copyWith(status: LoginStatus.confirmCodeError, errorMessage: 'Something went wrong, please try later'));
       }
     });
+  }
+
+  void emailIsValid(value) {
+    emit(state.copyWith(emailIsValid: value));
   }
 }

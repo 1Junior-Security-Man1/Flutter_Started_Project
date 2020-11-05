@@ -13,7 +13,9 @@ class AppColors {
   static const Color pageBackgroundColor = Color(0xFFF3F6FD);
   static const Color inputTextColor = Color(0xFF484848);
   static const Color inputDisabledTextColor = Color(0xFFcccccc);
-  static const Color buttonDefaultTextColor = Color(0xFFb6b8fd);
+  static const Color buttonDefaultTextColorPrimary = Color(0xFFb6b8fd);
+  static const Color buttonDefaultTextColorSecondary = Color(0xFFFFFFFF);
+  static const Color card = Color(0xFFFFFFFF);
   static const Color textColor = Color(0xFFa9a6bf);
   static const Color itemTextColor = Color(0xFF484848);
   static const Color textHintColor = Color(0xFF484848);
@@ -26,4 +28,9 @@ class AppColors {
   static const Color stepTextColor = Color(0xFFE8EBF3);
   static const Color errorBackgroundColor = Color(0xFFffffff);
   static const Color errorTextColor = Color(0xFFbf3938);
+  static const Color greyContentColor = Color(0xff9E9BB7);
+  static const Color socialDescription = Color(0xffF1F4FC);
+  static const Color socialDescriptionBorder = Color(0xff9DA4D7);
+  static const Color socialBorderColor = Color(0xff6AA0F7);
+
 }
