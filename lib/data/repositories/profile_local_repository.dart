@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/source/profile_data_source.dart';
 import 'package:hive/hive.dart';
@@ -26,6 +27,11 @@ class ProfileLocalRepository extends ProfileDataSource {
       print(e);
       return false;
     }
+  }
+
+  @override
+  Future<List<Socials>> getMySocialAccounts() {
+    throw UnimplementedError();
   }
 
   void clear(){

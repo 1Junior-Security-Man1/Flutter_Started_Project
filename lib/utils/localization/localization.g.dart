@@ -46,38 +46,80 @@ class AppLocalizations {
       paid: "Paid",
       canceled: "Canceled",
       defaultErrorMessage: "Something went wrong, please try again later.",
+      inOrderToAuth: "In order to authenticate you on",
+      uMastFille: "you must fulfill a few conditions:",
+      uNeedMake: "You need to make a ",
+      withThisHashtag: "with this hashtag",
+      mustBeAvailable:
+          "must be available for all users, otherwise you account won't be validated",
+      sholdBeInTop: "should be in your top 5 news feed for",
+      hours24: "24 hours",
+      thisS: "This",
+      post: "post",
+      skill: "skill",
+      on: "on",
+      haveUCopied: "Have you copied your hashtag and created a",
+      greatSocial:
+          "Great! Now, you need to provide a link to your profile so that we can find the",
+      thatUJust: "that you just made on your page.",
+      byClicking: "by clicking the button below:",
+      copiedAndCreate: "Have you copied your hashtag and created a",
+      profile: "Profile",
     ),
     Locale.fromSubtags(languageCode: "DE"): AppLocalizations_Labels(
-      signInTo: "",
-      appName: "",
-      back: "",
-      completeCaptcha: "",
-      email: "",
-      getAuthorizationCode: "",
-      checkToConfirmAuthorization: "",
-      backToLogin: "",
-      confirm: "",
-      sendAuthorizationCode: "",
-      confirmationCode: "",
-      emailUsedNextTime: "",
-      invalidEmail: "",
-      invalidCode: "",
-      tasksList: "",
-      emptyDataMessage: "",
-      budgetLeft: "",
-      takeTask: "",
-      participants: "",
-      cantDo: "",
-      instruction: "",
-      socialLink: "",
-      inProgress: "",
-      verifying: "",
-      approved: "",
-      rejected: "",
-      reConfirm: "",
-      paid: "",
-      canceled: "",
-      defaultErrorMessage: "",
+      signInTo: "Anmelden bei",
+      appName: "Bountyhub Platform",
+      back: "ZURÜCK",
+      completeCaptcha: "Bevor weiter, füllen Sie bitte das Captcha unten.",
+      email: "Deine E-Mail",
+      getAuthorizationCode: "Autorisierungscode anfordern",
+      checkToConfirmAuthorization:
+          "Bitte überprüfen Sie Ihre E-Mail und bestätigen Sie Ihre Authorization",
+      backToLogin: "ZURÜCK ZUR ANMELDUNG",
+      confirm: "BESTÄTIGEN",
+      sendAuthorizationCode:
+          "Wir werden Autorisierungscode an Ihre E-Mail-Adresse senden",
+      confirmationCode: "Autorisierungscode",
+      emailUsedNextTime:
+          "Diese E-Mail wird beim nächsten Mal Anmeldung mit diesem Social Network verwendet werden",
+      invalidEmail: "Ungültige E-Mail",
+      invalidCode: "Ungültige Autorisierungscode",
+      tasksList: "Aufgaben-Liste",
+      emptyDataMessage: "Keine Daten gefunden",
+      budgetLeft: "Budget links",
+      takeTask: "nehmen Aufgabe",
+      participants: "Die Teilnehmer",
+      cantDo: "Was Sie `t tun:",
+      instruction: "Anweisung",
+      socialLink: "Soziale Verbindung",
+      inProgress: "In Bearbeitung",
+      verifying: "Verifizieren",
+      approved: "Genehmigt",
+      rejected: "Abgelehnt",
+      reConfirm: "Re-Confirm",
+      paid: "Bezahlt",
+      canceled: "Abgesagt",
+      defaultErrorMessage:
+          "Ging etwas schief, bitte versuchen Sie es später noch einmal.",
+      inOrderToAuth: "Um Sie zu authentifizieren, auf",
+      uMastFille: "Sie müssen einige Bedingungen erfüllen:",
+      uNeedMake: "Sie müssen eine machen",
+      withThisHashtag: "mit diesem Hashtag",
+      mustBeAvailable:
+          "muss für alle Benutzer verfügbar sein, sonst erklären Sie werden nicht überprüft werden",
+      sholdBeInTop: "sollte in Ihrer Top 5 News-Feed sein für",
+      hours24: "24 Stunden",
+      thisS: "Dies",
+      post: "Post",
+      skill: "Fertigkeit",
+      on: "auf",
+      haveUCopied: "Haben Sie Ihren Hashtag kopiert und erstellt eine",
+      greatSocial:
+          "Toll! Nun müssen Sie so einen Link zu Ihrem Profil schaffen, dass wir die finden",
+      thatUJust: "dass Sie nur auf Ihrer Seite gemacht.",
+      byClicking: "durch den Button unten klicken:",
+      copiedAndCreate: "Haben Sie Ihren Hashtag kopiert und erstellt eine",
+      profile: "Profil",
     ),
   };
 
@@ -118,7 +160,24 @@ class AppLocalizations_Labels {
       this.reConfirm,
       this.paid,
       this.canceled,
-      this.defaultErrorMessage});
+      this.defaultErrorMessage,
+      this.inOrderToAuth,
+      this.uMastFille,
+      this.uNeedMake,
+      this.withThisHashtag,
+      this.mustBeAvailable,
+      this.sholdBeInTop,
+      this.hours24,
+      this.thisS,
+      this.post,
+      this.skill,
+      this.on,
+      this.haveUCopied,
+      this.greatSocial,
+      this.thatUJust,
+      this.byClicking,
+      this.copiedAndCreate,
+      this.profile});
 
   final String signInTo;
 
@@ -179,4 +238,38 @@ class AppLocalizations_Labels {
   final String canceled;
 
   final String defaultErrorMessage;
+
+  final String inOrderToAuth;
+
+  final String uMastFille;
+
+  final String uNeedMake;
+
+  final String withThisHashtag;
+
+  final String mustBeAvailable;
+
+  final String sholdBeInTop;
+
+  final String hours24;
+
+  final String thisS;
+
+  final String post;
+
+  final String skill;
+
+  final String on;
+
+  final String haveUCopied;
+
+  final String greatSocial;
+
+  final String thatUJust;
+
+  final String byClicking;
+
+  final String copiedAndCreate;
+
+  final String profile;
 }

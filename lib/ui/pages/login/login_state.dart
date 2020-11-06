@@ -8,7 +8,7 @@ class LoginState extends Equatable {
     this.errorMessage,
     this.email,
     this.confirmCode,
-    this.emailIsValid,
+    this.emailIsValid = false,
   });
 
   final LoginStatus status;

@@ -233,7 +233,7 @@ class _LoginState extends State<Login> {
               children: [
                 AppTextField(
                   controller: _emailTextController,
-                  textInputType: TextInputType.text,
+                  textInputType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.email(context, value),
                   decoration: WidgetsDecoration.appTextFormStyle(
@@ -311,7 +311,7 @@ class _LoginState extends State<Login> {
                 },
                 textColor: AppColors.buttonDefaultTextColorSecondary,
                 enable: widget.state.emailIsValid,
-                decoration: WidgetsDecoration.appButtonStyle(),
+                decoration: WidgetsDecoration.appBlueButtonStyle(),
                 text:
                     widget.state.status == LoginStatus.email ||
                             widget.state.status == LoginStatus.emailError

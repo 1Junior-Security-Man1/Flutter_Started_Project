@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/ui/pages/profile/bloc/profile_event.dart';
 import 'package:bounty_hub_client/ui/pages/profile/widgets/social_card.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'cubit/profile_cubit.dart';
+import 'bloc/profile_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -13,12 +14,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  ProfileCubit _cubit;
+  ProfileBloc _bloc;
 
   @override
   void initState() {
-    _cubit = context.bloc<ProfileCubit>();
-    _cubit.loadUserProfile();
+    _bloc = context.bloc<ProfileBloc>();
+    Future.microtask(() {
+      _bloc.add(FetchProfileEvent());
+    });
     super.initState();
   }
 
@@ -33,15 +36,15 @@ class _ProfilePageState extends State<ProfilePage> {
         onLeftIconClick: () {},
         onRightIconClick: () {},
       ),
-      body: BlocBuilder<ProfileCubit, ProfileState>(
-        builder: (context, state) {
-          return SingleChildScrollView(
-            child: Column(children: [
-              SizedBox(height: 20,),
-              SocialCardWidget()
-            ],),
-          );
-        },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            SocialCardWidget()
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:enum_to_string/enum_to_string.dart';
 
 enum UserTaskStatusType {
   IN_PROGRESS,
@@ -7,5 +6,13 @@ enum UserTaskStatusType {
   REJECTED,
   PAID,
   CANCELED,
-
 }
+
+const userTaskStatusTypeEnumMap = {
+  UserTaskStatusType.IN_PROGRESS: 'IN_PROGRESS',
+  UserTaskStatusType.VERIFYING: 'VERIFYING',
+  UserTaskStatusType.APPROVED: 'APPROVED',
+  UserTaskStatusType.REJECTED: 'REJECTED',
+  UserTaskStatusType.PAID: 'PAID',
+  UserTaskStatusType.CANCELED: 'CANCELED',
+};

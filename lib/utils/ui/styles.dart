@@ -1,5 +1,6 @@
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
+
 import 'dimens.dart';
 
 class WidgetsDecoration {
@@ -23,7 +24,7 @@ class WidgetsDecoration {
     );
   }
 
-  static BoxDecoration appButtonStyle() {
+  static BoxDecoration appBlueButtonStyle() {
     return BoxDecoration(
       gradient: LinearGradient(
         colors: <Color>[AppColors.primaryColor, AppColors.accentColor],
@@ -32,7 +33,7 @@ class WidgetsDecoration {
     );
   }
 
-  static BoxDecoration appDisabledButtonStyle() {
+  static BoxDecoration appWhiteButtonStyle() {
     return BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(12.0)),

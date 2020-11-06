@@ -1,16 +1,29 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
+import 'package:bounty_hub_client/data/models/entity/user/social.dart';
+import 'package:bounty_hub_client/ui/pages/profile/widgets/social_description_widgets/social_description_pre_next_widget.dart';
+import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'social_description_post_next_widget.dart';
+import 'social_ui_utils.dart';
+
 class SocialDescriptionWidget extends StatefulWidget {
+
   SocialDescriptionWidget(
     this.selectedSocial, {
     Key key,
     this.shortNumber,
-  }) : super(key: key) {}
+    this.nextBtnWasPressed,
+     this.social,
+  }) : super(key: key);
 
-  final String shortNumber;
+  final int shortNumber;
+  final bool nextBtnWasPressed;
   final selectedSocial;
+  final Socials social;
+
 
   @override
   _SocialDescriptionWidgetState createState() =>
@@ -18,117 +31,57 @@ class SocialDescriptionWidget extends StatefulWidget {
 }
 
 class _SocialDescriptionWidgetState extends State<SocialDescriptionWidget> {
-  SocialUIModel facebookIUModel;
-  SocialUIModel instgrammIUModel;
-  Map<SocialNetworkType, SocialUIModel> UIModels;
+  Map<SocialNetworkType, SocialUIModel> uIModels;
 
   @override
   void initState() {
-    initUIModels();
-    UIModels = {SocialNetworkType.FACEBOOK: facebookIUModel,SocialNetworkType.INSTAGRAM: instgrammIUModel};
+    uIModels = initUIModels(widget.shortNumber);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final selectedModel = UIModels[widget.selectedSocial];
-    print('!!!!!');
-    print(selectedModel.text.length);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(selectedModel.title,style: AppTextStyles.smallBoldTitle,),
-        SizedBox(height: 8,),
-        Text(selectedModel.subTitle,style: AppTextStyles.defaultText,),
-        SizedBox(height: 8,),
-        Column(
-          children: [
-            for (var i = 0; i < selectedModel.text.length; i++)
-              Column(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('  ${i+1}. ',style: AppTextStyles.defaultText,),
-                      Container(
-                        width: MediaQuery.of(context).size.width-137,
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              for (var j = 0; j < selectedModel.text[i].length; j++)
-                                TextSpan(text: '${selectedModel.text[i][j]}',style: selectedModel.isTextBold[i][j]?AppTextStyles.defaultBold:AppTextStyles.defaultText),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+    final selectedModel = uIModels[widget.selectedSocial];
+    return widget.social == null
+        ? widget.nextBtnWasPressed
+            ? SocialDescriptionPostNextWidget(selectedModel: selectedModel)
+            : SocialDescriptionPreNextWidget(
+                selectedModel: selectedModel,
+                shortNumber: widget.shortNumber,
+                selectedSocial: widget.selectedSocial,
               )
-          ],
-        ),
-        SizedBox(height: 8,),
-        Text(selectedModel.bottomText,style: AppTextStyles.defaultText,)
-      ],
-    );
+        : _buildExistingSocial(selectedModel);
   }
 
-  void initUIModels() {
-    facebookIUModel = SocialUIModel(
-        title: 'Profile Facebook',
-        subTitle:
-            'In order to authenticate you on Facebook, you must fulfill a few conditions:',
-        text: [
-          [
-            'You need to make a post on Facebook, with this hashtag ',
-            widget.shortNumber
-          ],
-          [
-            'This post must be available for all users, otherwise you account won\'t be validated'
-          ],
-          ['This post should be in your top 5 news feed for ', '24 hours']
-        ],
-        isTextBold: [
-          [false, true],
-          [false],
-          [false, true]
-        ],
-        bottomText:
-            'Have you copied your hashtag? Please create a post by clicking the button below:',
-        nextText:
-            'Great! Now, you need to provide a link to your profile so that we can find the post that you just made on your page.',
-        example:
-            'https://www.facebook.com/profile.php?id=ACCOUNT_ID \nhttps://www.facebook.com/USER_NAME');
-
-   instgrammIUModel = SocialUIModel(
-        title: 'Instagram',
-        subTitle:
-            'In order to authenticate you on Instagram, you must fulfill a few conditions:',
-        text: [
-          [
-            'You need to make a post on Instagram, with this hashtag ',
-            widget.shortNumber
-          ],
-          [
-            'This post must be available for all users, otherwise you account won\'t be validated'
-          ],
-          ['This post should be in your top 5 news feed for ', '24 hours']
-        ],
-        isTextBold: [
-          [false, true],
-          [false],
-          [false, true]
-        ],
-        bottomText:
-            'Have you copied your hashtag and created a post?',
-        nextText:
-            'Great! Now, you need to provide a link to your profile so that we can find the post that you just made on your page.',
-        example:
-            'https://www.instagram.com/your_name/');
+  _buildExistingSocial(SocialUIModel selectedModel) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(
+        selectedModel.name,
+        style: AppTextStyles.smallBoldTitle,
+      ),
+      SizedBox(
+        height: 16,
+      ),
+      Container(
+        height: 50,
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+            color: AppColors.socialDescription,
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+            border:
+                Border.all(color: AppColors.socialDescriptionBorder, width: 2)),
+        child: Text(
+          widget.social?.accountUrl??'',
+          style: AppTextStyles.defaultText,
+        ),
+      )
+    ]);
   }
 }
 
 class SocialUIModel {
+  final String name;
   final String title;
   final String subTitle;
   final String bottomText;
@@ -137,7 +90,7 @@ class SocialUIModel {
   final String nextText;
   final String example;
 
-  const SocialUIModel(
+  const SocialUIModel(this.name,
       {this.title,
       this.subTitle,
       this.bottomText,

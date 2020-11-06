@@ -1,19 +1,23 @@
+import 'package:bounty_hub_client/data/enums/enum_decode.dart';
+import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
+import 'package:bounty_hub_client/data/enums/social_status_types.dart';
+
 class Socials {
   String id;
-  String type;
+  SocialNetworkType type;
   String accountUri;
-  String status;
+  SocialStatusType status;
   int countSubscribers;
   String updateSubscribeStatus;
-  String updateSubscribersTime;
-  String lastModifiedDate;
+  int updateSubscribersTime;
+  int lastModifiedDate;
   String sentSocialReport;
   String accountUrl;
   String validateStatus;
   String newAccountUrl;
 
   Socials(
-    {this.id,
+      {this.id,
       this.type,
       this.accountUri,
       this.status,
@@ -28,9 +32,15 @@ class Socials {
 
   Socials.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    type = json['type'];
+    type = enumDecode<SocialNetworkType>(
+      socialNetworkTypeEnumMap,
+      json['type'],
+    );
     accountUri = json['accountUri'];
-    status = json['status'];
+    status = enumDecode<SocialStatusType>(
+      socialStatusTypeEnumMap,
+      json['status'],
+    );
     countSubscribers = json['countSubscribers'];
     updateSubscribeStatus = json['updateSubscribeStatus'];
     updateSubscribersTime = json['updateSubscribersTime'];
@@ -44,9 +54,9 @@ class Socials {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['type'] = this.type;
+    data['type'] = socialNetworkTypeEnumMap[this.type];
     data['accountUri'] = this.accountUri;
-    data['status'] = this.status;
+    data['status'] = socialStatusTypeEnumMap[this.status];
     data['countSubscribers'] = this.countSubscribers;
     data['updateSubscribeStatus'] = this.updateSubscribeStatus;
     data['updateSubscribersTime'] = this.updateSubscribersTime;

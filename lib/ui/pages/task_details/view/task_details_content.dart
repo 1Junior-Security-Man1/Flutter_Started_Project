@@ -268,11 +268,10 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
           );
         } else {
           return AppButton(
-            decoration: WidgetsDecoration.appButtonStyle(),
+            decoration: WidgetsDecoration.appBlueButtonStyle(),
             text: AppStrings.takeTask,
             width: MediaQuery.of(context).size.width / 2 - 20,
             height: Dimens.app_button_height,
-            textColor: Colors.white,
             onPressed: () {
               _cubit.onTakeTaskClick();
             },

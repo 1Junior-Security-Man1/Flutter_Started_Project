@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/source/profile_data_source.dart';
 import 'package:bounty_hub_client/network/server_api.dart';
@@ -16,5 +17,10 @@ class ProfileRepository extends ProfileDataSource {
   Future<bool> putUser(User user) {
     // TODO: implement putUser
     throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Socials>>  getMySocialAccounts() {
+    return client.getMySocialAccounts();
   }
 }

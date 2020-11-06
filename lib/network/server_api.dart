@@ -4,6 +4,7 @@ import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/user_tasks_response.dart';
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
+import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:bounty_hub_client/network/interceptors/oauth_interceptor.dart';
@@ -60,4 +61,7 @@ abstract  class RestClient {
 
   @GET("/users/current")
   Future<User> getUser();
+
+  @GET("/users/my-social-accounts")
+  Future<List<Socials>> getMySocialAccounts();
 }

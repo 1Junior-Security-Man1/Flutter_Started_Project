@@ -15,8 +15,8 @@ dependencies:
     sdk: flutter
   flutter_sheet_localization: ^1.0.0
 
-  bloc: ^6.0.0
-  flutter_bloc: ^6.0.0
+  bloc: ^6.1.0
+  flutter_bloc: ^6.0.6
 
   # network
   dio: 3.0.10
@@ -71,7 +71,6 @@ flutter:
 
   assets:
     - assets/images/
-    - lang/en.json
 
   fonts:
      - family: Montserrat

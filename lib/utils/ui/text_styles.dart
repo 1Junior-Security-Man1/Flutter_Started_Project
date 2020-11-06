@@ -26,9 +26,18 @@ class AppTextStyles {
     fontWeight: FontWeight.normal,
     fontSize: 14
   );
+
+
+
   static const TextStyle defaultBold = TextStyle(
     color: Colors.black87,
     fontWeight: FontWeight.bold,
     fontSize: 14
+  );
+
+  static const TextStyle defaultThinText = TextStyle(
+    color: Colors.black87,
+    fontWeight: FontWeight.w300,
+    fontSize: 12
   );
 }

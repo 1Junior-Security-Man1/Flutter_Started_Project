@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
+
 import 'authentication_event.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {

@@ -76,4 +76,41 @@ class AppStrings {
   static String get defaultErrorMessage =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext)
           .defaultErrorMessage;
+  static String get inOrderToAuth =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).inOrderToAuth;
+  static String get uMastFille =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).uMastFille;
+  static String get uNeedMake =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).uNeedMake;
+  static String get withThisHashtag =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .withThisHashtag;
+  static String get mustBeAvailable =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .mustBeAvailable;
+  static String get sholdBeInTop =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).sholdBeInTop;
+  static String get hours24 =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).hours24;
+  static String get thisS =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).thisS;
+  static String get post =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).post;
+  static String get skill =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).skill;
+  static String get on =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).on;
+  static String get haveUCopied =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).haveUCopied;
+  static String get greatSocial =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).greatSocial;
+  static String get thatUJust =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).thatUJust;
+  static String get byClicking =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).byClicking;
+  static String get copiedAndCreate =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .copiedAndCreate;
+  static String get profile =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).profile;
 }
