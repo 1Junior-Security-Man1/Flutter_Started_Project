@@ -1,6 +1,6 @@
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/view/tasks_content.dart';
-import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class TasksPage extends StatelessWidget {
         ),
       ),
       title: Text(
-        Strings.of(context).get('tasks_list'),
+        AppStrings.tasksList,
         style: TextStyle(
           color: AppColors.appBarTextColor,
           fontWeight: FontWeight.w600,

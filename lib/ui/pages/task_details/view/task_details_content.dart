@@ -7,7 +7,7 @@ import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
 import 'package:bounty_hub_client/ui/widgets/social_image.dart';
 import 'package:bounty_hub_client/ui/widgets/task_status_bar.dart';
-import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
@@ -42,7 +42,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
         if (state.userTaskStatus == UserTaskStatus.take_failure) {
           showDialog(
             context: context,
-            builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : Strings.of(context).get('default_error_message')),
+            builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : AppStrings.defaultErrorMessage),
           );
         }
       },
@@ -164,7 +164,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(Strings.of(context).get('participants'),
+                              Text(AppStrings.participants,
                                 style: TextStyle(
                                   color: AppColors.participantsTextColor,
                                   fontWeight: FontWeight.w500,
@@ -268,7 +268,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
         } else {
           return AppButton(
             decoration: WidgetsDecoration.appButtonStyle(),
-            text: Strings.of(context).get('take_task'),
+            text: AppStrings.takeTask,
             width: MediaQuery.of(context).size.width / 2 - 20,
             height: Dimens.app_button_height,
             textColor: Colors.white,
@@ -308,7 +308,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    Strings.of(context).get('social_link'),
+                    AppStrings.socialLink,
                     style: TextStyle(
                       color: AppColors.itemTextColor,
                       fontWeight: FontWeight.w700,
@@ -332,7 +332,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
             height: 8.0,
           ),
           Text(
-            Strings.of(context).get('instruction'),
+            AppStrings.instruction,
             style: TextStyle(
               color: AppColors.itemTextColor,
               fontWeight: FontWeight.w700,
@@ -351,7 +351,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
             height: 8.0,
           ),
           Text(
-            Strings.of(context).get('cant_do'),
+            AppStrings.cantDo,
             style: TextStyle(
               color: AppColors.itemTextColor,
               fontWeight: FontWeight.w700,
@@ -430,7 +430,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
                   width: 8.0,
                 ),
                 Text(
-                  Strings.of(context).get('budget_left'),
+                  AppStrings.budgetLeft,
                   style: TextStyle(
                     color: AppColors.progressTextColor,
                     fontWeight: FontWeight.w500,

@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ class EmptyDataPlaceHolder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Text(
-          message != null ? message : Strings.of(context).get('empty_data_message'),
+          message != null ? message :AppStrings.emptyDataMessage,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: AppColors.textColor),
         ),
     );
