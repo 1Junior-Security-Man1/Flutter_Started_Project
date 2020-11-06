@@ -6,7 +6,7 @@ import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/app_check_box.dart';
 import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
 import 'package:bounty_hub_client/ui/widgets/app_text_field.dart';
-import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
@@ -38,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
             builder: (_) => AnimatedAlertBuilder(
                 message: state.errorMessage != null
                     ? state.errorMessage
-                    : Strings.of(context).get('default_error_message')),
+                    : AppStrings.defaultErrorMessage),
           );
         }
       },
@@ -147,7 +147,7 @@ class CaptchaInput extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
           child: Text(
-            Strings.of(context).get('complete_captcha'),
+            AppStrings.completeCaptcha,
             style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
@@ -215,11 +215,10 @@ class _LoginState extends State<Login> {
             padding:
                 const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
             child: Text(
-              Strings.of(context).get(
-                  widget.state.status == LoginStatus.email ||
-                          widget.state.status == LoginStatus.emailError
-                      ? 'send_authorization_code'
-                      : 'check_to_confirm_authorization'),
+              widget.state.status == LoginStatus.email ||
+                      widget.state.status == LoginStatus.emailError
+                  ? AppStrings.sendAuthorizationCode
+                  : AppStrings.checkToConfirmAuthorization,
               style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
@@ -238,7 +237,7 @@ class _LoginState extends State<Login> {
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.email(context, value),
                   decoration: WidgetsDecoration.appTextFormStyle(
-                      Strings.of(context).get('email'),
+                    AppStrings.email,
                       'assets/images/email.png',
                       widget.state.email != null
                           ? 'assets/images/input_completed.png'
@@ -257,7 +256,7 @@ class _LoginState extends State<Login> {
                   validator: (value) =>
                       FormValidation.confirmCode(context, value, widget.state),
                   decoration: WidgetsDecoration.appTextFormStyle(
-                      Strings.of(context).get('confirmation_code'),
+                    AppStrings.confirmationCode,
                       'assets/images/confirm_code_key.png',
                       null,
                       widget.state.status == LoginStatus.confirmCode ||
@@ -277,7 +276,7 @@ class _LoginState extends State<Login> {
                     ),
                     Flexible(
                       child: Text(
-                        Strings.of(context).get('email_used_next_time'),
+                        AppStrings.emailUsedNextTime,
                         style: TextStyle(
                           color: AppColors.textColor,
                           fontWeight: FontWeight.w500,
@@ -313,11 +312,11 @@ class _LoginState extends State<Login> {
                 textColor: AppColors.buttonDefaultTextColorSecondary,
                 enable: widget.state.emailIsValid,
                 decoration: WidgetsDecoration.appButtonStyle(),
-                text: Strings.of(context).get(
+                text:
                     widget.state.status == LoginStatus.email ||
                             widget.state.status == LoginStatus.emailError
-                        ? 'get_authorization_code'
-                        : 'confirm'),
+                        ? AppStrings.getAuthorizationCode
+                        : AppStrings.confirm,
                 height: Dimens.app_button_height,
               ),
             ),

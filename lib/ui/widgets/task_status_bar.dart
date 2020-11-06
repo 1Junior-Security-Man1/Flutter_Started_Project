@@ -1,5 +1,5 @@
 import 'package:bounty_hub_client/data/enums/user_task_status.dart';
-import 'package:bounty_hub_client/utils/localization/app_localizations.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
@@ -98,13 +98,13 @@ class _TaskStatusBarState extends State<TaskStatusBar> {
 
   String getStepWidgetTitle(BuildContext context, UserTaskStatusType status, int step) {
     switch(step) {
-      case 1: return step.toString() + ' ' + Strings.of(context).get('in_progress');
-      case 2: return step.toString() + ' ' + Strings.of(context).get('verifying');
-      case 3: return status == UserTaskStatusType.APPROVED ? step.toString() + ' ' + Strings.of(context).get('approved') : step.toString() + ' ' + Strings.of(context).get('rejected');
-      case 4: return step.toString() + ' ' + Strings.of(context).get('re_confirm');
-      case 5: return status == UserTaskStatusType.PAID ? step.toString() + ' ' + Strings.of(context).get('paid') : step.toString() + ' ' + Strings.of(context).get('canceled');
+      case 1: return step.toString() + ' ' + AppStrings.inProgress;
+      case 2: return step.toString() + ' ' + AppStrings.verifying;
+      case 3: return status == UserTaskStatusType.APPROVED ? step.toString() + ' ' + AppStrings.approved : step.toString() + ' ' + AppStrings.rejected;
+      case 4: return step.toString() + ' ' + AppStrings.reConfirm;
+      case 5: return status == UserTaskStatusType.PAID ? step.toString() + ' ' + AppStrings.paid : step.toString() + ' ' + AppStrings.canceled;
       default:
-        return Strings.of(context).get('');
+        return '';
     }
   }
 

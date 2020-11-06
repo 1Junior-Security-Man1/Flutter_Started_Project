@@ -10,8 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #localisation
   flutter_localizations:
     sdk: flutter
+  flutter_sheet_localization: ^1.0.0
 
   bloc: ^6.0.0
   flutter_bloc: ^6.0.0
@@ -38,9 +40,11 @@ dependencies:
   # storage
   flutter_secure_storage: ^3.3.5
   hive_flutter: ^0.3.1
+  shared_preferences: ^0.5.12+4
 
   # string utils
   enum_to_string: ^1.0.13
+
 
   # platform utils
   path_provider: ^1.6.24
@@ -53,6 +57,14 @@ dev_dependencies:
   hive_generator: ^0.8.2
   build_runner: ^1.10.0
 
+  app_gen:
+    path: plugins/app_gen
+
+  flutter_sheet_localization_generator: ^1.2.0
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
 
 flutter:
   uses-material-design: true
