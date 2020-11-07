@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
 import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/source/profile_data_source.dart';
@@ -14,7 +15,7 @@ class ProfileLocalRepository extends ProfileDataSource {
     } else {
       box = Hive.box(userKey);
     }
-    return User.fromJson(Map.from(box.get(userKey)??{}));
+    return User.fromJson(Map.from(box.get(userKey) ?? {}));
   }
 
   @override
@@ -23,7 +24,7 @@ class ProfileLocalRepository extends ProfileDataSource {
       var box = await Hive.openBox(userKey);
       await box.put(userKey, user.toJson());
       return true;
-    }catch(e){
+    } catch (e) {
       print(e);
       return false;
     }
@@ -34,7 +35,13 @@ class ProfileLocalRepository extends ProfileDataSource {
     throw UnimplementedError();
   }
 
-  void clear(){
+  void clear() {
     Hive.deleteBoxFromDisk(userKey);
   }
+
+  @override
+  Future<void> removeSocial(String id) async {}
+
+  @override
+  Future<void> setSocial(SocialNetworkType socialType, String profileUrl) async {}
 }

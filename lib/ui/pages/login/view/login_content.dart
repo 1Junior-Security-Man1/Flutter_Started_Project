@@ -237,10 +237,10 @@ class _LoginState extends State<Login> {
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.email(context, value),
                   decoration: WidgetsDecoration.appTextFormStyle(
-                    AppStrings.email,
+                      AppStrings.email,
                       'assets/images/email.png',
                       widget.state.email != null
-                          ? 'assets/images/input_completed.png'
+                          ? 'assets/images/complete.png'
                           : null,
                       widget.state.status == LoginStatus.email ||
                           widget.state.status == LoginStatus.emailError),
@@ -256,7 +256,7 @@ class _LoginState extends State<Login> {
                   validator: (value) =>
                       FormValidation.confirmCode(context, value, widget.state),
                   decoration: WidgetsDecoration.appTextFormStyle(
-                    AppStrings.confirmationCode,
+                      AppStrings.confirmationCode,
                       'assets/images/confirm_code_key.png',
                       null,
                       widget.state.status == LoginStatus.confirmCode ||
@@ -311,11 +311,10 @@ class _LoginState extends State<Login> {
                 },
                 textColor: AppColors.white,
                 enable: widget.state.emailIsValid,
-                text:
-                    widget.state.status == LoginStatus.email ||
-                            widget.state.status == LoginStatus.emailError
-                        ? AppStrings.getAuthorizationCode
-                        : AppStrings.confirm,
+                text: widget.state.status == LoginStatus.email ||
+                        widget.state.status == LoginStatus.emailError
+                    ? AppStrings.getAuthorizationCode
+                    : AppStrings.confirm,
                 height: Dimens.app_button_height,
               ),
             ),

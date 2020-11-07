@@ -1,16 +1,20 @@
+import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
+import 'package:bounty_hub_client/ui/pages/profile/bloc/profile_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/profile/bloc/profile_event.dart';
 import 'package:bounty_hub_client/ui/pages/profile/widgets/social_description_widgets/social_description_widget.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SocialDescriptionPostNextWidget extends StatefulWidget {
   final SocialUIModel selectedModel;
-
+  final SocialNetworkType socialNetworkType;
 
   const SocialDescriptionPostNextWidget(
-      {Key key, this.selectedModel})
+      {Key key, this.selectedModel, this.socialNetworkType})
       : super(key: key);
 
   @override
@@ -21,9 +25,11 @@ class SocialDescriptionPostNextWidget extends StatefulWidget {
 class _SocialDescriptionPostNextWidgetState
     extends State<SocialDescriptionPostNextWidget> {
   FocusNode focusText = FocusNode();
+  TextEditingController _editingController;
 
   @override
   void initState() {
+    _editingController = TextEditingController();
     focusText.addListener(() {
       setState(() {});
     });
@@ -76,6 +82,7 @@ class _SocialDescriptionPostNextWidgetState
                       : AppColors.socialDescription,
                   width: 2)),
           child: TextField(
+            controller: _editingController,
             maxLines: null,
             style: AppTextStyles.defaultText,
             focusNode: focusText,
@@ -94,7 +101,9 @@ class _SocialDescriptionPostNextWidgetState
             height: 50,
             text: AppStrings.confirm,
             width: MediaQuery.of(context).size.width / 2 - 40,
-            onPressed: () {},
+            onPressed: () {
+              BlocProvider.of<ProfileBloc>(context).add(AddSocialProfileEvent(widget.socialNetworkType,_editingController.text));
+            },
           ),
         )
       ],

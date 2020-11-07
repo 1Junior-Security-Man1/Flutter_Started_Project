@@ -1,5 +1,7 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
 import 'package:bounty_hub_client/data/models/entity/user/social.dart';
+import 'package:bounty_hub_client/ui/pages/profile/bloc/profile_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/profile/bloc/profile_event.dart';
 import 'package:bounty_hub_client/ui/pages/profile/widgets/social_description_widgets/social_description_pre_next_widget.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
@@ -7,6 +9,7 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'social_description_post_next_widget.dart';
 import 'social_ui_utils.dart';
@@ -44,7 +47,7 @@ class _SocialDescriptionWidgetState extends State<SocialDescriptionWidget> {
     final selectedModel = uIModels[widget.selectedSocial];
     return widget.social == null
         ? widget.nextBtnWasPressed
-            ? SocialDescriptionPostNextWidget(selectedModel: selectedModel)
+            ? SocialDescriptionPostNextWidget(selectedModel: selectedModel, socialNetworkType: widget.selectedSocial,)
             : SocialDescriptionPreNextWidget(
                 selectedModel: selectedModel,
                 shortNumber: widget.shortNumber,
@@ -93,7 +96,9 @@ class _SocialDescriptionWidgetState extends State<SocialDescriptionWidget> {
             fontWeight: FontWeight.w400,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          BlocProvider.of<ProfileBloc>(context).add(RemoveSocialProfileEvent(widget.social.id));
+        },
       )
     ]);
   }

@@ -29,4 +29,17 @@ class SelectSocialProfileEvent extends ProfileEvent {
   SelectSocialProfileEvent(this.socialNetworkType);
 }
 
+class AddSocialProfileEvent extends ProfileEvent {
+  final SocialNetworkType socialNetworkType;
+  final String profileUrl;
+
+  AddSocialProfileEvent(this.socialNetworkType, this.profileUrl);
+}
+
+class RemoveSocialProfileEvent extends ProfileEvent {
+  final String id;
+
+  RemoveSocialProfileEvent(this.id);
+}
+
 

@@ -54,5 +54,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       newMap[event.socialNetworkType] = true;
       yield state.copyWith(nextBtnWasPressed: newMap);
     }
+
+    if (event is AddSocialProfileEvent) {
+      await _profileRepository.setSocial(event.socialNetworkType, event.profileUrl);
+      var socials = await _profileRepository.getMySocialAccounts();
+      add(SocialsReceivedEvent(socials));
+    }
+
+    if (event is RemoveSocialProfileEvent) {
+      await _profileRepository.removeSocial(event.id);
+
+      var socials = await _profileRepository.getMySocialAccounts();
+      add(SocialsReceivedEvent(socials));
+    }
   }
 }
