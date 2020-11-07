@@ -1,5 +1,4 @@
-import 'package:bounty_hub_client/ui/pages/profile/bloc/profile_event.dart';
-import 'package:bounty_hub_client/ui/pages/profile/widgets/social_card.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/social/social_card.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/profile_bloc.dart';
+import 'bloc/profile_event.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
