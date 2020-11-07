@@ -268,7 +268,6 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
           );
         } else {
           return AppButton(
-            decoration: WidgetsDecoration.appBlueButtonStyle(),
             text: AppStrings.takeTask,
             width: MediaQuery.of(context).size.width / 2 - 20,
             height: Dimens.app_button_height,
@@ -383,7 +382,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
               child: LinearProgressIndicator(
                 backgroundColor: AppColors.primaryColor,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  AppColors.progressBackgroundColor,
+                  AppColors.stepTextColor,
                 ),
                 value: calculateLeftBudgetPercentage(state) / 100,
               ),

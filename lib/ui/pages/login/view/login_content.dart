@@ -309,9 +309,8 @@ class _LoginState extends State<Login> {
                     }
                   }
                 },
-                textColor: AppColors.buttonDefaultTextColorSecondary,
+                textColor: AppColors.white,
                 enable: widget.state.emailIsValid,
-                decoration: WidgetsDecoration.appBlueButtonStyle(),
                 text:
                     widget.state.status == LoginStatus.email ||
                             widget.state.status == LoginStatus.emailError

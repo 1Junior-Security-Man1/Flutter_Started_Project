@@ -51,7 +51,7 @@ class _SplashContentState extends State<SplashContent> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          color: AppColors.backgroundColor,
+          color: AppColors.white,
           child: Column(
             children: [
               Expanded(

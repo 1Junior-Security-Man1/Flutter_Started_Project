@@ -65,6 +65,8 @@ class AppLocalizations {
       byClicking: "by clicking the button below:",
       copiedAndCreate: "Have you copied your hashtag and created a",
       profile: "Profile",
+      your: "Your",
+      account: "account",
     ),
     Locale.fromSubtags(languageCode: "DE"): AppLocalizations_Labels(
       signInTo: "Anmelden bei",
@@ -120,6 +122,8 @@ class AppLocalizations {
       byClicking: "durch den Button unten klicken:",
       copiedAndCreate: "Haben Sie Ihren Hashtag kopiert und erstellt eine",
       profile: "Profil",
+      your: "Ihre",
+      account: "Konto",
     ),
   };
 
@@ -177,7 +181,9 @@ class AppLocalizations_Labels {
       this.thatUJust,
       this.byClicking,
       this.copiedAndCreate,
-      this.profile});
+      this.profile,
+      this.your,
+      this.account});
 
   final String signInTo;
 
@@ -272,4 +278,8 @@ class AppLocalizations_Labels {
   final String copiedAndCreate;
 
   final String profile;
+
+  final String your;
+
+  final String account;
 }

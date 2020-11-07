@@ -1,6 +1,8 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
 import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 import 'package:bounty_hub_client/ui/pages/profile/widgets/social_description_widgets/social_description_pre_next_widget.dart';
+import 'package:bounty_hub_client/ui/widgets/app_button.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -10,20 +12,18 @@ import 'social_description_post_next_widget.dart';
 import 'social_ui_utils.dart';
 
 class SocialDescriptionWidget extends StatefulWidget {
-
   SocialDescriptionWidget(
     this.selectedSocial, {
     Key key,
     this.shortNumber,
     this.nextBtnWasPressed,
-     this.social,
+    this.social,
   }) : super(key: key);
 
   final int shortNumber;
   final bool nextBtnWasPressed;
   final selectedSocial;
   final Socials social;
-
 
   @override
   _SocialDescriptionWidgetState createState() =>
@@ -56,14 +56,14 @@ class _SocialDescriptionWidgetState extends State<SocialDescriptionWidget> {
   _buildExistingSocial(SocialUIModel selectedModel) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
-        selectedModel.name,
+        '${AppStrings.your} ${selectedModel.name} ${AppStrings.account}',
         style: AppTextStyles.smallBoldTitle,
       ),
       SizedBox(
         height: 16,
       ),
       Container(
-        height: 50,
+        constraints: BoxConstraints(minHeight: 50),
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
@@ -71,10 +71,29 @@ class _SocialDescriptionWidgetState extends State<SocialDescriptionWidget> {
             borderRadius: BorderRadius.all(Radius.circular(12)),
             border:
                 Border.all(color: AppColors.socialDescriptionBorder, width: 2)),
-        child: Text(
-          widget.social?.accountUrl??'',
-          style: AppTextStyles.defaultText,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Text(
+            widget.social?.accountUrl ?? '',
+            style: AppTextStyles.defaultText,
+          ),
         ),
+      ),
+      SizedBox(
+        height: 8,
+      ),
+      AppButton(
+        width: 80,
+        withShadow: false,
+        type: AppButtonType.OUTLINE,
+        child: Text(
+          'REMOVE',
+          style: TextStyle(
+            color: AppColors.navigationWidgetsColor,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        onPressed: () {},
       )
     ]);
   }

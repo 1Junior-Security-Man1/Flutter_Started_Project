@@ -8,7 +8,6 @@ class AppButton extends StatefulWidget {
   final double height;
   final String text;
   final Function onPressed;
-  final BoxDecoration decoration;
   final Color textColor;
   final bool enable;
   final AppButtonType type;
@@ -21,7 +20,6 @@ class AppButton extends StatefulWidget {
     this.width = double.infinity,
     this.height = 39,
     this.onPressed,
-    this.decoration,
     this.text,
     this.textColor,
     this.enable = true,
@@ -62,6 +60,7 @@ class _AppButtonState extends State<AppButton> {
               )
             ]
           : null,
+      border: widget.type == AppButtonType.OUTLINE?Border.all(width: 2,color: AppColors.buttonOutline ):Border.all(color: Colors.transparent),
       borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
     );
 
@@ -86,7 +85,7 @@ class _AppButtonState extends State<AppButton> {
                             ? (widget.textColor ??
                                 (widget.type == AppButtonType.BLUE
                                     ? Colors.white
-                                    : AppColors.navigationWidgetsColor))
+                                    : widget.type == AppButtonType.OUTLINE?AppColors.buttonOutline:AppColors.navigationWidgetsColor))
                             : AppColors.inputDisabledTextColor,
                         fontWeight: FontWeight.w500,
                         fontSize: 16,

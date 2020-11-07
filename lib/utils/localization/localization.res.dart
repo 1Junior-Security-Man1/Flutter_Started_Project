@@ -113,4 +113,8 @@ class AppStrings {
           .copiedAndCreate;
   static String get profile =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext).profile;
+  static String get your =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).your;
+  static String get account =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).account;
 }

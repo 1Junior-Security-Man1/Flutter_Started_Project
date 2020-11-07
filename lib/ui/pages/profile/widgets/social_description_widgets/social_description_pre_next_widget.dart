@@ -136,10 +136,8 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
           text: selectedSocial == SocialNetworkType.FACEBOOK
             ? 'MAKE POST'
             : 'NEXT',
-          decoration: WidgetsDecoration.appBlueButtonStyle(),
           onPressed: () {
             BlocProvider.of<ProfileBloc>(context).add(OnNextBtnPresEvent(selectedSocial));
-            print('!!!!');
           },
         ),
       ),

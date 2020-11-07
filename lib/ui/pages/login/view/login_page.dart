@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.white,
       body: BlocProvider(
         create: (_) => LoginCubit(context.repository<LoginRepository>(), context.repository<UserRepository>()),
         child: LoginForm(),
