@@ -1,5 +1,6 @@
-import 'package:bounty_hub_client/ui/pages/login/login_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/login/login_state.dart';
+
+import 'package:bounty_hub_client/ui/pages/login/cubit/login_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/login/cubit/login_state.dart';
 import 'package:bounty_hub_client/ui/pages/main/view/main_page.dart';
 import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
@@ -185,11 +186,8 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    if (widget.state.status == LoginStatus.confirmCode ||
-        widget.state.status == LoginStatus.confirmCodeError) {
-      _emailTextController.text = widget.state.email;
-      _confirmCodeTextController.text = widget.state.confirmCode;
-    }
+    _emailTextController.text = widget.state.email;
+    _confirmCodeTextController.text = widget.state.confirmCode;
 
     _emailTextController.addListener(() {
       context.bloc<LoginCubit>().emailIsValid(
