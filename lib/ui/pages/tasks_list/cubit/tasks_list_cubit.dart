@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
-import 'package:bounty_hub_client/ui/pages/tasks_list/tasks_list_state.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_state.dart';
 import 'package:logger/logger.dart';
 
 class TasksListCubit extends Cubit<TasksListState> {

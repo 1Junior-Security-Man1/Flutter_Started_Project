@@ -1,7 +1,7 @@
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
-import 'package:bounty_hub_client/ui/pages/tasks_list/tasks_list_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/tasks_list/view/list/tasks_list_content.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/widgets/tasks_list_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

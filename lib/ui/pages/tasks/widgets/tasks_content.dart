@@ -1,11 +1,9 @@
-import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/my_tasks/my_tasks_page.dart';
-import 'package:bounty_hub_client/ui/pages/tasks/tasks_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/tasks/tasks_state.dart';
-import 'package:bounty_hub_client/ui/pages/tasks_list/view/tasks_list_page.dart';
+import 'package:bounty_hub_client/ui/pages/my_tasks/my_tasks_page.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_state.dart';
+import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/tasks_list/tasks_list_page.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
-import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
-import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

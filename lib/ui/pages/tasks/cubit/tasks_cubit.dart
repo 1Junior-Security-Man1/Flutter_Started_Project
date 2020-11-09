@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:bounty_hub_client/ui/pages/tasks/tasks_state.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_state.dart';
 
 class TasksCubit extends Cubit<TasksState> {
   
