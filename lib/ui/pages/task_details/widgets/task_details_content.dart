@@ -1,6 +1,6 @@
 import 'package:bounty_hub_client/network/download/image_url_provider.dart';
-import 'package:bounty_hub_client/ui/pages/task_details/task_details_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/task_details/task_details_state.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
 import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';

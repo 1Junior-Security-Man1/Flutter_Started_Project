@@ -1,5 +1,5 @@
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
-import 'package:bounty_hub_client/ui/pages/task_details/view/task_details_page.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/task_details_page.dart';
 import 'package:bounty_hub_client/ui/widgets/social_image.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';

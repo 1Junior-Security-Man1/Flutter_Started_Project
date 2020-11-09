@@ -4,7 +4,7 @@ import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/data/repositories/campaigns_repository.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
-import 'package:bounty_hub_client/ui/pages/task_details/task_details_state.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
