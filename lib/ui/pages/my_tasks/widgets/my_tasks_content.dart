@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/ui/pages/my_tasks/my_tasks_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/my_tasks/my_tasks_state.dart';
-import 'package:bounty_hub_client/ui/pages/my_tasks/view/list/my_task_item.dart';
+import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_state.dart';
+import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/my_tasks/widgets/my_task_item.dart';
 import 'package:bounty_hub_client/ui/widgets/app_list_bottom_loader.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';

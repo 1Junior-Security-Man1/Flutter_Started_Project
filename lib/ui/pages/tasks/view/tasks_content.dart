@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/ui/pages/my_tasks/view/my_tasks_page.dart';
+import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/my_tasks/my_tasks_page.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_state.dart';
 import 'package:bounty_hub_client/ui/pages/tasks_list/view/tasks_list_page.dart';
