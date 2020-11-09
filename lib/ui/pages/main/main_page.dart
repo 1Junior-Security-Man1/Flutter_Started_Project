@@ -1,5 +1,5 @@
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
-import 'package:bounty_hub_client/ui/pages/main/main_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/main/cubit/main_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/profile_page.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/view/tasks_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';

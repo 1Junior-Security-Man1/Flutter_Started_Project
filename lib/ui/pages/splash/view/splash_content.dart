@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/login/login_page.dart';
-import 'package:bounty_hub_client/ui/pages/main/view/main_page.dart';
+import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/main/main_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 

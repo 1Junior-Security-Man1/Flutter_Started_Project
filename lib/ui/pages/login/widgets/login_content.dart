@@ -1,7 +1,7 @@
 
 import 'package:bounty_hub_client/ui/pages/login/cubit/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/cubit/login_state.dart';
-import 'package:bounty_hub_client/ui/pages/main/view/main_page.dart';
+import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/main/main_page.dart';
 import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/app_check_box.dart';
