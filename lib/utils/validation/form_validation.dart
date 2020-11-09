@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class FormValidation {
 
+  //todo избавиться от контекста, невозможно покрыть юнит тестами. Также хотел валидировать в кубите и менять стейт
   static String email(BuildContext context, String value) {
     if (!value.contains('@'))
       return AppStrings.invalidEmail;

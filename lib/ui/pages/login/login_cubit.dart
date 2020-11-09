@@ -64,4 +64,8 @@ class LoginCubit extends Cubit<LoginState> {
       }
     });
   }
+
+  void emailIsValid(value) {
+    emit(state.copyWith(emailIsValid: value));
+  }
 }

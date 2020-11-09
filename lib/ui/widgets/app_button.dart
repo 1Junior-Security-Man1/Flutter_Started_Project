@@ -1,58 +1,110 @@
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
-class AppButton extends StatefulWidget {
+enum AppButtonType { WHITE, BLUE, OUTLINE }
 
+class AppButton extends StatefulWidget {
   final double width;
   final double height;
   final String text;
   final Function onPressed;
-  final BoxDecoration decoration;
   final Color textColor;
+  final bool enable;
+  final AppButtonType type;
+  final bool withShadow;
+  final Widget child;
+  final BorderRadius borderRadius;
 
-  const AppButton(
-      {Key key,
-        this.width = double.infinity,
-        this.height,
-        this.onPressed,
-        this.decoration,
-        this.text,
-        this.textColor,
-      })
-      : super(key: key);
+  const AppButton({
+    Key key,
+    this.width = double.infinity,
+    this.height = 39,
+    this.onPressed,
+    this.text,
+    this.textColor,
+    this.enable = true,
+    this.type = AppButtonType.BLUE,
+    this.withShadow = true,
+    this.child,
+    this.borderRadius,
+  })  : assert(
+            (child != null && text == null) || (child == null && text != null)),
+        super(key: key);
 
   @override
   _AppButtonState createState() => _AppButtonState();
 }
 
 class _AppButtonState extends State<AppButton> {
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.width,
-      height: widget.height,
-      child: RaisedButton(
-        onPressed: widget.onPressed,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-        padding: const EdgeInsets.all(0.0),
-        child: Ink(
-          decoration: widget.decoration,
-          child: Container(
-            constraints: const BoxConstraints(minWidth: 88.0, minHeight: 36.0), // min sizes for Material buttons
+    BoxDecoration decoration = BoxDecoration(
+      color: widget.type != AppButtonType.BLUE ? Colors.white : null,
+      gradient: widget.type == AppButtonType.BLUE
+          ? LinearGradient(
+              colors: <Color>[
+                AppColors.primaryColor,
+                AppColors.socialBorderColor
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            )
+          : null,
+      boxShadow: widget.withShadow
+          ? [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 7,
+                blurRadius: 7,
+                offset: Offset(2, 4),
+              )
+            ]
+          : null,
+      border: widget.type == AppButtonType.OUTLINE?Border.all(width: 2,color: AppColors.buttonOutline ):Border.all(color: Colors.transparent),
+      borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
+    );
+
+    return Stack(
+      children: [
+        Container(
+          constraints: const BoxConstraints(minWidth: 50.0, minHeight: 42.0),
+          alignment: Alignment.center,
+          decoration: decoration,
+          width: widget.width,
+          height: widget.height,
+          child: Stack(
             alignment: Alignment.center,
-            child: Text(
-              widget.text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: widget.textColor == null ? AppColors.buttonDefaultTextColor : widget.textColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-              ),
-            ),
+            children: [
+              widget.child != null
+                  ? widget.child
+                  : Text(
+                      widget.text,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: widget.enable
+                            ? (widget.textColor ??
+                                (widget.type == AppButtonType.BLUE
+                                    ? Colors.white
+                                    : widget.type == AppButtonType.OUTLINE?AppColors.buttonOutline:AppColors.navigationWidgetsColor))
+                            : AppColors.inputDisabledTextColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
+                    ),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: widget.enable ? widget.onPressed : () {},
+                  borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
+                  splashColor: widget.type==AppButtonType.BLUE?Colors.white24:AppColors.socialBorderColor.withOpacity(0.2),
+                  highlightColor: widget.type==AppButtonType.BLUE?Colors.white24:AppColors.socialBorderColor.withOpacity(0.2),
+
+                ),
+              )
+            ],
           ),
         ),
-      ),
+      ],
     );
   }
 }

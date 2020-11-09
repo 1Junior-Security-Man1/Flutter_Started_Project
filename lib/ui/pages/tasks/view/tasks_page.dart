@@ -2,12 +2,11 @@ import 'package:bounty_hub_client/ui/pages/tasks/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/view/tasks_content.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
-import 'package:bounty_hub_client/utils/ui/dimens.dart';
+import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TasksPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,11 +43,7 @@ class TasksPage extends StatelessWidget {
       ),
       title: Text(
         AppStrings.tasksList,
-        style: TextStyle(
-          color: AppColors.appBarTextColor,
-          fontWeight: FontWeight.w600,
-          fontSize: Dimens.app_bar_text_size,
-        ),
+        style: AppTextStyles.titleTextStyle,
       ),
       actions: <Widget>[
         IconButton(

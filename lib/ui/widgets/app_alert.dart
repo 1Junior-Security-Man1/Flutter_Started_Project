@@ -45,7 +45,7 @@ class AnimatedAlertBuilderState extends State<AnimatedAlertBuilder> with SingleT
             width: double.infinity,
             margin: EdgeInsets.all(Dimens.content_padding),
             decoration: ShapeDecoration(
-                color: AppColors.errorBackgroundColor,
+                color: AppColors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0))),
             child: Padding(

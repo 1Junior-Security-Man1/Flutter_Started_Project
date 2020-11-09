@@ -37,6 +37,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
 
   @override
   Widget build(BuildContext context) {
+    //todo использовать BlocConsumer
     return BlocListener<TaskDetailsCubit, TaskDetailsState>(
       listener: (context, state) {
         if (state.userTaskStatus == UserTaskStatus.take_failure) {
@@ -267,11 +268,9 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
           );
         } else {
           return AppButton(
-            decoration: WidgetsDecoration.appButtonStyle(),
             text: AppStrings.takeTask,
             width: MediaQuery.of(context).size.width / 2 - 20,
             height: Dimens.app_button_height,
-            textColor: Colors.white,
             onPressed: () {
               _cubit.onTakeTaskClick();
             },
@@ -383,7 +382,7 @@ class TaskDetailsContentState extends State<TaskDetailsContent> {
               child: LinearProgressIndicator(
                 backgroundColor: AppColors.primaryColor,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  AppColors.progressBackgroundColor,
+                  AppColors.stepTextColor,
                 ),
                 value: calculateLeftBudgetPercentage(state) / 100,
               ),

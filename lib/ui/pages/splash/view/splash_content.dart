@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
 import 'package:bounty_hub_client/ui/pages/login/view/login_page.dart';
 import 'package:bounty_hub_client/ui/pages/main/view/main_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
+import 'package:flutter/material.dart';
 
 class SplashContent extends StatefulWidget {
   final bool authorized;
@@ -50,7 +51,7 @@ class _SplashContentState extends State<SplashContent> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          color: AppColors.backgroundColor,
+          color: AppColors.white,
           child: Column(
             children: [
               Expanded(

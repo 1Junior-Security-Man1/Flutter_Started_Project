@@ -5,7 +5,7 @@ import 'package:bounty_hub_client/data/source/user_data_source.dart';
 class UserRepository extends UserDataSource {
 
   @override
-  Future<String> getAccessToken() {
+  Future<String> getAccessToken() async{
     return AppData.instance.getAccessToken();
   }
 

@@ -3,8 +3,8 @@ import 'package:bounty_hub_client/data/models/api/response/user_tasks_response.d
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:bounty_hub_client/data/source/task_data_source.dart';
-import 'package:bounty_hub_client/network/server_api.dart';
 import 'package:bounty_hub_client/network/constants.dart';
+import 'package:bounty_hub_client/network/server_api.dart';
 
 class TaskRepository extends TaskDataSource {
 

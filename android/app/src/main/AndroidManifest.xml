@@ -8,7 +8,6 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:name="io.flutter.app.FlutterApplication"
         android:label="bounty_hub_client"
         android:icon="@mipmap/ic_launcher">
         <activity

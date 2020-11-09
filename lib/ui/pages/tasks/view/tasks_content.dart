@@ -42,8 +42,8 @@ class _TasksContentState extends State<TasksContent> {
                       child: AppButton(
                         height: 42,
                         text: 'All Tasks',
-                        decoration: state.currentTab == 0 ? WidgetsDecoration.appButtonStyle() : WidgetsDecoration.appDisabledButtonStyle(),
-                        textColor: state.currentTab == 0 ? AppColors.buttonDefaultTextColor : AppColors.itemTextColor,
+                        withShadow: state.currentTab == 0,
+                        type: state.currentTab == 0?AppButtonType.BLUE:AppButtonType.WHITE,
                         onPressed: () {
                           _cubit.onTabClick(0);
                         },
@@ -54,8 +54,8 @@ class _TasksContentState extends State<TasksContent> {
                       child: AppButton(
                         height: 42,
                         text: 'My To Do',
-                        textColor: state.currentTab == 1 ? AppColors.buttonDefaultTextColor : AppColors.itemTextColor,
-                        decoration: state.currentTab == 1 ? WidgetsDecoration.appButtonStyle() : WidgetsDecoration.appDisabledButtonStyle(),
+                        withShadow: state.currentTab == 1,
+                        type: state.currentTab == 1?AppButtonType.BLUE:AppButtonType.WHITE,
                         onPressed: () {
                           _cubit.onTabClick(1);
                         },
