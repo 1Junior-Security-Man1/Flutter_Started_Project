@@ -2,7 +2,7 @@ import 'package:bounty_hub_client/data/repositories/campaigns_repository.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_details_content.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_details.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/validation/string_utils.dart';
@@ -26,7 +26,7 @@ class TaskDetailsPage extends StatelessWidget {
             context.repository<CampaignRepository>(),
             context.repository<UserRepository>(),
         ),
-        child: TaskDetailsContent(taskId, title),
+        child: TaskDetailsWidget(taskId, title),
       ),
     );
   }

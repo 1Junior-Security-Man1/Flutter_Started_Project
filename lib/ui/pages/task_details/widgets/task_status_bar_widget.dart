@@ -4,7 +4,7 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
 
-class TaskStatusBar extends StatefulWidget {
+class TaskStatusBarWidget extends StatefulWidget {
 
   final double width;
   final double height;
@@ -12,7 +12,7 @@ class TaskStatusBar extends StatefulWidget {
   final int approveDate;
   final int confirmationDaysCount;
 
-  const TaskStatusBar({Key key,
+  const TaskStatusBarWidget({Key key,
     this.width = double.infinity,
     this.height = Dimens.app_button_height,
     this.status = UserTaskStatusType.IN_PROGRESS,
@@ -21,10 +21,10 @@ class TaskStatusBar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TaskStatusBarState createState() => _TaskStatusBarState();
+  _TaskStatusBarWidgetState createState() => _TaskStatusBarWidgetState();
 }
 
-class _TaskStatusBarState extends State<TaskStatusBar> {
+class _TaskStatusBarWidgetState extends State<TaskStatusBarWidget> {
 
   @override
   Widget build(BuildContext context) {
