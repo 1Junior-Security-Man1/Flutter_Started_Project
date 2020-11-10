@@ -21,12 +21,12 @@ abstract class RestClient {
     Dio dio = Dio();
 
     dio.interceptors.add(PrettyDioLogger(
-        requestHeader: false,
-        requestBody: false,
-        responseBody: false,
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
         responseHeader: false,
         error: true,
-        compact: false,
+        compact: true,
         maxWidth: 90));
 
     dio.interceptors.add(OauthInterceptor());
@@ -72,6 +72,9 @@ abstract class RestClient {
 
   @GET("/users/current")
   Future<User> getUser();
+
+  @PUT("/users/{userId}")
+  Future<void> putUser(@Path('userId') String userId, @Body() User updatedUser);
 
   @GET("/users/my-social-accounts")
   Future<List<Socials>> getMySocialAccounts();

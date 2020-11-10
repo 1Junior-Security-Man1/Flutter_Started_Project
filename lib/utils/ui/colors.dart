@@ -17,6 +17,7 @@ abstract class AppColors {
   static const Color greyContentColor = Color(0xff9E9BB7);
   static const Color progressTextColor = Color(0xFFB5BBD3);
   static const Color textColor = Color(0xFFa9a6bf);
+  static const Color hint = Color(0xff8898aa);
   static const Color inputDisabledTextColor = Color(0xFFcccccc);
   static const Color card = Color(0xFFFFFFFF);
   static const Color socialDescription = Color(0xffF1F4FC);
@@ -26,6 +27,7 @@ abstract class AppColors {
   static const Color navigationBackgroundColor = Color(0xFFFDFEFF);
   static const Color white = Color(0xFFFFFFFF);
   static const Color textFormBorderColor = Color(0xFFe9e9fa);
+  static const Color editProfileBorder = Color(0xffdee2e6);
   static const Color itemTextColor = Color(0xFF484848);
   static const Color currencyTextColor = Color(0xFF4FD69C);
   static const Color errorTextColor = Color(0xFFbf3938);

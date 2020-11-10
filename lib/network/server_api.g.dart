@@ -215,6 +215,25 @@ class _RestClient implements RestClient {
   }
 
   @override
+  putUser(userId, updatedUser) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(updatedUser, 'updatedUser');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(updatedUser?.toJson() ?? <String, dynamic>{});
+    await _dio.request<void>('/users/$userId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PUT',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    return Future.value(null);
+  }
+
+  @override
   getMySocialAccounts() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

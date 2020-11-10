@@ -35,6 +35,7 @@ class ProfileRepository extends ProfileDataSource {
 
   @override
   Future<bool> putUser(User user) async {
-    return true;
+     await client.putUser(user.id, user);
+     return true;
   }
 }

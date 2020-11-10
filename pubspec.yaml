@@ -52,6 +52,8 @@ dependencies:
   path_provider: ^1.6.24
 
   cupertino_icons: ^1.0.0
+  country_code_picker: ^1.6.2
+
 
 dev_dependencies:
   flutter_test:

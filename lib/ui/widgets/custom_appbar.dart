@@ -10,14 +10,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onLeftIconClick;
   final VoidCallback onRightIconClick;
 
-  const CustomAppBar(
-      {Key key,
-      this.leftIcon,
-      this.rightIcon,
-      this.title,
-      this.onLeftIconClick,
-      this.onRightIconClick})
-      : super(key: key);
+  const CustomAppBar({Key key,
+    this.leftIcon,
+    this.rightIcon,
+    this.title,
+    this.onLeftIconClick,
+    this.onRightIconClick})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Container(
           child: Stack(
             children: [
+              leftIcon == null ? SizedBox(width: 26,) :
               IconButton(
                 icon: Image.asset(
                   leftIcon,
@@ -45,6 +45,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: AppTextStyles.titleTextStyle,
       ),
       actions: <Widget>[
+        rightIcon == null ? SizedBox(width: 26,) :
         IconButton(
           icon: Image.asset(
             rightIcon,
