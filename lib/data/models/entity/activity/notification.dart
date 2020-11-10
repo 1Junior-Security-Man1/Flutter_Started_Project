@@ -8,7 +8,7 @@ class Activity {
   bool read;
   bool receive;
   String content;
-  dynamic action;
+  String action;
   Extra extra;
   int created;
   int updated;

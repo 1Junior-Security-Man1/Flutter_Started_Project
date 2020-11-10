@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/data/models/entity/activity/notification.dart';
 import 'package:bounty_hub_client/ui/pages/activity/cubit/activity_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -51,7 +52,8 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                   var date = formatter.format(
                       DateTime.fromMillisecondsSinceEpoch(
                           state.activities[index].updated));
-                  return _buildActivityItem(context, state, index, date);
+                  return _buildActivityItem(
+                      context, state.activities[index], date);
                 },
                 physics: BouncingScrollPhysics(),
                 itemCount: state.activities.length,
@@ -64,48 +66,27 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
   }
 
   Widget _buildActivityItem(
-      BuildContext context, ActivityState state, int index, String date) {
+      BuildContext context, Activity activity, String date) {
     return Stack(
+      alignment: Alignment.centerLeft,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 10, top: 10),
+          padding: const EdgeInsets.only(
+            left: 20,
+          ),
           child: Container(
-            height: 90,
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    right: 15,
-                  ),
-                  child: Container(
-                    height: 45,
-                    width: 45,
-                    decoration: WidgetsDecoration.appBlueButtonStyle(),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width - 219,
-                  child: Html(
-                    renderNewlines: true,
-                    data: state.activities[index].content,
-                    defaultTextStyle: AppTextStyles.defaultText
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 12),
-                    onLinkTap: (link) {},
-                  ),
-                ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: Container(
-                    child: Text(
-                      date,
-                      style: AppTextStyles.defaultThinText,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            height: 45,
+            width: 45,
+            decoration: WidgetsDecoration.appBlueButtonStyle(),
+            child: Center(
+                child: Image.asset(
+              activity.action == 'ITEM_RECONFIRMATION'
+                  ? 'assets/images/menu_item_tasks_active.png'
+                  : 'assets/images/menu_item_notification_active.png',
+              color: Colors.white,
+              height: 24,
+              width: 24,
+            )),
           ),
         ),
         Material(
@@ -113,13 +94,50 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           child: InkWell(
             highlightColor: Colors.black12,
             splashColor: Colors.black12,
-            onTap: () {},
-            child: Container(
-              height: 105,
-              width: MediaQuery.of(context).size.width,
+            onTap: () {
+              //TODO роут по уведомлению
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10, top: 10),
+              child: Container(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 15,
+                      ),
+                      child: Container(
+                        height: 45,
+                        width: 45,
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width - 219,
+                      child: Html(
+                        renderNewlines: true,
+                        data: activity.content,
+                        defaultTextStyle: AppTextStyles.defaultText.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 12),
+                        onLinkTap: (link) {},
+                      ),
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Container(
+                        child: Text(
+                          date,
+                          style: AppTextStyles.defaultThinText,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
