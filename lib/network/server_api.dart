@@ -70,8 +70,8 @@ abstract class RestClient {
   Future<UserTask> takeTask(
       @Path('userId') String userId, @Path('taskId') String taskId);
 
-  @GET("/users/current")
-  Future<User> getUser();
+  @GET("/users/{userId}")
+  Future<User> getUser({@Path('userId')String userId});
 
   @PUT("/users/{userId}")
   Future<void> putUser(@Path('userId') String userId, @Body() User updatedUser);

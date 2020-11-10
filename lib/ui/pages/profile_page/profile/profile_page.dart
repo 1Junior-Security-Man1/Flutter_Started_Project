@@ -1,5 +1,6 @@
 import 'package:bounty_hub_client/ui/pages/profile_page/edit_profile/cubit/edit_profile_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/edit_profile/edit_profile_page.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/lvl_card_widget.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/social/social_card.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -55,6 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               height: 20,
             ),
+            LvlCardWidget(),
             SocialCardWidget()
           ],
         ),

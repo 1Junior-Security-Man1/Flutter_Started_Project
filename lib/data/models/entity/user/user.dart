@@ -2,6 +2,8 @@ import 'package:bounty_hub_client/data/models/entity/user/balance.dart';
 import 'package:bounty_hub_client/data/models/entity/user/roles.dart';
 import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 
+import 'level.dart';
+
 class User {
   String id;
   String userBusinessEntityType;
@@ -40,7 +42,7 @@ class User {
   String shortId;
   int shortNumber;
   int experiencePoints;
-  String userLevel; // todo type?
+  UserLevel userLevel; // todo type?
   List<Socials> socials;
   String priceForPost; // todo type?
   double smv;
@@ -157,7 +159,10 @@ class User {
     shortId = json['shortId'];
     shortNumber = json['shortNumber'];
     experiencePoints = json['experiencePoints'];
-    userLevel = json['userLevel'];
+    print(json['userLevel']);
+    if (json['userLevel'] != null) {
+      userLevel = UserLevel.fromJson(Map.from(json['userLevel']));
+    }
     if (json['socials'] != null) {
       socials = new List<Socials>();
       json['socials'].forEach((v) {
@@ -232,7 +237,7 @@ class User {
     data['shortId'] = this.shortId;
     data['shortNumber'] = this.shortNumber;
     data['experiencePoints'] = this.experiencePoints;
-    data['userLevel'] = this.userLevel;
+    data['userLevel'] = this.userLevel.toJson();
     if (this.socials != null) {
       data['socials'] = this.socials.map((v) => v.toJson()).toList();
     }
@@ -315,5 +320,5 @@ class User {
       roleType: this.roleType,
       moderator: this.moderator,
     );
-    }
+  }
 }

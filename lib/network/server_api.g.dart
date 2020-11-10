@@ -197,12 +197,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getUser() async {
+  getUser({userId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/users/current',
+        '/users/$userId',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
