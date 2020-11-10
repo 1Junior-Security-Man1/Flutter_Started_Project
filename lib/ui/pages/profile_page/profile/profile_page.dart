@@ -41,6 +41,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       create: (context) => EditProfileCubit(_bloc.state.user.copy()),
                       child: EditProfilePage())));
 
+         _bloc.add(FetchProfileEvent());
+
 
         },
         onRightIconClick: () {

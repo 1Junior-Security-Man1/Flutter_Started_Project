@@ -294,17 +294,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: new Builder(
                   builder: (context) => InkWell(
                     onTap: () async {
-                      user.birthday = (await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.parse(
+                      await showCupertinoModalPopup(
+                          builder: (context) => Container(
+                                height: 250,
+                                color: Colors.white,
+                                child: CupertinoDatePicker(
+                                  onDateTimeChanged: (DateTime value) {
+                                    user.birthday = value
+                                            ?.toIso8601String()
+                                            ?.split('T')[0] ??
+                                        user.birthday;
+                                    setState(() {
+
+                                    });
+                                  },
+                                  mode: CupertinoDatePickerMode.date,
+                                  initialDateTime: DateTime.parse(
                                       '${user.birthday}T00:00:00' ??
                                           '1970-01-01'),
-                                  firstDate:
-                                      DateTime.parse('1900-01-01T00:00:00'),
-                                  lastDate: DateTime.now()))
-                              ?.toIso8601String()
-                              ?.split('T')[0] ??
-                          user.birthday;
+                                ),
+                              ),
+                          context: context);
                     },
                     child: Container(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(12),
