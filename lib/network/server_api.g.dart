@@ -288,4 +288,24 @@ class _RestClient implements RestClient {
         data: _data);
     return Future.value(null);
   }
+
+  @override
+  getActivities(page, size) async {
+    ArgumentError.checkNotNull(page, 'page');
+    ArgumentError.checkNotNull(size, 'size');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{'page': page, 'size': size};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/notifications/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = NotificationResponse.fromJson(_result.data);
+    return Future.value(value);
+  }
 }

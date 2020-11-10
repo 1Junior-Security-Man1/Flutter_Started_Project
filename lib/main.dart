@@ -1,8 +1,10 @@
+import 'package:bounty_hub_client/data/repositories/activities_repository.dart';
 import 'package:bounty_hub_client/data/repositories/campaigns_repository.dart';
 import 'package:bounty_hub_client/data/repositories/login_repository.dart';
 import 'package:bounty_hub_client/data/repositories/profile_repository.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
+import 'package:bounty_hub_client/ui/pages/activity/cubit/activity_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +44,8 @@ void main() {
             create: (context) => ProfileBloc(
                 ProfileRepository(client), ProfileLocalRepository())),
         BlocProvider(create: (context) => LocaleBloc()),
+        BlocProvider(
+            create: (context) => ActivityCubit(ActivitiesRepository(client))),
 
         // provide App blocs here
       ], child: App())));

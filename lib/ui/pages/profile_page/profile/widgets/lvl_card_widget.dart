@@ -26,54 +26,60 @@ class LvlCardWidget extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Container(
-                        height: 70,
-                        width: 70,
-                        child: ClipPolygon(
-                          sides: 6,
-                          borderRadius: 12,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: <Color>[
-                                  AppColors.primaryColor,
-                                  AppColors.accentColor
-                                ].reversed.toList(),
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Container(
+                          height: 70,
+                          width: 70,
+                          child: ClipPolygon(
+                            sides: 6,
+                            borderRadius: 12,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: <Color>[
+                                    AppColors.primaryColor,
+                                    AppColors.accentColor
+                                  ].reversed.toList(),
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
                               ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Center(
-                                  child: Text(
-                                    state.user.userLevel.name??'0',
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      state.user.userLevel.name??'0',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                  Center(
+                                      child: Text(
+                                    'level',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 20),
-                                  ),
-                                ),
-                                Center(
-                                    child: Text(
-                                  'level',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 10),
-                                )),
-                              ],
+                                        fontSize: 10),
+                                  )),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                        Text(state.user.name,style:AppTextStyles.titleTextStyle),
-                        Text(state.user.email,style:AppTextStyles.titleTextStyle.copyWith(fontSize: 14)),
-                      ],)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                          Text(state.user.name,style:AppTextStyles.titleTextStyle,overflow: TextOverflow.ellipsis,),
+                          Text(state.user.email,style:AppTextStyles.titleTextStyle.copyWith(fontSize: 14),overflow: TextOverflow.ellipsis,),
+                        ],),
+                      )
                     ],
                   ),
                 ),

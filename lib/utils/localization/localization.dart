@@ -14,6 +14,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   Future<AppLocalizations> load(Locale locale) {
+    print('@@@@@ ${locale.toString()}');
     return SynchronousFuture<AppLocalizations>(AppLocalizations(
         Locale.fromSubtags(languageCode: locale.languageCode.toUpperCase())));
   }

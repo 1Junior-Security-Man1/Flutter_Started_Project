@@ -3,6 +3,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/edit_profile/cubit/edit_
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
+import 'package:bounty_hub_client/utils/localization/bloc/locale_event.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -76,7 +77,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
   }
 
-  Padding _buildSaveButton(BuildContext context) {
+  Padding _buildSaveButton(
+    BuildContext context,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
@@ -85,6 +88,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
           text: 'SAVE',
           onPressed: () async {
             if (await BlocProvider.of<EditProfileCubit>(context).updateUser()) {
+              BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
+                countryCode: BlocProvider.of<EditProfileCubit>(context)
+                    .state
+                    .user
+                    .language
+                    .split('_')[1],
+                languageCode: BlocProvider.of<EditProfileCubit>(context)
+                    .state
+                    .user
+                    .language
+                    .split('_')[0],
+              ));
               Navigator.pop(context);
             }
           },

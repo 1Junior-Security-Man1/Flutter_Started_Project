@@ -54,6 +54,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   country_code_picker: ^1.6.2
   polygon_clipper: ^1.0.2
+  flutter_html: ^0.8.2
 
 dev_dependencies:
   flutter_test:

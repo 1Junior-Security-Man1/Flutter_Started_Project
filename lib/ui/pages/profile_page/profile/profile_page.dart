@@ -22,9 +22,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     _bloc = context.bloc<ProfileBloc>();
-    Future.microtask(() {
-      _bloc.add(FetchProfileEvent());
-    });
     super.initState();
   }
 
