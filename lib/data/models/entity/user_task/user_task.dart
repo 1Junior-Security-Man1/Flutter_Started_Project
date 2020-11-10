@@ -1,5 +1,4 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
-import 'package:bounty_hub_client/data/enums/task_validation_type.dart';
 import 'package:bounty_hub_client/data/enums/user_task_status.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task_category.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task_payload.dart';
@@ -26,8 +25,8 @@ class UserTask {
   String achievementType;
   String checkLink;
   dynamic imageId;
+  int lastModifiedDate;
   UserTaskPayload payload;
-  dynamic confirmationDaysCount;
   bool microItem;
 
   UserTask.fromJson(dynamic json) {
@@ -50,6 +49,7 @@ class UserTask {
     achievementType = json["achievementType"];
     checkLink = json["checkLink"];
     imageId = json["imageId"];
+    lastModifiedDate = json["lastModifiedDate"];
     payload = json["payload"] != null ? UserTaskPayload.fromJson(json["payload"]) : null;
     if (json["categories"] != null) {
       categories = [];
@@ -57,7 +57,6 @@ class UserTask {
         categories.add(Category.fromJson(v));
       });
     }
-    confirmationDaysCount = json["confirmationDaysCount"];
     microItem = json["microItem"];
   }
 
@@ -82,8 +81,8 @@ class UserTask {
     map["achievementType"] = achievementType;
     map["checkLink"] = checkLink;
     map["imageId"] = imageId;
-    map["confirmationDaysCount"] = confirmationDaysCount;
     map["microItem"] = microItem;
+    map["lastModifiedDate"] = lastModifiedDate;
     if (categories != null) {
       map["categories"] = categories.map((v) => v.toJson()).toList();
     }
@@ -98,17 +97,5 @@ class UserTask {
   SocialNetworkType getSocialNetwork() {
     return categories != null && categories.isNotEmpty && categories.first.socialNetworkType != null
         ? EnumToString.fromString(SocialNetworkType.values, categories.first.socialNetworkType.toUpperCase()) : SocialNetworkType.OTHER;
-  }
-
-  TaskValidationType getTaskValidationType() {
-    switch(getSocialNetwork()) {
-      // Tasks are checked by bounty Bounty Validator
-      case SocialNetworkType.MEDIUM:
-      case SocialNetworkType.YOUTUBE:
-        return TaskValidationType.AUTO_CHECK;
-      default:
-        // Tasks are checked by Bounty Parser
-        return TaskValidationType.SOCIAL_PARSER;
-    }
   }
 }

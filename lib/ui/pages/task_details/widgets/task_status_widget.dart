@@ -21,7 +21,7 @@ class TaskStatusWidget extends StatelessWidget {
             return TaskStatusBarWidget(
               status: state.userTask.getTaskStatus(),
               approveDate: checkNullInt(state.userTask.approveDate),
-              confirmationDaysCount: checkNullInt(state.userTask.confirmationDaysCount, defaultValue: 1),
+              confirmationDaysCount: checkNullInt(state.task.confirmationDaysCount, defaultValue: 1),
               height: Dimens.app_button_height,
             );
           } else {

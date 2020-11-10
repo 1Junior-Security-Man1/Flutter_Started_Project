@@ -45,7 +45,6 @@ dependencies:
   # string utils
   enum_to_string: ^1.0.13
 
-
   # platform utils
   path_provider: ^1.6.24
 
