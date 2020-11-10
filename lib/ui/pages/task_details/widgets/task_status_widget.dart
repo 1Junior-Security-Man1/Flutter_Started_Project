@@ -17,7 +17,7 @@ class TaskStatusWidget extends StatelessWidget {
         builder: (context, state) {
           if(state.userTaskStatus == UserTaskStatus.loading) {
             return Loading();
-          } else if(state.userTaskStatus == UserTaskStatus.success && state.userTask != null) {
+          } else if((state.userTaskStatus == UserTaskStatus.success || state.userTaskStatus == UserTaskStatus.take_success) && state.userTask != null) {
             return TaskStatusBarWidget(
               status: state.userTask.getTaskStatus(),
               approveDate: checkNullInt(state.userTask.approveDate),
@@ -37,5 +37,4 @@ class TaskStatusWidget extends StatelessWidget {
         }
     );
   }
-
 }

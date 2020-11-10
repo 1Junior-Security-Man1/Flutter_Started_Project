@@ -1,5 +1,5 @@
 import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
-import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/splash/splash_page.dart';
+import 'package:bounty_hub_client/ui/pages/splash/splash_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +7,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:path_provider/path_provider.dart';
-
 import 'bloc/auth/authorization_bloc.dart';
 import 'data/repositories/preferences_local_repository.dart';
 import 'utils/localization/bloc/locale_bloc.dart';
