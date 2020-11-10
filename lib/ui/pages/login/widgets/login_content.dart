@@ -1,4 +1,3 @@
-
 import 'package:bounty_hub_client/ui/pages/login/cubit/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/cubit/login_state.dart';
 import 'package:bounty_hub_client/ui/pages/main/main_page.dart';

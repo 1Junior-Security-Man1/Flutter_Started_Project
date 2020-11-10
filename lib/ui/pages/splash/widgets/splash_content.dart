@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bounty_hub_client/ui/pages/login/login_page.dart';
 import 'package:bounty_hub_client/ui/pages/main/main_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';

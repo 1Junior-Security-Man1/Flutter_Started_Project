@@ -7,7 +7,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:path_provider/path_provider.dart';
-
 import 'bloc/auth/authorization_bloc.dart';
 import 'data/repositories/preferences_local_repository.dart';
 import 'utils/localization/bloc/locale_bloc.dart';

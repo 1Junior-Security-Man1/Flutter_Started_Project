@@ -1,4 +1,5 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
+import 'package:bounty_hub_client/data/enums/task_validation_type.dart';
 import 'package:bounty_hub_client/data/enums/user_task_status.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task_category.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task_payload.dart';
@@ -97,5 +98,17 @@ class UserTask {
   SocialNetworkType getSocialNetwork() {
     return categories != null && categories.isNotEmpty && categories.first.socialNetworkType != null
         ? EnumToString.fromString(SocialNetworkType.values, categories.first.socialNetworkType.toUpperCase()) : SocialNetworkType.OTHER;
+  }
+
+  TaskValidationType getTaskValidationType() {
+    switch(getSocialNetwork()) {
+      // Tasks are checked by bounty Bounty Validator
+      case SocialNetworkType.MEDIUM:
+      case SocialNetworkType.YOUTUBE:
+        return TaskValidationType.AUTO_CHECK;
+      default:
+        // Tasks are checked by Bounty Parser
+        return TaskValidationType.SOCIAL_PARSER;
+    }
   }
 }
