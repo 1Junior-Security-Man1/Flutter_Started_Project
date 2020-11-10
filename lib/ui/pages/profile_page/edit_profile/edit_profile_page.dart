@@ -4,12 +4,13 @@ import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
-import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'widgets/edit_profile_form.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -66,26 +67,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 height: 20,
               ),
               _buildCountryAndBirthday(user),
-              ..._buildLanguage(user),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Center(
-                  child: AppButton(
-                    width: MediaQuery.of(context).size.width/2-20,
-                    text: 'SAVE',
-                    onPressed: () async {
-                      if(await  BlocProvider.of<EditProfileCubit>(context).updateUser()){
-                        Navigator.pop(context);
-                      }
-                    },
-                  ),
-                ),
-              )
+              ..._buildLanguageField(user),
+              _buildSaveButton(context)
             ],
           ),
         ),
       );
     });
+  }
+
+  Padding _buildSaveButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Center(
+        child: AppButton(
+          width: MediaQuery.of(context).size.width / 2 - 20,
+          text: 'SAVE',
+          onPressed: () async {
+            if (await BlocProvider.of<EditProfileCubit>(context).updateUser()) {
+              Navigator.pop(context);
+            }
+          },
+        ),
+      ),
+    );
   }
 
   Row _buildNameAndGanderField(User user) {
@@ -98,8 +103,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SizedBox(
               height: 4,
             ),
-            _editForm(
-                TextField(
+            EditProfileFormWidget(
+                child: TextField(
                   controller: nameEditController,
                   focusNode: nameFocus,
                   decoration: InputDecoration(
@@ -121,8 +126,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SizedBox(
               height: 4,
             ),
-            _editForm(
-                DropdownButton<String>(
+            EditProfileFormWidget(
+                child: DropdownButton<String>(
                   isExpanded: true,
                   underline: Container(),
                   focusNode: genderFocus,
@@ -161,8 +166,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       SizedBox(
         height: 4,
       ),
-      _editForm(
-        Padding(
+      EditProfileFormWidget(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Text(
             user.email,
@@ -173,7 +178,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     ];
   }
 
-  List<Widget> _buildLanguage(User user) {
+  List<Widget> _buildLanguageField(User user) {
     return [
       SizedBox(
         height: 20,
@@ -182,8 +187,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       SizedBox(
         height: 4,
       ),
-      _editForm(
-        DropdownButton<String>(
+      EditProfileFormWidget(
+        child: DropdownButton<String>(
           isExpanded: true,
           underline: Container(),
           value: LocaleBloc.localeName[Locale.fromSubtags(
@@ -230,8 +235,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SizedBox(
               height: 4,
             ),
-            _editForm(
-              Padding(
+            EditProfileFormWidget(
+              child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: CountryCodePicker(
                   showFlag: false,
@@ -247,73 +252,56 @@ class _EditProfilePageState extends State<EditProfilePage> {
         SizedBox(
           width: 20,
         ),
-        Expanded(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            _buildLabel('Birthday', true),
-            SizedBox(
-              height: 4,
-            ),
-            _editForm(
-              Stack(
-                alignment: Alignment.centerLeft,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(user.birthday),
-                  ),
-                  Theme(
-                    data: Theme.of(context).copyWith(
-                        colorScheme: Theme.of(context)
-                            .colorScheme
-                            .copyWith(primary: AppColors.primarySwatch),
-                        textSelectionColor: Colors.white),
-                    child: new Builder(
-                      builder: (context) => InkWell(
-                        onTap: () async {
-                          user.birthday = (await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.parse(
-                                          '${user.birthday}T00:00:00' ??
-                                              '1970-01-01'),
-                                      firstDate:
-                                          DateTime.parse('1900-01-01T00:00:00'),
-                                      lastDate: DateTime.now()))
-                                  ?.toIso8601String()
-                                  ?.split('T')[0] ??
-                              user.birthday;
-                        },
-                        child: Container(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )
-            // Theme(
-            //   data: Theme.of(context).copyWith(
-            //       primaryColor: Colors.amber, accentColor: Colors.red),
-            //   child: Builder(
-            //     builder: (context) => DateTimeField(
-            //       label: '/   ${user.birthday}',
-            //       decoration: InputDecoration(
-            //           border: InputBorder.none, isDense: false,contentPadding: EdgeInsets.only(left: 8)),
-            //       mode: DateFieldPickerMode.date,
-            //       onDateSelected: (date) {
-            //         setState(() {
-            //           user.birthday = date.toIso8601String().split('T')[0];
-            //         });
-            //       },
-            //       selectedDate: DateTime.parse(
-            //         '${user.birthday}T00:00:00' ?? '1970-01-01'),
-            //     ),
-            //   ),
-            // ),
-            // node: genderFocus),
-          ]),
-        )
+        _buildBirthdayWidget(user)
       ],
+    );
+  }
+
+  Expanded _buildBirthdayWidget(User user) {
+    return Expanded(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        _buildLabel('Birthday', true),
+        SizedBox(
+          height: 4,
+        ),
+        EditProfileFormWidget(
+          child: Stack(
+            alignment: Alignment.centerLeft,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(user.birthday),
+              ),
+              Theme(
+                data: Theme.of(context).copyWith(
+                    colorScheme: Theme.of(context)
+                        .colorScheme
+                        .copyWith(primary: AppColors.primarySwatch),
+                    textSelectionColor: Colors.white),
+                child: new Builder(
+                  builder: (context) => InkWell(
+                    onTap: () async {
+                      user.birthday = (await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.parse(
+                                      '${user.birthday}T00:00:00' ??
+                                          '1970-01-01'),
+                                  firstDate:
+                                      DateTime.parse('1900-01-01T00:00:00'),
+                                  lastDate: DateTime.now()))
+                              ?.toIso8601String()
+                              ?.split('T')[0] ??
+                          user.birthday;
+                    },
+                    child: Container(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
+      ]),
     );
   }
 
@@ -326,25 +314,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               text: ' *',
               style: AppTextStyles.defaultText.copyWith(color: Colors.red))
       ]),
-    );
-  }
-
-  Widget _editForm(Widget child, {FocusNode node}) {
-    node = node ?? FocusNode();
-
-    return Container(
-      height: 50,
-      alignment: Alignment.centerLeft,
-      child: child,
-      decoration: BoxDecoration(
-        border: Border.all(
-            width: 1,
-            color: node.hasFocus
-                ? AppColors.participantsTextColor
-                : AppColors.editProfileBorder),
-        boxShadow: node.hasFocus ? [WidgetsDecoration.appShadow] : [],
-        borderRadius: BorderRadius.circular(12),
-      ),
     );
   }
 }
