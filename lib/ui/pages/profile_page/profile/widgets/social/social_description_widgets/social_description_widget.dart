@@ -47,7 +47,10 @@ class _SocialDescriptionWidgetState extends State<SocialDescriptionWidget> {
     final selectedModel = uIModels[widget.selectedSocial];
     return widget.social == null
         ? widget.nextBtnWasPressed
-            ? SocialDescriptionPostNextWidget(selectedModel: selectedModel, socialNetworkType: widget.selectedSocial,)
+            ? SocialDescriptionPostNextWidget(
+                selectedModel: selectedModel,
+                socialNetworkType: widget.selectedSocial,
+              )
             : SocialDescriptionPreNextWidget(
                 selectedModel: selectedModel,
                 shortNumber: widget.shortNumber,
@@ -97,29 +100,12 @@ class _SocialDescriptionWidgetState extends State<SocialDescriptionWidget> {
           ),
         ),
         onPressed: () {
-          BlocProvider.of<ProfileBloc>(context).add(RemoveSocialProfileEvent(widget.social.id));
+          BlocProvider.of<ProfileBloc>(context)
+              .add(RemoveSocialProfileEvent(widget.social.id));
         },
       )
     ]);
   }
 }
 
-class SocialUIModel {
-  final String name;
-  final String title;
-  final String subTitle;
-  final String bottomText;
-  final List<List<String>> text;
-  final List<List<bool>> isTextBold;
-  final String nextText;
-  final String example;
 
-  const SocialUIModel(this.name,
-      {this.title,
-      this.subTitle,
-      this.bottomText,
-      this.text,
-      this.isTextBold,
-      this.nextText,
-      this.example});
-}

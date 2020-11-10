@@ -1,5 +1,5 @@
 import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
-import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/splash/splash_page.dart';
+import 'package:bounty_hub_client/ui/pages/splash/splash_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +19,7 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 
   static final GlobalKey<NavigatorState> globalNavigatorKey =
-  GlobalKey<NavigatorState>();
+      GlobalKey<NavigatorState>();
 }
 
 class _AppState extends State<App> {
@@ -37,7 +37,7 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
-      getApplicationSupportDirectory().then((value) => Hive.init(value.path));
+    getApplicationSupportDirectory().then((value) => Hive.init(value.path));
     super.initState();
   }
 

@@ -1,7 +1,7 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_event.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/social/social_description_widgets/social_description_widget.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/social/social_description_widgets/social_ui_utils.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';

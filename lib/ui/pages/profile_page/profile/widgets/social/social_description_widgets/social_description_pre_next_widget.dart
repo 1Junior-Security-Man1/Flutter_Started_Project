@@ -1,11 +1,11 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_event.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/social/social_description_widgets/social_description_widget.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/social/social_description_widgets/social_ui_utils.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
-import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,9 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
   final shortNumber;
   final selectedSocial;
 
-  const SocialDescriptionPreNextWidget({Key key, this.selectedModel, this.shortNumber, this.selectedSocial}) : super(key: key);
+  const SocialDescriptionPreNextWidget(
+      {Key key, this.selectedModel, this.shortNumber, this.selectedSocial})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,13 +60,13 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 for (var j = 0;
-                                j < selectedModel.text[i].length;
-                                j++)
+                                    j < selectedModel.text[i].length;
+                                    j++)
                                   TextSpan(
-                                    text: '${selectedModel.text[i][j]}',
-                                    style: selectedModel.isTextBold[i][j]
-                                      ? AppTextStyles.defaultBold
-                                      : AppTextStyles.defaultText),
+                                      text: '${selectedModel.text[i][j]}',
+                                      style: selectedModel.isTextBold[i][j]
+                                          ? AppTextStyles.defaultBold
+                                          : AppTextStyles.defaultText),
                               ],
                             ),
                           ),
@@ -72,6 +74,13 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
                       ],
                     ),
                   ),
+                  if (selectedModel.images != null &&
+                      selectedModel.images.isNotEmpty &&
+                      selectedModel.images[i] != null)
+                    CachedNetworkImage(
+                      imageUrl: selectedModel.images[i],
+                      fit: BoxFit.fitWidth,
+                    )
                 ],
               )
           ],
@@ -83,8 +92,8 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
           selectedModel.bottomText,
           style: AppTextStyles.defaultText,
         ),
-        _buildHashCode(shortNumber,context),
-        _buildNextBtn(selectedModel, selectedSocial,context),
+        _buildHashCode(shortNumber, context),
+        _buildNextBtn(selectedModel, selectedSocial, context),
       ],
     );
   }
@@ -99,27 +108,34 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
             height: 50,
             width: MediaQuery.of(context).size.width - 82 - 50,
             decoration: BoxDecoration(
-              color: AppColors.pageBackgroundColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12))),
+                color: AppColors.pageBackgroundColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    bottomLeft: Radius.circular(12))),
             child: Center(
-              child: Text(strCode,style: AppTextStyles.defaultBold,),),
+              child: Text(
+                strCode,
+                style: AppTextStyles.defaultBold,
+              ),
+            ),
           ),
           AppButton(
             height: 50,
             width: 50,
-            onPressed: (){
+            onPressed: () {
               Clipboard.setData(ClipboardData(text: strCode));
-              Scaffold.of(context).showSnackBar(SnackBar(content: Text('Copied'),duration: Duration(seconds: 2),));
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text('Copied'),
+                duration: Duration(seconds: 2),
+              ));
             },
             child: Icon(
               Icons.copy_outlined,
               color: Colors.white,
             ),
             borderRadius: BorderRadius.only(
-              topRight: Radius.circular(12),
-              bottomRight: Radius.circular(12)),
+                topRight: Radius.circular(12),
+                bottomRight: Radius.circular(12)),
           ),
         ],
       ),
@@ -134,10 +150,11 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
         child: AppButton(
           width: MediaQuery.of(context).size.width / 2 - 20,
           text: selectedSocial == SocialNetworkType.FACEBOOK
-            ? 'MAKE POST'
-            : 'NEXT',
+              ? 'MAKE POST'
+              : 'NEXT',
           onPressed: () {
-            BlocProvider.of<ProfileBloc>(context).add(OnNextBtnPresEvent(selectedSocial));
+            BlocProvider.of<ProfileBloc>(context)
+                .add(OnNextBtnPresEvent(selectedSocial));
           },
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'file:///D:/Code/Code/Flutter/BountyHub/bounty_hub_client/lib/ui/pages/splash/cubit/splash_state.dart';
+import 'package:bounty_hub_client/ui/pages/splash/cubit/splash_state.dart';
 import 'package:logger/logger.dart';
 
 class SplashCubit extends Cubit<SplashState> {

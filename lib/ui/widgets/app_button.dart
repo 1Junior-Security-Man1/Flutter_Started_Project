@@ -15,6 +15,8 @@ class AppButton extends StatefulWidget {
   final Widget child;
   final BorderRadius borderRadius;
 
+  final bool disableOnlyUI ;
+
   const AppButton({
     Key key,
     this.width = double.infinity,
@@ -27,6 +29,7 @@ class AppButton extends StatefulWidget {
     this.withShadow = true,
     this.child,
     this.borderRadius,
+    this.disableOnlyUI = false,
   })  : assert(
             (child != null && text == null) || (child == null && text != null)),
         super(key: key);
@@ -60,7 +63,9 @@ class _AppButtonState extends State<AppButton> {
               )
             ]
           : null,
-      border: widget.type == AppButtonType.OUTLINE?Border.all(width: 2,color: AppColors.buttonOutline ):Border.all(color: Colors.transparent),
+      border: widget.type == AppButtonType.OUTLINE
+          ? Border.all(width: 2, color: AppColors.buttonOutline)
+          : Border.all(color: Colors.transparent),
       borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
     );
 
@@ -81,11 +86,13 @@ class _AppButtonState extends State<AppButton> {
                       widget.text,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: widget.enable
+                        color: (widget.enable && !widget.disableOnlyUI)
                             ? (widget.textColor ??
                                 (widget.type == AppButtonType.BLUE
                                     ? Colors.white
-                                    : widget.type == AppButtonType.OUTLINE?AppColors.buttonOutline:AppColors.navigationWidgetsColor))
+                                    : widget.type == AppButtonType.OUTLINE
+                                        ? AppColors.buttonOutline
+                                        : AppColors.navigationWidgetsColor))
                             : AppColors.inputDisabledTextColor,
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
@@ -95,10 +102,14 @@ class _AppButtonState extends State<AppButton> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: widget.enable ? widget.onPressed : () {},
-                  borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
-                  splashColor: widget.type==AppButtonType.BLUE?Colors.white24:AppColors.socialBorderColor.withOpacity(0.2),
-                  highlightColor: widget.type==AppButtonType.BLUE?Colors.white24:AppColors.socialBorderColor.withOpacity(0.2),
-
+                  borderRadius:
+                      widget.borderRadius ?? BorderRadius.circular(12),
+                  splashColor: (!widget.enable || widget.disableOnlyUI)?Colors.transparent:widget.type == AppButtonType.BLUE
+                      ? Colors.white24
+                      : AppColors.socialBorderColor.withOpacity(0.2),
+                  highlightColor:(!widget.enable || widget.disableOnlyUI)?Colors.transparent: widget.type == AppButtonType.BLUE
+                      ? Colors.white24
+                      : AppColors.socialBorderColor.withOpacity(0.2),
                 ),
               )
             ],

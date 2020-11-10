@@ -21,12 +21,12 @@ abstract class RestClient {
     Dio dio = Dio();
 
     dio.interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
+        requestHeader: false,
+        requestBody: false,
+        responseBody: false,
         responseHeader: false,
         error: true,
-        compact: true,
+        compact: false,
         maxWidth: 90));
 
     dio.interceptors.add(OauthInterceptor());
