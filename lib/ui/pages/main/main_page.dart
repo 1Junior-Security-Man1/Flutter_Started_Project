@@ -7,6 +7,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/profile/profile_page.dar
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_page.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_event.dart';
+import 'package:bounty_hub_client/utils/localization/localization.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';

@@ -44,7 +44,6 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return BlocBuilder<LocaleBloc, Locale>(
       builder: (context, locale) {
-        print('!!!! ${locale.toString()}');
         intl.Intl.defaultLocale = locale.languageCode;
         return MaterialApp(
           navigatorKey: App.globalNavigatorKey,
@@ -58,6 +57,7 @@ class _AppState extends State<App> {
           localeResolutionCallback: (deviceLocale, supportedLocales) =>
               _localeResolutionCallback(
                   deviceLocale, supportedLocales, locale, context),
+          locale: locale,
           localizationsDelegates: localizationsDelegates,
           supportedLocales: AppLocalizations.languages.keys.toList(),
           home: BlocBuilder<AuthenticationBloc, AuthenticationState>(

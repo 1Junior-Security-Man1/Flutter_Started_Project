@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ActivitiesPage extends StatefulWidget {
   @override
@@ -64,49 +63,64 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
     );
   }
 
-  Padding _buildActivityItem(
+  Widget _buildActivityItem(
       BuildContext context, ActivityState state, int index, String date) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10, top: 10),
-      child: Container(
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-                right: 15,
-              ),
-              child: Container(
-                height: 45,
-                width: 45,
-                decoration: WidgetsDecoration.appBlueButtonStyle(),
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width - 219,
-              child: Html(
-                renderNewlines: true,
-                data: state.activities[index].content,
-                defaultTextStyle: AppTextStyles.defaultText
-                    .copyWith(fontWeight: FontWeight.w600, fontSize: 12),
-                onLinkTap: (link) {
-                  launch(link);
-                },
-              ),
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 15),
-              child: Container(
-                child: Text(
-                  date,
-                  style: AppTextStyles.defaultThinText,
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 10),
+          child: Container(
+            height: 90,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 15,
+                  ),
+                  child: Container(
+                    height: 45,
+                    width: 45,
+                    decoration: WidgetsDecoration.appBlueButtonStyle(),
+                  ),
                 ),
-              ),
+                Container(
+                  width: MediaQuery.of(context).size.width - 219,
+                  child: Html(
+                    renderNewlines: true,
+                    data: state.activities[index].content,
+                    defaultTextStyle: AppTextStyles.defaultText
+                        .copyWith(fontWeight: FontWeight.w600, fontSize: 12),
+                    onLinkTap: (link) {},
+                  ),
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: Container(
+                    child: Text(
+                      date,
+                      style: AppTextStyles.defaultThinText,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            highlightColor: Colors.black12,
+            splashColor: Colors.black12,
+            onTap: () {},
+            child: Container(
+              height: 105,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
+        )
+      ],
     );
   }
 

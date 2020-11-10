@@ -45,7 +45,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     var user = BlocProvider.of<EditProfileCubit>(context).state.user;
 
-    print(user.name);
     return BlocBuilder<EditProfileCubit, EditProfileState>(
         builder: (context, state) {
       return Scaffold(
@@ -215,7 +214,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   .firstWhere((element) => element.value == newValue)
                   .key
                   .toString();
-              print(user.language);
             });
           },
           hint: Padding(

@@ -159,7 +159,6 @@ class User {
     shortId = json['shortId'];
     shortNumber = json['shortNumber'];
     experiencePoints = json['experiencePoints'];
-    print(json['userLevel']);
     if (json['userLevel'] != null) {
       userLevel = UserLevel.fromJson(Map.from(json['userLevel']));
     }
