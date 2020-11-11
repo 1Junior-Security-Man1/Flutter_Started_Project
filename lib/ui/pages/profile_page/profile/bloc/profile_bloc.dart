@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/repositories/profile_local_repository.dart';
 import 'package:bounty_hub_client/data/repositories/profile_repository.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_event.dart';
@@ -13,22 +14,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileLocalRepository _profileLocalRepository;
 
   final log = Logger();
-
-  void loadUserProfile() async {
-    var localUser = await _profileLocalRepository.getUser();
-    if (localUser != null) {
-      add(UserProfileReceivedEvent(localUser));
-    }
-    var apiUser = await _profileRepository.getUser();
-    if (apiUser != null) {
-      add(UserProfileReceivedEvent(apiUser));
-      _profileLocalRepository.putUser(apiUser);
-    }
-
-    var socials = await _profileRepository.getMySocialAccounts();
-
-    add(SocialsReceivedEvent(socials));
-  }
 
   @override
   Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
@@ -56,7 +41,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
 
     if (event is AddSocialProfileEvent) {
-      await _profileRepository.setSocial(event.socialNetworkType, event.profileUrl);
+      await _profileRepository.setSocial(
+          event.socialNetworkType, event.profileUrl);
       var socials = await _profileRepository.getMySocialAccounts();
       add(SocialsReceivedEvent(socials));
     }
@@ -67,5 +53,37 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       var socials = await _profileRepository.getMySocialAccounts();
       add(SocialsReceivedEvent(socials));
     }
+
+    if (event is UpdateTronWalletEvent) {
+      var newUser = User.fromJson(state.user.toJson());
+      newUser.tronWallet = event.wallet;
+      try {
+        await _profileRepository.putUser(newUser);
+        yield state.copyWith(user: newUser);
+      } catch (e) {
+        print(e);
+        //TBz7AzxhpHhpYv8xwUnkipSovVDGiUf7d9
+      }
+    }
+
+    if(event is ErrorWasShown){
+      yield state.copyWith(errorText: '',errorType: null);
+    }
+  }
+
+  void loadUserProfile() async {
+    var localUser = await _profileLocalRepository.getUser();
+    if (localUser != null) {
+      add(UserProfileReceivedEvent(localUser));
+    }
+    var apiUser = await _profileRepository.getUser();
+    if (apiUser != null) {
+      add(UserProfileReceivedEvent(apiUser));
+      _profileLocalRepository.putUser(apiUser);
+    }
+
+    var socials = await _profileRepository.getMySocialAccounts();
+
+    add(SocialsReceivedEvent(socials));
   }
 }

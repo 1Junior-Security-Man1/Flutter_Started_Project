@@ -11,6 +11,7 @@ class UserProfileReceivedEvent extends ProfileEvent {
 
   UserProfileReceivedEvent(this.user);
 }
+
 class SocialsReceivedEvent extends ProfileEvent {
   List<Socials> socials;
 
@@ -42,4 +43,10 @@ class RemoveSocialProfileEvent extends ProfileEvent {
   RemoveSocialProfileEvent(this.id);
 }
 
+class UpdateTronWalletEvent extends ProfileEvent {
+  final String wallet;
 
+  UpdateTronWalletEvent(this.wallet);
+}
+
+class ErrorWasShown extends ProfileEvent {}
