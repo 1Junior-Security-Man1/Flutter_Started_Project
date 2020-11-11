@@ -7,4 +7,8 @@ abstract class ActivitiesDataSource {
 
   Future<bool> putActivities(List<Activity> notification);
 
+  Future<int> getUnreadActivitiesCount();
+
+  Future<void> readNotification(String id);
+
 }

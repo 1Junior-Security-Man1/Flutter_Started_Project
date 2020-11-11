@@ -17,4 +17,14 @@ class ActivitiesRepository extends ActivitiesDataSource {
   Future<bool> putActivities(List<Activity> notification) async {
     return true;
   }
+
+  @override
+  Future<int> getUnreadActivitiesCount()async {
+    return (await client.getUnreadActivitiesCount()).count;
+  }
+
+  @override
+  Future<void> readNotification(String id) {
+    return client.readNotification(id);
+  }
 }

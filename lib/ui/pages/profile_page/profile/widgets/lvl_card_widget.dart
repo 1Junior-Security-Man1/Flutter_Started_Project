@@ -49,7 +49,7 @@ class LvlCardWidget extends StatelessWidget {
                                 children: [
                                   Center(
                                     child: Text(
-                                      state.user.userLevel.name??'0',
+                                      state.user?.userLevel?.name??'1',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w600,
