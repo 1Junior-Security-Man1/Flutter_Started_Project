@@ -67,7 +67,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
     switch(currentUserTaskStep) {
       case 1: return _buildLeaveCompleteWidget(); // IN_PROGRESS
       case 2: return _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1)); // VERIFYING
-      case 3: return _buildEmptySpaceWidget(); // APPROVED or REJECTED
+      case 3: return _buildApproveRejectWidget(widget.userTask.getTaskStatus(), AppColors.accentColor, widget.task.confirmationDaysCount); // APPROVED or REJECTED
       case 4: return _buildEmptySpaceWidget(); // RECONFIRM
       case 5: return _buildEmptySpaceWidget(); // PAID or CANCELED
       default:
@@ -249,6 +249,15 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
           SizedBox(
             height: Dimens.content_internal_padding,
           ),
+          widget.userTask.rejectComment != null ? Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(bottom: Dimens.content_internal_padding),
+            padding: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding),
+            child: Text('Reject Comment: ' + widget.userTask.rejectComment,
+              textAlign: TextAlign.center,
+              style: AppTextStyles.defaultErrorText,
+            ),
+          ) : Container(),
           AppButton(
             height: 50,
             type: AppButtonType.BLUE,
@@ -301,7 +310,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
                   userTask.approveDate != null ? userTask.approveDate : userTask.lastModifiedDate),
               textStyle: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w400),
             ),
-          )
+          ),
         ],
       ),
     );

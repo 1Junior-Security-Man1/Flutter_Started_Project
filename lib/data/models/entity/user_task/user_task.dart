@@ -13,6 +13,7 @@ class UserTask {
   String rewardType;
   double rewardAmount;
   String rewardCurrency;
+  String rejectComment;
   String description;
   String productName;
   int approveDate;
@@ -41,6 +42,7 @@ class UserTask {
     description = json["description"];
     productName = json["productName"];
     approveDate = json["approveDate"];
+    rejectComment = json["rejectComment"];
     finalRewardAmount = json["finalRewardAmount"];
     autoCheck = json["autoCheck"];
     otherCategory = json["otherCategory"];
@@ -74,7 +76,8 @@ class UserTask {
     map["finalRewardAmount"] = finalRewardAmount;
     map["productName"] = productName;
     map["approveDate"] = approveDate;
-    map["autoCheck"] = autoCheck;
+    map["approveDate"] = approveDate;
+    map["rejectComment"] = rejectComment;
     map["otherCategory"] = otherCategory;
     map["otherType"] = otherType;
     map["deleted"] = deleted;

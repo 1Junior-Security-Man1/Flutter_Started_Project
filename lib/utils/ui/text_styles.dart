@@ -28,7 +28,11 @@ class AppTextStyles {
     fontSize: 14
   );
 
-
+  static const TextStyle defaultErrorText = TextStyle(
+      color: AppColors.errorTextColor,
+      fontWeight: FontWeight.normal,
+      fontSize: 14
+  );
 
   static const TextStyle defaultBold = TextStyle(
     color: Colors.black87,
