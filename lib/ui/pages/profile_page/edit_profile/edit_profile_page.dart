@@ -285,40 +285,33 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(user.birthday),
               ),
-              Theme(
-                data: Theme.of(context).copyWith(
-                    colorScheme: Theme.of(context)
-                        .colorScheme
-                        .copyWith(primary: AppColors.primarySwatch),
-                    textSelectionColor: Colors.white),
-                child: new Builder(
-                  builder: (context) => InkWell(
-                    onTap: () async {
-                      await showCupertinoModalPopup(
-                          builder: (context) => Container(
-                                height: 250,
-                                color: Colors.white,
-                                child: CupertinoDatePicker(
-                                  onDateTimeChanged: (DateTime value) {
-                                    user.birthday = value
-                                            ?.toIso8601String()
-                                            ?.split('T')[0] ??
-                                        user.birthday;
-                                    setState(() {
+              new Builder(
+                builder: (context) => InkWell(
+                  onTap: () async {
+                    await showCupertinoModalPopup(
+                        builder: (context) => Container(
+                              height: 250,
+                              color: Colors.white,
+                              child: CupertinoDatePicker(
+                                onDateTimeChanged: (DateTime value) {
+                                  user.birthday = value
+                                          ?.toIso8601String()
+                                          ?.split('T')[0] ??
+                                      user.birthday;
+                                  setState(() {
 
-                                    });
-                                  },
-                                  mode: CupertinoDatePickerMode.date,
-                                  initialDateTime: DateTime.parse(
-                                      '${user.birthday}T00:00:00' ??
-                                          '1970-01-01'),
-                                ),
+                                  });
+                                },
+                                mode: CupertinoDatePickerMode.date,
+                                initialDateTime: DateTime.parse(
+                                    '${user.birthday}T00:00:00' ??
+                                        '1970-01-01'),
                               ),
-                          context: context);
-                    },
-                    child: Container(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                            ),
+                        context: context);
+                  },
+                  child: Container(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               )
             ],

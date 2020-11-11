@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/ui/pages/activity/activity_page.dart';
 import 'package:bounty_hub_client/ui/pages/main/cubit/main_cubit.dart';
@@ -7,9 +8,9 @@ import 'package:bounty_hub_client/ui/pages/profile_page/profile/profile_page.dar
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_page.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_event.dart';
-import 'package:bounty_hub_client/utils/localization/localization.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
+import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,6 +25,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     Future.microtask(() {
+      context.bloc<BadgeCubit>().getCount();
       context.bloc<ProfileBloc>().add(FetchProfileEvent());
       context.bloc<ProfileBloc>().listen((state) {
         BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
@@ -32,6 +34,7 @@ class _MainPageState extends State<MainPage> {
         ));
       });
     });
+    super.initState();
   }
 
   void _onItemTapped(int index) {
@@ -91,11 +94,25 @@ class _MainPageState extends State<MainPage> {
                   BottomNavigationBarItem(
                     icon: Padding(
                       padding: const EdgeInsets.only(bottom: 5.0),
-                      child: buildNavigationBarIcon(
-                          2,
-                          _selectedIndex,
-                          'assets/images/menu_item_notification.png',
-                          'assets/images/menu_item_notification_active.png'),
+                      child: BlocBuilder<BadgeCubit,BadgeState>(
+                        builder:(context,state)=> Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            buildNavigationBarIcon(
+                                2,
+                                _selectedIndex,
+                                'assets/images/menu_item_notification.png',
+                                'assets/images/menu_item_notification_active.png'),
+                            if(state.unreadCount>0)
+                              Container(
+                                decoration: WidgetsDecoration.appBlueButtonStyle(),
+                                height: 14,
+                                width: 14,
+                                child: Center(child: Text(state.unreadCount.toString(), style: AppTextStyles.defaultBold.copyWith(color: Colors.white,fontSize: 9),)),
+                              )
+                          ],
+                        ),
+                      ),
                     ),
                     label: 'Notifications',
                   ),

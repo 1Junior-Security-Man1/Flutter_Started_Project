@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
 import 'package:bounty_hub_client/data/models/entity/activity/notification.dart';
 import 'package:bounty_hub_client/ui/pages/activity/cubit/activity_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
@@ -74,19 +75,37 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           padding: const EdgeInsets.only(
             left: 20,
           ),
-          child: Container(
-            height: 45,
-            width: 45,
-            decoration: WidgetsDecoration.appBlueButtonStyle(),
-            child: Center(
-                child: Image.asset(
-              activity.action == 'ITEM_RECONFIRMATION'
-                  ? 'assets/images/menu_item_tasks_active.png'
-                  : 'assets/images/menu_item_notification_active.png',
-              color: Colors.white,
-              height: 24,
-              width: 24,
-            )),
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              Container(
+                height: 45,
+                width: 45,
+                decoration: WidgetsDecoration.appBlueButtonStyle(),
+                child: Center(
+                    child: Image.asset(
+                  activity.action == 'ITEM_RECONFIRMATION'
+                      ? 'assets/images/menu_item_tasks_active.png'
+                      : 'assets/images/menu_item_notification_active.png',
+                  color: Colors.white,
+                  height: 24,
+                  width: 24,
+                )),
+              ),
+              if (!activity.read)
+                Transform.translate(
+                  offset: Offset(4, -4),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 1, color: Colors.white),
+                    ),
+                    height: 14,
+                    width: 14,
+                  ),
+                )
+            ],
           ),
         ),
         Material(
@@ -95,6 +114,12 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
             highlightColor: Colors.black12,
             splashColor: Colors.black12,
             onTap: () {
+              context.bloc<BadgeCubit>().readNotification(activity.id);
+              activity.read = true;
+              setState(() {
+
+              });
+
               //TODO роут по уведомлению
             },
             child: Padding(

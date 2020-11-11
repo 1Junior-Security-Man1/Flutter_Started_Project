@@ -10,11 +10,14 @@ class ActivityCubit extends Cubit<ActivityState> {
 
   int currentPage = 0;
   bool isLastPage = false;
+  bool inLoading = false;
 
   final ActivitiesDataSource apiRepository;
 
   void loadActivities() async {
-    if(isLastPage) return;
+
+    if(isLastPage||inLoading) return;
+    inLoading = true;
     var newActivities = await apiRepository.getActivities(currentPage);
     currentPage++;
     var allActivities = List.of(state.activities);
@@ -23,5 +26,6 @@ class ActivityCubit extends Cubit<ActivityState> {
     if(newActivities.length<20){
       isLastPage = true;
     }
+    inLoading = false;
   }
 }

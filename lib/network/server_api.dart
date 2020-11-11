@@ -1,5 +1,6 @@
 import 'package:bounty_hub_client/data/models/api/request/auth_request.dart';
 import 'package:bounty_hub_client/data/models/api/request/set_social.dart';
+import 'package:bounty_hub_client/data/models/api/response/notification_count_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/notification_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
@@ -89,4 +90,10 @@ abstract class RestClient {
   @GET("/notifications/list")
   Future<NotificationResponse> getActivities(
       @Query('page') int page, @Query('size') int size);
+
+  @GET("/notifications/unread")
+  Future<NotificationCountResponse> getUnreadActivitiesCount();
+
+  @OPTIONS("/notifications/notification/{id}/read")
+  Future<void> readNotification(@Path('id') id);
 }

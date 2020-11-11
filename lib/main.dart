@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
 import 'package:bounty_hub_client/data/repositories/activities_repository.dart';
 import 'package:bounty_hub_client/data/repositories/campaigns_repository.dart';
 import 'package:bounty_hub_client/data/repositories/login_repository.dart';
@@ -46,6 +47,9 @@ void main() {
         BlocProvider(create: (context) => LocaleBloc()),
         BlocProvider(
             create: (context) => ActivityCubit(ActivitiesRepository(client))),
+
+        BlocProvider(
+            create: (context) => BadgeCubit(ActivitiesRepository(client))),
 
         // provide App blocs here
       ], child: App())));

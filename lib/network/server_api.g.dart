@@ -308,4 +308,39 @@ class _RestClient implements RestClient {
     final value = NotificationResponse.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  getUnreadActivitiesCount() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/notifications/unread',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = NotificationCountResponse.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  readNotification(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    await _dio.request<void>('/notifications/notification/$id/read',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'OPTIONS',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    return Future.value(null);
+  }
 }
