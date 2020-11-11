@@ -1,4 +1,5 @@
 import 'package:bounty_hub_client/data/enums/task_validation_type.dart';
+import 'package:bounty_hub_client/data/enums/user_task_status.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
@@ -53,7 +54,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
     switch(currentUserTaskStep) {
       case 1: return _buildLeaveCompleteWidget(); // IN_PROGRESS
       case 2: return _buildContinueButton(); // VERIFYING
-      case 3: return _buildVerifyingWidget(AppColors.accentColor, widget.task.confirmationDaysCount); // APPROVED or REJECTED
+      case 3: return _buildApproveRejectWidget(widget.userTask.getTaskStatus(), AppColors.accentColor, widget.task.confirmationDaysCount); // APPROVED or REJECTED
       case 4: return _buildReconfirmWidget(); // RECONFIRM
       case 5: return _buildEmptySpaceWidget(); // PAID or CANCELED
       default:
@@ -65,7 +66,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
     int currentUserTaskStep = getTaskCompletionStepByStatus(widget.userTask.getTaskStatus(), widget.userTask.approveDate, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1));
     switch(currentUserTaskStep) {
       case 1: return _buildLeaveCompleteWidget(); // IN_PROGRESS
-      case 2: return _buildVerifyingWidget(AppColors.accentColor, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1)); // VERIFYING
+      case 2: return _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1)); // VERIFYING
       case 3: return _buildEmptySpaceWidget(); // APPROVED or REJECTED
       case 4: return _buildEmptySpaceWidget(); // RECONFIRM
       case 5: return _buildEmptySpaceWidget(); // PAID or CANCELED
@@ -219,7 +220,50 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
     );
   }
 
-  Widget _buildVerifyingWidget(Color backgroundColor, int confirmationDaysCount) {
+  Widget _buildApproveRejectWidget(UserTaskStatusType statusType, Color backgroundColor, int confirmationDaysCount) {
+    return statusType == UserTaskStatusType.APPROVED ? _buildVerifyingTimerWidget(widget.userTask, confirmationDaysCount) : _buildRejectedWidget();
+  }
+
+  Widget _buildRejectedWidget() {
+    return Container(
+      margin: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding, bottom: Dimens.content_internal_padding),
+      padding: EdgeInsets.all(Dimens.content_internal_padding),
+      decoration: WidgetsDecoration.appCardStyle(),
+      width: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Text(
+            'Reject Task',
+            style: AppTextStyles.titleTextStyle,
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 12.0,
+          ),
+          Text(
+            'Your task completion has been checked and was rejected',
+            style: AppTextStyles.greyContentTextStyle,
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: Dimens.content_internal_padding,
+          ),
+          AppButton(
+            height: 50,
+            type: AppButtonType.BLUE,
+            text: 'Retry',
+            width: MediaQuery.of(context).size.width / 2,
+            onPressed: () {
+
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVerifyingTimerWidget(UserTask userTask, int confirmationDaysCount) {
     return Container(
       margin: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding, bottom: Dimens.content_internal_padding),
       padding: EdgeInsets.all(Dimens.content_internal_padding),
@@ -253,8 +297,8 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
             ),
             child:  CountdownTimer(
               textBefore: Text('Time to check: '),
-              endTime: getTaskVerificationTime(checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1),
-                  widget.userTask.approveDate != null ? widget.userTask.approveDate : widget.userTask.lastModifiedDate),
+              endTime: getTaskVerificationTime(confirmationDaysCount,
+                  userTask.approveDate != null ? userTask.approveDate : userTask.lastModifiedDate),
               textStyle: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w400),
             ),
           )
