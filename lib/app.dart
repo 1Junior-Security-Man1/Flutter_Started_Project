@@ -7,13 +7,26 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:path_provider/path_provider.dart';
+
 import 'bloc/auth/authorization_bloc.dart';
 import 'data/repositories/preferences_local_repository.dart';
+import 'utils/flavors.dart';
 import 'utils/localization/bloc/locale_bloc.dart';
 import 'utils/localization/bloc/locale_event.dart';
 import 'utils/localization/localization.dart';
 
+Flavor _currentFlavour;
+
+Flavor get currentFlavour => _currentFlavour;
+
 class App extends StatefulWidget {
+  App(
+    Flavor flavour,
+  )   : assert(flavour != null),
+        super() {
+    _currentFlavour = flavour;
+  }
+
   @override
   _AppState createState() => _AppState();
 
@@ -79,7 +92,6 @@ class _AppState extends State<App> {
       if (PreferencesLocalProvider().locale == null) {
         if (AppLocalizations.languages.keys.contains(Locale.fromSubtags(
             languageCode: deviceLocale.languageCode.toUpperCase()))) {
-
           BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
               languageCode: deviceLocale.languageCode,
               countryCode: deviceLocale.countryCode));

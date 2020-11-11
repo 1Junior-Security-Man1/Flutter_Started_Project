@@ -25,24 +25,21 @@ class AppTextStyles {
   static const TextStyle defaultText = TextStyle(
     color: Colors.black87,
     fontWeight: FontWeight.normal,
-    fontSize: 14
   );
 
   static const TextStyle defaultErrorText = TextStyle(
       color: AppColors.errorTextColor,
       fontWeight: FontWeight.normal,
-      fontSize: 14
   );
 
   static const TextStyle defaultBold = TextStyle(
     color: Colors.black87,
     fontWeight: FontWeight.bold,
-    fontSize: 14
   );
 
   static const TextStyle defaultThinText = TextStyle(
     color: Colors.black87,
     fontWeight: FontWeight.w300,
-    fontSize: 12
+    fontSize: 14
   );
 }
