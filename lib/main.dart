@@ -11,7 +11,6 @@ void main() {
   Flavor flavor = DevFlavour();
   final RestClient client = RestClient();
 
-
   runApp(MultiRepositoryProvider(
     providers:getRepositories(client),
     child: MultiBlocProvider(providers: getProviders(client), child: App(flavor))));
