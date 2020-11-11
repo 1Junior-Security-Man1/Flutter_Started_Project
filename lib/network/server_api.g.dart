@@ -336,7 +336,7 @@ class _RestClient implements RestClient {
     await _dio.request<void>('/notifications/notification/$id/read',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'OPTIONS',
+            method: 'PUT',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),

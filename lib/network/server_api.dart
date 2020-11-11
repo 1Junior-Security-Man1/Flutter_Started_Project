@@ -94,6 +94,6 @@ abstract class RestClient {
   @GET("/notifications/unread")
   Future<NotificationCountResponse> getUnreadActivitiesCount();
 
-  @OPTIONS("/notifications/notification/{id}/read")
+  @PUT("/notifications/notification/{id}/read")
   Future<void> readNotification(@Path('id') id);
 }
