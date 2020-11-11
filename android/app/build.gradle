@@ -40,7 +40,10 @@ android {
 
     lintOptions {
         disable 'InvalidPackage'
+        checkReleaseBuilds false
+
     }
+
 
     defaultConfig {
         applicationId "de.lindenvalley.bounty_hub_client"
