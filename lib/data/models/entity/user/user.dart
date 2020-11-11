@@ -2,6 +2,8 @@ import 'package:bounty_hub_client/data/models/entity/user/balance.dart';
 import 'package:bounty_hub_client/data/models/entity/user/roles.dart';
 import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 
+import 'level.dart';
+
 class User {
   String id;
   String userBusinessEntityType;
@@ -40,7 +42,7 @@ class User {
   String shortId;
   int shortNumber;
   int experiencePoints;
-  String userLevel; // todo type?
+  UserLevel userLevel; // todo type?
   List<Socials> socials;
   String priceForPost; // todo type?
   double smv;
@@ -157,7 +159,10 @@ class User {
     shortId = json['shortId'];
     shortNumber = json['shortNumber'];
     experiencePoints = json['experiencePoints'];
-    userLevel = json['userLevel'];
+    print(json['userLevel']);
+    if (json['userLevel'] != null) {
+      userLevel = UserLevel.fromJson(Map.from(json['userLevel']));
+    }
     if (json['socials'] != null) {
       socials = new List<Socials>();
       json['socials'].forEach((v) {
@@ -232,7 +237,7 @@ class User {
     data['shortId'] = this.shortId;
     data['shortNumber'] = this.shortNumber;
     data['experiencePoints'] = this.experiencePoints;
-    data['userLevel'] = this.userLevel;
+    data['userLevel'] = this.userLevel.toJson();
     if (this.socials != null) {
       data['socials'] = this.socials.map((v) => v.toJson()).toList();
     }
@@ -256,5 +261,64 @@ class User {
     data['roleType'] = this.roleType;
     data['moderator'] = this.moderator;
     return data;
+  }
+
+  User copy() {
+    return User(
+      id: this.id,
+      userBusinessEntityType: this.userBusinessEntityType,
+      name: this.name,
+      gender: this.gender,
+      locationCountryCode: this.locationCountryCode,
+      birthday: this.birthday,
+      birthdayFormat: this.birthdayFormat,
+      usedClient: this.usedClient,
+      usedClientName: this.usedClientName,
+      clientId: this.clientId,
+      clientType: this.clientType,
+      client: this.client,
+      enabled: this.enabled,
+      banInfo: this.banInfo,
+      banDate: this.banDate,
+      status: this.status,
+      email: this.email,
+      company: this.company,
+      balances: this.balances,
+      referralCode: this.referralCode,
+      referralMasterId: this.referralMasterId,
+      referralUserItemId: this.referralUserItemId,
+      referralCampaignId: this.referralCampaignId,
+      referralPaid: this.referralPaid,
+      firstLogin: this.firstLogin,
+      age: this.age,
+      language: this.language,
+      agency: this.agency,
+      website: this.website,
+      domain: this.domain,
+      ustIdNum: this.ustIdNum,
+      wallet: this.wallet,
+      campaignName: this.campaignName,
+      walletApiKey: this.walletApiKey,
+      shortId: this.shortId,
+      shortNumber: this.shortNumber,
+      experiencePoints: this.experiencePoints,
+      userLevel: this.userLevel,
+      socials: this.socials,
+      priceForPost: this.priceForPost,
+      smv: this.smv,
+      tronWallet: this.tronWallet,
+      tronWalletInternal: this.tronWalletInternal,
+      createdDate: this.createdDate,
+      lastModifiedDate: this.lastModifiedDate,
+      createdBy: this.createdBy,
+      lastModifiedBy: this.lastModifiedBy,
+      images: this.images,
+      roles: this.roles,
+      isVerifyMicroItems: this.isVerifyMicroItems,
+      admin: this.admin,
+      socialHashTag: this.socialHashTag,
+      roleType: this.roleType,
+      moderator: this.moderator,
+    );
   }
 }

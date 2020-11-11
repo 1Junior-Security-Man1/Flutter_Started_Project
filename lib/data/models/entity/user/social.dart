@@ -11,7 +11,7 @@ class Socials {
   String updateSubscribeStatus;
   int updateSubscribersTime;
   int lastModifiedDate;
-  String sentSocialReport;
+  int sentSocialReport;
   String accountUrl;
   String validateStatus;
   String newAccountUrl;

@@ -197,12 +197,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getUser() async {
+  getUser({userId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/users/current',
+        '/users/$userId',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -212,6 +213,25 @@ class _RestClient implements RestClient {
         data: _data);
     final value = User.fromJson(_result.data);
     return Future.value(value);
+  }
+
+  @override
+  putUser(userId, updatedUser) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(updatedUser, 'updatedUser');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(updatedUser?.toJson() ?? <String, dynamic>{});
+    await _dio.request<void>('/users/$userId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PUT',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    return Future.value(null);
   }
 
   @override

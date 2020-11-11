@@ -292,6 +292,7 @@ class _LoginState extends State<Login> {
             child: Padding(
               padding: const EdgeInsets.only(left: 42.0, right: 42.0),
               child: AppButton(
+                disableOnlyUI: !widget.state.emailIsValid,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     if (widget.state.status == LoginStatus.email ||
@@ -307,7 +308,7 @@ class _LoginState extends State<Login> {
                   }
                 },
                 textColor: AppColors.white,
-                enable: widget.state.emailIsValid,
+
                 text: widget.state.status == LoginStatus.email ||
                         widget.state.status == LoginStatus.emailError
                     ? AppStrings.getAuthorizationCode

@@ -18,7 +18,7 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 
   static final GlobalKey<NavigatorState> globalNavigatorKey =
-  GlobalKey<NavigatorState>();
+      GlobalKey<NavigatorState>();
 }
 
 class _AppState extends State<App> {
@@ -36,7 +36,7 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
-      getApplicationSupportDirectory().then((value) => Hive.init(value.path));
+    getApplicationSupportDirectory().then((value) => Hive.init(value.path));
     super.initState();
   }
 
