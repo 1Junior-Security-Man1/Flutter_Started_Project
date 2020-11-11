@@ -52,10 +52,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+            keyAlias "key"
+            keyPassword "c7xUwUQSKUh7EqQc"
+            storeFile file("keys.jks")
+            storePassword "c7xUwUQSKUh7EqQc"
         }
     }
 
