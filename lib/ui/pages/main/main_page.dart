@@ -1,7 +1,13 @@
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
+import 'package:bounty_hub_client/ui/pages/activity/activity_page.dart';
 import 'package:bounty_hub_client/ui/pages/main/cubit/main_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_event.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/profile_page.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_page.dart';
+import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
+import 'package:bounty_hub_client/utils/localization/bloc/locale_event.dart';
+import 'package:bounty_hub_client/utils/localization/localization.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +20,19 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    Future.microtask(() {
+      context.bloc<ProfileBloc>().add(FetchProfileEvent());
+      context.bloc<ProfileBloc>().listen((state) {
+        BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
+          countryCode: state.user.language.split('_')[1],
+          languageCode: state.user.language.split('_')[0],
+        ));
+      });
+    });
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -107,7 +126,7 @@ class _MainPageState extends State<MainPage> {
     return <Widget>[
       TasksPage(),
       ProfilePage(),
-      Text('Notifications'), // TODO
+      ActivitiesPage(), // TODO
     ];
   }
 }

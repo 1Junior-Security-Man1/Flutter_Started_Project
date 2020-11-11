@@ -57,6 +57,7 @@ class _AppState extends State<App> {
           localeResolutionCallback: (deviceLocale, supportedLocales) =>
               _localeResolutionCallback(
                   deviceLocale, supportedLocales, locale, context),
+          locale: locale,
           localizationsDelegates: localizationsDelegates,
           supportedLocales: AppLocalizations.languages.keys.toList(),
           home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -76,9 +77,9 @@ class _AppState extends State<App> {
       BuildContext context) {
     PreferencesLocalProvider().initPref().then((_) {
       if (PreferencesLocalProvider().locale == null) {
-        print(deviceLocale);
         if (AppLocalizations.languages.keys.contains(Locale.fromSubtags(
             languageCode: deviceLocale.languageCode.toUpperCase()))) {
+
           BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
               languageCode: deviceLocale.languageCode,
               countryCode: deviceLocale.countryCode));
@@ -98,6 +99,7 @@ class _AppState extends State<App> {
     } else {
       intl.Intl.defaultLocale = _supportedDateFormat[0];
     }
+
     return locale;
   }
 }

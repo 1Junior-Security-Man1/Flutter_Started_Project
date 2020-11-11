@@ -10,6 +10,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit(User user) : super(EditProfileState(user));
 
   Future<bool> updateUser()async {
+
     await ProfileRepository(RestClient()).putUser(state.user);
     await ProfileLocalRepository().putUser(state.user);
     return true;

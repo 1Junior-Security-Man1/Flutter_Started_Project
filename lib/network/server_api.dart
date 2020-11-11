@@ -1,5 +1,6 @@
 import 'package:bounty_hub_client/data/models/api/request/auth_request.dart';
 import 'package:bounty_hub_client/data/models/api/request/set_social.dart';
+import 'package:bounty_hub_client/data/models/api/response/notification_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/user_tasks_response.dart';
@@ -71,7 +72,7 @@ abstract class RestClient {
       @Path('userId') String userId, @Path('taskId') String taskId);
 
   @GET("/users/{userId}")
-  Future<User> getUser({@Path('userId')String userId});
+  Future<User> getUser({@Path('userId') String userId});
 
   @PUT("/users/{userId}")
   Future<void> putUser(@Path('userId') String userId, @Body() User updatedUser);
@@ -84,4 +85,8 @@ abstract class RestClient {
 
   @DELETE("/users/social/{id}/delete")
   Future<void> removeSocial(@Path('id') String id);
+
+  @GET("/notifications/list")
+  Future<NotificationResponse> getActivities(
+      @Query('page') int page, @Query('size') int size);
 }

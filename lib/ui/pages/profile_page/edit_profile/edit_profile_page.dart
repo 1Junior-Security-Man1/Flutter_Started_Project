@@ -3,6 +3,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/edit_profile/cubit/edit_
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
+import 'package:bounty_hub_client/utils/localization/bloc/locale_event.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -44,7 +45,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     var user = BlocProvider.of<EditProfileCubit>(context).state.user;
 
-    print(user.name);
     return BlocBuilder<EditProfileCubit, EditProfileState>(
         builder: (context, state) {
       return Scaffold(
@@ -76,7 +76,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
   }
 
-  Padding _buildSaveButton(BuildContext context) {
+  Padding _buildSaveButton(
+    BuildContext context,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
@@ -85,6 +87,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
           text: 'SAVE',
           onPressed: () async {
             if (await BlocProvider.of<EditProfileCubit>(context).updateUser()) {
+              BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
+                countryCode: BlocProvider.of<EditProfileCubit>(context)
+                    .state
+                    .user
+                    .language
+                    .split('_')[1],
+                languageCode: BlocProvider.of<EditProfileCubit>(context)
+                    .state
+                    .user
+                    .language
+                    .split('_')[0],
+              ));
               Navigator.pop(context);
             }
           },
@@ -200,7 +214,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   .firstWhere((element) => element.value == newValue)
                   .key
                   .toString();
-              print(user.language);
             });
           },
           hint: Padding(
@@ -281,17 +294,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: new Builder(
                   builder: (context) => InkWell(
                     onTap: () async {
-                      user.birthday = (await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.parse(
+                      await showCupertinoModalPopup(
+                          builder: (context) => Container(
+                                height: 250,
+                                color: Colors.white,
+                                child: CupertinoDatePicker(
+                                  onDateTimeChanged: (DateTime value) {
+                                    user.birthday = value
+                                            ?.toIso8601String()
+                                            ?.split('T')[0] ??
+                                        user.birthday;
+                                    setState(() {
+
+                                    });
+                                  },
+                                  mode: CupertinoDatePickerMode.date,
+                                  initialDateTime: DateTime.parse(
                                       '${user.birthday}T00:00:00' ??
                                           '1970-01-01'),
-                                  firstDate:
-                                      DateTime.parse('1900-01-01T00:00:00'),
-                                  lastDate: DateTime.now()))
-                              ?.toIso8601String()
-                              ?.split('T')[0] ??
-                          user.birthday;
+                                ),
+                              ),
+                          context: context);
                     },
                     child: Container(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(12),

@@ -22,9 +22,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     _bloc = context.bloc<ProfileBloc>();
-    Future.microtask(() {
-      _bloc.add(FetchProfileEvent());
-    });
     super.initState();
   }
 
@@ -43,6 +40,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   builder: (context) => BlocProvider(
                       create: (context) => EditProfileCubit(_bloc.state.user.copy()),
                       child: EditProfilePage())));
+
+         _bloc.add(FetchProfileEvent());
 
 
         },
