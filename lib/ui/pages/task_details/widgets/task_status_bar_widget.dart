@@ -1,4 +1,5 @@
 import 'package:bounty_hub_client/data/enums/user_task_status.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_ui_utils.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
@@ -37,7 +38,7 @@ class _TaskStatusBarWidgetState extends State<TaskStatusBarWidget> {
   }
 
   Row buildBody(UserTaskStatusType status, int approveDate, int confirmationDaysCount) {
-    int currentStep = getCurrentStepByStatus(status, approveDate, confirmationDaysCount);
+    int currentStep = getTaskCompletionStepByStatus(status, approveDate, confirmationDaysCount);
     List<Widget> rows = [];
     for(int step = 1; step <= 5; step++) {
       if(step != 1) {
@@ -118,31 +119,5 @@ class _TaskStatusBarWidgetState extends State<TaskStatusBarWidget> {
       default:
         return <Color>[AppColors.primaryColor, AppColors.accentColor];
     }
-  }
-
-  int getCurrentStepByStatus(UserTaskStatusType status, int approveDate, int confirmationDaysCount) {
-    switch(status) {
-      case UserTaskStatusType.IN_PROGRESS:
-        return 1;
-      case UserTaskStatusType.VERIFYING:
-        return 2;
-      case UserTaskStatusType.REJECTED:
-        return 3;
-      case UserTaskStatusType.APPROVED:
-        return checkIfTaskReadyToReconfirm(approveDate, confirmationDaysCount) ? 4 : 3;
-      case UserTaskStatusType.PAID:
-      case UserTaskStatusType.CANCELED:
-        return 5;
-      default:
-        return 1;
-    }
-  }
-
-  bool checkIfTaskReadyToReconfirm(int approveDate, int confirmationDaysCount) {
-    var now = new DateTime.now();
-    var duration = new Duration(days : confirmationDaysCount);
-    var approveDateTime = DateTime.fromMillisecondsSinceEpoch(approveDate);
-    approveDateTime = approveDateTime.add(duration);
-    return now.isAfter(approveDateTime);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/widgets/%20task_completion_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_budget_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_campaign_socials_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_description_widget.dart';
@@ -91,6 +92,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
                 ],
               ),
             ),
+            state.task != null && state.userTask != null ? TaskCompletionWidget(task: state.task, userTask: state.userTask) : SizedBox(),
             Container(
               padding: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding),
               child: Row(
