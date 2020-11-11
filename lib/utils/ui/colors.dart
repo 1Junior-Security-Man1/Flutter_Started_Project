@@ -31,4 +31,5 @@ abstract class AppColors {
   static const Color itemTextColor = Color(0xFF484848);
   static const Color currencyTextColor = Color(0xFF4FD69C);
   static const Color errorTextColor = Color(0xFFbf3938);
+  static const Color verificationTimerColor = Color(0xFF35B3EF);
 }
