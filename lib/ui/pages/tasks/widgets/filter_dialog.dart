@@ -34,15 +34,17 @@ class FilterDialog extends StatefulWidget {
 
   final List<Campaign> compaing;
 
-  FilterDialog._(this.onSelect, this.compaing);
+  FilterEntity selectedEntity;
+
+  FilterDialog._(this.onSelect, this.compaing,  this.selectedEntity);
 
   static Future<void> show(
       BuildContext context, void onSelect(FilterEntity detail),
-      {height = 546.0, compaing}) async {
+      {height = 546.0, compaing, FilterEntity selectedEntity}) async {
     return showDialog(
         context: context,
         builder: (context) =>
-            TopSheet(FilterDialog._(onSelect, compaing), height: height),
+            TopSheet(FilterDialog._(onSelect, compaing,selectedEntity), height: height),
         barrierColor: Colors.transparent);
   }
 
@@ -54,6 +56,13 @@ class _FilterDialogState extends State<FilterDialog> {
   
   List<SocialNetworkType> selectedSocial = [];
   List<Campaign> selectedCompany = [];
+
+  @override
+  void initState() {
+    selectedCompany = List.of(widget.selectedEntity.selectedCompany);
+    selectedSocial = List.of(widget.selectedEntity.selectedSocial);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

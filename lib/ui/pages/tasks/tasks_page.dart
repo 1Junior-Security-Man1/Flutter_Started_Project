@@ -42,7 +42,7 @@ class TasksPage extends StatelessWidget {
                     onPressed: () {
                       FilterDialog.show(context, (selectedEntity) {
                         //todo filter tasks
-                      }, compaing:state.campaing);
+                      }, compaing:state.campaing,selectedEntity:FilterEntity([], []));
                     },
                   ),
               ),
