@@ -76,8 +76,8 @@ class TopSheetState extends State<TopSheet>
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(61),
-                            bottomLeft: Radius.circular(61))),
+                            bottomRight: Radius.circular(50),
+                            bottomLeft: Radius.circular(50))),
                     child: Container(
                       child: widget.child,
                     ),

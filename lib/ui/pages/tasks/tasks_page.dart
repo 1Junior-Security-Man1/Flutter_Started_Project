@@ -3,6 +3,7 @@ import 'package:bounty_hub_client/network/server_api.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_state.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/widgets/tasks_content.dart';
+import 'package:bounty_hub_client/ui/widgets/settings_menu_dialog.dart';
 import 'package:bounty_hub_client/ui/widgets/top_sheet_widget.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -61,7 +62,7 @@ class TasksPage extends StatelessWidget {
             width: 26,
           ),
           onPressed: () {
-            // do something
+            SettingsMenuDialog.show(context, () { });
           },
         ),
       ],
