@@ -6,7 +6,7 @@ class CompanyListResponse {
   int totalElements;
   bool last;
   int numberOfElements;
-  Null sort;
+  List<dynamic> sort;
   bool first;
   int size;
   int number;

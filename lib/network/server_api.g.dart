@@ -136,7 +136,7 @@ class _RestClient implements RestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/campaigns/filtered',
+        '/campaigns/filtered?statusType=APPROVED&sort=position,desc&accessMode=PUBLIC',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

@@ -40,7 +40,9 @@ class TasksPage extends StatelessWidget {
                       width: 26,
                     ),
                     onPressed: () {
-                      FilterDialog.show(context, (_) {}, compaing:state.campaing);
+                      FilterDialog.show(context, (selectedEntity) {
+                        //todo filter tasks
+                      }, compaing:state.campaing);
                     },
                   ),
               ),

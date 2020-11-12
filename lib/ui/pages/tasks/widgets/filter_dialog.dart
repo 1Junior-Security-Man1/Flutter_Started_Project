@@ -51,8 +51,9 @@ class FilterDialog extends StatefulWidget {
 }
 
 class _FilterDialogState extends State<FilterDialog> {
-  var companyCount = 10;
-  var socialCount = 20;
+  
+  List<SocialNetworkType> selectedSocial = [];
+  List<Campaign> selectedCompany = [];
 
   @override
   Widget build(BuildContext context) {
@@ -158,25 +159,47 @@ class _FilterDialogState extends State<FilterDialog> {
   }
 
   Widget _buildCompanyItem(Campaign item) {
-    print(getImageUrl(item.coverId));
     return Container(
       height: 75,
       width: 75,
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12.0),
-            child: Container(
-              decoration: WidgetsDecoration.appBlueButtonStyle(),
-              child: CachedNetworkImage(
-                imageUrl: getImageUrl(item.coverId),
-                height: 45,
-                width: 45,
-                placeholder: (_,__)=> Container(
-                  decoration: WidgetsDecoration.appBlueButtonStyle(),
+          Stack(
+            alignment: Alignment.bottomRight,
+            children: [
+              GestureDetector(
+                onTap: (){
+                  if(selectedCompany.contains(item)){
+                    selectedCompany.remove(item);
+                  }else{
+                    selectedCompany.add(item);
+                  }
+                  widget.onSelect(FilterEntity(selectedCompany,selectedSocial));
+                  setState(() {
+
+                  });
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Container(
+                    decoration: WidgetsDecoration.appBlueButtonStyle(),
+                    child: CachedNetworkImage(
+                      imageUrl: getImageUrl(item.coverId),
+                      height: 45,
+                      width: 45,
+                      placeholder: (_,__)=> Container(
+                        decoration: WidgetsDecoration.appBlueButtonStyle(),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
+              if(selectedCompany.contains(item))
+                Container(
+                  child: Image.asset('assets/images/complete.png',color: Colors.white,height: 14,width: 14,),
+                  decoration: WidgetsDecoration.appBlueButtonStyle().copyWith(border: Border.all(color: Colors.white),),
+                )
+            ],
           ),
           Container(
               width: 45,
@@ -193,16 +216,43 @@ class _FilterDialogState extends State<FilterDialog> {
   }
 
   Widget _buildSocialItem(SocialNetworkType type) {
-
     return Container(
       height: 75,
       width: 75,
       child: Column(
         children: [
-          Container(
-            height: 45,
-            width: 45,
-            child: buildSocialImage(type),
+          GestureDetector(
+            onTap: (){
+              if(selectedSocial.contains(type)){
+                selectedSocial.remove(type);
+              }else{
+                selectedSocial.add(type);
+              }
+              widget.onSelect(FilterEntity(selectedCompany,selectedSocial));
+              setState(() {
+                
+              });
+            },
+            child: Stack(alignment: Alignment.bottomRight,
+              children: [
+                Align(
+                  alignment:Alignment.center,
+                  child: Container(
+                    height: 45,
+                    width: 45,
+                    child: buildSocialImage(type),
+                  ),
+                ),
+                if(selectedSocial.contains(type))
+                Transform.translate(
+                  offset: Offset(-12,0),
+                  child: Container(
+                    child: Image.asset('assets/images/complete.png',color: Colors.white,height: 14,width: 14,),
+                    decoration: WidgetsDecoration.appBlueButtonStyle().copyWith(border: Border.all(color: Colors.white),),
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       ),
@@ -211,6 +261,8 @@ class _FilterDialogState extends State<FilterDialog> {
 }
 
 class FilterEntity {
-  List<String> selectedCompany;
-  List<String> selectedSocial;
+  final List<Campaign> selectedCompany;
+  final List<SocialNetworkType> selectedSocial;
+
+  FilterEntity(this.selectedCompany, this.selectedSocial);
 }

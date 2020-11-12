@@ -61,7 +61,7 @@ abstract class RestClient {
   @GET("/campaigns/{campaignId}")
   Future<Campaign> getCampaign(@Path('campaignId') String campaignId);
 
-  @GET("/campaigns/filtered")
+  @GET("/campaigns/filtered?statusType=APPROVED&sort=position,desc&accessMode=PUBLIC")
   Future<CompanyListResponse> getAllCampaign();
 
   @GET("/users/{userId}/item/{taskId}")
