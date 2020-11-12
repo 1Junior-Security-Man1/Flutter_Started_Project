@@ -1,10 +1,13 @@
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/widgets/tasks_content.dart';
+import 'package:bounty_hub_client/ui/widgets/top_sheet_widget.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'widgets/filter_dialog.dart';
 
 class TasksPage extends StatelessWidget {
   @override
@@ -34,7 +37,7 @@ class TasksPage extends StatelessWidget {
                   width: 26,
                 ),
                 onPressed: () {
-                  // do something
+                  FilterDialog.show(context,(_){});
                 },
               ),
             ],
