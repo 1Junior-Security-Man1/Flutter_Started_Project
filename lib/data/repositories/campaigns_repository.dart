@@ -12,4 +12,9 @@ class CampaignRepository extends CampaignDataSource {
   Future<Campaign> getCampaign(String campaignId) {
     return client.getCampaign(campaignId);
   }
+
+  @override
+  Future<List<Campaign>> getAllCampaign() async {
+    return (await client.getAllCampaign()).content;
+  }
 }

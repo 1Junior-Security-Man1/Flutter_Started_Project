@@ -5,6 +5,7 @@ import 'package:bounty_hub_client/ui/pages/main/cubit/main_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_event.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/profile_page.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_page.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_event.dart';
@@ -26,6 +27,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     Future.microtask(() {
       context.bloc<BadgeCubit>().getCount();
+      context.bloc<TasksCubit>().getCompanies();
       context.bloc<ProfileBloc>().add(FetchProfileEvent());
       context.bloc<ProfileBloc>().listen((state) {
         BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(

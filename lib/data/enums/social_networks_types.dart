@@ -1,34 +1,34 @@
 enum SocialNetworkType {
   FACEBOOK,
   VK,
-  DISCORD,
+  // DISCORD, //none
   TWITTER,
-  REDDIT,
-  BITCOIN_TALK,
+  // REDDIT, //none
+  // BITCOIN_TALK, //none
   YOUTUBE,
-  SLACK,
+  // SLACK, //none
   MEDIUM,
   TELEGRAM,
   INSTAGRAM,
   OTHER,
   LINKEDIN,
   TIKTOK,
-  GOOGLE,
 }
 
 const socialNetworkTypeEnumMap = {
   SocialNetworkType.FACEBOOK: 'FACEBOOK',
   SocialNetworkType.VK: 'VK',
-  SocialNetworkType.DISCORD: 'DISCORD',
+  // SocialNetworkType.DISCORD: 'DISCORD',
   SocialNetworkType.TWITTER: 'TWITTER',
-  SocialNetworkType.REDDIT: 'REDDIT',
-  SocialNetworkType.BITCOIN_TALK: 'BITCOIN_TALK',
+  // SocialNetworkType.REDDIT: 'REDDIT',
+  // SocialNetworkType.BITCOIN_TALK: 'BITCOIN_TALK',
   SocialNetworkType.YOUTUBE: 'YOUTUBE',
-  SocialNetworkType.SLACK: 'SLACK',
+  // SocialNetworkType.SLACK: 'SLACK',
   SocialNetworkType.MEDIUM: 'MEDIUM',
   SocialNetworkType.TELEGRAM: 'TELEGRAM',
   SocialNetworkType.INSTAGRAM: 'INSTAGRAM',
-  SocialNetworkType.OTHER: 'OTHER',
   SocialNetworkType.LINKEDIN: 'LINKEDIN',
   SocialNetworkType.TIKTOK: 'TIKTOK',
+  SocialNetworkType.OTHER: 'OTHER',
+
 };

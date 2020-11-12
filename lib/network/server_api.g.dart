@@ -131,6 +131,24 @@ class _RestClient implements RestClient {
   }
 
   @override
+  getAllCampaign() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/campaigns/filtered?statusType=APPROVED&sort=position,desc&accessMode=PUBLIC',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = CompanyListResponse.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
   getUserTask(userId, taskId, redirectUrl) async {
     ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(taskId, 'taskId');

@@ -11,6 +11,7 @@ import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/network/server_api.dart';
 import 'package:bounty_hub_client/ui/pages/activity/cubit/activity_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,7 +44,7 @@ getProviders(RestClient client) {
     BlocProvider(create: (context) => LocaleBloc()),
     BlocProvider(
         create: (context) => ActivityCubit(ActivitiesRepository(client))),
-    BlocProvider(
-        create: (context) => BadgeCubit(ActivitiesRepository(client))),
+    BlocProvider(create: (context) => BadgeCubit(ActivitiesRepository(client))),
+    BlocProvider(create: (context) => TasksCubit(CampaignRepository(client))),
   ];
 }
