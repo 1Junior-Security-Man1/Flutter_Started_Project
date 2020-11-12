@@ -1,5 +1,6 @@
 import 'package:bounty_hub_client/data/models/api/request/auth_request.dart';
 import 'package:bounty_hub_client/data/models/api/request/set_social.dart';
+import 'package:bounty_hub_client/data/models/api/response/company_list_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/notification_count_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/notification_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
@@ -59,6 +60,9 @@ abstract class RestClient {
 
   @GET("/campaigns/{campaignId}")
   Future<Campaign> getCampaign(@Path('campaignId') String campaignId);
+
+  @GET("/campaigns/filtered")
+  Future<CompanyListResponse> getAllCampaign();
 
   @GET("/users/{userId}/item/{taskId}")
   Future<UserTask> getUserTask(@Path('userId') String userId,

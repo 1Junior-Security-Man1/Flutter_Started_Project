@@ -1,4 +1,7 @@
+import 'package:bounty_hub_client/data/repositories/campaigns_repository.dart';
+import 'package:bounty_hub_client/network/server_api.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_state.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/widgets/tasks_content.dart';
 import 'package:bounty_hub_client/ui/widgets/top_sheet_widget.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
@@ -6,6 +9,7 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:retrofit/http.dart';
 
 import 'widgets/filter_dialog.dart';
 
@@ -15,10 +19,7 @@ class TasksPage extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(context),
       backgroundColor: AppColors.pageBackgroundColor,
-      body: BlocProvider(
-        create: (_) => TasksCubit(),
-        child: TasksContent(),
-      ),
+      body: TasksContent(),
     );
   }
 
@@ -31,14 +32,17 @@ class TasksPage extends StatelessWidget {
         child: Container(
           child: Stack(
             children: [
-              IconButton(
-                icon: Image.asset(
-                  'assets/images/filter.png',
-                  width: 26,
-                ),
-                onPressed: () {
-                  FilterDialog.show(context,(_){});
-                },
+              BlocBuilder<TasksCubit, TasksState>(
+                 builder: (context, state) =>
+                  IconButton(
+                    icon: Image.asset(
+                      'assets/images/filter.png',
+                      width: 26,
+                    ),
+                    onPressed: () {
+                      FilterDialog.show(context, (_) {}, compaing:state.campaing);
+                    },
+                  ),
               ),
             ],
           ),

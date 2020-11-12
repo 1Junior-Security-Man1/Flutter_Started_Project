@@ -9,14 +9,6 @@ class TopSheet extends StatefulWidget {
 
   const TopSheet(this.child, {this.height = 300});
 
-  // static Future<void> show(
-  //     BuildContext context, void onSelect(FilterEntity detail)) async {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (context) => const FilterDialog._(),
-  //       barrierColor: Colors.transparent);
-  // }
-
   @override
   TopSheetState createState() => TopSheetState();
 }

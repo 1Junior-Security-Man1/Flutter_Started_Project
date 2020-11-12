@@ -1,7 +1,13 @@
+import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
+import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
+import 'package:bounty_hub_client/network/download/image_url_provider.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
+import 'package:bounty_hub_client/ui/widgets/social_image.dart';
 import 'package:bounty_hub_client/ui/widgets/top_sheet_widget.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
+import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 typedef void OnSelect(FilterEntity detail);
@@ -26,15 +32,17 @@ typedef void OnSelect(FilterEntity detail);
 class FilterDialog extends StatefulWidget {
   final OnSelect onSelect;
 
-  FilterDialog._(this.onSelect);
+  final List<Campaign> compaing;
+
+  FilterDialog._(this.onSelect, this.compaing);
 
   static Future<void> show(
       BuildContext context, void onSelect(FilterEntity detail),
-      {height = 556.0}) async {
+      {height = 546.0, compaing}) async {
     return showDialog(
         context: context,
         builder: (context) =>
-            TopSheet(FilterDialog._(onSelect), height: height),
+            TopSheet(FilterDialog._(onSelect, compaing), height: height),
         barrierColor: Colors.transparent);
   }
 
@@ -53,7 +61,7 @@ class _FilterDialogState extends State<FilterDialog> {
         Column(
           children: [
             CustomAppBar(
-              title: 'Company',
+              title: 'Social Networks',
               leftIcon: 'assets/images/reject.png',
               onLeftIconClick: () {
                 TopSheetState.close(context);
@@ -61,10 +69,10 @@ class _FilterDialogState extends State<FilterDialog> {
               color: Colors.white,
             ),
             SizedBox(
-              height: 182,
+              height: 162,
             ),
             CustomAppBar(
-              title: 'Social Networks',
+              title: 'Company',
               color: Colors.white,
             )
           ],
@@ -78,11 +86,11 @@ class _FilterDialogState extends State<FilterDialog> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ..._buildCompanyList(),
+                  ..._buildSocialList(),
                   SizedBox(
-                    height: 80,
+                    height: 60,
                   ),
-                  ..._buildSocialsList(),
+                  ..._buildCompanyList(),
                 ],
               ),
             ),
@@ -92,29 +100,29 @@ class _FilterDialogState extends State<FilterDialog> {
     );
   }
 
-  List<Widget> _buildSocialsList() {
+  List<Widget> _buildCompanyList() {
     return [
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           for (int i = 0;
-              i < (socialCount ~/ 3) + (socialCount % 3 == 0 ? 0 : 1);
+              i < (widget.compaing.length ~/ 3) + (widget.compaing.length % 3 == 0 ? 0 : 1);
               i++)
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                _buildSocialItemItem(i),
-                if (socialCount >= 2)
-                  _buildSocialItemItem(
-                      (socialCount ~/ 3) + (socialCount % 3 == 0 ? 0 : 1) + i),
-                if ((socialCount ~/ 3 * 2) +
-                        (socialCount % 3 == 0 ? 0 : 2) +
+                _buildCompanyItem(widget.compaing[i]),
+                if (widget.compaing.length >= 2)
+                  _buildCompanyItem(widget.compaing[
+                      (widget.compaing.length ~/ 3) + (widget.compaing.length % 3 == 0 ? 0 : 1) + i]),
+                if ((widget.compaing.length ~/ 3 * 2) +
+                        (widget.compaing.length % 3 == 0 ? 0 : 2) +
                         i +
                         1 <=
-                    socialCount)
-                  _buildSocialItemItem((socialCount ~/ 3 * 2) +
-                      (socialCount % 3 == 0 ? 0 : 2) +
-                      i),
+                  widget.compaing.length)
+                  _buildCompanyItem(widget.compaing[(widget.compaing.length ~/ 3 * 2) +
+                      (widget.compaing.length % 3 == 0 ? 0 : 2) +
+                      i]),
               ],
             )
         ],
@@ -122,11 +130,13 @@ class _FilterDialogState extends State<FilterDialog> {
     ];
   }
 
-  List<Widget> _buildCompanyList() {
+  List<Widget> _buildSocialList() {
+    var socialList = SocialNetworkType.values;
     return [
       Row(
         children: [
-          for (int i = 0; i < companyCount / 2; i++) _buildCompanyItem(i)
+          for (int i = 0; i < socialList.length / 2; i++)
+            _buildSocialItem(socialList[i])
         ],
       ),
       SizedBox(
@@ -134,11 +144,11 @@ class _FilterDialogState extends State<FilterDialog> {
       ),
       Row(
         children: [
-          for (int i = companyCount ~/ 2 + companyCount % 2;
-              i < companyCount;
+          for (int i = socialList.length ~/ 2 + socialList.length % 2;
+              i < socialList.length;
               i++)
-            _buildCompanyItem(i),
-          if (!companyCount.isEven)
+            _buildSocialItem(socialList[i]),
+          if (!socialList.length.isEven)
             Container(
               width: 85,
             )
@@ -147,23 +157,33 @@ class _FilterDialogState extends State<FilterDialog> {
     ];
   }
 
-  Widget _buildCompanyItem(int i) {
+  Widget _buildCompanyItem(Campaign item) {
+    print(getImageUrl(item.coverId));
     return Container(
       height: 75,
       width: 75,
       child: Column(
         children: [
-          Container(
-            height: 45,
-            width: 45,
-            child: Text(i.toString()),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12), color: Colors.blue),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: Container(
+              decoration: WidgetsDecoration.appBlueButtonStyle(),
+              child: CachedNetworkImage(
+                imageUrl: getImageUrl(item.coverId),
+                height: 45,
+                width: 45,
+                placeholder: (_,__)=> Container(
+                  decoration: WidgetsDecoration.appBlueButtonStyle(),
+                ),
+              ),
+            ),
           ),
           Container(
               width: 45,
               child: Text(
-                'SomeText',
+                item.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.smallBoldTitle
                     .copyWith(fontSize: 9, color: AppColors.itemTextColor),
               )),
@@ -172,7 +192,8 @@ class _FilterDialogState extends State<FilterDialog> {
     );
   }
 
-  Widget _buildSocialItemItem(int i) {
+  Widget _buildSocialItem(SocialNetworkType type) {
+
     return Container(
       height: 75,
       width: 75,
@@ -181,9 +202,7 @@ class _FilterDialogState extends State<FilterDialog> {
           Container(
             height: 45,
             width: 45,
-            child: Text(i.toString()),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12), color: Colors.blue),
+            child: buildSocialImage(type),
           ),
         ],
       ),
