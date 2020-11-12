@@ -123,7 +123,7 @@ class TopSheetState extends State<TopSheet>
         setState(() {
           controller.animateTo(1 -
               ((_dragStartPosition - detail.globalPosition.dy) /
-                  widget.height));
+                  widget.height),duration: Duration.zero);
         });
       },
     );
