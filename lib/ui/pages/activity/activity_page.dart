@@ -114,7 +114,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
             highlightColor: Colors.black12,
             splashColor: Colors.black12,
             onTap: () {
-              context.bloc<BadgeCubit>().readNotification(activity.id);
+              context.bloc<ActivityBadgeCubit>().readNotification(activity.id);
               activity.read = true;
               setState(() {
 

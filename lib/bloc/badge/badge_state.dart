@@ -1,11 +1,11 @@
 part of 'badge_cubit.dart';
 
-class BadgeState {
+class ActivityBadgeState {
   final int unreadCount;
 
-  BadgeState({this.unreadCount});
+  ActivityBadgeState({this.unreadCount});
 
-  BadgeState copyWith({int unreadCount}) {
-    return BadgeState(unreadCount: unreadCount ?? this.unreadCount);
+  ActivityBadgeState copyWith({int unreadCount}) {
+    return ActivityBadgeState(unreadCount: unreadCount ?? this.unreadCount);
   }
 }

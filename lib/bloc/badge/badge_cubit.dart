@@ -3,10 +3,10 @@ import 'package:bounty_hub_client/data/repositories/activities_repository.dart';
 
 part 'badge_state.dart';
 
-class BadgeCubit extends Cubit<BadgeState> {
+class ActivityBadgeCubit extends Cubit<ActivityBadgeState> {
   ActivitiesRepository activitiesRepository;
 
-  BadgeCubit(this.activitiesRepository) : super(BadgeState(unreadCount: 0));
+  ActivityBadgeCubit(this.activitiesRepository) : super(ActivityBadgeState(unreadCount: 0));
 
   void getCount() async {
     var count = await activitiesRepository.getUnreadActivitiesCount();

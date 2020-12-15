@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     Future.microtask(() {
-      context.bloc<BadgeCubit>().getCount();
+      context.bloc<ActivityBadgeCubit>().getCount();
       context.bloc<TasksCubit>().getCompanies();
       context.bloc<ProfileBloc>().add(FetchProfileEvent());
       context.bloc<ProfileBloc>().listen((state) {
@@ -96,7 +96,7 @@ class _MainPageState extends State<MainPage> {
                   BottomNavigationBarItem(
                     icon: Padding(
                       padding: const EdgeInsets.only(bottom: 5.0),
-                      child: BlocBuilder<BadgeCubit,BadgeState>(
+                      child: BlocBuilder<ActivityBadgeCubit,ActivityBadgeState>(
                         builder:(context,state)=> Stack(
                           alignment: Alignment.topRight,
                           children: [

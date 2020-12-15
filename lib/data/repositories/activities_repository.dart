@@ -19,7 +19,7 @@ class ActivitiesRepository extends ActivitiesDataSource {
   }
 
   @override
-  Future<int> getUnreadActivitiesCount()async {
+  Future<int> getUnreadActivitiesCount() async {
     return (await client.getUnreadActivitiesCount()).count;
   }
 
