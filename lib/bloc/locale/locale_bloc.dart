@@ -1,6 +1,6 @@
+import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
 import 'package:bounty_hub_client/data/repositories/locale_repository.dart';
-import 'package:bounty_hub_client/utils/localization/bloc/locale_event.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LocaleBloc extends Bloc<LocaleEvent, Locale> {

@@ -4,8 +4,7 @@ import 'package:flutter_sheet_localization/flutter_sheet_localization.dart';
 
 part 'localization.g.dart';
 
-@SheetLocalization('1bwmAHBjxtnrPIZ9pRTC7ooTUnkiceK_lapKXILvcDyE',
-    '0')
+@SheetLocalization('1bwmAHBjxtnrPIZ9pRTC7ooTUnkiceK_lapKXILvcDyE', '0')
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 

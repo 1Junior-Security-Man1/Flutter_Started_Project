@@ -6,7 +6,7 @@ int calculateLeftBudgetPercentage(Task task) {
   return (checkNullDouble(task.leftBudget) * 100) ~/ checkNullDouble(task.budget);
 }
 
-int getTaskCompletionStepByStatus(UserTaskStatusType status, int approveDate, int confirmationDaysCount) {
+int getTaskCompletionStepByStatus(UserTaskStatusType status, DateTime approveDate, int confirmationDaysCount) {
   switch(status) {
     case UserTaskStatusType.IN_PROGRESS:
       return 1;
@@ -24,18 +24,19 @@ int getTaskCompletionStepByStatus(UserTaskStatusType status, int approveDate, in
   }
 }
 
-bool checkIfTaskReadyToReconfirm(int approveDate, int confirmationDaysCount) {
+bool checkIfTaskReadyToReconfirm(DateTime approveDateTime, int confirmationDaysCount) {
+  if(approveDateTime == null) return false;
+
   var now = DateTime.now();
   var duration = Duration(days : confirmationDaysCount);
-  var approveDateTime = DateTime.fromMillisecondsSinceEpoch(approveDate);
   approveDateTime = approveDateTime.add(duration);
   return now.isAfter(approveDateTime);
 }
 
-int getTaskVerificationTime(int confirmationDaysCount, int approveDate) {
-  if(approveDate == null) return 0;
+int getTaskVerificationTime(int confirmationDaysCount, DateTime approveDateTime) {
+  if(approveDateTime == null) return 0;
+
   var duration = Duration(days : confirmationDaysCount);
-  var approveDateTime = DateTime.fromMillisecondsSinceEpoch(approveDate);
   approveDateTime = approveDateTime.add(duration);
   return approveDateTime.millisecondsSinceEpoch + 1000 * 60;
 }

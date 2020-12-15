@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_bloc.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_event.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_state.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_event.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_state.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
@@ -103,9 +103,7 @@ class _WalletCardWidgetState extends State<WalletCardWidget> {
                             enable: _editingController.text.length > 10,
                             onPressed: () {
                               focusText.unfocus();
-                              context.bloc<ProfileBloc>().add(
-                                  UpdateTronWalletEvent(
-                                      _editingController.text));
+                              context.bloc<ProfileBloc>().add(UpdateTronWalletEvent(_editingController.text));
                             },
                           ),
                         )

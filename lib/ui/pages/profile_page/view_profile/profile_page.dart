@@ -1,8 +1,8 @@
 import 'package:bounty_hub_client/ui/pages/profile_page/edit_profile/cubit/edit_profile_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/edit_profile/edit_profile_page.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/lvl_card_widget.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/social/social_card.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/wallet_card_widget.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/widgets/lvl_card_widget.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/widgets/social/social_card.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/widgets/wallet_card_widget.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';

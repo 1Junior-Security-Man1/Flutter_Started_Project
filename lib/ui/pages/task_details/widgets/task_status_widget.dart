@@ -20,7 +20,7 @@ class TaskStatusWidget extends StatelessWidget {
           } else if((state.userTaskStatus == UserTaskStatus.success || state.userTaskStatus == UserTaskStatus.take_success) && state.userTask != null) {
             return TaskStatusBarWidget(
               status: state.userTask.getTaskStatus(),
-              approveDate: checkNullInt(state.userTask.approveDate),
+              approveDate: state.userTask.approveDate != null ? state.userTask.approveDate : null,
               confirmationDaysCount: checkNullInt(state.task.confirmationDaysCount, defaultValue: 1),
               height: Dimens.app_button_height,
             );

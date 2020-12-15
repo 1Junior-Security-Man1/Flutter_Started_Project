@@ -24,7 +24,7 @@ class ActivitiesRepository extends ActivitiesDataSource {
   }
 
   @override
-  Future<void> readNotification(String id) {
+  Future<void> readActivity(String id) {
     return client.readNotification(id);
   }
 }

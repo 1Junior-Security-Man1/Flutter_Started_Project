@@ -1,8 +1,8 @@
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
 import 'package:bounty_hub_client/data/models/entity/user/social.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_bloc.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_event.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/widgets/social/social_description_widgets/social_description_pre_next_widget.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_event.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/widgets/social/social_description_widgets/social_description_pre_next_widget.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -100,8 +100,7 @@ class _SocialDescriptionWidgetState extends State<SocialDescriptionWidget> {
           ),
         ),
         onPressed: () {
-          BlocProvider.of<ProfileBloc>(context)
-              .add(RemoveSocialProfileEvent(widget.social.id));
+          BlocProvider.of<ProfileBloc>(context).add(RemoveSocialProfileEvent(widget.social.id));
         },
       )
     ]);

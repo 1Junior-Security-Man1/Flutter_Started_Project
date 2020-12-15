@@ -1,9 +1,9 @@
+import 'package:bounty_hub_client/bloc/locale/locale_bloc.dart';
+import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
 import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/edit_profile/cubit/edit_profile_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
-import 'package:bounty_hub_client/utils/localization/bloc/locale_bloc.dart';
-import 'package:bounty_hub_client/utils/localization/bloc/locale_event.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:country_code_picker/country_code_picker.dart';

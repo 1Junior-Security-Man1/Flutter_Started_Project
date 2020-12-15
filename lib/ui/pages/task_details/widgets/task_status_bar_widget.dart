@@ -10,7 +10,7 @@ class TaskStatusBarWidget extends StatefulWidget {
   final double width;
   final double height;
   final UserTaskStatusType status;
-  final int approveDate;
+  final DateTime approveDate;
   final int confirmationDaysCount;
 
   const TaskStatusBarWidget({Key key,
@@ -37,7 +37,7 @@ class _TaskStatusBarWidgetState extends State<TaskStatusBarWidget> {
     );
   }
 
-  Row buildBody(UserTaskStatusType status, int approveDate, int confirmationDaysCount) {
+  Row buildBody(UserTaskStatusType status, DateTime approveDate, int confirmationDaysCount) {
     int currentStep = getTaskCompletionStepByStatus(status, approveDate, confirmationDaysCount);
     List<Widget> rows = [];
     for(int step = 1; step <= 5; step++) {

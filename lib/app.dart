@@ -1,4 +1,6 @@
 import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
+import 'package:bounty_hub_client/bloc/locale/locale_bloc.dart';
+import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
 import 'package:bounty_hub_client/ui/pages/splash/splash_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +13,6 @@ import 'package:path_provider/path_provider.dart';
 import 'bloc/auth/authorization_bloc.dart';
 import 'data/repositories/preferences_local_repository.dart';
 import 'utils/flavors.dart';
-import 'utils/localization/bloc/locale_bloc.dart';
-import 'utils/localization/bloc/locale_event.dart';
 import 'utils/localization/localization.dart';
 
 Flavor _currentFlavour;
@@ -30,8 +30,7 @@ class App extends StatefulWidget {
   @override
   _AppState createState() => _AppState();
 
-  static final GlobalKey<NavigatorState> globalNavigatorKey =
-      GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 }
 
 class _AppState extends State<App> {
@@ -68,8 +67,7 @@ class _AppState extends State<App> {
             accentColor: AppColors.accentColor,
           ),
           localeResolutionCallback: (deviceLocale, supportedLocales) =>
-              _localeResolutionCallback(
-                  deviceLocale, supportedLocales, locale, context),
+              _localeResolutionCallback(deviceLocale, supportedLocales, locale, context),
           locale: locale,
           localizationsDelegates: localizationsDelegates,
           supportedLocales: AppLocalizations.languages.keys.toList(),
@@ -90,8 +88,8 @@ class _AppState extends State<App> {
       BuildContext context) {
     PreferencesLocalProvider().initPref().then((_) {
       if (PreferencesLocalProvider().locale == null) {
-        if (AppLocalizations.languages.keys.contains(Locale.fromSubtags(
-            languageCode: deviceLocale.languageCode.toUpperCase()))) {
+        if (AppLocalizations.languages.keys.contains(Locale.fromSubtags(languageCode: deviceLocale.languageCode.toUpperCase()))) {
+
           BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
               languageCode: deviceLocale.languageCode,
               countryCode: deviceLocale.countryCode));

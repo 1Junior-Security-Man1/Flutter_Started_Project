@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/repositories/profile_local_repository.dart';
 import 'package:bounty_hub_client/data/repositories/profile_repository.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_event.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/profile/bloc/profile_state.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_event.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_state.dart';
 import 'package:logger/logger.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {

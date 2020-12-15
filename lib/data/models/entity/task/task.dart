@@ -28,7 +28,7 @@ class Task {
   bool autoCheck;
   String otherLink;
   List<Category> categories;
-  int launchTime;
+  DateTime launchTime;
   double masterReward;
   bool hasPermissions;
   double finalRewardAmount;
@@ -65,7 +65,7 @@ class Task {
     otherType = json["otherType"];
     autoCheck = json["autoCheck"];
     otherLink = json["otherLink"];
-    launchTime = json["launchTime"];
+    launchTime = json["launchTime"] != null ? DateTime.parse(json["launchTime"]) : null;
     masterReward = json["masterReward"];
     hasPermissions = json["hasPermissions"];
     finalRewardAmount = json["finalRewardAmount"];

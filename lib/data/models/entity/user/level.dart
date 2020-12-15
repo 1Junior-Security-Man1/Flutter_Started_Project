@@ -10,7 +10,6 @@ class UserLevel {
   bool participateInVipCampaigns;
   bool priorityCheck;
   int position;
-  int createdDate;
   String createdBy;
   dynamic userExperience;
   dynamic buyExperiencePoints;
@@ -30,7 +29,6 @@ class UserLevel {
       this.participateInVipCampaigns,
       this.priorityCheck,
       this.position,
-      this.createdDate,
       this.createdBy,
       this.userExperience,
       this.buyExperiencePoints,
@@ -50,7 +48,6 @@ class UserLevel {
     participateInVipCampaigns = json['participateInVipCampaigns'];
     priorityCheck = json['priorityCheck'];
     position = json['position'];
-    createdDate = json['createdDate'];
     createdBy = json['createdBy'];
     userExperience = json['userExperience'];
     buyExperiencePoints = json['buyExperiencePoints'];
@@ -72,7 +69,6 @@ class UserLevel {
     data['participateInVipCampaigns'] = this.participateInVipCampaigns;
     data['priorityCheck'] = this.priorityCheck;
     data['position'] = this.position;
-    data['createdDate'] = this.createdDate;
     data['createdBy'] = this.createdBy;
     data['userExperience'] = this.userExperience;
     data['buyExperiencePoints'] = this.buyExperiencePoints;

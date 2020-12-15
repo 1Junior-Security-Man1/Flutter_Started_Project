@@ -16,7 +16,7 @@ class UserTask {
   String rejectComment;
   String description;
   String productName;
-  int approveDate;
+  DateTime approveDate;
   bool autoCheck;
   List<Category> categories;
   double finalRewardAmount;
@@ -26,7 +26,7 @@ class UserTask {
   String achievementType;
   String checkLink;
   dynamic imageId;
-  int lastModifiedDate;
+  DateTime lastModifiedDate;
   UserTaskPayload payload;
   bool microItem;
 
@@ -41,7 +41,7 @@ class UserTask {
     rewardCurrency = json["rewardCurrency"];
     description = json["description"];
     productName = json["productName"];
-    approveDate = json["approveDate"];
+    approveDate = json["approveDate"] != null ? DateTime.parse(json["approveDate"]) : null;
     rejectComment = json["rejectComment"];
     finalRewardAmount = json["finalRewardAmount"];
     autoCheck = json["autoCheck"];
@@ -51,7 +51,7 @@ class UserTask {
     achievementType = json["achievementType"];
     checkLink = json["checkLink"];
     imageId = json["imageId"];
-    lastModifiedDate = json["lastModifiedDate"];
+    lastModifiedDate = DateTime.parse(json["lastModifiedDate"]);
     payload = json["payload"] != null ? UserTaskPayload.fromJson(json["payload"]) : null;
     if (json["categories"] != null) {
       categories = [];

@@ -14,7 +14,7 @@ class ActivityBadgeCubit extends Cubit<ActivityBadgeState> {
   }
 
   void readNotification(String id) async {
-    await activitiesRepository.readNotification(id);
+    await activitiesRepository.readActivity(id);
     emit(state.copyWith(unreadCount: state.unreadCount - 1));
   }
 }

@@ -43,6 +43,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
           emit(state.copyWith(userTask: userTask, userTaskStatus: UserTaskStatus.success));
         })
         .catchError((Object obj) {
+          log.e(obj);
           emit(state.copyWith(userTaskStatus: UserTaskStatus.failure));
         });
   }
@@ -66,6 +67,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
           emit(state.copyWith(userTask: userTask, userTaskStatus: UserTaskStatus.take_success));
         })
         .catchError((Object obj) {
+          log.e(obj);
           switch (obj.runtimeType) {
             case DioError:
               final response = (obj as DioError).response;
