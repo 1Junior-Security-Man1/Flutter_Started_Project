@@ -21,6 +21,12 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -34,10 +40,12 @@ android {
 
     lintOptions {
         disable 'InvalidPackage'
+        checkReleaseBuilds false
+
     }
 
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "de.lindenvalley.bounty_hub_client"
         minSdkVersion 21
         targetSdkVersion 29
@@ -45,13 +53,40 @@ android {
         versionName flutterVersionName
     }
 
+    signingConfigs {
+        release {
+            keyAlias "key"
+            keyPassword "c7xUwUQSKUh7EqQc"
+            storeFile file("keys.jks")
+            storePassword "c7xUwUQSKUh7EqQc"
+        }
+    }
+
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+        }
+        debug {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions 'env'
+
+    productFlavors {
+        prod {
+            dimension 'env'
+            resValue "string", "app_name", "BountyHub"
+        }
+
+        dev {
+            dimension 'env'
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "dev BountyHub "
+        }
+    }
+
 }
 
 flutter {

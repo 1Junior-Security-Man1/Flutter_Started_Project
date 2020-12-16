@@ -1,45 +1,110 @@
+import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
-class WidgetsStyle {
+import 'dimens.dart';
 
-  static InputDecoration textFieldStyle(String label, String hint, IconData icon) {
+class WidgetsDecoration {
+  static final appShadow = BoxShadow(
+    color: Colors.grey[300].withOpacity(0.1),
+    spreadRadius: 5,
+    blurRadius: 7,
+    offset: Offset(1, 10),
+  );
+
+  static BoxDecoration appCardStyle() {
+    return BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey[300].withOpacity(0.1),
+          spreadRadius: 5,
+          blurRadius: 7,
+          offset: Offset(1, 10),
+        ),
+      ],
+      color: Colors.white,
+      border: Border.all(
+        color: AppColors.borderColor,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(12),
+    );
+  }
+
+  static BoxDecoration appBlueButtonStyle() {
+    return BoxDecoration(
+      gradient: LinearGradient(
+        colors: <Color>[AppColors.primaryColor, AppColors.accentColor],
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    );
+  }
+
+  static BoxDecoration appWhiteButtonStyle() {
+    return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    );
+  }
+
+  static BoxDecoration appNavigationStyle() {
+    return BoxDecoration(
+      borderRadius: BorderRadius.only(
+          topRight: Radius.circular(20), topLeft: Radius.circular(22.0)),
+      boxShadow: [
+        BoxShadow(color: Colors.grey[200], spreadRadius: 0, blurRadius: 6),
+      ],
+    );
+  }
+
+  static InputDecoration appTextFormStyle(
+      String hint, String prefixIcon, String suffixIcon, bool enabled) {
     return InputDecoration(
-      prefixIcon: Icon(icon),
-      prefixStyle: TextStyle(color: Colors.grey[400]),
+      contentPadding: const EdgeInsets.all(24.0),
+      prefixIcon: Padding(
+          padding: const EdgeInsets.only(
+              left: Dimens.input_text_prefix_icon_padding,
+              right: Dimens.input_text_prefix_icon_padding),
+          child: Image.asset(prefixIcon, width: 50)),
+      suffixIcon: Padding(
+          padding: const EdgeInsets.only(
+              left: Dimens.input_text_prefix_icon_padding,
+              right: Dimens.input_text_prefix_icon_padding),
+          child: suffixIcon != null
+              ? Image.asset(suffixIcon, width: 36)
+              : Container(width: 0)),
       fillColor: Colors.white,
       filled: true,
       isDense: true,
-      hintStyle: TextStyle(color: Colors.grey[400]),
-      labelStyle: TextStyle(color: Colors.grey[800]),
-      focusColor: Colors.grey[400],
-      border: new OutlineInputBorder(
-        borderRadius: const BorderRadius.all(
-          const Radius.circular(8.0),
-        ),
-        borderSide: new BorderSide(
-          color: Colors.grey[400],
-          width: 1.0,
-        ),
+      enabled: enabled,
+      labelStyle: TextStyle(
+        color: AppColors.itemTextColor,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
       ),
-      disabledBorder: new OutlineInputBorder(
-        borderRadius: const BorderRadius.all(
-          const Radius.circular(8.0),
-        ),
-        borderSide: new BorderSide(
-          color: Colors.grey[400],
-          width: 1.0,
-        ),
+      hintStyle: TextStyle(
+        color: enabled
+            ? AppColors.itemTextColor
+            : AppColors.inputDisabledTextColor,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
       ),
-      focusedBorder: new OutlineInputBorder(
-        borderRadius: const BorderRadius.all(
-          const Radius.circular(8.0),
-        ),
-        borderSide: new BorderSide(
-          color: Colors.grey[800],
-          width: 1.0,
-        ),
-      ),
+      border: buildInputBorderStyle(),
+      focusedBorder: buildInputBorderStyle(),
+      enabledBorder: buildInputBorderStyle(),
+      disabledBorder: buildInputBorderStyle(),
+      errorBorder: buildInputBorderStyle(),
+      focusedErrorBorder: buildInputBorderStyle(),
       hintText: hint,
-      labelText: label,);
+    );
+  }
+
+  static OutlineInputBorder buildInputBorderStyle() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(
+        color: AppColors.textFormBorderColor,
+        width: 0.7,
+      ),
+    );
   }
 }
