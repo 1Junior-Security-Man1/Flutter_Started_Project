@@ -8,14 +8,10 @@ import 'package:logger/logger.dart';
 class MyTasksCubit extends Cubit<MyTasksState> {
 
   final log = Logger();
-
-  int page = 1;
-
-  bool fetching = false;
-
   final TaskRepository _taskRepository;
-
   final UserRepository _userRepository;
+  int page = 1;
+  bool fetching = false;
 
   MyTasksCubit(this._taskRepository, this._userRepository) : super(MyTasksState());
 

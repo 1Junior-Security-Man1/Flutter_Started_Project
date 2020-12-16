@@ -12,11 +12,8 @@ import 'package:url_launcher/url_launcher.dart';
 class TaskDetailsCubit extends Cubit<TaskDetailsState> {
 
   final log = Logger();
-
   final TaskRepository _taskRepository;
-
   final CampaignRepository _campaignRepository;
-
   final UserRepository _userRepository;
 
   TaskDetailsCubit(this._taskRepository, this._campaignRepository, this._userRepository) : super(TaskDetailsState());

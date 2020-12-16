@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskDetailsPage extends StatelessWidget {
+
   final String taskId;
   final String title;
 

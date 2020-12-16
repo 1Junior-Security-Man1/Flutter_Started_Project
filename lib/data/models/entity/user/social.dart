@@ -9,9 +9,6 @@ class Socials {
   SocialStatusType status;
   int countSubscribers;
   String updateSubscribeStatus;
-  int updateSubscribersTime;
-  int lastModifiedDate;
-  int sentSocialReport;
   String accountUrl;
   String validateStatus;
   String newAccountUrl;
@@ -23,9 +20,6 @@ class Socials {
       this.status,
       this.countSubscribers,
       this.updateSubscribeStatus,
-      this.updateSubscribersTime,
-      this.lastModifiedDate,
-      this.sentSocialReport,
       this.accountUrl,
       this.validateStatus,
       this.newAccountUrl});
@@ -43,9 +37,6 @@ class Socials {
     );
     countSubscribers = json['countSubscribers'];
     updateSubscribeStatus = json['updateSubscribeStatus'];
-    updateSubscribersTime = json['updateSubscribersTime'];
-    lastModifiedDate = json['lastModifiedDate'];
-    sentSocialReport = json['sentSocialReport'];
     accountUrl = json['accountUrl'];
     validateStatus = json['validateStatus'];
     newAccountUrl = json['newAccountUrl'];
@@ -59,9 +50,6 @@ class Socials {
     data['status'] = socialStatusTypeEnumMap[this.status];
     data['countSubscribers'] = this.countSubscribers;
     data['updateSubscribeStatus'] = this.updateSubscribeStatus;
-    data['updateSubscribersTime'] = this.updateSubscribersTime;
-    data['lastModifiedDate'] = this.lastModifiedDate;
-    data['sentSocialReport'] = this.sentSocialReport;
     data['accountUrl'] = this.accountUrl;
     data['validateStatus'] = this.validateStatus;
     data['newAccountUrl'] = this.newAccountUrl;

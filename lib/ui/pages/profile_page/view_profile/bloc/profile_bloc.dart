@@ -22,8 +22,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
 
     if (event is UserProfileReceivedEvent) {
-      yield ProfileState(
-          user: event.user, selectedSocial: state.selectedSocial);
+      yield ProfileState(user: event.user, selectedSocial: state.selectedSocial);
     }
 
     if (event is SocialsReceivedEvent) {
@@ -62,7 +61,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         yield state.copyWith(user: newUser);
       } catch (e) {
         print(e);
-        //TBz7AzxhpHhpYv8xwUnkipSovVDGiUf7d9
       }
     }
 
@@ -73,17 +71,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   void loadUserProfile() async {
     var localUser = await _profileLocalRepository.getUser();
-    if (localUser != null) {
+    if (localUser != null && localUser.id != null) {
       add(UserProfileReceivedEvent(localUser));
     }
-    var apiUser = await _profileRepository.getUser();
-    if (apiUser != null) {
-      add(UserProfileReceivedEvent(apiUser));
-      _profileLocalRepository.putUser(apiUser);
+    var remoteUser = await _profileRepository.getUser();
+    if (remoteUser != null) {
+      _profileLocalRepository.putUser(remoteUser);
+      add(UserProfileReceivedEvent(remoteUser));
     }
 
     var socials = await _profileRepository.getMySocialAccounts();
-
     add(SocialsReceivedEvent(socials));
   }
 }

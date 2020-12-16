@@ -1,30 +1,30 @@
-import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
-import 'package:bounty_hub_client/data/models/entity/activity/notification.dart';
 import 'package:bounty_hub_client/ui/pages/activity/cubit/activity_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/activity/widgets/activity_item.dart';
+import 'package:bounty_hub_client/ui/widgets/app_list_bottom_loader.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
+import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
+import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
-import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:intl/intl.dart';
 
 class ActivitiesPage extends StatefulWidget {
+
   @override
   _ActivitiesPageState createState() => _ActivitiesPageState();
 }
 
 class _ActivitiesPageState extends State<ActivitiesPage> {
-  ScrollController _scrollController = ScrollController();
+  final _scrollController = ScrollController();
+  ActivityCubit _cubit;
 
   @override
   void initState() {
-    _scrollController.addListener(_scrollListener);
-
-    Future.microtask(
-        () => BlocProvider.of<ActivityCubit>(context).loadActivities());
     super.initState();
+    _scrollController.addListener(_onScroll);
+    _cubit = context.bloc<ActivityCubit>();
+    _cubit.fetchActivities();
   }
 
   @override
@@ -38,139 +38,63 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
         onLeftIconClick: () {},
         onRightIconClick: () {},
       ),
-      body: BlocBuilder<ActivityCubit, ActivityState>(
-        builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(20),
-            child: Container(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: ListView.builder(
-                controller: _scrollController,
-                itemBuilder: (context, index) {
-                  var formatter = new DateFormat('dd-MM-yyyy');
-                  var date = formatter.format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          state.activities[index].updated));
-                  return _buildActivityItem(
-                      context, state.activities[index], date);
-                },
-                physics: BouncingScrollPhysics(),
-                itemCount: state.activities.length,
-              ),
-            ),
-          );
+      body: BlocConsumer<ActivityCubit, ActivityState>(
+        listener: (context, state) {
+          if (!state.hasReachedMax && _isBottom) {
+            _cubit.fetchActivities();
+          }
+        }, builder: (context, state) {
+          switch (state.status) {
+            case ActivityStatus.failure:
+              return const EmptyDataPlaceHolder();
+            case ActivityStatus.success:
+              if (state.activities.isEmpty) {
+                return const EmptyDataPlaceHolder();
+              }
+              return Container(
+                margin: EdgeInsets.only(
+                  left: Dimens.content_padding,
+                  right: Dimens.content_padding,
+                  bottom: Dimens.content_internal_padding,
+                ),
+                decoration: WidgetsDecoration.appCardStyle(),
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return index >= state.activities.length
+                        ? BottomLoader()
+                        : ActivityItem(activity: state.activities[index]);
+                  },
+                  itemCount: state.hasReachedMax
+                      ? state.activities.length
+                      : state.activities.length + 1,
+                  controller: _scrollController,
+                ),
+              );
+            default:
+              return const Center(child: CircularProgressIndicator());
+          }
         },
       ),
     );
   }
 
-  Widget _buildActivityItem(
-      BuildContext context, Activity activity, String date) {
-    return Stack(
-      alignment: Alignment.centerLeft,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 20,
-          ),
-          child: Stack(
-            alignment: Alignment.topRight,
-            children: [
-              Container(
-                height: 45,
-                width: 45,
-                decoration: WidgetsDecoration.appBlueButtonStyle(),
-                child: Center(
-                    child: Image.asset(
-                  activity.action == 'ITEM_RECONFIRMATION'
-                      ? 'assets/images/menu_item_tasks_active.png'
-                      : 'assets/images/menu_item_notification_active.png',
-                  color: Colors.white,
-                  height: 24,
-                  width: 24,
-                )),
-              ),
-              if (!activity.read)
-                Transform.translate(
-                  offset: Offset(4, -4),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                      border: Border.all(width: 1, color: Colors.white),
-                    ),
-                    height: 14,
-                    width: 14,
-                  ),
-                )
-            ],
-          ),
-        ),
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-            highlightColor: Colors.black12,
-            splashColor: Colors.black12,
-            onTap: () {
-              context.bloc<ActivityBadgeCubit>().readNotification(activity.id);
-              activity.read = true;
-              setState(() {
-
-              });
-
-              //TODO роут по уведомлению
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10, top: 10),
-              child: Container(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 15,
-                      ),
-                      child: Container(
-                        height: 45,
-                        width: 45,
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 219,
-                      child: Html(
-                        renderNewlines: true,
-                        data: activity.content,
-                        defaultTextStyle: AppTextStyles.defaultText.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 12),
-                        onLinkTap: (link) {},
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Container(
-                        child: Text(
-                          date,
-                          style: AppTextStyles.defaultThinText,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+  void _onScroll() {
+    if (_isBottom) {
+      _cubit.fetchActivities();
+    }
   }
 
-  _scrollListener() async {
-    if (_scrollController.position.pixels >
-        _scrollController.position.maxScrollExtent - 100) {
-      BlocProvider.of<ActivityCubit>(context).loadActivities();
-    }
+  bool get _isBottom {
+    if (!_scrollController.hasClients)
+      return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
   }
 }

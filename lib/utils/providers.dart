@@ -13,6 +13,7 @@ import 'package:bounty_hub_client/network/server_api.dart';
 import 'package:bounty_hub_client/ui/pages/activity/cubit/activity_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 getRepositories(RestClient client) {
@@ -34,5 +35,6 @@ getProviders(RestClient client) {
     BlocProvider(create: (context) => ActivityCubit(ActivitiesRepository(client))),
     BlocProvider(create: (context) => ActivityBadgeCubit(ActivitiesRepository(client))),
     BlocProvider(create: (context) => TasksCubit(CampaignRepository(client))),
+    BlocProvider(create: (context) => TasksListCubit(TaskRepository(client), UserRepository())),
   ];
 }

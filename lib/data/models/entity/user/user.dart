@@ -48,8 +48,6 @@ class User {
   double smv;
   String tronWallet; // todo type?
   bool tronWalletInternal;
-  int createdDate;
-  int lastModifiedDate;
   String createdBy;
   String lastModifiedBy;
   List<String> images; // todo type?
@@ -104,8 +102,6 @@ class User {
       this.smv,
       this.tronWallet,
       this.tronWalletInternal,
-      this.createdDate,
-      this.lastModifiedDate,
       this.createdBy,
       this.lastModifiedBy,
       this.images,
@@ -172,8 +168,6 @@ class User {
     smv = json['smv'];
     tronWallet = json['tronWallet'];
     tronWalletInternal = json['tronWalletInternal'];
-    createdDate = json['createdDate'];
-    lastModifiedDate = json['lastModifiedDate'];
     createdBy = json['createdBy'];
     lastModifiedBy = json['lastModifiedBy'];
     if (json['images'] != null) {
@@ -244,8 +238,6 @@ class User {
     data['smv'] = this.smv;
     data['tronWallet'] = this.tronWallet;
     data['tronWalletInternal'] = this.tronWalletInternal;
-    data['createdDate'] = this.createdDate;
-    data['lastModifiedDate'] = this.lastModifiedDate;
     data['createdBy'] = this.createdBy;
     data['lastModifiedBy'] = this.lastModifiedBy;
     if (this.images != null) {
@@ -307,8 +299,6 @@ class User {
       smv: this.smv,
       tronWallet: this.tronWallet,
       tronWalletInternal: this.tronWalletInternal,
-      createdDate: this.createdDate,
-      lastModifiedDate: this.lastModifiedDate,
       createdBy: this.createdBy,
       lastModifiedBy: this.lastModifiedBy,
       images: this.images,

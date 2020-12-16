@@ -10,10 +10,9 @@ class Activity {
   String content;
   String action;
   Extra extra;
-  int created;
-  int updated;
+  DateTime updated;
 
-  Activity({this.id, this.userId, this.entityName, this.entityId, this.read, this.receive, this.content, this.action, this.extra, this.created, this.updated});
+  Activity({this.id, this.userId, this.entityName, this.entityId, this.read, this.receive, this.content, this.action, this.extra, this.updated});
 
   Activity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -25,8 +24,7 @@ class Activity {
     content = json['content'];
     action = json['action'];
     extra = json['extra'] != null ? new Extra.fromJson(json['extra']) : null;
-    created = json['created'];
-    updated = json['updated'];
+    updated = json["updated"] != null ? DateTime.parse(json["updated"]) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -42,7 +40,6 @@ class Activity {
     if (this.extra != null) {
       data['extra'] = this.extra.toJson();
     }
-    data['created'] = this.created;
     data['updated'] = this.updated;
     return data;
   }

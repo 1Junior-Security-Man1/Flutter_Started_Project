@@ -1,11 +1,12 @@
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
-import 'package:bounty_hub_client/ui/pages/task_details/widgets/%20task_completion_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_budget_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_campaign_socials_widget.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_completion_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_description_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_header_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_status_widget.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
 import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
@@ -29,11 +30,13 @@ class TaskDetailsWidget extends StatefulWidget {
 
 class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   TaskDetailsCubit _cubit;
+  TasksListCubit _tasksListCubit;
 
   @override
   void initState() {
     super.initState();
     _cubit = context.bloc<TaskDetailsCubit>();
+    _tasksListCubit = context.bloc<TasksListCubit>();
     _cubit.fetchTask(widget.taskId);
   }
 
@@ -47,6 +50,10 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
             context: context,
             builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : AppStrings.defaultErrorMessage),
           );
+        }
+
+        if(state.userTaskStatus == UserTaskStatus.take_success) {
+          _tasksListCubit.refresh();
         }
       },
       child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(

@@ -11,9 +11,9 @@ class MyTasksState extends Equatable {
     this.hasReachedMax = false,
   });
 
-  final MyTasksStatus status;
   final List<UserTask> tasks;
   final bool hasReachedMax;
+  final MyTasksStatus status;
 
   MyTasksState copyWith({
     MyTasksStatus status,

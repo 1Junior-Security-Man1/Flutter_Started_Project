@@ -9,7 +9,7 @@ class ActivitiesRepository extends ActivitiesDataSource {
 
   @override
   Future<List<Activity>> getActivities(int page) async {
-    var response = (await client.getActivities(page, 20));
+    var response = (await client.getActivities(page, 10));
     return response.content;
   }
 

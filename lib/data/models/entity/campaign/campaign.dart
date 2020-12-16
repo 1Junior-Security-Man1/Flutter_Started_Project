@@ -1,6 +1,5 @@
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign_period.dart';
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign_socials.dart';
-import 'package:bounty_hub_client/data/models/entity/campaign/campaign_status.dart';
 
 class Campaign {
   String id;
@@ -21,7 +20,7 @@ class Campaign {
   int countItems;
   int countVoucherItems;
   List<CampaignSocials> socials;
-  CampaignStatus campaignStatus;
+  String campaignStatus;
 
   Campaign.fromJson(dynamic json) {
     id = json["id"];
@@ -40,8 +39,8 @@ class Campaign {
     countSubscribers = json["countSubscribers"];
     countItems = json["countItems"];
     countVoucherItems = json["countVoucherItems"];
+    campaignStatus = json["campaignStatus"];
 
-    campaignStatus = json["campaignStatus"] != null ? CampaignStatus.fromJson(json["campaignStatus"]) : null;
     campaignPeriod = json["campaignPeriod"] != null ? CampaignPeriod.fromJson(json["campaignPeriod"]) : null;
     if (json["socials"] != null) {
       socials = [];
@@ -66,15 +65,13 @@ class Campaign {
     map["description"] = description;
     map["website"] = website;
     map["position"] = position;
+    map["campaignStatus"] = campaignStatus;
 
     if (campaignPeriod != null) {
       map["campaignPeriod"] = campaignPeriod.toJson();
     }
     if (socials != null) {
       map["socials"] = socials.map((v) => v.toJson()).toList();
-    }
-    if (campaignStatus != null) {
-      map["campaignStatus"] = campaignStatus.toJson();
     }
     return map;
   }

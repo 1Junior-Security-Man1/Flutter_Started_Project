@@ -8,16 +8,23 @@ import 'package:logger/logger.dart';
 class TasksListCubit extends Cubit<TasksListState> {
 
   final log = Logger();
-
+  final TaskRepository _taskRepository;
+  final UserRepository _userRepository;
   int page = 1;
-
   bool fetching = false;
 
-  final TaskRepository _taskRepository;
-
-  final UserRepository _userRepository;
-
   TasksListCubit(this._taskRepository, this._userRepository) : super(TasksListState());
+
+  void refresh() {
+    page = 1;
+    fetching = false;
+
+    emit(state.copyWith(
+      status: TasksListStatus.initial,
+      tasks: <Task>[],
+      hasReachedMax: false,
+    ));
+  }
 
   void fetchTasks() async {
     if (state.hasReachedMax) {

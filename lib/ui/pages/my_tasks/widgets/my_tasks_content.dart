@@ -6,7 +6,6 @@ import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'my_task_item.dart';
 
 class MyTasksContent extends StatefulWidget {
@@ -81,7 +80,6 @@ class _MyTasksContentState extends State<MyTasksContent> {
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
   }
-
 
   @override
   void dispose() {
