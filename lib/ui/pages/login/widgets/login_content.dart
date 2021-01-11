@@ -210,7 +210,7 @@ class _LoginState extends State<Login> {
         children: <Widget>[
           Padding(
             padding:
-                const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+                const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0, bottom: Dimens.content_padding),
             child: Text(
               widget.state.status == LoginStatus.email ||
                       widget.state.status == LoginStatus.emailError
@@ -218,9 +218,9 @@ class _LoginState extends State<Login> {
                   : AppStrings.checkToConfirmAuthorization,
               style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                  fontSize: 15,
                   color: Colors.white,
-                  height: 1.3),
+                  height: 1.5),
               textAlign: TextAlign.center,
             ),
           ),
@@ -243,7 +243,7 @@ class _LoginState extends State<Login> {
                           widget.state.status == LoginStatus.emailError),
                 ),
                 SizedBox(
-                  height: Dimens.content_padding,
+                  height: Dimens.content_internal_padding,
                 ),
                 AppTextField(
                   controller: _confirmCodeTextController,
@@ -259,9 +259,7 @@ class _LoginState extends State<Login> {
                       widget.state.status == LoginStatus.confirmCode ||
                           widget.state.status == LoginStatus.confirmCodeError),
                 ),
-                SizedBox(
-                  height: 26.0,
-                ),
+                /**
                 Row(
                   children: [
                     AppCheckBox(
@@ -277,18 +275,19 @@ class _LoginState extends State<Login> {
                         style: TextStyle(
                           color: AppColors.textColor,
                           fontWeight: FontWeight.w500,
-                          fontSize: 16,
+                          fontSize: 15,
                         ),
                       ),
                     ),
                   ],
-                )
+                ),
+                **/
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(
-                left: 8.0, right: 8.0, top: 26.0, bottom: 8.0),
+                left: 8.0, right: 8.0, top: 32.0, bottom: 8.0),
             child: Padding(
               padding: const EdgeInsets.only(left: 42.0, right: 42.0),
               child: AppButton(

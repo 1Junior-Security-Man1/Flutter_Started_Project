@@ -20,7 +20,7 @@ class AppButton extends StatefulWidget {
   const AppButton({
     Key key,
     this.width = double.infinity,
-    this.height = 39,
+    this.height = 40,
     this.onPressed,
     this.text,
     this.textColor,
