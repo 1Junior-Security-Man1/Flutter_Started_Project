@@ -19,4 +19,11 @@ class FormValidation {
     else
       return null;
   }
+
+  static String isEmpty(String value) {
+    if (value == null || value.isEmpty)
+      return AppStrings.requiredField;
+    else
+      return null;
+  }
 }

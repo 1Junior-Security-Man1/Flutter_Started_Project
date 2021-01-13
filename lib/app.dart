@@ -65,6 +65,7 @@ class _AppState extends State<App> {
             primarySwatch: Colors.lightBlue,
             primaryColor: AppColors.primaryColor,
             accentColor: AppColors.accentColor,
+            canvasColor: Colors.transparent,
           ),
           localeResolutionCallback: (deviceLocale, supportedLocales) =>
               _localeResolutionCallback(deviceLocale, supportedLocales, locale, context),

@@ -98,6 +98,32 @@ class WidgetsDecoration {
     );
   }
 
+  static InputDecoration appMultiLineTextFormStyle(String hint) {
+    return InputDecoration(
+      contentPadding: const EdgeInsets.all(24.0),
+      fillColor: AppColors.multiLineTextBackgroundColor,
+      filled: true,
+      isDense: true,
+      labelStyle: TextStyle(
+        color: AppColors.multiLineTextColor,
+        fontSize:  Dimens.app_bar_text_size,
+        fontWeight: FontWeight.w500,
+      ),
+      hintStyle: TextStyle(
+        color: AppColors.multiLineTextColor,
+        fontSize:  Dimens.app_bar_text_size,
+        fontWeight: FontWeight.w500,
+      ),
+      border: buildInputBorderStyle(),
+      focusedBorder: buildInputBorderStyle(),
+      enabledBorder: buildInputBorderStyle(),
+      disabledBorder: buildInputBorderStyle(),
+      errorBorder: buildInputBorderStyle(),
+      focusedErrorBorder: buildInputBorderStyle(),
+      hintText: hint,
+    );
+  }
+
   static OutlineInputBorder buildInputBorderStyle() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),

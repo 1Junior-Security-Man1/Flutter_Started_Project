@@ -117,4 +117,20 @@ class AppStrings {
       AppLocalizations.of(App.globalNavigatorKey.currentContext).your;
   static String get account =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext).account;
+  static String get completeTask =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).completeTask;
+  static String get complete =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).complete;
+  static String get leave =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).leave;
+  static String get confirmAsCompleted =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .confirmAsCompleted;
+  static String get requiredField =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).requiredField;
+  static String get comment =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).comment;
+  static String get uploadScreenshot =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .uploadScreenshot;
 }

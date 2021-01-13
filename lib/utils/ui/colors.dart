@@ -19,6 +19,9 @@ abstract class AppColors {
   static const Color textColor = Color(0xFFa9a6bf);
   static const Color hint = Color(0xff8898aa);
   static const Color inputDisabledTextColor = Color(0xFFcccccc);
+  static const Color multiLineTextBackgroundColor = Color(0xFFf7f6fb);
+  static const Color multiLineTextBorderColor = Color(0xFFDBD9EB);
+  static const Color multiLineTextColor = Color(0xFF9a9a9c);
   static const Color card = Color(0xFFFFFFFF);
   static const Color socialDescription = Color(0xffF1F4FC);
   static const Color pageBackgroundColor = Color(0xFFF3F6FD);

@@ -11,9 +11,10 @@ class AppTextStyles {
   );
 
   static const TextStyle greyContentTextStyle = TextStyle(
+    fontSize: 16,
     color: AppColors.greyContentColor,
     fontWeight: FontWeight.w500,
-    height: 1.3,
+    height: 1.4,
   );
 
   static const TextStyle smallBoldTitle = TextStyle(

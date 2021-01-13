@@ -9,15 +9,19 @@ class AppTextField extends StatefulWidget {
   final FormFieldValidator<String> validator;
   final InputDecoration decoration;
   final List<TextInputFormatter> inputFormatters;
+  final int maxLines;
+  final bool withShadow;
 
   const AppTextField(
       {Key key,
+        this.maxLines = 1,
         this.controller,
         this.textInputType,
         this.textInputAction,
         this.validator,
         this.decoration,
         this.inputFormatters,
+        this.withShadow = true,
       })
       : super(key: key);
 
@@ -30,7 +34,7 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: widget.withShadow ? BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.1),
@@ -39,8 +43,9 @@ class _AppTextFieldState extends State<AppTextField> {
               offset: Offset(0, 1),
             ),
           ]
-      ),
+      ) : null,
       child: TextFormField(
+        maxLines: widget.maxLines,
         inputFormatters: widget.inputFormatters,
         controller: widget.controller,
         keyboardType: widget.textInputType,

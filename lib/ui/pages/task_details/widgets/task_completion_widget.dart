@@ -7,14 +7,19 @@ import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_ui_utils.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_verification_time_widget.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
+import 'package:bounty_hub_client/ui/widgets/app_text_field.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
+import 'package:bounty_hub_client/utils/validation/form_validation.dart';
 import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TaskCompletionWidget extends StatefulWidget {
 
@@ -84,29 +89,24 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Text(
-            'Complete Task',
-            style: AppTextStyles.titleTextStyle,
-            textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              AppStrings.completeTask,
+              style: AppTextStyles.titleTextStyle,
+              textAlign: TextAlign.center,
+            ),
           ),
           SizedBox(
             height: 12.0,
           ),
-          Text(
-            getCompletingTaskInformation(widget.task),
-            style: AppTextStyles.greyContentTextStyle,
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: Dimens.content_internal_padding,
-          ),
           AppButton(
             height: 50,
             type: AppButtonType.BLUE,
-            text: 'Complete',
+            text: AppStrings.complete,
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
-
+              showCompleteTaskDialog();
             },
           ),
           SizedBox(
@@ -115,7 +115,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
           AppButton(
             height: 50,
             type: AppButtonType.WHITE,
-            text: 'Leave',
+            text: AppStrings.leave,
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
 
@@ -123,6 +123,98 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
           ),
         ],
       ),
+    );
+  }
+
+  void showCompleteTaskDialog() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (builder){
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return Container(
+                  height: MediaQuery.of(context).size.height - 100,
+                  color: Colors.transparent,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 36.0, right: 36.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.only(
+                            topLeft: const Radius.circular(Dimens.app_bottom_dialog_border_radius),
+                            topRight: const Radius.circular(Dimens.app_bottom_dialog_border_radius))),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 24.0),
+                          child: Text(
+                            AppStrings.confirmAsCompleted,
+                            style: AppTextStyles.titleTextStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: Container(
+                            child: Text(
+                              AppStrings.uploadScreenshot,
+                              style: AppTextStyles.greyContentTextStyle,
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: SizedBox(
+                            width: 64.0,
+                            height: 64.0,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: IconButton(
+                                  color: AppColors.primaryColor,
+                                  icon: Icon(Icons.add_a_photo, size: 64.0), onPressed: () {}
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 36.0),
+                          child: Linkify(
+                            onOpen: (link) async {
+                              if (await canLaunch(link.url)) {
+                                await launch(link.url);
+                              }
+                            },
+                            text: getCompletingTaskInformation(widget.task),
+                            style: AppTextStyles.greyContentTextStyle,
+                            linkStyle: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 0.0),
+                          child: AppTextField(
+                            maxLines: 4,
+                            withShadow: false,
+                            validator: (value) => FormValidation.isEmpty(value),
+                            decoration: WidgetsDecoration.appMultiLineTextFormStyle(AppStrings.comment),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 24.0),
+                          child: AppButton(
+                            height: 50,
+                            type: AppButtonType.BLUE,
+                            text: AppStrings.confirm,
+                            width: MediaQuery.of(context).size.width / 2,
+                            onPressed: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              });
+        }
     );
   }
 
