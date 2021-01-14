@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:bounty_hub_client/data/models/api/response/image_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
 
 abstract class UserDataSource {
@@ -5,4 +8,6 @@ abstract class UserDataSource {
   Future<String> getAccessToken();
 
   TokenResponse saveAccessToken(TokenResponse response);
+
+  Future<ImageResponse> uploadImage(File image);
 }

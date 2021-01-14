@@ -38,5 +38,5 @@ int getTaskVerificationTime(int confirmationDaysCount, DateTime approveDateTime)
 
   var duration = Duration(days : confirmationDaysCount);
   approveDateTime = approveDateTime.add(duration);
-  return approveDateTime.millisecondsSinceEpoch + 1000 * 60;
+  return approveDateTime.millisecondsSinceEpoch;
 }

@@ -1,7 +1,9 @@
+import 'package:bounty_hub_client/data/models/api/response/confirm_task_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/user_tasks_response.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
+import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/data/source/task_data_source.dart';
 import 'package:bounty_hub_client/network/constants.dart';
 import 'package:bounty_hub_client/network/server_api.dart';
@@ -10,7 +12,9 @@ class TaskRepository extends TaskDataSource {
 
   final RestClient client;
 
-  TaskRepository(this.client);
+  final UserRepository userRepository;
+
+  TaskRepository(this.client, this.userRepository);
 
   @override
   Future<TasksResponse> getTasks(String userId, int page) {
@@ -35,5 +39,10 @@ class TaskRepository extends TaskDataSource {
   @override
   Future<UserTask> takeTask(String userId, String taskId) {
     return client.takeTask(userId, taskId);
+  }
+
+  @override
+  Future<String> confirmTask(String userId, String userTaskId, String redirectUrl, String comment, String imageId) {
+    return client.confirmTask(userId, userTaskId, redirectUrl, comment, imageId);
   }
 }

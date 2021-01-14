@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
@@ -29,19 +31,19 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
         })
         .catchError((Object obj) {
           log.e(obj);
-          emit(state.copyWith(status: TaskDetailsStatus.failure));
+          emit(state.copyWith(status: TaskDetailsStatus.fetch_failure));
         });
   }
 
-  void _fetchUserTask(String taskId) async {
+  void fetchUserTask(String taskId) async {
     String userId = await _userRepository.getUserId();
     _taskRepository.getUserTask(userId, taskId)
         .then((userTask) {
-          emit(state.copyWith(userTask: userTask, userTaskStatus: UserTaskStatus.success));
+          emit(state.copyWith(userTask: userTask, userTaskStatus: UserTaskStatus.fetch_success));
         })
         .catchError((Object obj) {
           log.e(obj);
-          emit(state.copyWith(userTaskStatus: UserTaskStatus.failure));
+          emit(state.copyWith(userTaskStatus: UserTaskStatus.fetch_failure));
         });
   }
 
@@ -52,8 +54,31 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
         })
         .catchError((Object obj) {
           log.e(obj);
-          emit(state.copyWith(status: TaskDetailsStatus.failure));
+          emit(state.copyWith(status: TaskDetailsStatus.fetch_failure));
         });
+  }
+
+  void confirmTask(String comment, String userTaskId, File attachment) async {
+    emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
+    String userId = await _userRepository.getUserId();
+    _userRepository.uploadImage(attachment)
+      .then((image) => _taskRepository.confirmTask(userId, userTaskId, "", comment, image.id)
+      .then((link) => emit(state.copyWith(link: link, userTaskStatus: UserTaskStatus.confirm_success)))
+        .catchError((Object obj) {
+          log.e(obj);
+          switch (obj.runtimeType) {
+            case DioError:
+              final response = (obj as DioError).response;
+              if(response != null && response.data['message'] != null) {
+                emit(state.copyWith(userTaskStatus: UserTaskStatus.confirm_failure, errorMessage: response.data['message']));
+              } else {
+                emit(state.copyWith(userTaskStatus: UserTaskStatus.confirm_failure, errorMessage: null));
+              }
+              break;
+              default:
+                emit(state.copyWith(userTaskStatus: UserTaskStatus.confirm_failure, errorMessage: null));
+          }
+        }));
   }
 
   void _takeTask() async {
@@ -81,8 +106,8 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
   }
 
   void whenComplete({Task task, Campaign campaign}) {
-    emit(state.copyWith(task: task, campaign: campaign, status: TaskDetailsStatus.success));
-    _fetchUserTask(task.id);
+    emit(state.copyWith(task: task, campaign: campaign, status: TaskDetailsStatus.fetch_success));
+    fetchUserTask(task.id);
   }
 
   void launchURL(String url) async {

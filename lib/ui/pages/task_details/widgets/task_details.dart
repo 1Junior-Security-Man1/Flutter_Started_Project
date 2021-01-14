@@ -17,6 +17,7 @@ import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 class TaskDetailsWidget extends StatefulWidget {
   final String taskId;
@@ -31,6 +32,7 @@ class TaskDetailsWidget extends StatefulWidget {
 class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   TaskDetailsCubit _cubit;
   TasksListCubit _tasksListCubit;
+  var logger = Logger();
 
   @override
   void initState() {
@@ -45,7 +47,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     //todo использовать BlocConsumer
     return BlocListener<TaskDetailsCubit, TaskDetailsState>(
       listener: (context, state) {
-        if (state.userTaskStatus == UserTaskStatus.take_failure) {
+        if (state.userTaskStatus == UserTaskStatus.take_failure || state.userTaskStatus == UserTaskStatus.confirm_failure) {
           showDialog(
             context: context,
             builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : AppStrings.defaultErrorMessage),
@@ -53,6 +55,11 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
         }
 
         if(state.userTaskStatus == UserTaskStatus.take_success) {
+          _tasksListCubit.refresh();
+        }
+
+        if(state.userTaskStatus == UserTaskStatus.confirm_success) {
+          _cubit.fetchUserTask(widget.taskId);
           _tasksListCubit.refresh();
         }
       },
@@ -70,7 +77,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   _buildContent(BuildContext context, TaskDetailsState state) {
     if(state.status == TaskDetailsStatus.loading) {
       return Loading();
-    } else if(state.status == TaskDetailsStatus.success ||  state.userTaskStatus == UserTaskStatus.success) {
+    } else if(state.status == TaskDetailsStatus.fetch_success ||  state.userTaskStatus == UserTaskStatus.fetch_success) {
       return SingleChildScrollView(
         child: Column(
           children: [

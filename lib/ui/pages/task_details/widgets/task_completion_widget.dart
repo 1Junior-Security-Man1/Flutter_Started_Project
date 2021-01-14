@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bounty_hub_client/data/enums/task_validation_type.dart';
 import 'package:bounty_hub_client/data/enums/user_task_status.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
@@ -5,7 +7,6 @@ import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_ui_utils.dart';
-import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_verification_time_widget.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/app_text_field.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
@@ -18,7 +19,9 @@ import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TaskCompletionWidget extends StatefulWidget {
@@ -34,6 +37,12 @@ class TaskCompletionWidget extends StatefulWidget {
 }
 
 class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
+
+  final _formKey = GlobalKey<FormState>();
+  final _commentController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+
+  File _attachment;
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +141,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
         context: context,
         builder: (builder){
           return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
+              builder: (BuildContext context, StateSetter state) {
                 return Container(
                   height: MediaQuery.of(context).size.height - 100,
                   color: Colors.transparent,
@@ -143,79 +152,108 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
                         borderRadius: new BorderRadius.only(
                             topLeft: const Radius.circular(Dimens.app_bottom_dialog_border_radius),
                             topRight: const Radius.circular(Dimens.app_bottom_dialog_border_radius))),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 24.0),
-                          child: Text(
-                            AppStrings.confirmAsCompleted,
-                            style: AppTextStyles.titleTextStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: Container(
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
                             child: Text(
-                              AppStrings.uploadScreenshot,
-                              style: AppTextStyles.greyContentTextStyle,
-                              textAlign: TextAlign.left,
+                              AppStrings.confirmAsCompleted,
+                              style: AppTextStyles.titleTextStyle,
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: SizedBox(
-                            width: 64.0,
-                            height: 64.0,
-                            child: Material(
-                              color: Colors.transparent,
-                              child: IconButton(
-                                  color: AppColors.primaryColor,
-                                  icon: Icon(Icons.add_a_photo, size: 64.0), onPressed: () {}
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: Container(
+                              child: Text(
+                                AppStrings.uploadScreenshot,
+                                style: AppTextStyles.greyContentTextStyle,
+                                textAlign: TextAlign.left,
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 36.0),
-                          child: Linkify(
-                            onOpen: (link) async {
-                              if (await canLaunch(link.url)) {
-                                await launch(link.url);
-                              }
-                            },
-                            text: getCompletingTaskInformation(widget.task),
-                            style: AppTextStyles.greyContentTextStyle,
-                            linkStyle: TextStyle(color: Colors.blue),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: _attachment == null ? SizedBox(
+                              width: 64.0,
+                              height: 64.0,
+                              child: Material(
+                                color: Colors.transparent,
+                                child: IconButton(
+                                  color: AppColors.primaryColor,
+                                  icon: Icon(Icons.add_a_photo, size: 64.0),
+                                  onPressed: () {
+                                    getImageFromGallery(state);
+                                  }
+                                ),
+                              ),
+                            ) : Image.file(
+                              _attachment,
+                              width: 64.0,
+                              height: 64.0,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 0.0),
-                          child: AppTextField(
-                            maxLines: 4,
-                            withShadow: false,
-                            validator: (value) => FormValidation.isEmpty(value),
-                            decoration: WidgetsDecoration.appMultiLineTextFormStyle(AppStrings.comment),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 36.0),
+                            child: Linkify(
+                              onOpen: (link) async {
+                                if (await canLaunch(link.url)) {
+                                  await launch(link.url);
+                                }
+                              },
+                              text: getCompletingTaskInformation(widget.task),
+                              style: AppTextStyles.greyContentTextStyle,
+                              linkStyle: TextStyle(color: Colors.blue),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 24.0),
-                          child: AppButton(
-                            height: 50,
-                            type: AppButtonType.BLUE,
-                            text: AppStrings.confirm,
-                            width: MediaQuery.of(context).size.width / 2,
-                            onPressed: () {},
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: AppTextField(
+                              controller: _commentController,
+                              maxLines: 4,
+                              withShadow: false,
+                              validator: (value) => FormValidation.isEmpty(value),
+                              decoration: WidgetsDecoration.appMultiLineTextFormStyle(AppStrings.comment),
+                            ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: AppButton(
+                              height: 50,
+                              type: AppButtonType.BLUE,
+                              text: AppStrings.confirm,
+                              width: MediaQuery.of(context).size.width / 2,
+                              onPressed: () {
+                                confirmTask();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
               });
         }
     );
+  }
+
+  void confirmTask() {
+    if (_formKey.currentState.validate()) {
+      Navigator.of(context).pop();
+      context.bloc<TaskDetailsCubit>().confirmTask(_commentController.value.text, widget.userTask.id, _attachment);
+    }
+  }
+
+  Future getImageFromGallery(StateSetter state) async {
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    state(() {
+      if (pickedFile != null) {
+        _attachment = File(pickedFile.path);
+      }
+    });
   }
 
   String getCompletingTaskInformation(Task parentTask) {
@@ -390,17 +428,20 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
             height: Dimens.content_internal_padding,
           ),
           Container(
+            width: 200,
             margin: EdgeInsets.only(left: 40, right: 40),
             padding: EdgeInsets.all(Dimens.content_padding),
             decoration: BoxDecoration(
               color: AppColors.verificationTimerColor,
               borderRadius: BorderRadius.circular(12),
             ),
-            child:  CountdownTimer(
-              textBefore: Text('Time to check: '),
-              endTime: getTaskVerificationTime(confirmationDaysCount,
-                  userTask.approveDate != null ? userTask.approveDate : userTask.lastModifiedDate),
-              textStyle: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w400),
+            child:  Center(
+              child: CountdownTimer(
+                emptyWidget: Text('Task is being checked'),
+                endTime: getTaskVerificationTime(confirmationDaysCount,
+                    userTask.approveDate != null ? userTask.approveDate : userTask.lastModifiedDate),
+                textStyle: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w400),
+              ),
             ),
           ),
         ],
@@ -410,5 +451,12 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
 
   Widget _buildEmptySpaceWidget() {
     return SizedBox();
+  }
+
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
   }
 }

@@ -3,8 +3,8 @@ import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:equatable/equatable.dart';
 
-enum TaskDetailsStatus{ loading, success, failure }
-enum UserTaskStatus{ loading, success, failure, take_success, take_failure }
+enum TaskDetailsStatus{ loading, fetch_success, fetch_failure }
+enum UserTaskStatus{ loading, fetch_success, fetch_failure, take_success, take_failure,  confirm_success, confirm_failure}
 
 class TaskDetailsState extends Equatable {
 
@@ -15,6 +15,7 @@ class TaskDetailsState extends Equatable {
     this.campaign,
     this.userTask,
     this.errorMessage,
+    this.link,
   });
 
   final TaskDetailsStatus status;
@@ -23,6 +24,7 @@ class TaskDetailsState extends Equatable {
   final UserTask userTask;
   final Campaign campaign;
   final String errorMessage;
+  final String link;
 
   TaskDetailsState copyWith({
     TaskDetailsStatus status,
@@ -31,8 +33,10 @@ class TaskDetailsState extends Equatable {
     Campaign campaign,
     UserTask userTask,
     String errorMessage,
+    String link,
   }) {
     return TaskDetailsState(
+      link: link ?? this.link,
       status: status ?? this.status,
       userTaskStatus: userTaskStatus ?? this.userTaskStatus,
       task: task ?? this.task,
@@ -43,5 +47,5 @@ class TaskDetailsState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, task, campaign, userTaskStatus, errorMessage];
+  List<Object> get props => [link, status, task, campaign, userTaskStatus, errorMessage];
 }

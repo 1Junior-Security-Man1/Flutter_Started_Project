@@ -18,10 +18,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 getRepositories(RestClient client) {
   return [
-    RepositoryProvider<UserRepository>(create: (context) => UserRepository()),
+    RepositoryProvider<UserRepository>(create: (context) => UserRepository(client)),
     RepositoryProvider<CampaignRepository>(create: (context) => CampaignRepository(client)),
     RepositoryProvider<LoginRepository>(create: (context) => LoginRepository(client)),
-    RepositoryProvider<TaskRepository>(create: (context) => TaskRepository(client)),
+    RepositoryProvider<TaskRepository>(create: (context) => TaskRepository(client, UserRepository(client))),
     RepositoryProvider<ProfileRepository>(create: (context) => ProfileRepository(client)),
     RepositoryProvider<ProfileLocalRepository>(create: (context) => ProfileLocalRepository()),
   ];
@@ -29,12 +29,12 @@ getRepositories(RestClient client) {
 
 getProviders(RestClient client) {
   return [
-    BlocProvider(create: (context) => AuthenticationBloc(UserRepository())..add(AppStarted())),
+    BlocProvider(create: (context) => AuthenticationBloc(UserRepository(client))..add(AppStarted())),
     BlocProvider(create: (context) => ProfileBloc(ProfileRepository(client), ProfileLocalRepository())),
     BlocProvider(create: (context) => LocaleBloc()),
     BlocProvider(create: (context) => ActivityCubit(ActivitiesRepository(client))),
     BlocProvider(create: (context) => ActivityBadgeCubit(ActivitiesRepository(client))),
     BlocProvider(create: (context) => TasksCubit(CampaignRepository(client))),
-    BlocProvider(create: (context) => TasksListCubit(TaskRepository(client), UserRepository())),
+    BlocProvider(create: (context) => TasksListCubit(TaskRepository(client, UserRepository(client)), UserRepository(client))),
   ];
 }

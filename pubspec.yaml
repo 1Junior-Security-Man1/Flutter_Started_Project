@@ -48,9 +48,11 @@ dependencies:
 
   # image utils
   cached_network_image: ^2.3.3
+  image_picker: ^0.6.7+21
 
   # platform utils
   path_provider: ^1.6.24
+  flutter_countdown_timer: ^2.1.0
 
   cupertino_icons: ^1.0.0
   country_code_picker: ^1.6.2
