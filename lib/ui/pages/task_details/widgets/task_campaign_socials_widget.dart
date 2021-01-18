@@ -1,8 +1,7 @@
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
-import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_ui_utils.dart';
 import 'package:bounty_hub_client/ui/widgets/social_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CampaignSocialsWidget extends StatelessWidget {
 
@@ -19,7 +18,7 @@ class CampaignSocialsWidget extends StatelessWidget {
       campaign.socials.forEach((social) {
         socials.add(GestureDetector(
           onTap: () {
-            context.bloc<TaskDetailsCubit>().launchURL(social.link);
+            launchURL(social.link);
           },
           child: Container(
             width: 22.0,

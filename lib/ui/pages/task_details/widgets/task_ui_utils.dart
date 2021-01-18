@@ -1,6 +1,7 @@
 import 'package:bounty_hub_client/data/enums/user_task_status.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/utils/validation/string_utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 int calculateLeftBudgetPercentage(Task task) {
   return (checkNullDouble(task.leftBudget) * 100) ~/ checkNullDouble(task.budget);
@@ -39,4 +40,10 @@ int getTaskVerificationTime(int confirmationDaysCount, DateTime approveDateTime)
   var duration = Duration(days : confirmationDaysCount);
   approveDateTime = approveDateTime.add(duration);
   return approveDateTime.millisecondsSinceEpoch;
+}
+
+void launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  }
 }

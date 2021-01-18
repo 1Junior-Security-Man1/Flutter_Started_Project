@@ -133,4 +133,9 @@ class AppStrings {
   static String get uploadScreenshot =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext)
           .uploadScreenshot;
+  static String get goToService =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).goToService;
+  static String get bountyCheckingProcedure =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .bountyCheckingProcedure;
 }

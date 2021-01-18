@@ -42,7 +42,12 @@ class TaskRepository extends TaskDataSource {
   }
 
   @override
-  Future<String> confirmTask(String userId, String userTaskId, String redirectUrl, String comment, String imageId) {
-    return client.confirmTask(userId, userTaskId, redirectUrl, comment, imageId);
+  Future<String> confirmSocialParserTask(String userId, String userTaskId, String redirectUrl, String comment, String imageId) {
+    return client.confirmSocialParserTask(userId, userTaskId, redirectUrl, comment, imageId);
+  }
+
+  @override
+  Future<ConfirmTaskResponse> confirmAutoCheckTask(String userId, String userTaskId, String redirectUrl, String comment) {
+    return client.confirmAutoCheckTask(userId, userTaskId, redirectUrl, comment);
   }
 }

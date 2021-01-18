@@ -16,6 +16,7 @@ class TaskDetailsState extends Equatable {
     this.userTask,
     this.errorMessage,
     this.link,
+    this.showTimer = false,
   });
 
   final TaskDetailsStatus status;
@@ -25,6 +26,7 @@ class TaskDetailsState extends Equatable {
   final Campaign campaign;
   final String errorMessage;
   final String link;
+  final bool showTimer;
 
   TaskDetailsState copyWith({
     TaskDetailsStatus status,
@@ -34,8 +36,10 @@ class TaskDetailsState extends Equatable {
     UserTask userTask,
     String errorMessage,
     String link,
+    bool showTimer,
   }) {
     return TaskDetailsState(
+      showTimer: showTimer ?? this.showTimer,
       link: link ?? this.link,
       status: status ?? this.status,
       userTaskStatus: userTaskStatus ?? this.userTaskStatus,
@@ -47,5 +51,5 @@ class TaskDetailsState extends Equatable {
   }
 
   @override
-  List<Object> get props => [link, status, task, campaign, userTaskStatus, errorMessage];
+  List<Object> get props => [showTimer, link, status, task, campaign, userTaskStatus, errorMessage];
 }

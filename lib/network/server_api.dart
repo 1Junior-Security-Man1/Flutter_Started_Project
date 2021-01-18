@@ -78,9 +78,14 @@ abstract class RestClient {
       @Query('page') int page, @Query('size') int size);
 
   @GET("/user-items/{userId}/complete/{userTaskId}")
-  Future<String> confirmTask(@Path('userId') String userId,
+  Future<String> confirmSocialParserTask(@Path('userId') String userId,
       @Path('userTaskId') String userTaskId, @Query('redirectUrl') String redirectUrl,
       @Query('comment') String comment, @Query('imageId') String imageId);
+
+  @GET("/user-items/{userId}/complete/{userTaskId}")
+  Future<ConfirmTaskResponse> confirmAutoCheckTask(@Path('userId') String userId,
+      @Path('userTaskId') String userTaskId, @Query('redirectUrl') String redirectUrl,
+      @Query('comment') String comment);
 
   @POST("/user-items/{userId}/reserve/{taskId}")
   Future<UserTask> takeTask(

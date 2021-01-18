@@ -16,5 +16,7 @@ abstract class TaskDataSource {
 
   Future<UserTask> takeTask(String userId, String taskId);
 
-  Future<String> confirmTask(String userId, String userTaskId, String redirectUrl, String comment, String imageId);
+  Future<String> confirmSocialParserTask(String userId, String userTaskId, String redirectUrl, String comment, String imageId);
+
+  Future<ConfirmTaskResponse> confirmAutoCheckTask(String userId, String userTaskId, String redirectUrl, String comment);
 }

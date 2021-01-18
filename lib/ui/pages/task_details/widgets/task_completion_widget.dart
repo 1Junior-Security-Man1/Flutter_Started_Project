@@ -30,7 +30,9 @@ class TaskCompletionWidget extends StatefulWidget {
 
   final Task task;
 
-  const TaskCompletionWidget({Key key, this.userTask, this.task}) : super(key: key);
+  final bool showTimer;
+
+  const TaskCompletionWidget({Key key, this.userTask, this.task, this.showTimer}) : super(key: key);
 
   @override
   TaskDetailsWidgetState createState() => TaskDetailsWidgetState();
@@ -52,22 +54,22 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
         builder: (context, state) {
           switch(state.task.getTaskValidationType()) {
             case TaskValidationType.SOCIAL_PARSER:
-              return _buildSocialParserCompletionUI();
+              return _buildSocialParserCompletionWidget();
             case TaskValidationType.AUTO_CHECK:
-              return _buildAutoCheckCompletionUI();
+              return _buildAutoCheckCompletionWidget(state.showTimer);
             default:
-              return _buildSocialParserCompletionUI();
+              return _buildSocialParserCompletionWidget();
           }
         },
       ),
     );
   }
 
-  Widget _buildAutoCheckCompletionUI() {
+  Widget _buildAutoCheckCompletionWidget(bool showTimer) {
     int currentUserTaskStep = getTaskCompletionStepByStatus(widget.userTask.getTaskStatus(), widget.userTask.approveDate, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1));
     switch(currentUserTaskStep) {
       case 1: return _buildLeaveCompleteWidget(); // IN_PROGRESS
-      case 2: return _buildContinueButton(); // VERIFYING
+      case 2: return showTimer ? _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1)) : _buildContinueButton(); // VERIFYING
       case 3: return _buildApproveRejectWidget(widget.userTask.getTaskStatus(), AppColors.accentColor, widget.task.confirmationDaysCount); // APPROVED or REJECTED
       case 4: return _buildReconfirmWidget(); // RECONFIRM
       case 5: return _buildEmptySpaceWidget(); // PAID or CANCELED
@@ -76,7 +78,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
     }
   }
 
-  Widget _buildSocialParserCompletionUI() {
+  Widget _buildSocialParserCompletionWidget() {
     int currentUserTaskStep = getTaskCompletionStepByStatus(widget.userTask.getTaskStatus(), widget.userTask.approveDate, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1));
     switch(currentUserTaskStep) {
       case 1: return _buildLeaveCompleteWidget(); // IN_PROGRESS
@@ -136,6 +138,17 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
   }
 
   void showCompleteTaskDialog() {
+    switch(widget.task.getTaskValidationType()) {
+      case TaskValidationType.SOCIAL_PARSER:
+        return showCompleteSocialParserTaskDialog();
+      case TaskValidationType.AUTO_CHECK:
+        return showCompleteAutoCheckTaskDialog();
+      default:
+        return showCompleteSocialParserTaskDialog();
+    }
+  }
+
+  void showCompleteSocialParserTaskDialog() {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -154,8 +167,8 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
                             topRight: const Radius.circular(Dimens.app_bottom_dialog_border_radius))),
                     child: Form(
                       key: _formKey,
-                      child: Column(
-                        children: [
+                      child: ListView(
+                        children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(top: 24.0),
                             child: Text(
@@ -226,7 +239,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
                               text: AppStrings.confirm,
                               width: MediaQuery.of(context).size.width / 2,
                               onPressed: () {
-                                confirmTask();
+                                confirmSocialParserTask();
                               },
                             ),
                           ),
@@ -240,11 +253,92 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
     );
   }
 
-  void confirmTask() {
+  void showCompleteAutoCheckTaskDialog() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (builder){
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter state) {
+                return Container(
+                  height: 400,
+                  color: Colors.transparent,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 36.0, right: 36.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.only(
+                            topLeft: const Radius.circular(Dimens.app_bottom_dialog_border_radius),
+                            topRight: const Radius.circular(Dimens.app_bottom_dialog_border_radius))),
+                    child: Form(
+                      key: _formKey,
+                      child: ListView(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: Text(
+                              AppStrings.confirmAsCompleted,
+                              style: AppTextStyles.titleTextStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: Linkify(
+                              onOpen: (link) async {
+                                if (await canLaunch(link.url)) {
+                                  await launch(link.url);
+                                }
+                              },
+                              text: getCompletingTaskInformation(widget.task),
+                              style: AppTextStyles.greyContentTextStyle,
+                              linkStyle: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: AppTextField(
+                              controller: _commentController,
+                              maxLines: 4,
+                              withShadow: false,
+                              validator: (value) => FormValidation.isEmpty(value),
+                              decoration: WidgetsDecoration.appMultiLineTextFormStyle(AppStrings.comment),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0, bottom: 200),
+                            child: Center(
+                              child: AppButton(
+                                height: 50,
+                                type: AppButtonType.BLUE,
+                                text: AppStrings.confirm,
+                                width: MediaQuery.of(context).size.width / 2,
+                                onPressed: () {
+                                  confirmAutoCheckTask();
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              });
+        }
+    );
+  }
+
+  void confirmSocialParserTask() {
     if (_formKey.currentState.validate()) {
       Navigator.of(context).pop();
-      context.bloc<TaskDetailsCubit>().confirmTask(_commentController.value.text, widget.userTask.id, _attachment);
+      context.bloc<TaskDetailsCubit>().confirmSocialParserTask(_commentController.value.text, widget.userTask.id, _attachment);
     }
+  }
+
+  void confirmAutoCheckTask() {
+    Navigator.of(context).pop();
+    context.bloc<TaskDetailsCubit>().confirmAutoCheckTask(_commentController.value.text, widget.userTask.id);
   }
 
   Future getImageFromGallery(StateSetter state) async {
@@ -303,7 +397,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
             text: 'Continue',
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
-
+              showCompleteTaskDialog();
             },
           ),
         ],
@@ -342,7 +436,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
             text: 'Reconfirm',
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
-
+              confirmAutoCheckTask();
             },
           ),
         ],

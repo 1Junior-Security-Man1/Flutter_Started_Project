@@ -75,6 +75,8 @@ class AppLocalizations {
       comment: "Comment",
       uploadScreenshot:
           "Please upload screenshot to show that the task is complete",
+      goToService: "Go to service",
+      bountyCheckingProcedure: "Bounty checking procedure:",
     ),
     Locale.fromSubtags(languageCode: "DE"): AppLocalizations_Labels(
       signInTo: "Sign in to",
@@ -139,6 +141,8 @@ class AppLocalizations {
       comment: "Comment",
       uploadScreenshot:
           "Please upload screenshot to show that the task is complete",
+      goToService: "Go to service",
+      bountyCheckingProcedure: "Bounty checking procedure:",
     ),
     Locale.fromSubtags(languageCode: "RU"): AppLocalizations_Labels(
       signInTo: "Sign in to",
@@ -203,6 +207,8 @@ class AppLocalizations {
       comment: "Comment",
       uploadScreenshot:
           "Please upload screenshot to show that the task is complete",
+      goToService: "Go to service",
+      bountyCheckingProcedure: "Bounty checking procedure:",
     ),
   };
 
@@ -269,7 +275,9 @@ class AppLocalizations_Labels {
       this.confirmAsCompleted,
       this.requiredField,
       this.comment,
-      this.uploadScreenshot});
+      this.uploadScreenshot,
+      this.goToService,
+      this.bountyCheckingProcedure});
 
   final String signInTo;
 
@@ -382,4 +390,8 @@ class AppLocalizations_Labels {
   final String comment;
 
   final String uploadScreenshot;
+
+  final String goToService;
+
+  final String bountyCheckingProcedure;
 }
