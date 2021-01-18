@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
@@ -42,7 +41,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
         })
         .catchError((Object obj) {
           log.e(obj);
-          emit(state.copyWith(userTaskStatus: UserTaskStatus.fetch_failure));
+          emit(state.copyWith(userTask: null, userTaskStatus: UserTaskStatus.fetch_failure));
         });
   }
 
@@ -58,73 +57,53 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
   }
 
   void confirmSocialParserTask(String comment, String userTaskId, File attachment) async {
-    emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
     String userId = await _userRepository.getUserId();
+
+    emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
     _userRepository.uploadImage(attachment)
       .then((image) => _taskRepository.confirmSocialParserTask(userId, userTaskId, "", comment, image.id)
       .then((link) => emit(state.copyWith(link: link, userTaskStatus: UserTaskStatus.confirm_success)))
         .catchError((Object obj) {
-          log.e(obj);
-          switch (obj.runtimeType) {
-            case DioError:
-              final response = (obj as DioError).response;
-              if(response != null && response.data['message'] != null) {
-                emit(state.copyWith(userTaskStatus: UserTaskStatus.confirm_failure, errorMessage: response.data['message']));
-              } else {
-                emit(state.copyWith(userTaskStatus: UserTaskStatus.confirm_failure, errorMessage: null));
-              }
-              break;
-              default:
-                emit(state.copyWith(userTaskStatus: UserTaskStatus.confirm_failure, errorMessage: null));
-          }
+          catchError(obj);
         }));
   }
 
   void confirmAutoCheckTask(String comment, String userTaskId) async {
-    emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
     String userId = await _userRepository.getUserId();
     String redirectDeepLink = 'app://de.lindenvalley.bounty_hub_client';
 
+    emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
     _taskRepository.confirmAutoCheckTask(userId, userTaskId, redirectDeepLink, comment)
         .then((response) => emit(state.copyWith(link: response.link, userTaskStatus: UserTaskStatus.confirm_success)))
         .catchError((Object obj) {
-      log.e(obj);
-      switch (obj.runtimeType) {
-        case DioError:
-          final response = (obj as DioError).response;
-          if(response != null && response.data['message'] != null) {
-            emit(state.copyWith(userTaskStatus: UserTaskStatus.confirm_failure, errorMessage: response.data['message']));
-          } else {
-            emit(state.copyWith(userTaskStatus: UserTaskStatus.confirm_failure, errorMessage: null));
-          }
-          break;
-        default:
-          emit(state.copyWith(userTaskStatus: UserTaskStatus.confirm_failure, errorMessage: null));
-      }
-    });
+          catchError(obj);
+        });
   }
 
   void _takeTask() async {
     String userId = await _userRepository.getUserId();
+
     emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
     _taskRepository.takeTask(userId, state.task.id)
         .then((userTask) {
-          emit(state.copyWith(userTask: userTask, userTaskStatus: UserTaskStatus.take_success));
+          emit(state.copyWith(userTask: userTask, userTaskStatus: UserTaskStatus.take_success, refresh: false));
         })
         .catchError((Object obj) {
-          log.e(obj);
-          switch (obj.runtimeType) {
-            case DioError:
-              final response = (obj as DioError).response;
-              if(response != null && response.data['message'] != null) {
-                emit(state.copyWith(userTaskStatus: UserTaskStatus.take_failure, errorMessage: response.data['message']));
-              } else {
-                emit(state.copyWith(userTaskStatus: UserTaskStatus.take_failure, errorMessage: null));
-              }
-              break;
-            default:
-              emit(state.copyWith(userTaskStatus: UserTaskStatus.take_failure, errorMessage: null));
-          }
+          catchError(obj);
+        });
+  }
+
+  void leaveTask(String taskId, String userTaskId) async {
+    String userId = await _userRepository.getUserId();
+
+    emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
+    _taskRepository.leaveTask(userId, userTaskId)
+        .then((response) {
+          emit(state.copyWith(refresh: true));
+          fetchTask(taskId);
+        })
+        .catchError((Object obj) {
+          catchError(obj);
         });
   }
 
@@ -143,5 +122,21 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
 
   void onStartUserAccountAuthorization() {
     emit(state.copyWith(showTimer: true));
+  }
+
+  void catchError(Object obj) {
+    log.e(obj);
+    switch (obj.runtimeType) {
+      case DioError:
+        final response = (obj as DioError).response;
+        if(response != null && response.data['message'] != null) {
+          emit(state.copyWith(userTaskStatus: UserTaskStatus.failure, errorMessage: response.data['message']));
+        } else {
+          emit(state.copyWith(userTaskStatus: UserTaskStatus.failure, errorMessage: null));
+        }
+        break;
+      default:
+        emit(state.copyWith(userTaskStatus: UserTaskStatus.failure, errorMessage: null));
+    }
   }
 }

@@ -437,4 +437,24 @@ class _RestClient implements RestClient {
         data: _data);
     return Future.value(null);
   }
+
+  @override
+  leaveTask(userId, userTaskId) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(userTaskId, 'userTaskId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<String> _result = await _dio.request(
+        '/user-items/$userId/leave/$userTaskId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PUT',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return Future.value(value);
+  }
 }

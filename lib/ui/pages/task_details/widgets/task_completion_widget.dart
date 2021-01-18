@@ -129,11 +129,74 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
             text: AppStrings.leave,
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
-
+              showLeaveTaskDialog();
             },
           ),
         ],
       ),
+    );
+  }
+
+  void showLeaveTaskDialog() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (builder){
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter state) {
+                return Container(
+                  height: 240,
+                  color: Colors.transparent,
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 36.0, right: 36.0),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: new BorderRadius.only(
+                              topLeft: const Radius.circular(Dimens.app_bottom_dialog_border_radius),
+                              topRight: const Radius.circular(Dimens.app_bottom_dialog_border_radius))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: Text(
+                              'Are you sure you want to leave the task?',
+                              style: AppTextStyles.titleTextStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: Dimens.content_internal_padding),
+                            child: AppButton(
+                              height: 50,
+                              type: AppButtonType.BLUE,
+                              text: AppStrings.confirm,
+                              width: MediaQuery.of(context).size.width / 2,
+                              onPressed: () {
+                                leaveTask();
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: Dimens.content_internal_padding),
+                            child: AppButton(
+                              height: 50,
+                              type: AppButtonType.WHITE,
+                              text: 'Cancel',
+                              width: MediaQuery.of(context).size.width / 2,
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              });
+        }
     );
   }
 
@@ -167,83 +230,85 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
                             topRight: const Radius.circular(Dimens.app_bottom_dialog_border_radius))),
                     child: Form(
                       key: _formKey,
-                      child: ListView(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: Text(
-                              AppStrings.confirmAsCompleted,
-                              style: AppTextStyles.titleTextStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16.0),
-                            child: Container(
+                      child: SingleChildScrollView (
+                        child: Column(
+                            children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 24.0),
                               child: Text(
-                                AppStrings.uploadScreenshot,
-                                style: AppTextStyles.greyContentTextStyle,
-                                textAlign: TextAlign.left,
+                                AppStrings.confirmAsCompleted,
+                                style: AppTextStyles.titleTextStyle,
+                                textAlign: TextAlign.center,
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16.0),
-                            child: _attachment == null ? SizedBox(
-                              width: 64.0,
-                              height: 64.0,
-                              child: Material(
-                                color: Colors.transparent,
-                                child: IconButton(
-                                  color: AppColors.primaryColor,
-                                  icon: Icon(Icons.add_a_photo, size: 64.0),
-                                  onPressed: () {
-                                    getImageFromGallery(state);
-                                  }
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: Container(
+                                child: Text(
+                                  AppStrings.uploadScreenshot,
+                                  style: AppTextStyles.greyContentTextStyle,
+                                  textAlign: TextAlign.left,
                                 ),
                               ),
-                            ) : Image.file(
-                              _attachment,
-                              width: 64.0,
-                              height: 64.0,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 36.0),
-                            child: Linkify(
-                              onOpen: (link) async {
-                                if (await canLaunch(link.url)) {
-                                  await launch(link.url);
-                                }
-                              },
-                              text: getCompletingTaskInformation(widget.task),
-                              style: AppTextStyles.greyContentTextStyle,
-                              linkStyle: TextStyle(color: Colors.blue),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: _attachment == null ? SizedBox(
+                                width: 64.0,
+                                height: 64.0,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: IconButton(
+                                      color: AppColors.primaryColor,
+                                      icon: Icon(Icons.add_a_photo, size: 64.0),
+                                      onPressed: () {
+                                        getImageFromGallery(state);
+                                      }
+                                  ),
+                                ),
+                              ) : Image.file(
+                                _attachment,
+                                width: 64.0,
+                                height: 64.0,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: AppTextField(
-                              controller: _commentController,
-                              maxLines: 4,
-                              withShadow: false,
-                              validator: (value) => FormValidation.isEmpty(value),
-                              decoration: WidgetsDecoration.appMultiLineTextFormStyle(AppStrings.comment),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 36.0),
+                              child: Linkify(
+                                onOpen: (link) async {
+                                  if (await canLaunch(link.url)) {
+                                    await launch(link.url);
+                                  }
+                                },
+                                text: getCompletingTaskInformation(widget.task),
+                                style: AppTextStyles.greyContentTextStyle,
+                                linkStyle: TextStyle(color: Colors.blue),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: AppButton(
-                              height: 50,
-                              type: AppButtonType.BLUE,
-                              text: AppStrings.confirm,
-                              width: MediaQuery.of(context).size.width / 2,
-                              onPressed: () {
-                                confirmSocialParserTask();
-                              },
+                            Padding(
+                              padding: const EdgeInsets.only(top: 24.0),
+                              child: AppTextField(
+                                controller: _commentController,
+                                maxLines: 4,
+                                withShadow: false,
+                                validator: (value) => FormValidation.isEmpty(value),
+                                decoration: WidgetsDecoration.appMultiLineTextFormStyle(AppStrings.comment),
+                              ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(top: 24.0, bottom: 200),
+                              child: AppButton(
+                                height: 50,
+                                type: AppButtonType.BLUE,
+                                text: AppStrings.confirm,
+                                width: MediaQuery.of(context).size.width / 2,
+                                onPressed: () {
+                                  confirmSocialParserTask();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -272,54 +337,56 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
                             topRight: const Radius.circular(Dimens.app_bottom_dialog_border_radius))),
                     child: Form(
                       key: _formKey,
-                      child: ListView(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: Text(
-                              AppStrings.confirmAsCompleted,
-                              style: AppTextStyles.titleTextStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16.0),
-                            child: Linkify(
-                              onOpen: (link) async {
-                                if (await canLaunch(link.url)) {
-                                  await launch(link.url);
-                                }
-                              },
-                              text: getCompletingTaskInformation(widget.task),
-                              style: AppTextStyles.greyContentTextStyle,
-                              linkStyle: TextStyle(color: Colors.blue),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: AppTextField(
-                              controller: _commentController,
-                              maxLines: 4,
-                              withShadow: false,
-                              validator: (value) => FormValidation.isEmpty(value),
-                              decoration: WidgetsDecoration.appMultiLineTextFormStyle(AppStrings.comment),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0, bottom: 200),
-                            child: Center(
-                              child: AppButton(
-                                height: 50,
-                                type: AppButtonType.BLUE,
-                                text: AppStrings.confirm,
-                                width: MediaQuery.of(context).size.width / 2,
-                                onPressed: () {
-                                  confirmAutoCheckTask();
-                                },
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 24.0),
+                              child: Text(
+                                AppStrings.confirmAsCompleted,
+                                style: AppTextStyles.titleTextStyle,
+                                textAlign: TextAlign.center,
                               ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: Linkify(
+                                onOpen: (link) async {
+                                  if (await canLaunch(link.url)) {
+                                    await launch(link.url);
+                                  }
+                                },
+                                text: getCompletingTaskInformation(widget.task),
+                                style: AppTextStyles.greyContentTextStyle,
+                                linkStyle: TextStyle(color: Colors.blue),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 24.0),
+                              child: AppTextField(
+                                controller: _commentController,
+                                maxLines: 4,
+                                withShadow: false,
+                                validator: (value) => FormValidation.isEmpty(value),
+                                decoration: WidgetsDecoration.appMultiLineTextFormStyle(AppStrings.comment),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 24.0, bottom: 200),
+                              child: Center(
+                                child: AppButton(
+                                  height: 50,
+                                  type: AppButtonType.BLUE,
+                                  text: AppStrings.confirm,
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  onPressed: () {
+                                    confirmAutoCheckTask();
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -327,6 +394,11 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
               });
         }
     );
+  }
+
+  void leaveTask() {
+    Navigator.of(context).pop();
+    context.bloc<TaskDetailsCubit>().leaveTask(widget.task.id, widget.userTask.id);
   }
 
   void confirmSocialParserTask() {

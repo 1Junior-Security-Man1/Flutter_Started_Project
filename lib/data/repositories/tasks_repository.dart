@@ -50,4 +50,9 @@ class TaskRepository extends TaskDataSource {
   Future<ConfirmTaskResponse> confirmAutoCheckTask(String userId, String userTaskId, String redirectUrl, String comment) {
     return client.confirmAutoCheckTask(userId, userTaskId, redirectUrl, comment);
   }
+
+  @override
+  Future<String> leaveTask(String userId, String userTaskId) {
+    return client.leaveTask(userId, userTaskId);
+  }
 }

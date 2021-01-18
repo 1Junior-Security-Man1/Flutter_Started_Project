@@ -118,4 +118,7 @@ abstract class RestClient {
 
   @PUT("/notifications/notification/{id}/read")
   Future<void> readNotification(@Path('id') id);
+
+  @PUT("/user-items/{userId}/leave/{userTaskId}")
+  Future<String> leaveTask(@Path('userId') String userId, @Path('userTaskId') String userTaskId);
 }

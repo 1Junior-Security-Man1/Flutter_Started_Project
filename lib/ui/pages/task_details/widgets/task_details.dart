@@ -50,7 +50,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     //todo использовать BlocConsumer
     return BlocListener<TaskDetailsCubit, TaskDetailsState>(
       listener: (context, state) {
-        if (state.userTaskStatus == UserTaskStatus.take_failure || state.userTaskStatus == UserTaskStatus.confirm_failure) {
+        if (state.userTaskStatus == UserTaskStatus.failure) {
           showDialog(
             context: context,
             builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : AppStrings.defaultErrorMessage),
@@ -178,7 +178,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
                 ],
               ),
             ),
-            state.task != null && state.userTask != null ? TaskCompletionWidget(key: Key('CompletionWidget'), task: state.task, userTask: state.userTask) : SizedBox(),
+            state.task != null && state.userTask != null && !state.refresh ? TaskCompletionWidget(task: state.task, userTask: state.userTask) : SizedBox(),
             Container(
               padding: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding),
               child: Row(
