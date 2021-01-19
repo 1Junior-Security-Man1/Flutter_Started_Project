@@ -33,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: CustomAppBar(
         title: 'Profile',
         leftIcon: 'assets/images/edit_icon.png',
-        rightIcon: 'assets/images/settings.png',
+        //rightIcon: 'assets/images/settings.png',
         onLeftIconClick: () async {
           await Navigator.push(
               context,

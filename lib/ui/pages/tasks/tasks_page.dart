@@ -55,7 +55,7 @@ class TasksPage extends StatelessWidget {
         AppStrings.tasksList,
         style: AppTextStyles.titleTextStyle,
       ),
-      actions: <Widget>[
+      /*actions: <Widget>[
         IconButton(
           icon: Image.asset(
             'assets/images/settings.png',
@@ -65,7 +65,7 @@ class TasksPage extends StatelessWidget {
             SettingsMenuDialog.show(context, () { });
           },
         ),
-      ],
+      ],*/
     );
   }
 }

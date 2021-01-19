@@ -33,7 +33,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
       backgroundColor: AppColors.pageBackgroundColor,
       appBar: CustomAppBar(
         leftIcon: 'assets/images/filter.png',
-        rightIcon: 'assets/images/settings.png',
+        //rightIcon: 'assets/images/settings.png',
         title: 'Activity',
         onLeftIconClick: () {},
         onRightIconClick: () {},

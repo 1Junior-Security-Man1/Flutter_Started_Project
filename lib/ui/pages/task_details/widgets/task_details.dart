@@ -277,7 +277,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
         ),
       );
     } else {
-      return EmptyDataPlaceHolder();
+      return EmptyDataPlaceHolder(message: 'Task not found');
     }
   }
 }
