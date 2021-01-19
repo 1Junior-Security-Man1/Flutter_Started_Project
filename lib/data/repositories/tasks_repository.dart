@@ -55,4 +55,9 @@ class TaskRepository extends TaskDataSource {
   Future<String> leaveTask(String userId, String userTaskId) {
     return client.leaveTask(userId, userTaskId);
   }
+
+  @override
+  Future<UserTask> retryTask(String userTaskId) {
+    return client.retryTask(userTaskId);
+  }
 }

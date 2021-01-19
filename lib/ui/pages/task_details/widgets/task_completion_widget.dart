@@ -413,6 +413,10 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
     context.bloc<TaskDetailsCubit>().confirmAutoCheckTask(_commentController.value.text, widget.userTask.id);
   }
 
+  void retryTask() {
+    context.bloc<TaskDetailsCubit>().retryTask(widget.task.id, widget.userTask.id);
+  }
+
   Future getImageFromGallery(StateSetter state) async {
     final pickedFile = await _picker.getImage(source: ImageSource.gallery);
     state(() {
@@ -560,7 +564,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
             text: 'Retry',
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
-
+              retryTask();
             },
           ),
         ],
@@ -603,7 +607,9 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
             ),
             child:  Center(
               child: CountdownTimer(
-                emptyWidget: Text('Task is being checked'),
+                emptyWidget: Text('Task is being verified ...',
+                  style: TextStyle(color: Colors.white),
+                ),
                 endTime: getTaskVerificationTime(confirmationDaysCount,
                     userTask.approveDate != null ? userTask.approveDate : userTask.lastModifiedDate),
                 textStyle: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w400),

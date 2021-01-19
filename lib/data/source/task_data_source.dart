@@ -21,4 +21,6 @@ abstract class TaskDataSource {
   Future<ConfirmTaskResponse> confirmAutoCheckTask(String userId, String userTaskId, String redirectUrl, String comment);
 
   Future<String> leaveTask(String userId, String userTaskId);
+
+  Future<UserTask> retryTask(String userTaskId);
 }

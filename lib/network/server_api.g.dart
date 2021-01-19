@@ -457,4 +457,23 @@ class _RestClient implements RestClient {
     final value = _result.data;
     return Future.value(value);
   }
+
+  @override
+  retryTask(userItemId) async {
+    ArgumentError.checkNotNull(userItemId, 'userItemId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{'userItemId': userItemId};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/user-items/retry',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserTask.fromJson(_result.data);
+    return Future.value(value);
+  }
 }

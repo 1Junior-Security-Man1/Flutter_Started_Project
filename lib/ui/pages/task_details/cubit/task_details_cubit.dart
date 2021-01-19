@@ -107,6 +107,16 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
         });
   }
 
+  void retryTask(String taskId, String userTaskId) {
+    emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
+    _taskRepository.retryTask(userTaskId)
+        .then((response) {
+          fetchTask(taskId);
+    }).catchError((Object obj) {
+      catchError(obj);
+    });
+  }
+
   void whenComplete({Task task, Campaign campaign}) {
     emit(state.copyWith(task: task, campaign: campaign, status: TaskDetailsStatus.fetch_success));
     fetchUserTask(task.id);

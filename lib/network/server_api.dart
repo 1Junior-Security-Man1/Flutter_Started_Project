@@ -121,4 +121,7 @@ abstract class RestClient {
 
   @PUT("/user-items/{userId}/leave/{userTaskId}")
   Future<String> leaveTask(@Path('userId') String userId, @Path('userTaskId') String userTaskId);
+
+  @POST("/user-items/retry")
+  Future<UserTask> retryTask(@Query('userItemId') String userItemId);
 }
