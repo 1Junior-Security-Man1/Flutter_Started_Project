@@ -1,6 +1,8 @@
 import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
 import 'package:bounty_hub_client/bloc/locale/locale_bloc.dart';
 import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
+import 'package:bounty_hub_client/ui/pages/login/login_page.dart';
+import 'package:bounty_hub_client/ui/pages/main/main_page.dart';
 import 'package:bounty_hub_client/ui/pages/splash/splash_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:path_provider/path_provider.dart';
-
 import 'bloc/auth/authorization_bloc.dart';
 import 'data/repositories/preferences_local_repository.dart';
 import 'utils/flavors.dart';
@@ -28,12 +29,15 @@ class App extends StatefulWidget {
   }
 
   @override
-  _AppState createState() => _AppState();
+  AppState createState() => AppState();
 
   static final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 }
 
-class _AppState extends State<App> {
+class AppState extends State<App> {
+
+  static BuildContext _context;
+
   final List<LocalizationsDelegate<dynamic>> localizationsDelegates = const [
     AppLocalizationsDelegate(),
     GlobalMaterialLocalizations.delegate,
@@ -48,38 +52,54 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
+    _context = context;
     getApplicationSupportDirectory().then((value) => Hive.init(value.path));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LocaleBloc, Locale>(
-      builder: (context, locale) {
-        intl.Intl.defaultLocale = locale.languageCode;
-        return MaterialApp(
-          navigatorKey: App.globalNavigatorKey,
-          title: 'BountyHub',
-          theme: ThemeData(
-            fontFamily: 'Montserrat',
-            primarySwatch: Colors.lightBlue,
-            primaryColor: AppColors.primaryColor,
-            accentColor: AppColors.accentColor,
-            canvasColor: Colors.transparent,
-          ),
-          localeResolutionCallback: (deviceLocale, supportedLocales) =>
-              _localeResolutionCallback(deviceLocale, supportedLocales, locale, context),
-          locale: locale,
-          localizationsDelegates: localizationsDelegates,
-          supportedLocales: AppLocalizations.languages.keys.toList(),
-          home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-            builder: (context, state) {
-              return SplashPage(state is Authenticated);
-            },
-          ),
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      builder: (context, state) {
+        return BlocBuilder<LocaleBloc, Locale>(
+          builder: (context, locale) {
+            intl.Intl.defaultLocale = locale.languageCode;
+            return MaterialApp(
+              navigatorKey: App.globalNavigatorKey,
+              title: 'BountyHub',
+              theme: ThemeData(
+                fontFamily: 'Montserrat',
+                primarySwatch: Colors.lightBlue,
+                primaryColor: AppColors.primaryColor,
+                accentColor: AppColors.accentColor,
+                canvasColor: Colors.transparent,
+              ),
+              localeResolutionCallback: (deviceLocale, supportedLocales) =>
+                  _localeResolutionCallback(deviceLocale, supportedLocales, locale, context),
+              locale: locale,
+              localizationsDelegates: localizationsDelegates,
+              supportedLocales: AppLocalizations.languages.keys.toList(),
+              home: navigate(state.status)
+            );
+          },
         );
       },
     );
+  }
+
+  Widget navigate(AuthenticationStatus status) {
+    switch (status) {
+      case AuthenticationStatus.loading: return SplashPage();
+      case AuthenticationStatus.authenticated: return MainPage();
+      case AuthenticationStatus.unauthenticated: return LoginPage();
+      default: {
+        return LoginPage();
+      }
+    }
+  }
+
+  static BuildContext getAppContext() {
+    return _context;
   }
 
   Locale _localeResolutionCallback(

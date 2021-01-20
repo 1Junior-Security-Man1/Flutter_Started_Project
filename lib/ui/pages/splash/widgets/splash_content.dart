@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'package:bounty_hub_client/ui/pages/login/login_page.dart';
-import 'package:bounty_hub_client/ui/pages/main/main_page.dart';
+import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
+import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashContent extends StatefulWidget {
-  final bool authorized;
-
-  const SplashContent(this.authorized);
 
   @override
   State<StatefulWidget> createState()=> _SplashContentState();
@@ -24,26 +22,8 @@ class _SplashContentState extends State<SplashContent> {
   startNavigateWithDelay() async {
     var duration = new Duration(seconds: 3);
     return new Timer(duration, () {
-      if(widget.authorized) {
-        navigateToMainPage();
-      } else {
-        navigateToLoginPage();
-      }
+      BlocProvider.of<AuthenticationBloc>(context).add(AppLoaded());
     });
-  }
-
-  navigateToLoginPage() {
-    Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) => LoginPage()
-    )
-    );
-  }
-
-  navigateToMainPage() {
-    Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) => MainPage()
-    )
-    );
   }
 
   @override

@@ -1,20 +1,31 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
-abstract class AuthenticationState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+enum AuthenticationStatus{ uninitialized, loading, authenticated, unauthenticated }
 
-class Uninitialized extends AuthenticationState {}
+class AuthenticationState extends Equatable {
 
-class Authenticated extends AuthenticationState {
+  const AuthenticationState({
+    this.token,
+    this.status = AuthenticationStatus.uninitialized,
+    this.signature, // TODO hard fix. Block does not respond to the change of the AuthenticationStatus enum only to the change of the String field
+  });
+
+  final AuthenticationStatus status;
   final String token;
+  final int signature;
 
-  Authenticated({@required this.token});
+  AuthenticationState copyWith({
+    AuthenticationStatus status,
+    String token,
+    int signature,
+  }) {
+    return AuthenticationState(
+      signature: signature ?? this.signature,
+      status: status ?? this.status,
+      token: token ?? this.token,
+    );
+  }
 
   @override
-  List<Object> get props => [token];
+  List<Object> get props => [signature, status, token];
 }
-
-class Unauthenticated extends AuthenticationState {}

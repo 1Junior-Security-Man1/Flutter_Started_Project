@@ -31,4 +31,9 @@ class UserRepository extends UserDataSource {
   Future<ImageResponse> uploadImage(File image) async {
     return client.uploadImage(image);
   }
+
+  @override
+  void clearAccessToken() {
+    AppData.instance.clearAccessToken();
+  }
 }

@@ -7,9 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashPage extends StatefulWidget {
-  final bool authorized;
-
-  const SplashPage(this.authorized);
 
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -30,7 +27,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: BlocProvider(
         create: (_) => SplashCubit(),
-        child: SplashContent(widget.authorized),
+        child: SplashContent(),
       ),
     );
   }

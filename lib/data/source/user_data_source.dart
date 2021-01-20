@@ -9,5 +9,7 @@ abstract class UserDataSource {
 
   TokenResponse saveAccessToken(TokenResponse response);
 
+  void clearAccessToken();
+
   Future<ImageResponse> uploadImage(File image);
 }
