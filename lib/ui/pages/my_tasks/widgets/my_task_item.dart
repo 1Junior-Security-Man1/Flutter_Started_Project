@@ -19,8 +19,7 @@ class MyTaskItem extends StatelessWidget {
           hoverColor: Colors.transparent,
           onTap: () {
             Navigator.push(context, MaterialPageRoute(
-                builder: (context) => TaskDetailsPage(title: task.productName, taskId: task.itemId)
-            )
+                builder: (context) => TaskDetailsPage(title: task.productName, taskId: task.itemId)),
             );
           },
           contentPadding: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding, top: 12.0, bottom: 12.0),

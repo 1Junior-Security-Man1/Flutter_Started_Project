@@ -1,5 +1,7 @@
 import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
 import 'package:bounty_hub_client/data/models/entity/activity/notification.dart';
+import 'package:bounty_hub_client/ui/pages/activity/widgets/activity_utils.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/task_details_page.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +71,11 @@ class _ActivityItemState extends State<ActivityItem> {
               context.bloc<ActivityBadgeCubit>().readNotification(widget.activity.id);
               widget.activity.read = true;
               setState(() {});
-              //TODO роут по уведомлению
+              if(widget.activity.action == 'ITEM_RECONFIRMATION') {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => TaskDetailsPage(title: '', taskId: parseTaskIdFromHtml(widget.activity.content))),
+                );
+              }
             },
             child: Padding(
               padding: const EdgeInsets.only(bottom: 10, top: 10),

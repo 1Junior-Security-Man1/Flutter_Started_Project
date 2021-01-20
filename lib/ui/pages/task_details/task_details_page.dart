@@ -61,17 +61,6 @@ class TaskDetailsPage extends StatelessWidget {
           fontSize: Dimens.app_bar_text_size,
         ),
       ),
-      actions: <Widget>[
-        IconButton(
-          icon: Image.asset(
-            'assets/images/settings.png',
-            width: 26,
-          ),
-          onPressed: () {
-            // do something
-          },
-        ),
-      ],
     );
   }
 }

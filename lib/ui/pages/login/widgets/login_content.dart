@@ -1,9 +1,10 @@
+import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
+import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/login/cubit/login_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/login/cubit/login_state.dart';
 import 'package:bounty_hub_client/ui/pages/main/main_page.dart';
 import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
-import 'package:bounty_hub_client/ui/widgets/app_check_box.dart';
 import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
 import 'package:bounty_hub_client/ui/widgets/app_text_field.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
@@ -27,7 +28,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.complete) {
-          navigateToApp(state);
+          BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
           return;
         }
 

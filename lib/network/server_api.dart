@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:bounty_hub_client/data/models/api/request/auth_request.dart';
 import 'package:bounty_hub_client/data/models/api/request/set_social.dart';
 import 'package:bounty_hub_client/data/models/api/response/company_list_response.dart';
+import 'package:bounty_hub_client/data/models/api/response/confirm_task_response.dart';
+import 'package:bounty_hub_client/data/models/api/response/image_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/notification_count_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/notification_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
@@ -12,6 +16,7 @@ import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:bounty_hub_client/network/interceptors/oauth_interceptor.dart';
+import 'package:bounty_hub_client/ui/pages/login/widgets/login_content.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
@@ -72,9 +77,22 @@ abstract class RestClient {
   Future<UserTasksResponse> getUserTasks(@Query('userId') String userId,
       @Query('page') int page, @Query('size') int size);
 
+  @GET("/user-items/{userId}/complete/{userTaskId}")
+  Future<String> confirmSocialParserTask(@Path('userId') String userId,
+      @Path('userTaskId') String userTaskId, @Query('redirectUrl') String redirectUrl,
+      @Query('comment') String comment, @Query('imageId') String imageId);
+
+  @GET("/user-items/{userId}/complete/{userTaskId}")
+  Future<ConfirmTaskResponse> confirmAutoCheckTask(@Path('userId') String userId,
+      @Path('userTaskId') String userTaskId, @Query('redirectUrl') String redirectUrl,
+      @Query('comment') String comment);
+
   @POST("/user-items/{userId}/reserve/{taskId}")
   Future<UserTask> takeTask(
       @Path('userId') String userId, @Path('taskId') String taskId);
+
+  @POST("/images/upload/user")
+  Future<ImageResponse> uploadImage(@Part() File image);
 
   @GET("/users/{userId}")
   Future<User> getUser({@Path('userId') String userId});
@@ -100,4 +118,10 @@ abstract class RestClient {
 
   @PUT("/notifications/notification/{id}/read")
   Future<void> readNotification(@Path('id') id);
+
+  @PUT("/user-items/{userId}/leave/{userTaskId}")
+  Future<String> leaveTask(@Path('userId') String userId, @Path('userTaskId') String userTaskId);
+
+  @POST("/user-items/retry")
+  Future<UserTask> retryTask(@Query('userItemId') String userItemId);
 }

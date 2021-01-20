@@ -195,6 +195,59 @@ class _RestClient implements RestClient {
   }
 
   @override
+  confirmSocialParserTask(
+      userId, userTaskId, redirectUrl, comment, imageId) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(userTaskId, 'userTaskId');
+    ArgumentError.checkNotNull(redirectUrl, 'redirectUrl');
+    ArgumentError.checkNotNull(comment, 'comment');
+    ArgumentError.checkNotNull(imageId, 'imageId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      'redirectUrl': redirectUrl,
+      'comment': comment,
+      'imageId': imageId
+    };
+    final _data = <String, dynamic>{};
+    final Response<String> _result = await _dio.request(
+        '/user-items/$userId/complete/$userTaskId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return Future.value(value);
+  }
+
+  @override
+  confirmAutoCheckTask(userId, userTaskId, redirectUrl, comment) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(userTaskId, 'userTaskId');
+    ArgumentError.checkNotNull(redirectUrl, 'redirectUrl');
+    ArgumentError.checkNotNull(comment, 'comment');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      'redirectUrl': redirectUrl,
+      'comment': comment
+    };
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/user-items/$userId/complete/$userTaskId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ConfirmTaskResponse.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
   takeTask(userId, taskId) async {
     ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(taskId, 'taskId');
@@ -211,6 +264,29 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = UserTask.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  uploadImage(image) async {
+    ArgumentError.checkNotNull(image, 'image');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = FormData();
+    _data.files.add(MapEntry(
+        'image',
+        MultipartFile.fromFileSync(image.path,
+            filename: image.path.split(Platform.pathSeparator).last)));
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/images/upload/user',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ImageResponse.fromJson(_result.data);
     return Future.value(value);
   }
 
@@ -360,5 +436,44 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     return Future.value(null);
+  }
+
+  @override
+  leaveTask(userId, userTaskId) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(userTaskId, 'userTaskId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<String> _result = await _dio.request(
+        '/user-items/$userId/leave/$userTaskId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PUT',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return Future.value(value);
+  }
+
+  @override
+  retryTask(userItemId) async {
+    ArgumentError.checkNotNull(userItemId, 'userItemId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{'userItemId': userItemId};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/user-items/retry',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserTask.fromJson(_result.data);
+    return Future.value(value);
   }
 }

@@ -8,15 +8,19 @@ import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_header_widg
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_status_widget.dart';
 import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
+import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
+import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TaskDetailsWidget extends StatefulWidget {
   final String taskId;
@@ -31,6 +35,7 @@ class TaskDetailsWidget extends StatefulWidget {
 class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   TaskDetailsCubit _cubit;
   TasksListCubit _tasksListCubit;
+  var logger = Logger();
 
   @override
   void initState() {
@@ -45,7 +50,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     //todo использовать BlocConsumer
     return BlocListener<TaskDetailsCubit, TaskDetailsState>(
       listener: (context, state) {
-        if (state.userTaskStatus == UserTaskStatus.take_failure) {
+        if (state.userTaskStatus == UserTaskStatus.failure) {
           showDialog(
             context: context,
             builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : AppStrings.defaultErrorMessage),
@@ -54,6 +59,14 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
 
         if(state.userTaskStatus == UserTaskStatus.take_success) {
           _tasksListCubit.refresh();
+        }
+
+        if(state.userTaskStatus == UserTaskStatus.confirm_success) {
+          _cubit.fetchUserTask(widget.taskId);
+          _tasksListCubit.refresh();
+          if(state.link != null && state.link.isNotEmpty) {
+            showSocialAccountAuthorizationDialog(state.link);
+          }
         }
       },
       child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
@@ -67,10 +80,76 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     );
   }
 
+  void showSocialAccountAuthorizationDialog(String authLink) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (builder){
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter state) {
+                return Container(
+                  height: 300,
+                  color: Colors.transparent,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 36.0, right: 36.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.only(
+                            topLeft: const Radius.circular(Dimens.app_bottom_dialog_border_radius),
+                            topRight: const Radius.circular(Dimens.app_bottom_dialog_border_radius))),
+                    child: Form(
+                      child: ListView(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: Text(
+                              'Bounty checking procedure:',
+                              style: AppTextStyles.titleTextStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: Container(
+                              child: Text(
+                                'Please authorize with the social network account which you performed this task for automatically check the status of completion.',
+                                style: AppTextStyles.greyContentTextStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0, bottom: 200),
+                            child: Center(
+                              child: AppButton(
+                                height: 50,
+                                type: AppButtonType.BLUE,
+                                text: 'Authorize',
+                                width: MediaQuery.of(context).size.width / 2,
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                  _cubit.onStartUserAccountAuthorization();
+                                  if (await canLaunch(authLink)) {
+                                    await launch(authLink);
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              });
+        }
+    );
+  }
+
   _buildContent(BuildContext context, TaskDetailsState state) {
     if(state.status == TaskDetailsStatus.loading) {
       return Loading();
-    } else if(state.status == TaskDetailsStatus.success ||  state.userTaskStatus == UserTaskStatus.success) {
+    } else if(state.status == TaskDetailsStatus.fetch_success ||  state.userTaskStatus == UserTaskStatus.fetch_success) {
       return SingleChildScrollView(
         child: Column(
           children: [
@@ -99,7 +178,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
                 ],
               ),
             ),
-            state.task != null && state.userTask != null ? TaskCompletionWidget(task: state.task, userTask: state.userTask) : SizedBox(),
+            state.task != null && state.userTask != null && !state.refresh ? TaskCompletionWidget(task: state.task, userTask: state.userTask) : SizedBox(),
             Container(
               padding: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding),
               child: Row(
@@ -198,7 +277,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
         ),
       );
     } else {
-      return EmptyDataPlaceHolder();
+      return EmptyDataPlaceHolder(message: 'Task not found');
     }
   }
 }

@@ -7,4 +7,5 @@ class Dimens {
   static const double input_text_prefix_icon_padding = 10.0;
   static const double app_button_height = 54.0;
   static const double app_bar_text_size = 16.0;
+  static const double app_bottom_dialog_border_radius = 50.0;
 }

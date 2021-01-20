@@ -7,20 +7,27 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   final UserRepository _userRepository;
 
-  AuthenticationBloc(this._userRepository) : super(Uninitialized());
+  AuthenticationBloc(this._userRepository) : super(AuthenticationState(status: AuthenticationStatus.uninitialized));
 
   @override
-  Stream<AuthenticationState> mapEventToState(
-      AuthenticationEvent event,
-      ) async* {
-
+  Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
     if (event is AppStarted) {
+      yield state.copyWith(status: AuthenticationStatus.loading);
+    }
+    if (event is AppLoaded) {
       final String accessToken = await _userRepository.getAccessToken();
       if (accessToken != null && accessToken.isNotEmpty) {
-        yield Authenticated(token: accessToken);
+        yield state.copyWith(status: AuthenticationStatus.authenticated, token: accessToken);
       } else {
-        yield Unauthenticated();
+        yield state.copyWith(status: AuthenticationStatus.unauthenticated, token: null);
       }
+    }
+    if (event is LoggedOut) {
+      _userRepository.clearAccessToken();
+      yield state.copyWith(status: AuthenticationStatus.unauthenticated, token: null, signature: DateTime.now().millisecond);
+    }
+    if (event is LoggedIn) {
+      yield state.copyWith(status: AuthenticationStatus.authenticated, signature: DateTime.now().millisecond);
     }
   }
 }

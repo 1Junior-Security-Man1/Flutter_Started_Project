@@ -1,5 +1,5 @@
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
-import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_ui_utils.dart';
 import 'package:bounty_hub_client/ui/widgets/social_image.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -7,7 +7,6 @@ import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskDescriptionWidget extends StatelessWidget {
 
@@ -37,7 +36,7 @@ class TaskDescriptionWidget extends StatelessWidget {
             type: MaterialType.transparency,
             child: InkWell(
               onTap: () {
-                context.bloc<TaskDetailsCubit>().launchURL(checkNullString(task.checkLink));
+                launchURL(checkNullString(task.checkLink));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

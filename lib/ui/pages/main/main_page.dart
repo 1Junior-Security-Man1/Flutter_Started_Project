@@ -61,73 +61,64 @@ class _MainPageState extends State<MainPage> {
         decoration: WidgetsDecoration.appNavigationStyle(),
         child: SizedBox(
           height: 70,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(22.0),
-              topRight: Radius.circular(22.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 1.0, right: 1.0),
-              child: BottomNavigationBar(
-                elevation: 0,
-                items: <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 5.0),
-                      child: buildNavigationBarIcon(
-                          0,
-                          _selectedIndex,
-                          'assets/images/menu_item_tasks.png',
-                          'assets/images/menu_item_tasks_active.png'),
-                    ),
-                    label: 'Do Tasks',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 5.0),
-                      child: buildNavigationBarIcon(
-                          1,
-                          _selectedIndex,
-                          'assets/images/menu_item_profile.png',
-                          'assets/images/menu_item_profile_active.png'),
-                    ),
-                    label: 'Profile',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 5.0),
-                      child: BlocBuilder<ActivityBadgeCubit,ActivityBadgeState>(
-                        builder:(context,state)=> Stack(
-                          alignment: Alignment.topRight,
-                          children: [
-                            buildNavigationBarIcon(
-                                2,
-                                _selectedIndex,
-                                'assets/images/menu_item_notification.png',
-                                'assets/images/menu_item_notification_active.png'),
-                            if(state.unreadCount>0)
-                              Container(
-                                decoration: WidgetsDecoration.appBlueButtonStyle(),
-                                height: 14,
-                                width: 14,
-                                child: Center(child: Text(state.unreadCount.toString(), style: AppTextStyles.defaultBold.copyWith(color: Colors.white,fontSize: 9),)),
-                              )
-                          ],
-                        ),
-                      ),
-                    ),
-                    label: 'Notifications',
-                  ),
-                ],
-                currentIndex: _selectedIndex,
-                backgroundColor: AppColors.navigationBackgroundColor,
-                selectedItemColor: AppColors.navigationWidgetsColor,
-                unselectedFontSize: 10,
-                selectedFontSize: 10,
-                type: BottomNavigationBarType.fixed,
-                onTap: _onItemTapped,
+          child: BottomNavigationBar(
+            elevation: 0,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: buildNavigationBarIcon(
+                      0,
+                      _selectedIndex,
+                      'assets/images/menu_item_tasks.png',
+                      'assets/images/menu_item_tasks_active.png'),
+                ),
+                label: 'Do Tasks',
               ),
-            ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: buildNavigationBarIcon(
+                      1,
+                      _selectedIndex,
+                      'assets/images/menu_item_profile.png',
+                      'assets/images/menu_item_profile_active.png'),
+                ),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: BlocBuilder<ActivityBadgeCubit,ActivityBadgeState>(
+                    builder:(context,state)=> Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        buildNavigationBarIcon(
+                            2,
+                            _selectedIndex,
+                            'assets/images/menu_item_notification.png',
+                            'assets/images/menu_item_notification_active.png'),
+                        if(state.unreadCount>0)
+                          Container(
+                            decoration: WidgetsDecoration.appBlueButtonStyle(),
+                            height: 14,
+                            width: 14,
+                            child: Center(child: Text(state.unreadCount.toString(), style: AppTextStyles.defaultBold.copyWith(color: Colors.white,fontSize: 9),)),
+                          )
+                      ],
+                    ),
+                  ),
+                ),
+                label: 'Notifications',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            backgroundColor: AppColors.navigationBackgroundColor,
+            selectedItemColor: AppColors.navigationWidgetsColor,
+            unselectedFontSize: 10,
+            selectedFontSize: 10,
+            type: BottomNavigationBarType.fixed,
+            onTap: _onItemTapped,
           ),
         ),
       ),

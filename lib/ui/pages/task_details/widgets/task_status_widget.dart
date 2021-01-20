@@ -17,7 +17,7 @@ class TaskStatusWidget extends StatelessWidget {
         builder: (context, state) {
           if(state.userTaskStatus == UserTaskStatus.loading) {
             return Loading();
-          } else if((state.userTaskStatus == UserTaskStatus.success || state.userTaskStatus == UserTaskStatus.take_success) && state.userTask != null) {
+          } else if((state.userTaskStatus == UserTaskStatus.fetch_success || state.userTaskStatus == UserTaskStatus.take_success) && state.userTask != null) {
             return TaskStatusBarWidget(
               status: state.userTask.getTaskStatus(),
               approveDate: state.userTask.approveDate != null ? state.userTask.approveDate : null,
