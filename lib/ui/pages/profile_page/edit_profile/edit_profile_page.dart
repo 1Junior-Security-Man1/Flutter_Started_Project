@@ -48,6 +48,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return BlocBuilder<EditProfileCubit, EditProfileState>(
         builder: (context, state) {
       return Scaffold(
+        backgroundColor: AppColors.pageBackgroundColor,
         appBar: CustomAppBar(
           title: 'Edit Profile',
           leftIcon: 'assets/images/back.png',
@@ -141,28 +142,33 @@ class _EditProfilePageState extends State<EditProfilePage> {
               height: 4,
             ),
             EditProfileFormWidget(
-                child: DropdownButton<String>(
-                  isExpanded: true,
-                  underline: Container(),
-                  focusNode: genderFocus,
-                  value: user.gender,
-                  onChanged: (String newValue) {
-                    setState(() {
-                      user.gender = newValue;
-                    });
-                  },
-                  items: <String>[
-                    'MALE',
-                    'FEMALE',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(value),
-                      ),
-                    );
-                  }).toList(),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Colors.white,
+                  ),
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    underline: Container(),
+                    focusNode: genderFocus,
+                    value: user.gender,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        user.gender = newValue;
+                      });
+                    },
+                    items: <String>[
+                      'MALE',
+                      'FEMALE',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(value),
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 node: genderFocus),
           ]),
@@ -257,6 +263,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   showCountryOnly: true,
                   showOnlyCountryWhenClosed: true,
                   textStyle: AppTextStyles.defaultText,
+                  onChanged: (code) {
+                    setState(() {
+                      user.locationCountryCode = code.code;
+                    });
+                  },
                 ),
               ),
             ),

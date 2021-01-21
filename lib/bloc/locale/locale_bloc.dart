@@ -8,7 +8,7 @@ class LocaleBloc extends Bloc<LocaleEvent, Locale> {
   static Locale locale = Locale('en', 'EN');
 
   static Map<Locale, String> localeName = {
-    Locale.fromSubtags(countryCode: 'DE', languageCode: 'de'): 'Germany',
+    //Locale.fromSubtags(countryCode: 'DE', languageCode: 'de'): 'Germany',
     Locale.fromSubtags(countryCode: 'RU', languageCode: 'ru'): 'Russian',
     Locale.fromSubtags(countryCode: 'US', languageCode: 'en'): 'English',
   };
