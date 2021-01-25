@@ -17,9 +17,10 @@ class TaskRepository extends TaskDataSource {
   TaskRepository(this.client, this.userRepository);
 
   @override
-  Future<TasksResponse> getTasks(String socialMediaType, String userId, int page) {
+  Future<TasksResponse> getTasks(String campaignId, String socialMediaType, String userId, int page) {
     if(socialMediaType == null) socialMediaType = '';
-    return client.getTasks(socialMediaType, userId, page, 10, 'APPROVED', 'rewardAmount,desc', true, 'PUBLIC');
+    if(campaignId == null) campaignId = '';
+    return client.getTasks(campaignId, socialMediaType, userId, page, 10, 'APPROVED', 'rewardAmount,desc', true, 'PUBLIC');
   }
 
   @override
@@ -33,8 +34,10 @@ class TaskRepository extends TaskDataSource {
   }
 
   @override
-  Future<UserTasksResponse> getUserTasks(String userId, int page) {
-    return client.getUserTasks(userId, page, 10);
+  Future<UserTasksResponse> getUserTasks(String campaignId, String socialMediaType, String userId, int page) {
+    if(socialMediaType == null) socialMediaType = '';
+    if(campaignId == null) campaignId = '';
+    return client.getUserTasks(campaignId, socialMediaType, userId, page, 10);
   }
 
   @override

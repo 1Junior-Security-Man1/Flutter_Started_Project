@@ -32,19 +32,22 @@ typedef void OnSelect(FilterEntity detail);
 class FilterDialog extends StatefulWidget {
   final OnSelect onSelect;
 
-  final List<Campaign> compaing;
+  final List<Campaign> campaigns;
 
   FilterEntity selectedEntity;
 
-  FilterDialog._(this.onSelect, this.compaing,  this.selectedEntity);
+  FilterDialog._(this.onSelect, this.campaigns,  this.selectedEntity);
 
-  static Future<void> show(
-      BuildContext context, void onSelect(FilterEntity detail),
-      {height = 546.0, compaing, FilterEntity selectedEntity}) async {
+  static Future<void> show(FilterEntity filtered, BuildContext context, void onSelect(FilterEntity detail),
+      {height = 580.0, campaign, FilterEntity selectedEntity}) async {
+
+    selectedEntity.selectedCampaign = filtered?.selectedCampaign;
+    selectedEntity.selectedSocial = filtered?.selectedSocial;
+
     return showDialog(
         context: context,
         builder: (context) =>
-            TopSheet(FilterDialog._(onSelect, compaing,selectedEntity), height: height),
+            TopSheet(FilterDialog._(onSelect, campaign, selectedEntity), height: height),
         barrierColor: Colors.transparent);
   }
 
@@ -55,11 +58,11 @@ class FilterDialog extends StatefulWidget {
 class _FilterDialogState extends State<FilterDialog> {
 
   SocialNetworkType selectedSocial;
-  List<Campaign> selectedCompany = [];
+  Campaign selectedCampaign;
 
   @override
   void initState() {
-    selectedCompany = List.of(widget.selectedEntity.selectedCompany);
+    selectedCampaign = widget.selectedEntity.selectedCampaign;
     selectedSocial = widget.selectedEntity.selectedSocial;
     super.initState();
   }
@@ -73,7 +76,12 @@ class _FilterDialogState extends State<FilterDialog> {
             CustomAppBar(
               title: 'Social Networks',
               leftIcon: 'assets/images/reject.png',
+              rightIcon: 'assets/images/filter_clear.png',
               onLeftIconClick: () {
+                TopSheetState.close(context);
+              },
+              onRightIconClick: () {
+                widget.onSelect(FilterEntity(null, null));
                 TopSheetState.close(context);
               },
               color: Colors.white,
@@ -82,7 +90,7 @@ class _FilterDialogState extends State<FilterDialog> {
               height: 162,
             ),
             CustomAppBar(
-              title: 'Company',
+              title: 'Campaign',
               color: Colors.white,
             )
           ],
@@ -100,38 +108,38 @@ class _FilterDialogState extends State<FilterDialog> {
                   SizedBox(
                     height: 60,
                   ),
-                  ..._buildCompanyList(),
+                  ..._buildCampaignsList(),
                 ],
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
 
-  List<Widget> _buildCompanyList() {
+  List<Widget> _buildCampaignsList() {
     return [
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           for (int i = 0;
-              i < (widget.compaing.length ~/ 3) + (widget.compaing.length % 3 == 0 ? 0 : 1);
+              i < (widget.campaigns.length ~/ 3) + (widget.campaigns.length % 3 == 0 ? 0 : 1);
               i++)
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                _buildCompanyItem(widget.compaing[i]),
-                if (widget.compaing.length >= 2)
-                  _buildCompanyItem(widget.compaing[
-                      (widget.compaing.length ~/ 3) + (widget.compaing.length % 3 == 0 ? 0 : 1) + i]),
-                if ((widget.compaing.length ~/ 3 * 2) +
-                        (widget.compaing.length % 3 == 0 ? 0 : 2) +
+                _buildCampaignItem(widget.campaigns[i]),
+                if (widget.campaigns.length >= 2)
+                  _buildCampaignItem(widget.campaigns[
+                      (widget.campaigns.length ~/ 3) + (widget.campaigns.length % 3 == 0 ? 0 : 1) + i]),
+                if ((widget.campaigns.length ~/ 3 * 2) +
+                        (widget.campaigns.length % 3 == 0 ? 0 : 2) +
                         i +
                         1 <=
-                  widget.compaing.length)
-                  _buildCompanyItem(widget.compaing[(widget.compaing.length ~/ 3 * 2) +
-                      (widget.compaing.length % 3 == 0 ? 0 : 2) +
+                  widget.campaigns.length)
+                  _buildCampaignItem(widget.campaigns[(widget.campaigns.length ~/ 3 * 2) +
+                      (widget.campaigns.length % 3 == 0 ? 0 : 2) +
                       i]),
               ],
             )
@@ -167,7 +175,7 @@ class _FilterDialogState extends State<FilterDialog> {
     ];
   }
 
-  Widget _buildCompanyItem(Campaign item) {
+  Widget _buildCampaignItem(Campaign campaign) {
     return Container(
       height: 75,
       width: 75,
@@ -178,22 +186,16 @@ class _FilterDialogState extends State<FilterDialog> {
             children: [
               GestureDetector(
                 onTap: (){
-                  if(selectedCompany.contains(item)){
-                    selectedCompany.remove(item);
-                  }else{
-                    selectedCompany.add(item);
-                  }
-                  widget.onSelect(FilterEntity(selectedCompany,selectedSocial));
-                  setState(() {
-
-                  });
+                  selectedCampaign = campaign;
+                  widget.onSelect(FilterEntity(selectedCampaign, selectedSocial));
+                  setState(() {});
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12.0),
                   child: Container(
                     decoration: WidgetsDecoration.appBlueButtonStyle(),
                     child: CachedNetworkImage(
-                      imageUrl: getImageUrl(item.coverId),
+                      imageUrl: getImageUrl(campaign.coverId),
                       height: 45,
                       width: 45,
                       placeholder: (_,__)=> Container(
@@ -203,7 +205,7 @@ class _FilterDialogState extends State<FilterDialog> {
                   ),
                 ),
               ),
-              if(selectedCompany.contains(item))
+              if(selectedCampaign == campaign)
                 Container(
                   child: Image.asset('assets/images/complete.png',color: Colors.white,height: 14,width: 14,),
                   decoration: WidgetsDecoration.appBlueButtonStyle().copyWith(border: Border.all(color: Colors.white),),
@@ -213,7 +215,7 @@ class _FilterDialogState extends State<FilterDialog> {
           Container(
               width: 45,
               child: Text(
-                item.name,
+                campaign.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.smallBoldTitle
@@ -233,9 +235,8 @@ class _FilterDialogState extends State<FilterDialog> {
           GestureDetector(
             onTap: (){
               selectedSocial = type;
-              widget.onSelect(FilterEntity(selectedCompany,selectedSocial));
+              widget.onSelect(FilterEntity(selectedCampaign, selectedSocial));
               setState(() {});
-              TopSheetState.close(context);
             },
             child: Stack(alignment: Alignment.bottomRight,
               children: [
@@ -265,8 +266,8 @@ class _FilterDialogState extends State<FilterDialog> {
 }
 
 class FilterEntity {
-  final List<Campaign> selectedCompany;
-  final SocialNetworkType selectedSocial;
+  Campaign selectedCampaign;
+  SocialNetworkType selectedSocial;
 
-  FilterEntity(this.selectedCompany, this.selectedSocial);
+  FilterEntity(this.selectedCampaign, this.selectedSocial);
 }

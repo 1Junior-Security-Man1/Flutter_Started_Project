@@ -99,7 +99,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
     emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
     _taskRepository.leaveTask(userId, userTaskId)
         .then((response) {
-          emit(state.copyWith(refresh: true));
+          emit(state.copyWith(userTaskStatus: UserTaskStatus.leave_success, refresh: true));
           fetchTask(taskId);
         })
         .catchError((Object obj) {
