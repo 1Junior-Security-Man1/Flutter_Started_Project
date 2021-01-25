@@ -2,6 +2,7 @@ import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_state.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/widgets/filter_dialog.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/widgets/tasks_content.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/settings_menu_dialog.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
@@ -37,8 +38,10 @@ class TasksPage extends StatelessWidget {
                     ),
                     onPressed: () {
                       FilterDialog.show(context, (selectedEntity) {
-                        //todo filter tasks
-                      }, compaing:state.campaing,selectedEntity:FilterEntity([], []));
+                        context.bloc<TasksListCubit>().socialMediaType = selectedEntity.selectedSocial;
+                        context.bloc<TasksListCubit>().refresh();
+                        context.bloc<TasksListCubit>().fetchTasks();
+                      }, compaing:state.campaing,selectedEntity:FilterEntity([], null));
                     },
                   ),
               ),

@@ -53,14 +53,14 @@ class FilterDialog extends StatefulWidget {
 }
 
 class _FilterDialogState extends State<FilterDialog> {
-  
-  List<SocialNetworkType> selectedSocial = [];
+
+  SocialNetworkType selectedSocial;
   List<Campaign> selectedCompany = [];
 
   @override
   void initState() {
     selectedCompany = List.of(widget.selectedEntity.selectedCompany);
-    selectedSocial = List.of(widget.selectedEntity.selectedSocial);
+    selectedSocial = widget.selectedEntity.selectedSocial;
     super.initState();
   }
 
@@ -232,15 +232,10 @@ class _FilterDialogState extends State<FilterDialog> {
         children: [
           GestureDetector(
             onTap: (){
-              if(selectedSocial.contains(type)){
-                selectedSocial.remove(type);
-              }else{
-                selectedSocial.add(type);
-              }
+              selectedSocial = type;
               widget.onSelect(FilterEntity(selectedCompany,selectedSocial));
-              setState(() {
-                
-              });
+              setState(() {});
+              TopSheetState.close(context);
             },
             child: Stack(alignment: Alignment.bottomRight,
               children: [
@@ -252,7 +247,7 @@ class _FilterDialogState extends State<FilterDialog> {
                     child: buildSocialImage(type),
                   ),
                 ),
-                if(selectedSocial.contains(type))
+                if(selectedSocial == type)
                 Transform.translate(
                   offset: Offset(-12,0),
                   child: Container(
@@ -271,7 +266,7 @@ class _FilterDialogState extends State<FilterDialog> {
 
 class FilterEntity {
   final List<Campaign> selectedCompany;
-  final List<SocialNetworkType> selectedSocial;
+  final SocialNetworkType selectedSocial;
 
   FilterEntity(this.selectedCompany, this.selectedSocial);
 }
