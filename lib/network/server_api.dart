@@ -37,7 +37,7 @@ abstract class RestClient {
 
     dio.interceptors.add(OauthInterceptor());
 
-    dio.options = BaseOptions(receiveTimeout: 30000, connectTimeout: 30000);
+    dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);
     return _RestClient(dio, baseUrl: baseUrl);
   }
 
