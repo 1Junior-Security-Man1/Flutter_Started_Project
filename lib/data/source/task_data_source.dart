@@ -8,7 +8,7 @@ abstract class TaskDataSource {
 
   Future<UserTasksResponse> getUserTasks(String userId, int page);
 
-  Future<TasksResponse> getTasks(String userId, int page);
+  Future<TasksResponse> getTasks(String socialMediaType, String userId, int page);
 
   Future<Task> getTask(String taskId);
 

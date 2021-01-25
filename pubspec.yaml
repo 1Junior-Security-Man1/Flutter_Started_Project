@@ -55,7 +55,8 @@ dependencies:
   flutter_countdown_timer: ^2.1.0
 
   cupertino_icons: ^1.0.0
-  country_code_picker: ^1.6.2
+  country_code_picker:
+    path: ./plugins/country_code_picker-1.6.2
   polygon_clipper: ^1.0.2
   flutter_html: ^0.8.2
 

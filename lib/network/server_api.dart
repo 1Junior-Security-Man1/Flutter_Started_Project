@@ -52,6 +52,7 @@ abstract class RestClient {
 
   @GET("/items/filtered")
   Future<TasksResponse> getTasks(
+      @Query('socialType') String socialType,
       @Query('userId') String userId,
       @Query('page') int page,
       @Query('size') int size,

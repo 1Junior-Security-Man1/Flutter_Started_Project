@@ -172,9 +172,9 @@ packages:
   country_code_picker:
     dependency: "direct main"
     description:
-      name: country_code_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "plugins/country_code_picker-1.6.2"
+      relative: true
+    source: path
     version: "1.6.2"
   crypto:
     dependency: transitive
