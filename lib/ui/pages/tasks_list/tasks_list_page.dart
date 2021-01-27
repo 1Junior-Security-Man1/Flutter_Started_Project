@@ -52,7 +52,7 @@ class _TasksListPageState extends State<TasksListPage> {
               child: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
                   return index >= state.tasks.length
-                      ? BottomLoader()
+                      ? state.tasks.length > 10 ? BottomLoader() : SizedBox()
                       : TasksListItem(task: state.tasks[index]);
                 },
                 itemCount: state.hasReachedMax

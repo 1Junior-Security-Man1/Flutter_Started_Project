@@ -5,7 +5,6 @@ import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_state.dart';
 class TasksCubit extends Cubit<TasksState> {
   CampaignRepository campaignRepository;
 
-  
   TasksCubit(this.campaignRepository) : super(TasksState());
 
   void onTabClick(int index) {

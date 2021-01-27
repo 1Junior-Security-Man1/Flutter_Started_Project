@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_budget_widget.dart';
@@ -35,6 +36,7 @@ class TaskDetailsWidget extends StatefulWidget {
 class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   TaskDetailsCubit _cubit;
   TasksListCubit _tasksListCubit;
+  MyTasksCubit _myTasksListCubit;
   var logger = Logger();
 
   @override
@@ -42,6 +44,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     super.initState();
     _cubit = context.bloc<TaskDetailsCubit>();
     _tasksListCubit = context.bloc<TasksListCubit>();
+    _myTasksListCubit = context.bloc<MyTasksCubit>();
     _cubit.fetchTask(widget.taskId);
   }
 
@@ -57,7 +60,8 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
           );
         }
 
-        if(state.userTaskStatus == UserTaskStatus.take_success) {
+        if(state.userTaskStatus == UserTaskStatus.take_success || state.userTaskStatus == UserTaskStatus.leave_success) {
+          _myTasksListCubit.refresh();
           _tasksListCubit.refresh();
         }
 

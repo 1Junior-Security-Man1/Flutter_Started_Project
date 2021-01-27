@@ -64,7 +64,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                 child: ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
                     return index >= state.activities.length
-                        ? BottomLoader()
+                        ? state.activities.length > 10 ? BottomLoader() : SizedBox()
                         : ActivityItem(activity: state.activities[index]);
                   },
                   itemCount: state.hasReachedMax

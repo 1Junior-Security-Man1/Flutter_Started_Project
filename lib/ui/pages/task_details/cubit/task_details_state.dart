@@ -4,7 +4,7 @@ import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:equatable/equatable.dart';
 
 enum TaskDetailsStatus{ loading, fetch_success, fetch_failure }
-enum UserTaskStatus{ loading, failure, fetch_success, fetch_failure, take_success, confirm_success}
+enum UserTaskStatus{ loading, failure, fetch_success, fetch_failure, leave_success, take_success, confirm_success}
 
 class TaskDetailsState extends Equatable {
 

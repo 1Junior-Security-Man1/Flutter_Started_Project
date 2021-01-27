@@ -60,8 +60,9 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getTasks(
-      socialType, userId, page, size, status, sort, running, accessMode) async {
+  getTasks(campaignsIds, socialType, userId, page, size, status, sort, running,
+      accessMode) async {
+    ArgumentError.checkNotNull(campaignsIds, 'campaignsIds');
     ArgumentError.checkNotNull(socialType, 'socialType');
     ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(page, 'page');
@@ -72,6 +73,7 @@ class _RestClient implements RestClient {
     ArgumentError.checkNotNull(accessMode, 'accessMode');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
+      'campaignsIds': campaignsIds,
       'socialType': socialType,
       'userId': userId,
       'page': page,
@@ -173,12 +175,16 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getUserTasks(userId, page, size) async {
+  getUserTasks(campaignId, socialType, userId, page, size) async {
+    ArgumentError.checkNotNull(campaignId, 'campaignId');
+    ArgumentError.checkNotNull(socialType, 'socialType');
     ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(page, 'page');
     ArgumentError.checkNotNull(size, 'size');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
+      'campaignId': campaignId,
+      'socialNetwork': socialType,
       'userId': userId,
       'page': page,
       'size': size

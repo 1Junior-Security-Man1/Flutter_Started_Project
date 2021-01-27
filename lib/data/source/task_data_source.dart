@@ -6,9 +6,9 @@ import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 
 abstract class TaskDataSource {
 
-  Future<UserTasksResponse> getUserTasks(String userId, int page);
+  Future<UserTasksResponse> getUserTasks(String campaignId, String socialMediaType, String userId, int page);
 
-  Future<TasksResponse> getTasks(String socialMediaType, String userId, int page);
+  Future<TasksResponse> getTasks(String campaignsIds, String socialMediaType, String userId, int page);
 
   Future<Task> getTask(String taskId);
 

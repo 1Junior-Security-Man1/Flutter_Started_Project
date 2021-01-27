@@ -12,6 +12,7 @@ import 'package:bounty_hub_client/ui/pages/tasks/tasks_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
+import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,8 +32,8 @@ class _MainPageState extends State<MainPage> {
       context.bloc<ProfileBloc>().add(FetchProfileEvent());
       context.bloc<ProfileBloc>().listen((state) {
         BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
-          countryCode: state.user.language.split('_')[1],
-          languageCode: state.user.language.split('_')[0],
+          countryCode:  getLanguageCode(state.user?.language)[1],
+          languageCode: getLanguageCode(state.user?.language)[0],
         ));
       });
     });

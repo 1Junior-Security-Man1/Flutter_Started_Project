@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_state.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/widgets/filter_dialog.dart';
@@ -37,11 +38,19 @@ class TasksPage extends StatelessWidget {
                       width: 26,
                     ),
                     onPressed: () {
-                      FilterDialog.show(context, (selectedEntity) {
-                        context.bloc<TasksListCubit>().socialMediaType = selectedEntity.selectedSocial;
-                        context.bloc<TasksListCubit>().refresh();
-                        context.bloc<TasksListCubit>().fetchTasks();
-                      }, compaing:state.campaing,selectedEntity:FilterEntity([], null));
+                      TasksListCubit allTasksCubit = context.bloc<TasksListCubit>();
+                      MyTasksCubit myTasksCubit = context.bloc<MyTasksCubit>();
+
+                      FilterDialog.show(allTasksCubit.filterEntity, context, (selectedEntity) {
+                        allTasksCubit.filterEntity = selectedEntity;
+                        myTasksCubit.filterEntity = selectedEntity;
+
+                        allTasksCubit.refresh();
+                        allTasksCubit.fetchTasks();
+
+                        myTasksCubit.refresh();
+                        myTasksCubit.fetchTasks();
+                      }, campaign:state.campaing, selectedEntity:FilterEntity(null, null));
                     },
                   ),
               ),

@@ -75,8 +75,8 @@ class LvlCardWidget extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                          Text(state.user.name,style:AppTextStyles.titleTextStyle,overflow: TextOverflow.ellipsis,),
-                          Text(state.user.email,style:AppTextStyles.titleTextStyle.copyWith(fontSize: 14),overflow: TextOverflow.ellipsis,),
+                          Text(state.user.name ?? '', style:AppTextStyles.titleTextStyle,overflow: TextOverflow.ellipsis,),
+                          Text(state.user.email ?? '', style:AppTextStyles.titleTextStyle.copyWith(fontSize: 14),overflow: TextOverflow.ellipsis,),
                         ],),
                       )
                     ],
