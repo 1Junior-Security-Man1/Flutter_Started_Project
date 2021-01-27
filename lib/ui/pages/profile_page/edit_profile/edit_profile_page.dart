@@ -6,6 +6,7 @@ import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
+import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
 
     Future.microtask(() {
-      nameEditController.text =
-          BlocProvider.of<EditProfileCubit>(context).state.user.name;
+      nameEditController.text = BlocProvider.of<EditProfileCubit>(context).state.user.name;
     });
     super.initState();
   }
@@ -47,30 +47,35 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
     return BlocBuilder<EditProfileCubit, EditProfileState>(
         builder: (context, state) {
-      return Scaffold(
-        backgroundColor: AppColors.pageBackgroundColor,
-        appBar: CustomAppBar(
-          title: 'Edit Profile',
-          leftIcon: 'assets/images/back.png',
-          onLeftIconClick: Navigator.of(context).pop,
+      return Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.white,
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ..._buildMailField(user),
-              SizedBox(
-                height: 20,
-              ),
-              _buildNameAndGanderField(user),
-              SizedBox(
-                height: 20,
-              ),
-              _buildCountryAndBirthday(user),
-              ..._buildLanguageField(user),
-              _buildSaveButton(context)
-            ],
+        child: Scaffold(
+          backgroundColor: AppColors.pageBackgroundColor,
+          appBar: CustomAppBar(
+            title: 'Edit Profile',
+            leftIcon: 'assets/images/back.png',
+            onLeftIconClick: Navigator.of(context).pop,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ..._buildMailField(user),
+                SizedBox(
+                  height: 20,
+                ),
+                _buildNameAndGanderField(user),
+                SizedBox(
+                  height: 20,
+                ),
+                _buildCountryAndBirthday(user),
+                ..._buildLanguageField(user),
+                _buildSaveButton(context)
+              ],
+            ),
           ),
         ),
       );
@@ -87,18 +92,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
           width: MediaQuery.of(context).size.width / 2 - 20,
           text: 'SAVE',
           onPressed: () async {
+            BlocProvider.of<EditProfileCubit>(context).state.user.name = nameEditController.text;
+
             if (await BlocProvider.of<EditProfileCubit>(context).updateUser()) {
               BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
-                countryCode: BlocProvider.of<EditProfileCubit>(context)
-                    .state
-                    .user
-                    .language
-                    .split('_')[1],
-                languageCode: BlocProvider.of<EditProfileCubit>(context)
-                    .state
-                    .user
-                    .language
-                    .split('_')[0],
+                countryCode:  getLanguageCode(BlocProvider.of<EditProfileCubit>(context).state.user?.language)[1],
+                languageCode: getLanguageCode(BlocProvider.of<EditProfileCubit>(context).state.user?.language)[0],
               ));
               Navigator.pop(context);
             }
@@ -142,10 +141,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               height: 4,
             ),
             EditProfileFormWidget(
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    canvasColor: Colors.white,
-                  ),
                   child: DropdownButton<String>(
                     isExpanded: true,
                     underline: Container(),
@@ -164,12 +159,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         value: value,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(value),
+                          child: Text(value ?? ''),
                         ),
                       );
                     }).toList(),
                   ),
-                ),
                 node: genderFocus),
           ]),
         )
@@ -190,7 +184,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Text(
-            user.email,
+            user.email ?? '',
             style: AppTextStyles.defaultText.copyWith(color: AppColors.hint),
           ),
         ),
@@ -207,40 +201,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
       SizedBox(
         height: 4,
       ),
-      EditProfileFormWidget(
-        child: DropdownButton<String>(
-          isExpanded: true,
-          underline: Container(),
-          value: LocaleBloc.localeName[Locale.fromSubtags(
-              countryCode: user.language.split('_')[1],
-              languageCode: user.language.split('_')[0])],
-          onChanged: (String newValue) {
-            setState(() {
-              user.language = LocaleBloc.localeName.entries
-                  .firstWhere((element) => element.value == newValue)
-                  .key
-                  .toString();
-            });
-          },
-          hint: Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Text(
-              'Select',
-              style: AppTextStyles.defaultThinText.copyWith(fontSize: 14),
-            ),
-          ),
-          items: LocaleBloc.localeName.values
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(value),
+        EditProfileFormWidget(
+          child: DropdownButton<String>(
+            isExpanded: true,
+            underline: Container(),
+            value: LocaleBloc.localeName[Locale.fromSubtags(
+                countryCode: getLanguageCode(user.language)[1],
+                languageCode: getLanguageCode(user.language)[0])],
+            onChanged: (String newValue) {
+              setState(() {
+                user.language = LocaleBloc.localeName.entries
+                    .firstWhere((element) => element.value == newValue)
+                    .key
+                    .toString();
+              });
+            },
+            hint: Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Text(
+                'Select',
+                style: AppTextStyles.defaultThinText.copyWith(fontSize: 14),
               ),
-            );
-          }).toList(),
+            ),
+            items: LocaleBloc.localeName.values
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(value ?? ''),
+                ),
+              );
+            }).toList(),
+          ),
         ),
-      ),
     ];
   }
 
@@ -294,7 +288,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(user.birthday),
+                child: Text(user.birthday ?? ''),
               ),
               new Builder(
                 builder: (context) => InkWell(
@@ -314,9 +308,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   });
                                 },
                                 mode: CupertinoDatePickerMode.date,
-                                initialDateTime: DateTime.parse(
-                                    '${user.birthday}T00:00:00' ??
-                                        '1970-01-01'),
+                                initialDateTime: user.birthday != null && user.birthday.isNotEmpty ? DateTime.parse('${user.birthday}T00:00:00') : DateTime.now(),
                               ),
                             ),
                         context: context);

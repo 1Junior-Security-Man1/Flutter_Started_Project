@@ -4,7 +4,6 @@ class UserLevel {
   int minExperience;
   int maxExperience;
   double itemBonus;
-  double withdrawCommission;
   int microItemCommission;
   bool canWithdrawTokens;
   bool participateInVipCampaigns;
@@ -23,7 +22,6 @@ class UserLevel {
       this.minExperience,
       this.maxExperience,
       this.itemBonus,
-      this.withdrawCommission,
       this.microItemCommission,
       this.canWithdrawTokens,
       this.participateInVipCampaigns,
@@ -42,7 +40,6 @@ class UserLevel {
     minExperience = json['minExperience'];
     maxExperience = json['maxExperience'];
     itemBonus = json['itemBonus'];
-    withdrawCommission = json['withdrawCommission'];
     microItemCommission = json['microItemCommission'];
     canWithdrawTokens = json['canWithdrawTokens'];
     participateInVipCampaigns = json['participateInVipCampaigns'];
@@ -63,7 +60,6 @@ class UserLevel {
     data['minExperience'] = this.minExperience;
     data['maxExperience'] = this.maxExperience;
     data['itemBonus'] = this.itemBonus;
-    data['withdrawCommission'] = this.withdrawCommission;
     data['microItemCommission'] = this.microItemCommission;
     data['canWithdrawTokens'] = this.canWithdrawTokens;
     data['participateInVipCampaigns'] = this.participateInVipCampaigns;
