@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "15505145830",
+    "project_id": "bountyhub-mobile",
+    "storage_bucket": "bountyhub-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15505145830:android:f60b4cdf6886776e4da027",
+        "android_client_info": {
+          "package_name": "de.lindenvalley.bounty_hub_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15505145830-s37v4jio5mg4tus403e13ten287bftom.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCioNmxhjmCrCVlSUBOpVZMHx1rUFJfQV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15505145830-s37v4jio5mg4tus403e13ten287bftom.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
