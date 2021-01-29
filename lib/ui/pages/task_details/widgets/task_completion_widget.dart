@@ -69,9 +69,9 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
     int currentUserTaskStep = getTaskCompletionStepByStatus(widget.userTask.getTaskStatus(), widget.userTask.approveDate, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1));
     switch(currentUserTaskStep) {
       case 1: return _buildLeaveCompleteWidget(); // IN_PROGRESS
-      case 2: return showTimer ? _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1)) : _buildContinueButton(); // VERIFYING
+      case 2: return showTimer ? _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1), null) : _buildContinueButton(); // VERIFYING
       case 3: return _buildApproveRejectWidget(widget.userTask.getTaskStatus(), AppColors.accentColor, widget.task.confirmationDaysCount); // APPROVED or REJECTED
-      case 4: return showTimer ? _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1)) : _buildReconfirmWidget(); // RECONFIRM
+      case 4: return showTimer ? _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1), null) : _buildReconfirmWidget(); // RECONFIRM
       case 5: return _buildEmptySpaceWidget(); // PAID or CANCELED
       default:
         return _buildEmptySpaceWidget();
@@ -82,7 +82,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
     int currentUserTaskStep = getTaskCompletionStepByStatus(widget.userTask.getTaskStatus(), widget.userTask.approveDate, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1));
     switch(currentUserTaskStep) {
       case 1: return _buildLeaveCompleteWidget(); // IN_PROGRESS
-      case 2: return _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1)); // VERIFYING
+      case 2: return _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1), null); // VERIFYING
       case 3: return _buildApproveRejectWidget(widget.userTask.getTaskStatus(), AppColors.accentColor, widget.task.confirmationDaysCount); // APPROVED or REJECTED
       case 4: return _buildEmptySpaceWidget(); // RECONFIRM
       case 5: return _buildEmptySpaceWidget(); // PAID or CANCELED
@@ -468,7 +468,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
   }
 
   Widget _buildApproveRejectWidget(UserTaskStatusType statusType, Color backgroundColor, int confirmationDaysCount) {
-    return statusType == UserTaskStatusType.APPROVED ? _buildVerifyingTimerWidget(widget.userTask, confirmationDaysCount) : _buildRejectedWidget();
+    return statusType == UserTaskStatusType.APPROVED ? _buildVerifyingTimerWidget(widget.userTask, confirmationDaysCount, 'Re-confirmation task time:') : _buildRejectedWidget();
   }
 
   Widget _buildRejectedWidget() {
@@ -519,7 +519,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
     );
   }
 
-  Widget _buildVerifyingTimerWidget(UserTask userTask, int confirmationDaysCount) {
+  Widget _buildVerifyingTimerWidget(UserTask userTask, int confirmationDaysCount, String message) {
     return Container(
       margin: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding, bottom: Dimens.content_internal_padding),
       padding: EdgeInsets.all(Dimens.content_internal_padding),
@@ -537,7 +537,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
             height: 12.0,
           ),
           Text(
-            'Please wait till Your task will be verified',
+            message == null ? 'Please wait till Your task will be verified' : message,
             style: AppTextStyles.greyContentTextStyle,
             textAlign: TextAlign.center,
           ),
