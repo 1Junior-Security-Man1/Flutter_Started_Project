@@ -1,14 +1,17 @@
 name: bounty_hub_client
 description:  Client application for the Bountyhub portal
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
-  sdk: ">=2.8.0 <3.0.0"
+  sdk: ">=2.10.5 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^0.7.0
+  firebase_crashlytics: ^0.4.0+1
+  firebase_analytics: ^7.0.1
 
   #localisation
   flutter_localizations:
@@ -32,7 +35,7 @@ dependencies:
   # view / model
   formz: ^0.3.1
   equatable: ^1.2.5
-  webview_flutter: ^1.0.3
+  webview_flutter: ^1.0.7
 
   # logger
   logger: ^0.9.4
