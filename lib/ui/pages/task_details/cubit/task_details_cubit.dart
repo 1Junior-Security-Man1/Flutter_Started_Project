@@ -61,7 +61,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
 
     emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
     _userRepository.uploadImage(attachment)
-      .then((image) => _taskRepository.confirmSocialParserTask(userId, userTaskId, "", comment, image.id)
+      .then((image) => _taskRepository.confirmSocialParserTask(userId, userTaskId, '', comment, image.id)
       .then((link) => emit(state.copyWith(link: null, userTaskStatus: UserTaskStatus.confirm_success)))
         .catchError((Object obj) {
           catchError(obj);

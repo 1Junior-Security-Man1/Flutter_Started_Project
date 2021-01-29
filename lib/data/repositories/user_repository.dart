@@ -29,7 +29,10 @@ class UserRepository extends UserDataSource {
 
   @override
   Future<ImageResponse> uploadImage(File image) async {
-    return client.uploadImage(image);
+    if(image != null && image.existsSync()) {
+      return client.uploadImage(image);
+    }
+    return Future.value(ImageResponse());
   }
 
   @override

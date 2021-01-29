@@ -47,6 +47,8 @@ class TaskRepository extends TaskDataSource {
 
   @override
   Future<String> confirmSocialParserTask(String userId, String userTaskId, String redirectUrl, String comment, String imageId) {
+    if(imageId == null) imageId = '';
+    if(comment == null) comment = '';
     return client.confirmSocialParserTask(userId, userTaskId, redirectUrl, comment, imageId);
   }
 
