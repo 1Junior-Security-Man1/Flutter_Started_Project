@@ -69,8 +69,12 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
           _cubit.fetchUserTask(widget.taskId);
           _tasksListCubit.refresh();
           if(state.link != null && state.link.isNotEmpty) {
-            showSocialAccountAuthorizationDialog(state.link);
+            showSocialAccountAuthorizationDialog(state.link, false);
           }
+        }
+
+        if(state.userTaskStatus == UserTaskStatus.reconfirm) {
+          showSocialAccountAuthorizationDialog(state.link, true);
         }
       },
       child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
@@ -84,7 +88,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     );
   }
 
-  void showSocialAccountAuthorizationDialog(String authLink) {
+  void showSocialAccountAuthorizationDialog(String authLink, bool reconfirm) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -132,7 +136,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
                                 width: MediaQuery.of(context).size.width / 2,
                                 onPressed: () async {
                                   Navigator.of(context).pop();
-                                  _cubit.onStartUserAccountAuthorization();
+                                  _cubit.onSocialAccountAuthorization(reconfirm);
                                   if (await canLaunch(authLink)) {
                                     await launch(authLink);
                                   }

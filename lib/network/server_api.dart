@@ -91,6 +91,11 @@ abstract class RestClient {
       @Path('userTaskId') String userTaskId, @Query('redirectUrl') String redirectUrl,
       @Query('comment') String comment);
 
+  @GET("/user-items/{userId}/confirm-complete/{userTaskId}")
+  Future<String> reconfirmAutoCheckTask(@Path('userId') String userId,
+      @Path('userTaskId') String userTaskId, @Query('redirectUrl') String redirectUrl,
+      @Query('comment') String comment);
+
   @POST("/user-items/{userId}/reserve/{taskId}")
   Future<UserTask> takeTask(
       @Path('userId') String userId, @Path('taskId') String taskId);
