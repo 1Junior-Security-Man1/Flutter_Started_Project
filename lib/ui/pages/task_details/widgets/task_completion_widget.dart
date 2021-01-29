@@ -35,10 +35,10 @@ class TaskCompletionWidget extends StatefulWidget {
   const TaskCompletionWidget({Key key, this.userTask, this.task}) : super(key: key);
 
   @override
-  TaskDetailsWidgetState createState() => TaskDetailsWidgetState();
+  TaskCompletionWidgetState createState() => TaskCompletionWidgetState();
 }
 
-class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
+class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
 
   final _formKey = GlobalKey<FormState>();
   final _commentController = TextEditingController();
@@ -71,7 +71,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
       case 1: return _buildLeaveCompleteWidget(); // IN_PROGRESS
       case 2: return showTimer ? _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1)) : _buildContinueButton(); // VERIFYING
       case 3: return _buildApproveRejectWidget(widget.userTask.getTaskStatus(), AppColors.accentColor, widget.task.confirmationDaysCount); // APPROVED or REJECTED
-      case 4: return _buildReconfirmWidget(); // RECONFIRM
+      case 4: return showTimer ? _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1)) : _buildReconfirmWidget(); // RECONFIRM
       case 5: return _buildEmptySpaceWidget(); // PAID or CANCELED
       default:
         return _buildEmptySpaceWidget();
@@ -356,6 +356,10 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
     context.bloc<TaskDetailsCubit>().confirmAutoCheckTask(_commentController.value.text, widget.userTask.id);
   }
 
+  void reconfirmAutoCheckTask() {
+    context.bloc<TaskDetailsCubit>().reconfirmAutoCheckTask(_commentController.value.text, widget.userTask.id);
+  }
+
   void retryTask() {
     context.bloc<TaskDetailsCubit>().retryTask(widget.task.id, widget.userTask.id);
   }
@@ -455,7 +459,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
             text: 'Reconfirm',
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
-              confirmAutoCheckTask();
+              reconfirmAutoCheckTask();
             },
           ),
         ],
@@ -567,7 +571,6 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
   Widget _buildEmptySpaceWidget() {
     return SizedBox();
   }
-
 
   @override
   void dispose() {

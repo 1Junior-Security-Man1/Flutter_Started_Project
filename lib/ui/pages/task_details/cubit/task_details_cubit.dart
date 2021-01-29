@@ -5,6 +5,7 @@ import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/data/repositories/campaigns_repository.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
+import 'package:bounty_hub_client/network/constants.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
@@ -70,14 +71,19 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
 
   void confirmAutoCheckTask(String comment, String userTaskId) async {
     String userId = await _userRepository.getUserId();
-    String redirectDeepLink = 'app://de.lindenvalley.bounty_hub_client';
 
     emit(state.copyWith(userTaskStatus: UserTaskStatus.loading));
-    _taskRepository.confirmAutoCheckTask(userId, userTaskId, redirectDeepLink, comment)
+    _taskRepository.confirmAutoCheckTask(userId, userTaskId, Constants.redirectDeepLink, comment)
         .then((response) => emit(state.copyWith(link: response.link, userTaskStatus: UserTaskStatus.confirm_success)))
         .catchError((Object obj) {
           catchError(obj);
         });
+  }
+
+  void reconfirmAutoCheckTask(String comment, String userTaskId) async {
+    String userId = await _userRepository.getUserId();
+    String link = Constants.baseApiUrl + '/api/user-items/' + userId + '/confirm-complete/' + userTaskId + '?redirectUrl=' + Constants.redirectDeepLink;
+    emit(state.copyWith(link: link, userTaskStatus: UserTaskStatus.reconfirm, signature: DateTime.now().millisecondsSinceEpoch));
   }
 
   void _takeTask() async {
@@ -130,8 +136,12 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
     _takeTask();
   }
 
-  void onStartUserAccountAuthorization() {
-    emit(state.copyWith(showTimer: true));
+  void onSocialAccountAuthorization(bool reconfirm) {
+    if(reconfirm) {
+      emit(state.copyWith(userTaskStatus: UserTaskStatus.reconfirm_complete, showTimer: true));
+    } else {
+      emit(state.copyWith(showTimer: true));
+    }
   }
 
   void catchError(Object obj) {

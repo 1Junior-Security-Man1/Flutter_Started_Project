@@ -257,6 +257,31 @@ class _RestClient implements RestClient {
   }
 
   @override
+  reconfirmAutoCheckTask(userId, userTaskId, redirectUrl, comment) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    ArgumentError.checkNotNull(userTaskId, 'userTaskId');
+    ArgumentError.checkNotNull(redirectUrl, 'redirectUrl');
+    ArgumentError.checkNotNull(comment, 'comment');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      'redirectUrl': redirectUrl,
+      'comment': comment
+    };
+    final _data = <String, dynamic>{};
+    final Response<String> _result = await _dio.request(
+        '/user-items/$userId/confirm-complete/$userTaskId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return Future.value(value);
+  }
+
+  @override
   takeTask(userId, taskId) async {
     ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(taskId, 'taskId');

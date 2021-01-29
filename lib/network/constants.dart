@@ -6,4 +6,5 @@ class Constants {
   static const String captchaType = 'GOOGLE';
   static const String domain = 'APP';
   static const String basicToken = 'Basic NmRlZ3JlZXMtYXBwOjZiZWFhYzdjMjk2NWMxYzBhMzc0YmI5ZDBhZjAzZTJi';
+  static const String redirectDeepLink = 'app://de.lindenvalley.bounty_hub_client';
 }

@@ -4,7 +4,7 @@ import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:equatable/equatable.dart';
 
 enum TaskDetailsStatus{ loading, fetch_success, fetch_failure }
-enum UserTaskStatus{ loading, failure, fetch_success, fetch_failure, leave_success, take_success, confirm_success}
+enum UserTaskStatus{ loading, failure, fetch_success, fetch_failure, leave_success, take_success, confirm_success, reconfirm, reconfirm_complete}
 
 class TaskDetailsState extends Equatable {
 
@@ -18,6 +18,7 @@ class TaskDetailsState extends Equatable {
     this.link,
     this.showTimer = false,
     this.refresh = false,
+    this.signature,
   });
 
   final TaskDetailsStatus status;
@@ -29,6 +30,7 @@ class TaskDetailsState extends Equatable {
   final String link;
   final bool showTimer;
   final bool refresh;
+  final int signature;
 
   TaskDetailsState copyWith({
     TaskDetailsStatus status,
@@ -39,9 +41,11 @@ class TaskDetailsState extends Equatable {
     String errorMessage,
     String link,
     bool showTimer,
-    bool refresh, // TODO hardcode solution
+    bool refresh,
+    int signature, // TODO hardcode solution for update state
   }) {
     return TaskDetailsState(
+      signature: signature ?? this.signature,
       showTimer: showTimer ?? this.showTimer,
       link: link ?? this.link,
       status: status ?? this.status,
@@ -55,5 +59,5 @@ class TaskDetailsState extends Equatable {
   }
 
   @override
-  List<Object> get props => [showTimer, link, status, refresh, task, userTask, campaign, userTaskStatus, errorMessage];
+  List<Object> get props => [signature, showTimer, link, status, refresh, task, userTask, campaign, userTaskStatus, errorMessage];
 }
