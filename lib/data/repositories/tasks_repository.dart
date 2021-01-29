@@ -18,9 +18,7 @@ class TaskRepository extends TaskDataSource {
 
   @override
   Future<TasksResponse> getTasks(String campaignId, String socialMediaType, String userId, int page) {
-    if(socialMediaType == null) socialMediaType = '';
-    if(campaignId == null) campaignId = '';
-    return client.getTasks(campaignId, socialMediaType, userId, page, 10, 'APPROVED', 'rewardAmount,desc', true, 'PUBLIC');
+    return client.getTasks(campaignId ?? '', socialMediaType ?? '', userId, page, 10, 'APPROVED', 'rewardAmount,desc', true, 'PUBLIC');
   }
 
   @override
@@ -35,9 +33,7 @@ class TaskRepository extends TaskDataSource {
 
   @override
   Future<UserTasksResponse> getUserTasks(String campaignId, String socialMediaType, String userId, int page) {
-    if(socialMediaType == null) socialMediaType = '';
-    if(campaignId == null) campaignId = '';
-    return client.getUserTasks(campaignId, socialMediaType, userId, page, 10);
+    return client.getUserTasks(campaignId ?? '', socialMediaType ?? '', userId, page, 10);
   }
 
   @override
@@ -47,14 +43,12 @@ class TaskRepository extends TaskDataSource {
 
   @override
   Future<String> confirmSocialParserTask(String userId, String userTaskId, String redirectUrl, String comment, String imageId) {
-    if(imageId == null) imageId = '';
-    if(comment == null) comment = '';
-    return client.confirmSocialParserTask(userId, userTaskId, redirectUrl, comment, imageId);
+    return client.confirmSocialParserTask(userId, userTaskId, redirectUrl, comment ?? '', imageId ?? '');
   }
 
   @override
   Future<ConfirmTaskResponse> confirmAutoCheckTask(String userId, String userTaskId, String redirectUrl, String comment) {
-    return client.confirmAutoCheckTask(userId, userTaskId, redirectUrl, comment);
+    return client.confirmAutoCheckTask(userId, userTaskId, redirectUrl ?? '', comment ?? '');
   }
 
   @override
