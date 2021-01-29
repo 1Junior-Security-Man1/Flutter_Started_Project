@@ -15,6 +15,8 @@ import 'bloc/auth/authorization_bloc.dart';
 import 'data/repositories/preferences_local_repository.dart';
 import 'utils/flavors.dart';
 import 'utils/localization/localization.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 Flavor _currentFlavour;
 
@@ -36,6 +38,7 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
 
+  Future<void> _initializeFlutterFireFuture;
   static BuildContext _context;
 
   final List<LocalizationsDelegate<dynamic>> localizationsDelegates = const [
@@ -52,34 +55,47 @@ class AppState extends State<App> {
 
   @override
   void initState() {
-    _context = context;
     getApplicationSupportDirectory().then((value) => Hive.init(value.path));
     super.initState();
+    _context = context;
+    _initializeFlutterFireFuture = _initializeFlutterFire();
+  }
+
+  Future<void> _initializeFlutterFire() async {
+    await Firebase.initializeApp();
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      builder: (context, state) {
-        return BlocBuilder<LocaleBloc, Locale>(
-          builder: (context, locale) {
-            intl.Intl.defaultLocale = locale.languageCode;
-            return MaterialApp(
-              navigatorKey: App.globalNavigatorKey,
-              title: 'BountyHub',
-              theme: ThemeData(
-                fontFamily: 'Montserrat',
-                primarySwatch: Colors.lightBlue,
-                primaryColor: AppColors.primaryColor,
-                accentColor: AppColors.accentColor,
-                canvasColor: Colors.transparent,
-              ),
-              localeResolutionCallback: (deviceLocale, supportedLocales) =>
-                  _localeResolutionCallback(deviceLocale, supportedLocales, locale, context),
-              locale: locale,
-              localizationsDelegates: localizationsDelegates,
-              supportedLocales: AppLocalizations.languages.keys.toList(),
-              home: navigate(state.status)
+    return FutureBuilder(
+      future: _initializeFlutterFireFuture,
+      builder: (context, snapshot) {
+        return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            return BlocBuilder<LocaleBloc, Locale>(
+              builder: (context, locale) {
+                intl.Intl.defaultLocale = locale.languageCode;
+                return MaterialApp(
+                    navigatorKey: App.globalNavigatorKey,
+                    title: 'BountyHub',
+                    theme: ThemeData(
+                      fontFamily: 'Montserrat',
+                      primarySwatch: Colors.lightBlue,
+                      primaryColor: AppColors.primaryColor,
+                      accentColor: AppColors.accentColor,
+                      canvasColor: Colors.transparent,
+                    ),
+                    localeResolutionCallback: (deviceLocale,
+                        supportedLocales) =>
+                        _localeResolutionCallback(
+                            deviceLocale, supportedLocales, locale, context),
+                    locale: locale,
+                    localizationsDelegates: localizationsDelegates,
+                    supportedLocales: AppLocalizations.languages.keys.toList(),
+                    home: navigate(state.status)
+                );
+              },
             );
           },
         );
