@@ -32,9 +32,7 @@ class TaskCompletionWidget extends StatefulWidget {
 
   final Task task;
 
-  final bool showTimer;
-
-  const TaskCompletionWidget({Key key, this.userTask, this.task, this.showTimer}) : super(key: key);
+  const TaskCompletionWidget({Key key, this.userTask, this.task}) : super(key: key);
 
   @override
   TaskDetailsWidgetState createState() => TaskDetailsWidgetState();
@@ -363,7 +361,7 @@ class TaskDetailsWidgetState extends State<TaskCompletionWidget> {
   }
 
   Future getImageFromGallery(StateSetter state) async {
-    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    final pickedFile = await _picker.getImage(maxWidth: 640, maxHeight: 480, source: ImageSource.gallery);
     state(() {
       if (pickedFile != null) {
         _attachment = File(pickedFile.path);

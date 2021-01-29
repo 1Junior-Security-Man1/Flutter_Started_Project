@@ -1,7 +1,9 @@
 import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/profile_page.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/add_dialogs.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/ui/widgets/top_sheet_widget.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
@@ -65,14 +67,14 @@ class _SettingsDialogState extends State<SettingsMenuDialog> {
             ),
             title: Text('Log Out', style: AppTextStyles.settingsTextStyle),
             onTap: () {
-              showConfirmActionDialog(context, 'Are you sure you want to Log Out from your account?',
-                      () {
-                        TopSheetState.close(context);
-                        BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-                      },
-                      () {
-                        Navigator.of(context).pop();
-                      });
+              showConfirmActionDialog(context, 'Are you sure you want to Log Out from your account?', () {
+                  TopSheetState.close(context);
+                  BlocProvider.of<TasksListCubit>(context).refresh();
+                  BlocProvider.of<MyTasksCubit>(context).refresh();
+                  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+                }, () {
+                  Navigator.of(context).pop();
+              });
             },
           ),
         ),
