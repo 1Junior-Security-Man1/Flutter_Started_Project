@@ -10,7 +10,7 @@ import 'network/server_api.dart';
 
 void main() {
   Flavor flavor = DevFlavour();
-  final RestClient client = RestClient();
+  final RestClient client = RestClient(baseUrl: flavor.baseUrl);
 
   WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded(() {
