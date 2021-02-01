@@ -4,6 +4,9 @@ import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 int calculateLeftBudgetPercentage(Task task) {
+  if(task.leftBudget == 0 && task.budget == 0) {
+    return 0;
+  }
   return (checkNullDouble(task.leftBudget) * 100) ~/ checkNullDouble(task.budget);
 }
 

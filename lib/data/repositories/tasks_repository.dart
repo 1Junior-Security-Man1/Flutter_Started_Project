@@ -18,7 +18,7 @@ class TaskRepository extends TaskDataSource {
 
   @override
   Future<TasksResponse> getTasks(String campaignId, String socialMediaType, String userId, int page) {
-    return client.getTasks(campaignId ?? '', socialMediaType ?? '', userId, page, 10, 'APPROVED', 'rewardAmount,desc', true, 'PUBLIC');
+    return client.getTasks(campaignId ?? '', socialMediaType ?? '', userId, page, 10, 'APPROVED', 'rewardAmount,desc', true, false, 'PUBLIC');
   }
 
   @override

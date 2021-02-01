@@ -58,6 +58,7 @@ abstract class RestClient {
       @Query('status') String status,
       @Query('sort') String sort,
       @Query('running') bool running,
+      @Query('hasPermissions') bool hasPermissions,
       @Query('accessMode') String accessMode);
 
   @GET("/items/{itemId}")
