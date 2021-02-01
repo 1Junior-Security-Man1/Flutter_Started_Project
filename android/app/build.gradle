@@ -84,8 +84,8 @@ android {
 
         dev {
             dimension 'env'
-            applicationIdSuffix ".dev"
-            resValue "string", "app_name", "BountyHub Dev"
+            //applicationIdSuffix ".dev"
+            resValue "string", "app_name", "DEV BountyHub"
         }
     }
 

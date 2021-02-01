@@ -9,7 +9,7 @@ import 'network/server_api.dart';
 
 void main() {
   Flavor flavor = ProdFlavour();
-  final RestClient client = RestClient();
+  final RestClient client = RestClient(baseUrl: flavor.baseUrl);
 
   runApp(MultiRepositoryProvider(
       providers: getRepositories(client),

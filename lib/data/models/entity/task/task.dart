@@ -50,8 +50,8 @@ class Task {
     rewardType = json["rewardType"];
     rewardAmount = json["rewardAmount"];
     rewardCurrency = json["rewardCurrency"];
-    budget = json['budget'].toDouble();
-    leftBudget = json['leftBudget'].toDouble();
+    budget = json['budget'] != null ? json['budget'].toDouble() : 0;
+    leftBudget = json['leftBudget'] != null ? json['leftBudget'].toDouble() : 0;
     checkKey = json["checkKey"];
     checkLink = json["checkLink"];
     onlyNewUsers = json["onlyNewUsers"];

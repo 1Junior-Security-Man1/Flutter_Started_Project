@@ -1,8 +1,5 @@
-
-
 abstract class Flavor{
   const Flavor();
-
 
   String get baseUrl => '';
 
@@ -12,7 +9,6 @@ abstract class Flavor{
 
   bool get showBugBtn => false;
 }
-
 
 // Production environment flavour
 class ProdFlavour extends Flavor {
@@ -26,8 +22,7 @@ class DevFlavour extends Flavor  {
   const DevFlavour();
 
   @override
-  String get baseUrl => 'https://api.bountyhub.io/api';
-
+  String get baseUrl => 'https://api-dev.bountyhub.io/api';
 }
 
 

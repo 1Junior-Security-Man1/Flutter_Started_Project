@@ -30,7 +30,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
         })
         .catchError((Object obj) {
           log.e(obj);
-          emit(state.copyWith(status: TaskDetailsStatus.fetch_failure));
+          catchError(obj, taskDetailsStatus: TaskDetailsStatus.failure);
         });
   }
 
@@ -53,7 +53,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
         })
         .catchError((Object obj) {
           log.e(obj);
-          emit(state.copyWith(status: TaskDetailsStatus.fetch_failure));
+          emit(state.copyWith(status: TaskDetailsStatus.failure));
         });
   }
 
@@ -65,7 +65,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
       .then((image) => _taskRepository.confirmSocialParserTask(userId, userTaskId, '', comment, image.id)
       .then((link) => emit(state.copyWith(link: null, userTaskStatus: UserTaskStatus.confirm_success)))
         .catchError((Object obj) {
-          catchError(obj);
+          catchError(obj, userTaskStatus: UserTaskStatus.failure);
         }));
   }
 
@@ -76,7 +76,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
     _taskRepository.confirmAutoCheckTask(userId, userTaskId, Constants.redirectDeepLink, comment)
         .then((response) => emit(state.copyWith(link: response.link, userTaskStatus: UserTaskStatus.confirm_success)))
         .catchError((Object obj) {
-          catchError(obj);
+          catchError(obj, userTaskStatus: UserTaskStatus.failure);
         });
   }
 
@@ -95,7 +95,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
           emit(state.copyWith(userTask: userTask, userTaskStatus: UserTaskStatus.take_success, refresh: false));
         })
         .catchError((Object obj) {
-          catchError(obj);
+          catchError(obj, userTaskStatus: UserTaskStatus.failure);
         });
   }
 
@@ -109,7 +109,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
           fetchTask(taskId);
         })
         .catchError((Object obj) {
-          catchError(obj);
+          catchError(obj, userTaskStatus: UserTaskStatus.failure);
         });
   }
 
@@ -119,12 +119,12 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
         .then((response) {
           fetchTask(taskId);
     }).catchError((Object obj) {
-      catchError(obj);
+      catchError(obj, userTaskStatus: UserTaskStatus.failure);
     });
   }
 
   void whenComplete({Task task, Campaign campaign}) {
-    emit(state.copyWith(task: task, campaign: campaign, status: TaskDetailsStatus.fetch_success));
+    emit(state.copyWith(task: task, campaign: campaign, status: TaskDetailsStatus.success));
     fetchUserTask(task.id);
   }
 
@@ -144,19 +144,19 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
     }
   }
 
-  void catchError(Object obj) {
+  void catchError(Object obj, {TaskDetailsStatus taskDetailsStatus, UserTaskStatus userTaskStatus}) {
     log.e(obj);
     switch (obj.runtimeType) {
       case DioError:
         final response = (obj as DioError).response;
         if(response != null && response.data['message'] != null) {
-          emit(state.copyWith(userTaskStatus: UserTaskStatus.failure, errorMessage: response.data['message']));
+          emit(state.copyWith(userTaskStatus: userTaskStatus, status: taskDetailsStatus, errorMessage: response.data['message']));
         } else {
-          emit(state.copyWith(userTaskStatus: UserTaskStatus.failure, errorMessage: null));
+          emit(state.copyWith(userTaskStatus: userTaskStatus, status: taskDetailsStatus, errorMessage: null));
         }
         break;
       default:
-        emit(state.copyWith(userTaskStatus: UserTaskStatus.failure, errorMessage: null));
+        emit(state.copyWith(userTaskStatus: userTaskStatus, status: taskDetailsStatus, errorMessage: null));
     }
   }
 }
