@@ -107,9 +107,9 @@ class AppState extends State<App> {
     switch (status) {
       case AuthenticationStatus.loading: return SplashPage();
       case AuthenticationStatus.authenticated: return MainPage();
-      case AuthenticationStatus.unauthenticated: return LoginPage();
+      case AuthenticationStatus.unauthenticated: return AuthorizationPage();
       default: {
-        return LoginPage();
+        return AuthorizationPage();
       }
     }
   }
