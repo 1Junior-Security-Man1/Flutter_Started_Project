@@ -1,7 +1,7 @@
 import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
 import 'package:bounty_hub_client/bloc/locale/locale_bloc.dart';
 import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
-import 'package:bounty_hub_client/ui/pages/login/login_page.dart';
+import 'package:bounty_hub_client/ui/pages/authorization/authorization_page.dart';
 import 'package:bounty_hub_client/ui/pages/main/main_page.dart';
 import 'package:bounty_hub_client/ui/pages/splash/splash_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';

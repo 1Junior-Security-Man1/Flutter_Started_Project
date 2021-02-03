@@ -56,8 +56,7 @@ class WidgetsDecoration {
     );
   }
 
-  static InputDecoration appTextFormStyle(
-      String hint, String prefixIcon, String suffixIcon, bool enabled) {
+  static InputDecoration appTextFormStyle(String hint, String prefixIcon, String suffixIcon, bool enabled) {
     return InputDecoration(
       contentPadding: const EdgeInsets.all(24.0),
       prefixIcon: Padding(

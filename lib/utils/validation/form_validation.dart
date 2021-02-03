@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/ui/pages/login/cubit/login_state.dart';
+import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +13,8 @@ class FormValidation {
     }
   }
 
-  static String confirmCode(BuildContext context, String value, LoginState state) {
-    if ((state.status == LoginStatus.confirmCode || state.status == LoginStatus.confirmCodeError) && value.length != 5)
+  static String confirmCode(BuildContext context, String value, AuthorizationState state) {
+    if ((state.status == AuthorizationStatus.confirmCode || state.status == AuthorizationStatus.confirmCodeError) && value.length != 5)
       return AppStrings.invalidCode;
     else
       return null;

@@ -1,30 +1,30 @@
 import 'package:equatable/equatable.dart';
 
-enum LoginStatus{ email, captcha, confirmCode, complete, emailError, confirmCodeError, loading }
+enum AuthorizationStatus{ email, captcha, confirmCode, complete, emailError, confirmCodeError, loading }
 
-class LoginState extends Equatable {
-  const LoginState({
-    this.status = LoginStatus.email,
+class AuthorizationState extends Equatable {
+  const AuthorizationState({
+    this.status = AuthorizationStatus.email,
     this.errorMessage,
     this.email,
     this.confirmCode,
     this.emailIsValid = false,
   });
 
-  final LoginStatus status;
+  final AuthorizationStatus status;
   final String errorMessage;
   final String email;
   final String confirmCode;
   final bool emailIsValid;
 
-  LoginState copyWith({
-    LoginStatus status,
+  AuthorizationState copyWith({
+    AuthorizationStatus status,
     String errorMessage,
     String email,
     String confirmCode,
     bool emailIsValid,
   }) {
-    return LoginState(
+    return AuthorizationState(
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
       email: email ?? this.email,
