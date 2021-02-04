@@ -40,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
               MaterialPageRoute(
                   builder: (context) => BlocProvider(
                       create: (context) =>
-                          EditProfileCubit(_bloc.state.user.copy()),
+                          EditProfileCubit(_bloc.state.user?.copy()),
                       child: EditProfilePage())));
 
           _bloc.add(FetchProfileEvent());

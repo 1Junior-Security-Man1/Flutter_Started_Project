@@ -15,6 +15,14 @@ class AppData {
     _storage.write(key: 'USER_ID', value: data.userId);
   }
 
+  void saveGuestMode(bool guest) {
+    _storage.write(key: 'GUEST_MODE', value: (guest ? 'true' : 'false'));
+  }
+
+  Future<bool> isGuestMode() async {
+    return await _storage.read(key: 'GUEST_MODE') == 'true';
+  }
+
   void saveToken(String token) {
     _storage.write(key: 'ACCESS_TOKEN', value: token);
   }

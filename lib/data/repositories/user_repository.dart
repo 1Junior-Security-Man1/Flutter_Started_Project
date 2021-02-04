@@ -39,4 +39,9 @@ class UserRepository extends UserDataSource {
   void clearAccessToken() {
     AppData.instance.clearAccessToken();
   }
+
+  @override
+  void saveGuestMode(bool value) {
+    AppData.instance.saveGuestMode(value);
+  }
 }

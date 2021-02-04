@@ -16,6 +16,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       yield state.copyWith(status: AuthenticationStatus.loading);
     }
     if (event is SelectAuthenticationType) {
+      _userRepository.saveGuestMode(event.type == AuthenticationType.guest);
       yield state.copyWith(type: event.type, status: AuthenticationStatus.selectAuthentication);
     }
     if (event is AppLoaded) {

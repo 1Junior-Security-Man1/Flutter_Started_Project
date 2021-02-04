@@ -4,6 +4,7 @@ import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/edit_profile/cubit/edit_profile_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
+import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:bounty_hub_client/utils/validation/string_utils.dart';
@@ -24,8 +25,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final genderFocus = FocusNode();
   final nameEditController = TextEditingController();
 
-  // Country _selectedCountry;
-
   @override
   void initState() {
     nameFocus.addListener(() {
@@ -36,7 +35,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
 
     Future.microtask(() {
-      nameEditController.text = BlocProvider.of<EditProfileCubit>(context).state.user.name;
+      nameEditController.text = BlocProvider.of<EditProfileCubit>(context).state.user?.name;
     });
     super.initState();
   }
@@ -58,7 +57,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             leftIcon: 'assets/images/back.png',
             onLeftIconClick: Navigator.of(context).pop,
           ),
-          body: Padding(
+          body: user != null ? Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +75,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 _buildSaveButton(context)
               ],
             ),
-          ),
+          ) : EmptyDataPlaceHolder(),
         ),
       );
     });
@@ -145,10 +144,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     isExpanded: true,
                     underline: Container(),
                     focusNode: genderFocus,
-                    value: user.gender,
+                    value: user?.gender,
                     onChanged: (String newValue) {
                       setState(() {
-                        user.gender = newValue;
+                        user?.gender = newValue;
                       });
                     },
                     items: <String>[
@@ -184,7 +183,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Text(
-            user.email ?? '',
+            user?.email ?? '',
             style: AppTextStyles.defaultText.copyWith(color: AppColors.hint),
           ),
         ),
@@ -210,7 +209,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 languageCode: getLanguageCode(user.language)[0])],
             onChanged: (String newValue) {
               setState(() {
-                user.language = LocaleBloc.localeName.entries
+                user?.language = LocaleBloc.localeName.entries
                     .firstWhere((element) => element.value == newValue)
                     .key
                     .toString();
@@ -253,13 +252,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: CountryCodePicker(
                   showFlag: false,
-                  initialSelection: user.locationCountryCode,
+                  initialSelection: user?.locationCountryCode,
                   showCountryOnly: true,
                   showOnlyCountryWhenClosed: true,
                   textStyle: AppTextStyles.defaultText,
                   onChanged: (code) {
                     setState(() {
-                      user.locationCountryCode = code.code;
+                      user?.locationCountryCode = code.code;
                     });
                   },
                 ),
@@ -288,7 +287,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(user.birthday ?? ''),
+                child: Text(user?.birthday ?? ''),
               ),
               new Builder(
                 builder: (context) => InkWell(
@@ -299,16 +298,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               color: Colors.white,
                               child: CupertinoDatePicker(
                                 onDateTimeChanged: (DateTime value) {
-                                  user.birthday = value
+                                  user?.birthday = value
                                           ?.toIso8601String()
                                           ?.split('T')[0] ??
-                                      user.birthday;
+                                      user?.birthday;
                                   setState(() {
 
                                   });
                                 },
                                 mode: CupertinoDatePickerMode.date,
-                                initialDateTime: user.birthday != null && user.birthday.isNotEmpty ? DateTime.parse('${user.birthday}T00:00:00') : DateTime.now(),
+                                initialDateTime: user?.birthday != null && user?.birthday.isNotEmpty ? DateTime.parse('${user?.birthday}T00:00:00') : DateTime.now(),
                               ),
                             ),
                         context: context);

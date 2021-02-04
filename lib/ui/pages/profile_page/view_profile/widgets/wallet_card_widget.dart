@@ -40,7 +40,7 @@ class _WalletCardWidgetState extends State<WalletCardWidget> {
       cubit: context.bloc<ProfileBloc>(),
       builder: (context, state) {
         if (!controllerWaInit) {
-          _editingController.text = state.user.tronWallet ?? '';
+          _editingController.text = state.user?.tronWallet ?? '';
           controllerWaInit = true;
         }
         return state.user == null

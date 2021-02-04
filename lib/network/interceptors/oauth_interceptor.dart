@@ -22,8 +22,8 @@ class OauthInterceptor extends InterceptorsWrapper {
   }
 
   @override
-  Future onError(DioError error) {
-    if (error.response?.statusCode == 401) {
+  Future onError(DioError error) async {
+    if (error.response?.statusCode == 401 && !await AppData.instance.isGuestMode()) {
       logout();
     }
     return super.onError(error);

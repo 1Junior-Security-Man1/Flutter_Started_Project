@@ -12,4 +12,6 @@ abstract class UserDataSource {
   void clearAccessToken();
 
   Future<ImageResponse> uploadImage(File image);
+
+  saveGuestMode(bool value);
 }

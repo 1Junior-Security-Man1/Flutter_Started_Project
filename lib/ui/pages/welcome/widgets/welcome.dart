@@ -94,13 +94,24 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                     children: [
                       Container(
                         child: Center(
-                          child: Text('OR CONTINUE AS GUEST',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: AppColors.greyContentColor,
-                              fontWeight: FontWeight.w700,
-                              height: 1.4,
+                          child: Material(
+                            child: InkWell(
+                              onTap: () => {
+                                BlocProvider.of<AuthenticationBloc>(context).add(SelectAuthenticationType(type: AuthenticationType.guest))
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 40,
+                                child: Text('OR CONTINUE AS GUEST',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: AppColors.greyContentColor,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
