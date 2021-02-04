@@ -1,16 +1,19 @@
+import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
 import 'package:equatable/equatable.dart';
 
-enum AuthenticationStatus{ uninitialized, loading, authenticated, unauthenticated }
+enum AuthenticationStatus{ uninitialized, loading, selectAuthentication, authenticated, unauthenticated }
 
 class AuthenticationState extends Equatable {
 
   const AuthenticationState({
     this.token,
     this.status = AuthenticationStatus.uninitialized,
-    this.signature, // TODO hard fix. Block does not respond to the change of the AuthenticationStatus enum only to the change of the String field
+    this.authenticationType,
+    this.signature,
   });
 
   final AuthenticationStatus status;
+  final AuthenticationType authenticationType;
   final String token;
   final int signature;
 
@@ -18,8 +21,10 @@ class AuthenticationState extends Equatable {
     AuthenticationStatus status,
     String token,
     int signature,
+    AuthenticationType type,
   }) {
     return AuthenticationState(
+      authenticationType: type ?? this.authenticationType,
       signature: signature ?? this.signature,
       status: status ?? this.status,
       token: token ?? this.token,
@@ -27,5 +32,5 @@ class AuthenticationState extends Equatable {
   }
 
   @override
-  List<Object> get props => [signature, status, token];
+  List<Object> get props => [authenticationType, signature, status, token];
 }

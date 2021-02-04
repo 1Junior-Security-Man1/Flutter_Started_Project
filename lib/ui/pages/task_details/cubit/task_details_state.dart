@@ -42,7 +42,7 @@ class TaskDetailsState extends Equatable {
     String link,
     bool showTimer,
     bool refresh,
-    int signature, // TODO hardcode solution for update state
+    int signature,
   }) {
     return TaskDetailsState(
       signature: signature ?? this.signature,

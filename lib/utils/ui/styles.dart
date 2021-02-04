@@ -11,17 +11,17 @@ class WidgetsDecoration {
     offset: Offset(1, 10),
   );
 
-  static BoxDecoration appCardStyle() {
+  static BoxDecoration appCardStyle({Color color = Colors.white, double opacity = 0.1}) {
     return BoxDecoration(
       boxShadow: [
         BoxShadow(
-          color: Colors.grey[300].withOpacity(0.1),
+          color: Colors.grey[300].withOpacity(opacity),
           spreadRadius: 5,
           blurRadius: 7,
           offset: Offset(1, 10),
         ),
       ],
-      color: Colors.white,
+      color: color,
       border: Border.all(
         color: AppColors.borderColor,
         width: 1,

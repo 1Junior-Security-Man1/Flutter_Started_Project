@@ -10,6 +10,7 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bounty_hub_client/data/app_data.dart';
 
 class TasksPage extends StatelessWidget {
   @override
@@ -38,6 +39,9 @@ class TasksPage extends StatelessWidget {
                       width: 26,
                     ),
                     onPressed: () {
+                      AppData.instance.clearAccessToken();
+                      return;
+
                       TasksListCubit allTasksCubit = context.bloc<TasksListCubit>();
                       MyTasksCubit myTasksCubit = context.bloc<MyTasksCubit>();
 

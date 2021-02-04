@@ -19,7 +19,7 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
     });
   }
 
-  void onBackButtonClick() {
+  void onBack() {
     emit(state.copyWith(status: AuthorizationStatus.email));
   }
 

@@ -44,10 +44,7 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       _selectedIndex = index;
     });
-    _navigateToScreens(index);
   }
-
-  void _navigateToScreens(int index) {}
 
   @override
   Widget build(BuildContext context) {

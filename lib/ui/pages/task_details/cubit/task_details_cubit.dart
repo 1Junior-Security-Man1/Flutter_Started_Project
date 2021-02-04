@@ -7,6 +7,7 @@ import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/network/constants.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
+import 'package:bounty_hub_client/utils/bloc_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 
@@ -83,7 +84,7 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
   void reconfirmAutoCheckTask(String comment, String userTaskId) async {
     String userId = await _userRepository.getUserId();
     String link = Constants.baseApiUrl + '/api/user-items/' + userId + '/confirm-complete/' + userTaskId + '?redirectUrl=' + Constants.redirectDeepLink;
-    emit(state.copyWith(link: link, userTaskStatus: UserTaskStatus.reconfirm, signature: DateTime.now().millisecondsSinceEpoch));
+    emit(state.copyWith(link: link, userTaskStatus: UserTaskStatus.reconfirm, signature: generateSignature()));
   }
 
   void _takeTask() async {

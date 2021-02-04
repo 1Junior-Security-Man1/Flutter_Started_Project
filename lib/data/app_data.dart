@@ -28,6 +28,6 @@ class AppData {
   }
 
   void clearAccessToken() {
-    _storage.write(key: 'ACCESS_TOKEN', value: null);
+    _storage.write(key: 'ACCESS_TOKEN', value: '');
   }
 }

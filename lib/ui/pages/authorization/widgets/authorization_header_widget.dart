@@ -1,3 +1,5 @@
+import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
+import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
@@ -25,10 +27,15 @@ class HeaderWidget extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            context.bloc<AuthorizationCubit>().onBackButtonClick();
+            if(state.status != AuthorizationStatus.email) {
+              context.bloc<AuthorizationCubit>().onBack();
+            } else {
+              BlocProvider.of<AuthenticationBloc>(context).add(SelectAuthenticationType(type: AuthenticationType.uninitialized));
+            }
           },
           child: Opacity(
-            opacity: state.status == AuthorizationStatus.captcha ||
+            opacity: state.status == AuthorizationStatus.email ||
+                state.status == AuthorizationStatus.captcha ||
                 state.status == AuthorizationStatus.confirmCode ||
                 state.status == AuthorizationStatus.confirmCodeError
                 ? 1.0
