@@ -11,8 +11,8 @@ class TasksCubit extends Cubit<TasksState> {
     emit(state.copyWith(currentTab: index));
   }
 
-  void getCompanies()async{
-    var result = await campaignRepository.getAllCampaign();
-    emit(state.copyWith(campaing:result));
+  void getCampaigns() async {
+    var result = await campaignRepository.getAllCampaigns();
+    emit(state.copyWith(campaigns:result));
   }
 }

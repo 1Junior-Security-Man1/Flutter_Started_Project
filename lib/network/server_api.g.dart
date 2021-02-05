@@ -492,4 +492,25 @@ class _RestClient implements RestClient {
     final value = UserTask.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  getTrxExchange() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<List<dynamic>> _result = await _dio.request(
+        '/payments/methods/calculate?amount=1&currency=TRX',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    var value = _result.data
+        .map((dynamic i) =>
+            TrxExchangeResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return Future.value(value);
+  }
 }

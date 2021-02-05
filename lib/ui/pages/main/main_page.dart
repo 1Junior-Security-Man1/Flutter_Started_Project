@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     Future.microtask(() {
       context.bloc<ActivityBadgeCubit>().getCount();
-      context.bloc<TasksCubit>().getCompanies();
+      context.bloc<TasksCubit>().getCampaigns();
       context.bloc<ProfileBloc>().add(FetchProfileEvent());
       context.bloc<ProfileBloc>().listen((state) {
         BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(

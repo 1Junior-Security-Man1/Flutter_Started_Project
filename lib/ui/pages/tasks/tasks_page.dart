@@ -50,7 +50,7 @@ class TasksPage extends StatelessWidget {
 
                         myTasksCubit.refresh();
                         myTasksCubit.fetchTasks();
-                      }, campaign:state.campaing, selectedEntity:FilterEntity(null, null));
+                      }, campaign:state.campaigns, selectedEntity:FilterEntity(null, null));
                     },
                   ),
               ),

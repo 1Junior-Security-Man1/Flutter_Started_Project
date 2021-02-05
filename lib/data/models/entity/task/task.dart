@@ -40,6 +40,7 @@ class Task {
   int experiencePoints;
   int campaignEndTime;
   String uri;
+  double usdEquivalent;
 
   Task.fromJson(dynamic json) {
     id = json["id"];

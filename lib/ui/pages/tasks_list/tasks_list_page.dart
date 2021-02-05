@@ -19,7 +19,7 @@ class _TasksListPageState extends State<TasksListPage> {
   TasksListCubit _tasksCubit;
 
   @override
-  void initState() {
+  Future<void> initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
     _tasksCubit = context.bloc<TasksListCubit>();

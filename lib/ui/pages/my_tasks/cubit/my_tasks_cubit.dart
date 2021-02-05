@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bounty_hub_client/data/app_data.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
@@ -62,8 +63,13 @@ class MyTasksCubit extends Cubit<MyTasksState> {
 
   Future<List<UserTask>> _fetchMyTasks(String campaignId, String socialMediaType, String userId, int page) async {
     fetching = true;
+    double usdEquivalent = await AppData.instance.getTrxEquivalent();
     return _taskRepository.getUserTasks(campaignId, socialMediaType, userId, page)
         .then((value) => value.content)
+        .then((tasks)  {
+          tasks.map((task) => task.usdEquivalent = usdEquivalent).toList();
+          return tasks;
+        })
         .whenComplete(() => fetching = false)
         .catchError((Object obj) {
           log.e(obj);

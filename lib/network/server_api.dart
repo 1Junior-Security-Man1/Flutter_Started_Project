@@ -8,6 +8,7 @@ import 'package:bounty_hub_client/data/models/api/response/notification_count_re
 import 'package:bounty_hub_client/data/models/api/response/notification_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
+import 'package:bounty_hub_client/data/models/api/response/trx_exchange_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/user_tasks_response.dart';
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
@@ -124,4 +125,7 @@ abstract class RestClient {
 
   @POST("/user-items/retry")
   Future<UserTask> retryTask(@Query('userItemId') String userItemId);
+
+  @GET("/payments/methods/calculate?amount=1&currency=TRX")
+  Future<List<TrxExchangeResponse>> getTrxExchange();
 }
