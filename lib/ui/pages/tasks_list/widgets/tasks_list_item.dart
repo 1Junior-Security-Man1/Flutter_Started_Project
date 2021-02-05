@@ -94,5 +94,5 @@ String calculateUsdEquivalent(double trxAmount, double equivalent) {
   if(usdEquivalent.contains('0.00')) {
     usdEquivalent = NumberFormat.simpleCurrency(decimalDigits: 4, name: 'USD ').format(value);
   }
-  return usdEquivalent;
+  return '~' + usdEquivalent;
 }
