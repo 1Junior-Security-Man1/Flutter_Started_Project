@@ -49,17 +49,7 @@ abstract class RestClient {
       @Query('code') String code, @Query('grant_type') String grantType);
 
   @GET("/items/filtered")
-  Future<TasksResponse> getTasks(
-      @Query('campaignsIds') String campaignsIds,
-      @Query('socialType') String socialType,
-      @Query('userId') String userId,
-      @Query('page') int page,
-      @Query('size') int size,
-      @Query('status') String status,
-      @Query('sort') String sort,
-      @Query('running') bool running,
-      @Query('hasPermissions') bool hasPermissions,
-      @Query('accessMode') String accessMode);
+  Future<TasksResponse> getTasks(@Queries() Map<String, dynamic> queries);
 
   @GET("/items/{itemId}")
   Future<Task> getTask(@Path('itemId') String taskId);

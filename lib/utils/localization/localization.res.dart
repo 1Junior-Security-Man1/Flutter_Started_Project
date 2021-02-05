@@ -138,4 +138,28 @@ class AppStrings {
   static String get bountyCheckingProcedure =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext)
           .bountyCheckingProcedure;
+  static String get reconfirmTask =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).reconfirmTask;
+  static String get reconfirm =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).reconfirm;
+  static String get rejectTask =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).rejectTask;
+  static String get taskCompletionChecked =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .taskCompletionChecked;
+  static String get rejectComment =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).rejectComment;
+  static String get retry =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).retry;
+  static String get waitTaskVerified =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .waitTaskVerified;
+  static String get taskIsBeingChecked =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .taskIsBeingChecked;
+  static String get pleaseLoginTo =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).pleaseLoginTo;
+  static String get followInstruction =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .followInstruction;
 }

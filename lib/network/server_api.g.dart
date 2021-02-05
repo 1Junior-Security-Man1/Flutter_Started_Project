@@ -60,31 +60,11 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getTasks(campaignsIds, socialType, userId, page, size, status, sort, running,
-      hasPermissions, accessMode) async {
-    ArgumentError.checkNotNull(campaignsIds, 'campaignsIds');
-    ArgumentError.checkNotNull(socialType, 'socialType');
-    ArgumentError.checkNotNull(userId, 'userId');
-    ArgumentError.checkNotNull(page, 'page');
-    ArgumentError.checkNotNull(size, 'size');
-    ArgumentError.checkNotNull(status, 'status');
-    ArgumentError.checkNotNull(sort, 'sort');
-    ArgumentError.checkNotNull(running, 'running');
-    ArgumentError.checkNotNull(hasPermissions, 'hasPermissions');
-    ArgumentError.checkNotNull(accessMode, 'accessMode');
+  getTasks(queries) async {
+    ArgumentError.checkNotNull(queries, 'queries');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      'campaignsIds': campaignsIds,
-      'socialType': socialType,
-      'userId': userId,
-      'page': page,
-      'size': size,
-      'status': status,
-      'sort': sort,
-      'running': running,
-      'hasPermissions': hasPermissions,
-      'accessMode': accessMode
-    };
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(queries ?? <String, dynamic>{});
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
         '/items/filtered',
