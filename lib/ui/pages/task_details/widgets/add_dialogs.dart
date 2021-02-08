@@ -16,6 +16,7 @@ void showConfirmActionDialog(BuildContext context, String message, Function posi
                 color: Colors.transparent,
                 child: Center(
                   child: Container(
+                    width: double.infinity,
                     padding: EdgeInsets.only(left: 36.0, right: 36.0),
                     decoration: BoxDecoration(
                         color: Colors.white,

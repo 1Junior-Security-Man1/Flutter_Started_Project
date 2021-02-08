@@ -1,15 +1,10 @@
-import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
-import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/profile_page.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/add_dialogs.dart';
-import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/ui/widgets/top_sheet_widget.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 typedef void OnSelect();  // калбек без параметров, как воидкалбек
 // typedef void OnSelect(EnumType itemType);   // это тип коллбека в который можно передать параметры
@@ -69,13 +64,9 @@ class _SettingsDialogState extends State<SettingsMenuDialog> {
             title: Text('Log Out', style: AppTextStyles.settingsTextStyle),
             onTap: () {
               showConfirmActionDialog(context, 'Are you sure you want to Log Out from your account?', () {
-                  TopSheetState.close(context);
-                  BlocProvider.of<TasksListCubit>(context).destroy();
-                  BlocProvider.of<MyTasksCubit>(context).destroy();
-                  BlocProvider.of<ProfileBloc>(context).destroy();
-                  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-                }, () {
-                  Navigator.of(context).pop();
+                logout(context);
+              }, () {
+                Navigator.of(context).pop();
               });
             },
           ),

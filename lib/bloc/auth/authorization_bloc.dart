@@ -1,8 +1,14 @@
 import 'package:bloc/bloc.dart';
+import 'package:bounty_hub_client/app.dart';
 import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/data/repositories/profile_local_repository.dart';
+import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:bounty_hub_client/utils/bloc_utils.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'authentication_event.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -31,7 +37,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       }
     }
     if (event is LoggedOut) {
-      logOut();
+      clearAppData(AppState.getContext());
       yield state.copyWith(status: AuthenticationStatus.unauthenticated, token: '', signature: generateSignature());
     }
     if (event is LoggedIn) {
@@ -39,8 +45,17 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
   }
 
-  void logOut() {
+  void clearAppData(BuildContext context) {
     _userRepository.removeAccessData();
     _profileRepository.removeUserData();
+
+    BlocProvider.of<TasksListCubit>(context).destroy();
+    BlocProvider.of<MyTasksCubit>(context).destroy();
+    BlocProvider.of<ProfileBloc>(context).destroy();
   }
+}
+
+void logout(BuildContext context) {
+  Navigator.of(context).popUntil((route) => route.isFirst);
+  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
 }

@@ -129,7 +129,7 @@ class BalancesWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 12.0),
                   child: AppButton(
-                    enable: state.user != null,
+                    enable: state.user != null && state.user.id != null,
                     text: 'withdraw'.toUpperCase(),
                     width: 150,
                     onPressed: () async {

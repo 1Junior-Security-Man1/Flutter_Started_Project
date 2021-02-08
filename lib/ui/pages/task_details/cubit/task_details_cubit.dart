@@ -10,6 +10,7 @@ import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state
 import 'package:bounty_hub_client/utils/bloc_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
+import 'package:bounty_hub_client/data/app_data.dart';
 
 class TaskDetailsCubit extends Cubit<TaskDetailsState> {
 
@@ -133,8 +134,12 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
     return task.campaignId != null;
   }
 
-  void onTakeTaskClick() {
-    _takeTask();
+  void onTakeTaskClick() async {
+    if(!await AppData.instance.isGuestMode()) {
+      _takeTask();
+    } else {
+      emit(state.copyWith(action: UserAction.logout, signature: generateSignature()));
+    }
   }
 
   void onSocialAccountAuthorization(bool reconfirm) {

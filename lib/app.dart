@@ -133,7 +133,7 @@ class AppState extends State<App> {
     }
   }
 
-  static BuildContext getAppContext() {
+  static BuildContext getContext() {
     return _context;
   }
 

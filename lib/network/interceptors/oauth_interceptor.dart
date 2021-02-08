@@ -24,12 +24,8 @@ class OauthInterceptor extends InterceptorsWrapper {
   @override
   Future onError(DioError error) async {
     if (error.response?.statusCode == 401 && !await AppData.instance.isGuestMode()) {
-      logout();
+      BlocProvider.of<AuthenticationBloc>(AppState.getContext()).add(LoggedOut());
     }
     return super.onError(error);
-  }
-
-  void logout() {
-    BlocProvider.of<AuthenticationBloc>(AppState.getAppContext()).add(LoggedOut());
   }
 }

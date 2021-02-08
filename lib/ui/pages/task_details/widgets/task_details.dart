@@ -1,6 +1,8 @@
+import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/widgets/add_dialogs.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_budget_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_campaign_socials_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_completion_widget.dart';
@@ -75,6 +77,14 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
 
         if(state.userTaskStatus == UserTaskStatus.reconfirm) {
           showSocialAccountAuthorizationDialog(state.link, true);
+        }
+
+        if(state.action == UserAction.logout) {
+          showConfirmActionDialog(context, 'To earn ' + (state.task?.finalRewardAmount ?? 0.0).toString() + ' ' + state.task?.rewardCurrency + ' please Log In!', () {
+            logout(context);
+          }, () {
+            Navigator.of(context).pop();
+          });
         }
       },
       child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
