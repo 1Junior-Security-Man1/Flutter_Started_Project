@@ -9,7 +9,7 @@ import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dar
 import 'package:bounty_hub_client/ui/pages/activity/cubit/activity_cubit.dart';
 import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
 import 'package:bounty_hub_client/utils/bloc_utils.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'authentication_event.dart';
 
