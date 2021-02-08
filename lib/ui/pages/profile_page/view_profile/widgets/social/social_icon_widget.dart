@@ -34,12 +34,10 @@ class SocialIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProfileBloc _bloc = context.bloc<ProfileBloc>();
-
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
       return InkWell(
         onTap: () {
-          _bloc.add(SelectSocialProfileEvent(socialNetworkType));
+          context.bloc<ProfileBloc>().add(SelectSocialProfileEvent(socialNetworkType));
         },
         child: Stack(
           children: [
