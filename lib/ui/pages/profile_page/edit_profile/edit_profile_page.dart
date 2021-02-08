@@ -88,6 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
         child: AppButton(
+          enable: BlocProvider.of<EditProfileCubit>(context).state.user != null && BlocProvider.of<EditProfileCubit>(context).state.user.id != null,
           width: MediaQuery.of(context).size.width / 2 - 20,
           text: 'SAVE',
           onPressed: () async {

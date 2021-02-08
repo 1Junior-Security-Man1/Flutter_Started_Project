@@ -17,4 +17,8 @@ class ActivityBadgeCubit extends Cubit<ActivityBadgeState> {
     await activitiesRepository.readActivity(id);
     emit(state.copyWith(unreadCount: state.unreadCount - 1));
   }
+
+  void destroy() async {
+    emit(state.copyWith(unreadCount: 0));
+  }
 }
