@@ -2,12 +2,18 @@ import 'package:bounty_hub_client/data/enums/user_task_status.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bounty_hub_client/data/models/entity/user/balance.dart';
 
 int calculateLeftBudgetPercentage(Task task) {
   if(task.leftBudget == 0 && task.budget == 0) {
     return 0;
   }
   return (checkNullDouble(task.leftBudget) * 100) ~/ checkNullDouble(task.budget);
+}
+
+String getBalance(List<Balances> balances, String currency) {
+  var amount = balances?.firstWhere((balance) => balance.currencyName == currency)?.amount;
+  return amount == null ? '0.00' : amount.toString();
 }
 
 int getTaskCompletionStepByStatus(UserTaskStatusType status, DateTime approveDate, int confirmationDaysCount) {

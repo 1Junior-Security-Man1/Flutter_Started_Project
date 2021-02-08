@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_ui_utils.dart';
 
 class BalancesWidget extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
@@ -66,7 +68,7 @@ class BalancesWidget extends StatelessWidget {
                       flex: 1,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 20.0),
-                        child: Text(state.user?.balances?.firstWhere((balance) => balance.currencyName == 'BHT') ?.amount ?? '0.00',
+                        child: Text(getBalance(state.user?.balances, 'BHT'),
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               color: AppColors.itemTextColor,
@@ -114,7 +116,7 @@ class BalancesWidget extends StatelessWidget {
                       flex: 1,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 20.0),
-                        child: Text(state.user?.balances?.firstWhere((balance) => balance.currencyName == 'TRX')?.amount ?? '0.00',
+                        child: Text(getBalance(state.user?.balances, 'TRX'),
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               color: AppColors.itemTextColor,
