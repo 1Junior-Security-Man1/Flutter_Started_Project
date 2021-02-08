@@ -9,28 +9,29 @@ import 'cubit/my_tasks_state.dart';
 import 'widgets/my_task_item.dart';
 
 class MyTasksPage extends StatefulWidget {
+
   @override
   _MyTasksPageState createState() => _MyTasksPageState();
 }
 
 class _MyTasksPageState extends State<MyTasksPage> {
   final _scrollController = ScrollController();
-  MyTasksCubit _cubit;
+  MyTasksCubit _tasksCubit;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    _cubit = context.bloc<MyTasksCubit>();
-    _cubit.fetchTasks();
+    _tasksCubit = context.bloc<MyTasksCubit>();
+    _tasksCubit.fetchTasks();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MyTasksCubit, MyTasksState>(
       listener: (context, state) {
-        if (!state.hasReachedMax && _isBottom) {
-          _cubit.fetchTasks();
+        if ((!state.hasReachedMax && _isBottom) || (state.status == MyTasksStatus.initial)) {
+          _tasksCubit.fetchTasks();
         }
       },
       builder: (context, state) {
@@ -69,7 +70,7 @@ class _MyTasksPageState extends State<MyTasksPage> {
 
   void _onScroll() {
     if (_isBottom) {
-      _cubit.fetchTasks();
+      _tasksCubit.fetchTasks();
     }
   }
 
