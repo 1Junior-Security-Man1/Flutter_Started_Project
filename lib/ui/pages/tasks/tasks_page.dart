@@ -45,10 +45,10 @@ class TasksPage extends StatelessWidget {
                         allTasksCubit.filterEntity = selectedEntity;
                         myTasksCubit.filterEntity = selectedEntity;
 
-                        allTasksCubit.refresh();
+                        allTasksCubit.destroy();
                         allTasksCubit.fetchTasks();
 
-                        myTasksCubit.refresh();
+                        myTasksCubit.destroy();
                         myTasksCubit.fetchTasks();
                       }, campaign:state.campaigns, selectedEntity:FilterEntity(null, null));
                     },

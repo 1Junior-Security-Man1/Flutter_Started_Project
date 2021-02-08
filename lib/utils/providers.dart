@@ -33,7 +33,7 @@ getRepositories(RestClient client) {
 getProviders(RestClient client) {
   return [
     BlocProvider(create: (context) => WelcomeCubit(AuthRepository(client), UserRepository(client))),
-    BlocProvider(create: (context) => AuthenticationBloc(UserRepository(client))..add(AppStarted())),
+    BlocProvider(create: (context) => AuthenticationBloc(UserRepository(client), ProfileLocalRepository())..add(AppStarted())),
     BlocProvider(create: (context) => ProfileBloc(ProfileRepository(client), ProfileLocalRepository())),
     BlocProvider(create: (context) => LocaleBloc()),
     BlocProvider(create: (context) => ActivityCubit(ActivitiesRepository(client))),

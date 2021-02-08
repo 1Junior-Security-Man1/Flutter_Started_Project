@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/repositories/profile_local_repository.dart';
 import 'package:bounty_hub_client/data/repositories/profile_repository.dart';
@@ -19,6 +20,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
     if (event is FetchProfileEvent) {
       loadUserProfile();
+    }
+
+    if (event is DestroyProfileEvent) {
+      yield state.copyWith(socials: <Socials>[], user: User());
     }
 
     if (event is UserProfileReceivedEvent) {
@@ -82,5 +87,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     var socials = await _profileRepository.getMySocialAccounts();
     add(SocialsReceivedEvent(socials));
+  }
+
+  void destroy() {
+    add(DestroyProfileEvent());
   }
 }

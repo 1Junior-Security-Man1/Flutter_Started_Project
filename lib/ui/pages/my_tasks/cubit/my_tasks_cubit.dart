@@ -19,7 +19,7 @@ class MyTasksCubit extends Cubit<MyTasksState> {
 
   MyTasksCubit(this._taskRepository, this._userRepository) : super(MyTasksState());
 
-  void refresh() {
+  void destroy() {
     page = 1;
     fetching = false;
 

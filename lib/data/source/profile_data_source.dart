@@ -9,6 +9,8 @@ abstract class ProfileDataSource {
 
   Future<bool> putUser(User user);
 
+  void removeUserData();
+
   Future<List<Socials>> getMySocialAccounts();
 
   Future<void> setSocial(SocialNetworkType socialType, String profileUrl);

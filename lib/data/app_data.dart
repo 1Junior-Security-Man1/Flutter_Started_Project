@@ -36,8 +36,9 @@ class AppData {
     return _storage.read(key: 'USER_ID');
   }
 
-  void clearAccessToken() {
+  void clearAccessData() {
     _storage.write(key: 'ACCESS_TOKEN', value: '');
+    _storage.write(key: 'USER_ID', value: '');
   }
 
   void saveTrxEquivalent(double value) {
