@@ -5,13 +5,13 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SplashContent extends StatefulWidget {
+class SplashWidget extends StatefulWidget {
 
   @override
-  State<StatefulWidget> createState()=> _SplashContentState();
+  State<StatefulWidget> createState()=> _SplashWidgetState();
 }
 
-class _SplashContentState extends State<SplashContent> {
+class _SplashWidgetState extends State<SplashWidget> {
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class _SplashContentState extends State<SplashContent> {
                     ),
                     Container(
                       child: Center(
-                        child: Image.asset('assets/images/bountyhub.png', width: MediaQuery.of(context).size.width / 3,),
+                        child: Image.asset('assets/images/bountyhub.png', width: MediaQuery.of(context).size.width / 3),
                       ),
                     ),
                   ],

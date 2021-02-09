@@ -1,9 +1,11 @@
+import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
 import 'package:bounty_hub_client/bloc/locale/locale_bloc.dart';
 import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
-import 'package:bounty_hub_client/ui/pages/login/login_page.dart';
+import 'package:bounty_hub_client/ui/pages/authorization/authorization_page.dart';
 import 'package:bounty_hub_client/ui/pages/main/main_page.dart';
 import 'package:bounty_hub_client/ui/pages/splash/splash_page.dart';
+import 'package:bounty_hub_client/ui/pages/welcome/weclome_page.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,7 +95,7 @@ class AppState extends State<App> {
                     locale: locale,
                     localizationsDelegates: localizationsDelegates,
                     supportedLocales: AppLocalizations.languages.keys.toList(),
-                    home: navigate(state.status)
+                    home: navigateToHomeRoute(context, state.authenticationType, state.status)
                 );
               },
             );
@@ -103,18 +105,35 @@ class AppState extends State<App> {
     );
   }
 
-  Widget navigate(AuthenticationStatus status) {
+  Widget navigateToHomeRoute(BuildContext context, AuthenticationType authenticationType, AuthenticationStatus status) {
     switch (status) {
-      case AuthenticationStatus.loading: return SplashPage();
-      case AuthenticationStatus.authenticated: return MainPage();
-      case AuthenticationStatus.unauthenticated: return LoginPage();
+      case AuthenticationStatus.loading:
+        return SplashPage();
+      case AuthenticationStatus.authenticated:
+        return MainPage();
+      case AuthenticationStatus.unauthenticated:
+        return WelcomePage();
+      case AuthenticationStatus.selectAuthentication:
+        return getAuthenticationDirection(authenticationType);
       default: {
-        return LoginPage();
+        return WelcomePage();
       }
     }
   }
 
-  static BuildContext getAppContext() {
+  Widget getAuthenticationDirection(AuthenticationType type) {
+    switch (type) {
+      case AuthenticationType.credentials:
+        return AuthorizationPage();
+      case AuthenticationType.guest:
+        return MainPage();
+      default: {
+        return WelcomePage();
+      }
+    }
+  }
+
+  static BuildContext getContext() {
     return _context;
   }
 

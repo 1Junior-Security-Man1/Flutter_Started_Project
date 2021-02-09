@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bounty_hub_client/data/app_data.dart';
 import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
 import 'package:bounty_hub_client/data/repositories/tasks_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
@@ -18,7 +19,7 @@ class MyTasksCubit extends Cubit<MyTasksState> {
 
   MyTasksCubit(this._taskRepository, this._userRepository) : super(MyTasksState());
 
-  void refresh() {
+  void destroy() {
     page = 1;
     fetching = false;
 
@@ -29,14 +30,14 @@ class MyTasksCubit extends Cubit<MyTasksState> {
     ));
   }
 
-  void fetchTasks() async {
+  void fetchTasks({bool forceLoading = false}) async {
     if (state.hasReachedMax) {
       emit(state);
       return;
     }
 
     String userId = await _userRepository.getUserId();
-    if (state.status == MyTasksStatus.initial && !fetching) {
+    if (forceLoading || (state.status == MyTasksStatus.initial && !fetching)) {
       final tasks = await _fetchMyTasks(filterEntity?.selectedCampaign?.id, EnumToString.convertToString(filterEntity?.selectedSocial), userId, 0);
       emit(state.copyWith(
         status: MyTasksStatus.success,
@@ -62,8 +63,13 @@ class MyTasksCubit extends Cubit<MyTasksState> {
 
   Future<List<UserTask>> _fetchMyTasks(String campaignId, String socialMediaType, String userId, int page) async {
     fetching = true;
+    double usdEquivalent = await AppData.instance.getTrxEquivalent();
     return _taskRepository.getUserTasks(campaignId, socialMediaType, userId, page)
         .then((value) => value.content)
+        .then((tasks)  {
+          tasks.map((task) => task.usdEquivalent = usdEquivalent).toList();
+          return tasks;
+        })
         .whenComplete(() => fetching = false)
         .catchError((Object obj) {
           log.e(obj);

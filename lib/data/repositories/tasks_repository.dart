@@ -18,7 +18,21 @@ class TaskRepository extends TaskDataSource {
 
   @override
   Future<TasksResponse> getTasks(String campaignId, String socialMediaType, String userId, int page) {
-    return client.getTasks(campaignId ?? '', socialMediaType ?? '', userId, page, 10, 'APPROVED', 'rewardAmount,desc', true, false, 'PUBLIC');
+    Map<String, dynamic> queries = Map<String, dynamic>();
+    if(userId != null && userId.isNotEmpty) {
+      queries.putIfAbsent('userId', () => userId);
+    }
+    queries.putIfAbsent('campaignsIds', () => campaignId ?? '');
+    queries.putIfAbsent('socialType', () => socialMediaType ?? '');
+    queries.putIfAbsent('page', () => page);
+    queries.putIfAbsent('size', () => 10);
+    queries.putIfAbsent('status', () => 'APPROVED');
+    queries.putIfAbsent('sort', () => 'rewardAmount,desc');
+    queries.putIfAbsent('running', () => true);
+    queries.putIfAbsent('hasPermissions', () => false);
+    queries.putIfAbsent('accessMode', () => 'PUBLIC');
+
+    return client.getTasks(queries);
   }
 
   @override

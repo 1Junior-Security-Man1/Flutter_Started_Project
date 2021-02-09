@@ -8,6 +8,7 @@ import 'package:bounty_hub_client/data/models/api/response/notification_count_re
 import 'package:bounty_hub_client/data/models/api/response/notification_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
+import 'package:bounty_hub_client/data/models/api/response/trx_exchange_response.dart';
 import 'package:bounty_hub_client/data/models/api/response/user_tasks_response.dart';
 import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
@@ -18,6 +19,7 @@ import 'package:bounty_hub_client/network/interceptors/oauth_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:bounty_hub_client/data/models/api/response/basic_token.dart';
 
 part 'server_api.g.dart';
 
@@ -49,17 +51,7 @@ abstract class RestClient {
       @Query('code') String code, @Query('grant_type') String grantType);
 
   @GET("/items/filtered")
-  Future<TasksResponse> getTasks(
-      @Query('campaignsIds') String campaignsIds,
-      @Query('socialType') String socialType,
-      @Query('userId') String userId,
-      @Query('page') int page,
-      @Query('size') int size,
-      @Query('status') String status,
-      @Query('sort') String sort,
-      @Query('running') bool running,
-      @Query('hasPermissions') bool hasPermissions,
-      @Query('accessMode') String accessMode);
+  Future<TasksResponse> getTasks(@Queries() Map<String, dynamic> queries);
 
   @GET("/items/{itemId}")
   Future<Task> getTask(@Path('itemId') String taskId);
@@ -134,4 +126,10 @@ abstract class RestClient {
 
   @POST("/user-items/retry")
   Future<UserTask> retryTask(@Query('userItemId') String userItemId);
+
+  @GET("/payments/methods/calculate?amount=1&currency=TRX")
+  Future<List<TrxExchangeResponse>> getTrxExchange();
+
+  @GET("/oauth/basic-token")
+  Future<BasicToken> getBasicToken();
 }

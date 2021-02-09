@@ -44,4 +44,14 @@ class ProfileLocalRepository extends ProfileDataSource {
 
   @override
   Future<void> setSocial(SocialNetworkType socialType, String profileUrl) async {}
+
+  @override
+  void removeUserData() async {
+    try {
+      var box = await Hive.openBox(userKey);
+      await box.put(userKey, Map<String, dynamic>());
+    } catch (e) {
+      print(e);
+    }
+  }
 }

@@ -4,19 +4,19 @@ import 'package:equatable/equatable.dart';
 class TasksState extends Equatable {
   const TasksState({
     this.currentTab = 0,
-    this.campaing = const [],
+    this.campaigns = const [],
   });
 
   final int currentTab;
-  final List<Campaign> campaing;
+  final List<Campaign> campaigns;
 
   TasksState copyWith({
     int currentTab,
-    List<Campaign> campaing,
+    List<Campaign> campaigns,
   }) {
     return TasksState(
         currentTab: currentTab ?? this.currentTab,
-        campaing: campaing ?? this.campaing);
+        campaigns: campaigns ?? this.campaigns);
   }
 
   @override

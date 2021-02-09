@@ -77,6 +77,18 @@ class AppLocalizations {
           "Please upload screenshot to show that the task is complete",
       goToService: "Go to service",
       bountyCheckingProcedure: "Bounty checking procedure:",
+      reconfirmTask: "Reconfirm Task",
+      reconfirm: "Reconfirm Task",
+      rejectTask: "Reject Task",
+      taskCompletionChecked:
+          "Your task completion has been checked and was rejected",
+      rejectComment: "Reject Comment:",
+      retry: "Retry",
+      waitTaskVerified: "Please wait till Your task will be verified",
+      taskIsBeingChecked: "Task is being checked",
+      pleaseLoginTo: "In order to have your task verifying, please login to",
+      followInstruction:
+          "To complete task, please follow the \"Instruction\" section and then click \"Complete\" to confirm",
     ),
     Locale.fromSubtags(languageCode: "DE"): AppLocalizations_Labels(
       signInTo: "Sign in to",
@@ -143,6 +155,18 @@ class AppLocalizations {
           "Please upload screenshot to show that the task is complete",
       goToService: "Go to service",
       bountyCheckingProcedure: "Bounty checking procedure:",
+      reconfirmTask: "Reconfirm Task",
+      reconfirm: "Reconfirm Task",
+      rejectTask: "Reject Task",
+      taskCompletionChecked:
+          "Your task completion has been checked and was rejected",
+      rejectComment: "Reject Comment:",
+      retry: "Retry",
+      waitTaskVerified: "Please wait till Your task will be verified",
+      taskIsBeingChecked: "Task is being checked",
+      pleaseLoginTo: "In order to have your task verifying, please login to",
+      followInstruction:
+          "To complete task, please follow the \"Instruction\" section and then click \"Complete\" to confirm",
     ),
     Locale.fromSubtags(languageCode: "RU"): AppLocalizations_Labels(
       signInTo: "Sign in to",
@@ -209,6 +233,18 @@ class AppLocalizations {
           "Please upload screenshot to show that the task is complete",
       goToService: "Go to service",
       bountyCheckingProcedure: "Bounty checking procedure:",
+      reconfirmTask: "Reconfirm Task",
+      reconfirm: "Reconfirm Task",
+      rejectTask: "Reject Task",
+      taskCompletionChecked:
+          "Your task completion has been checked and was rejected",
+      rejectComment: "Reject Comment:",
+      retry: "Retry",
+      waitTaskVerified: "Please wait till Your task will be verified",
+      taskIsBeingChecked: "Task is being checked",
+      pleaseLoginTo: "In order to have your task verifying, please login to",
+      followInstruction:
+          "To complete task, please follow the \"Instruction\" section and then click \"Complete\" to confirm",
     ),
   };
 
@@ -277,7 +313,17 @@ class AppLocalizations_Labels {
       this.comment,
       this.uploadScreenshot,
       this.goToService,
-      this.bountyCheckingProcedure});
+      this.bountyCheckingProcedure,
+      this.reconfirmTask,
+      this.reconfirm,
+      this.rejectTask,
+      this.taskCompletionChecked,
+      this.rejectComment,
+      this.retry,
+      this.waitTaskVerified,
+      this.taskIsBeingChecked,
+      this.pleaseLoginTo,
+      this.followInstruction});
 
   final String signInTo;
 
@@ -394,4 +440,24 @@ class AppLocalizations_Labels {
   final String goToService;
 
   final String bountyCheckingProcedure;
+
+  final String reconfirmTask;
+
+  final String reconfirm;
+
+  final String rejectTask;
+
+  final String taskCompletionChecked;
+
+  final String rejectComment;
+
+  final String retry;
+
+  final String waitTaskVerified;
+
+  final String taskIsBeingChecked;
+
+  final String pleaseLoginTo;
+
+  final String followInstruction;
 }

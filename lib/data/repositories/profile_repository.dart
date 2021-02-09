@@ -12,7 +12,7 @@ class ProfileRepository extends ProfileDataSource {
   ProfileRepository(this.client);
 
   @override
-  Future<User> getUser() async{
+  Future<User> getUser() async {
     return client.getUser(userId: await AppData.instance.getUserId());
   }
 
@@ -38,5 +38,10 @@ class ProfileRepository extends ProfileDataSource {
   Future<bool> putUser(User user) async {
      await client.putUser(user.id, user);
      return true;
+  }
+
+  @override
+  void removeUserData() {
+    // TODO: implement removeUser
   }
 }

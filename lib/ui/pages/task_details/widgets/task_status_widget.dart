@@ -30,7 +30,7 @@ class TaskStatusWidget extends StatelessWidget {
               text: AppStrings.takeTask,
               width: MediaQuery.of(context).size.width / 2 - 20,
               height: Dimens.app_button_height,
-              onPressed: () {
+              onPressed: () async {
                 context.bloc<TaskDetailsCubit>().onTakeTaskClick();
               },
             );

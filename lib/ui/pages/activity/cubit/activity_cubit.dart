@@ -55,4 +55,15 @@ class ActivityCubit extends Cubit<ActivityState> {
       emit(state.copyWith(status: ActivityStatus.failure));
     });
   }
+
+  void destroy() {
+    page = 1;
+    fetching = false;
+
+    emit(state.copyWith(
+      activities: <Activity>[],
+      hasReachedMax: false,
+      status: ActivityStatus.initial
+    ));
+  }
 }

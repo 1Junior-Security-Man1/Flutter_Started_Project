@@ -29,6 +29,7 @@ class UserTask {
   DateTime lastModifiedDate;
   UserTaskPayload payload;
   bool microItem;
+  double usdEquivalent;
 
   UserTask.fromJson(dynamic json) {
     id = json["id"];

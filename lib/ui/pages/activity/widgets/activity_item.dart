@@ -71,11 +71,9 @@ class _ActivityItemState extends State<ActivityItem> {
               context.bloc<ActivityBadgeCubit>().readNotification(widget.activity.id);
               widget.activity.read = true;
               setState(() {});
-              if(widget.activity.action == 'ITEM_RECONFIRMATION') {
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => TaskDetailsPage(title: '', taskId: parseTaskIdFromHtml(widget.activity.content))),
-                );
-              }
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => TaskDetailsPage(title: '', taskId: parseTaskIdFromHtml(widget.activity.content))),
+              );
             },
             child: Padding(
               padding: const EdgeInsets.only(bottom: 10, top: 10),

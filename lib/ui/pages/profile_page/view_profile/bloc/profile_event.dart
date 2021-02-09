@@ -6,6 +6,8 @@ abstract class ProfileEvent {}
 
 class FetchProfileEvent extends ProfileEvent {}
 
+class DestroyProfileEvent extends ProfileEvent {}
+
 class UserProfileReceivedEvent extends ProfileEvent {
   User user;
 

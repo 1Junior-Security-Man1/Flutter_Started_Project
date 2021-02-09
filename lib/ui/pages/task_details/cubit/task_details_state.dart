@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 
 enum TaskDetailsStatus{ loading, success, failure }
 enum UserTaskStatus{ loading, failure, fetch_success, fetch_failure, leave_success, take_success, confirm_success, reconfirm, reconfirm_complete}
+enum UserAction{ logout }
 
 class TaskDetailsState extends Equatable {
 
@@ -19,6 +20,7 @@ class TaskDetailsState extends Equatable {
     this.showTimer = false,
     this.refresh = false,
     this.signature,
+    this.action,
   });
 
   final TaskDetailsStatus status;
@@ -31,6 +33,7 @@ class TaskDetailsState extends Equatable {
   final bool showTimer;
   final bool refresh;
   final int signature;
+  final UserAction action;
 
   TaskDetailsState copyWith({
     TaskDetailsStatus status,
@@ -42,7 +45,8 @@ class TaskDetailsState extends Equatable {
     String link,
     bool showTimer,
     bool refresh,
-    int signature, // TODO hardcode solution for update state
+    int signature,
+    UserAction action,
   }) {
     return TaskDetailsState(
       signature: signature ?? this.signature,
@@ -55,9 +59,10 @@ class TaskDetailsState extends Equatable {
       userTask: userTask ?? this.userTask,
       errorMessage: errorMessage ?? this.errorMessage,
       refresh: refresh ?? this.refresh,
+      action: action ?? this.action,
     );
   }
 
   @override
-  List<Object> get props => [signature, showTimer, link, status, refresh, task, userTask, campaign, userTaskStatus, errorMessage];
+  List<Object> get props => [action, signature, showTimer, link, status, refresh, task, userTask, campaign, userTaskStatus, errorMessage];
 }

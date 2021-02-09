@@ -22,8 +22,8 @@ class _SocialCardWidgetState extends State<SocialCardWidget> {
     return BlocBuilder<ProfileBloc, ProfileState>(
       cubit: context.bloc<ProfileBloc>(),
       builder: (context, state) {
-        return state.user == null
-            ? Container()
+        return state.user?.id == null
+            ? Container(padding: EdgeInsets.only(top: 8))
             : Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
