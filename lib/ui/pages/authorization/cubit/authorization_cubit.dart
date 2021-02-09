@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bounty_hub_client/data/app_data.dart';
 import 'package:bounty_hub_client/data/repositories/auth_repository.dart';
 import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
@@ -25,23 +26,25 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
 
   void authenticate(String captchaCode) {
     emit(state.copyWith(status: AuthorizationStatus.loading));
-    _loginRepository.authenticate(state.email, captchaCode)
-        .then((it){
-      emit(state.copyWith(status: AuthorizationStatus.confirmCode));
-    }).catchError((Object obj) {
-      switch (obj.runtimeType) {
-        case DioError:
-          final response = (obj as DioError).response;
-          if(response != null && response.data['message'] != null) {
-            emit(state.copyWith(status: AuthorizationStatus.emailError, errorMessage: response.data['message']));
-          } else {
-            emit(state.copyWith(status: AuthorizationStatus.emailError, errorMessage: 'Something went wrong, please try later'));
+    _loginRepository.getBasicToken()
+        .then((basicToken) => AppData.instance.saveBasicToken(basicToken))
+        .then((it) => _loginRepository.authenticate(state.email, captchaCode))
+        .whenComplete(() {
+          emit(state.copyWith(status: AuthorizationStatus.confirmCode));
+        }).catchError((Object obj) {
+          switch (obj.runtimeType) {
+            case DioError:
+              final response = (obj as DioError).response;
+              if(response != null && response.data['message'] != null) {
+                emit(state.copyWith(status: AuthorizationStatus.emailError, errorMessage: response.data['message']));
+              } else {
+                emit(state.copyWith(status: AuthorizationStatus.emailError, errorMessage: 'Something went wrong, please try later'));
+              }
+              break;
+            default:
+              emit(state.copyWith(status: AuthorizationStatus.emailError, errorMessage: 'Something went wrong, please try later'));
           }
-          break;
-        default:
-          emit(state.copyWith(status: AuthorizationStatus.emailError, errorMessage: 'Something went wrong, please try later'));
-      }
-    });
+        });
   }
 
   void confirmCode(String code) {

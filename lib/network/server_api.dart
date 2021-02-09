@@ -19,6 +19,7 @@ import 'package:bounty_hub_client/network/interceptors/oauth_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:bounty_hub_client/data/models/api/response/basic_token.dart';
 
 part 'server_api.g.dart';
 
@@ -128,4 +129,7 @@ abstract class RestClient {
 
   @GET("/payments/methods/calculate?amount=1&currency=TRX")
   Future<List<TrxExchangeResponse>> getTrxExchange();
+
+  @GET("/oauth/basic-token")
+  Future<BasicToken> getBasicToken();
 }

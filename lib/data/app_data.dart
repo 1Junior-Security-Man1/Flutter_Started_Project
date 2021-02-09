@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/data/models/api/response/basic_token.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
 import 'package:bounty_hub_client/network/constants.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -48,5 +49,13 @@ class AppData {
   Future<double> getTrxEquivalent() async {
     String value = await _storage.read(key: 'TRX_TO_USD');
     return value != null && value.isNotEmpty ? double.parse(value) : Constants.equivalentTrxToUsd;
+  }
+
+  void saveBasicToken(BasicToken basicToken) {
+    _storage.write(key: 'BASIC_TOKEN', value: basicToken?.token ?? '');
+  }
+
+  Future<String> getBasicToken() async {
+    return _storage.read(key: 'BASIC_TOKEN');
   }
 }

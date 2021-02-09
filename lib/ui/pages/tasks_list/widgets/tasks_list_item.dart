@@ -49,7 +49,7 @@ class TasksListItem extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
                     child: Text(
-                      task.finalRewardAmount.toString() + ' ' + task.rewardCurrency,
+                      (task.finalRewardAmount ?? 0).toString() + ' ' + task.rewardCurrency,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: Colors.white,
@@ -87,7 +87,7 @@ class TasksListItem extends StatelessWidget {
 }
 
 String calculateUsdEquivalent(double trxAmount, double equivalent) {
-  double value = trxAmount * equivalent;
+  double value = trxAmount ?? 0 * equivalent ?? 0;
   var usdEquivalent = NumberFormat.simpleCurrency(name: 'USD ').format(value);
 
   // If the equivalent value has 2 or more zero decimal digits
