@@ -19,18 +19,18 @@ class _TasksListPageState extends State<TasksListPage> {
   TasksListCubit _tasksCubit;
 
   @override
-  Future<void> initState() {
+  void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
     _tasksCubit = context.bloc<TasksListCubit>();
-    _tasksCubit.fetchTasks();
+    _tasksCubit.fetchTasks(forceLoading: true);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TasksListCubit, TasksListState>(
       listener: (context, state) {
-        if ((!state.hasReachedMax && _isBottom) || (state.status == TasksListStatus.initial)) {
+        if ((!state.hasReachedMax && _isBottom)  || state.status == TasksListStatus.initial) {
           _tasksCubit.fetchTasks();
         }
       },

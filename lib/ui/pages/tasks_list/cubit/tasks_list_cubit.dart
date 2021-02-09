@@ -30,14 +30,14 @@ class TasksListCubit extends Cubit<TasksListState> {
     ));
   }
 
-  void fetchTasks() async {
+  void fetchTasks({bool forceLoading = false}) async {
     if (state.hasReachedMax) {
       emit(state);
       return;
     }
 
     String userId = await _userRepository.getUserId();
-    if (state.status == TasksListStatus.initial && !fetching) {
+    if (forceLoading || (state.status == TasksListStatus.initial && !fetching)) {
       final tasks = await _fetchTasks(filterEntity?.selectedCampaign?.id, EnumToString.convertToString(filterEntity?.selectedSocial), userId, 0);
       emit(state.copyWith(
         status: TasksListStatus.success,

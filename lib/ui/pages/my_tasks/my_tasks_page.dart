@@ -23,14 +23,14 @@ class _MyTasksPageState extends State<MyTasksPage> {
     super.initState();
     _scrollController.addListener(_onScroll);
     _tasksCubit = context.bloc<MyTasksCubit>();
-    _tasksCubit.fetchTasks();
+    _tasksCubit.fetchTasks(forceLoading: true);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MyTasksCubit, MyTasksState>(
       listener: (context, state) {
-        if ((!state.hasReachedMax && _isBottom) || (state.status == MyTasksStatus.initial)) {
+        if ((!state.hasReachedMax && _isBottom) || state.status == MyTasksStatus.initial) {
           _tasksCubit.fetchTasks();
         }
       },
