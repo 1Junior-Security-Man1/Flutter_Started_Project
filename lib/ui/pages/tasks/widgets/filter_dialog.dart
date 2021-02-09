@@ -90,7 +90,7 @@ class _FilterDialogState extends State<FilterDialog> {
               height: 162,
             ),
             CustomAppBar(
-              title: 'Campaign',
+              title: 'Campaigns',
               color: Colors.white,
             )
           ],

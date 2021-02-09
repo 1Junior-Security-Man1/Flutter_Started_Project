@@ -6,6 +6,7 @@ import 'package:bounty_hub_client/data/repositories/profile_local_repository.dar
 import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/activity/cubit/activity_cubit.dart';
 import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
 import 'package:bounty_hub_client/utils/bloc_utils.dart';
@@ -51,6 +52,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     _userRepository.removeAccessData();
     _profileRepository.removeUserData();
 
+    BlocProvider.of<TasksCubit>(context).destroy();
     BlocProvider.of<ActivityBadgeCubit>(context).destroy();
     BlocProvider.of<ActivityCubit>(context).destroy();
     BlocProvider.of<TasksListCubit>(context).destroy();

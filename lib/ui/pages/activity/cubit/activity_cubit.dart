@@ -59,6 +59,8 @@ class ActivityCubit extends Cubit<ActivityState> {
   void destroy() {
     emit(state.copyWith(
       activities: <Activity>[],
+      hasReachedMax: false,
+      status: ActivityStatus.initial
     ));
   }
 }
