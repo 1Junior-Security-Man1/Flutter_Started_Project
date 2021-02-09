@@ -37,6 +37,8 @@ class MyTasksCubit extends Cubit<MyTasksState> {
     }
 
     String userId = await _userRepository.getUserId();
+    if(userId.isEmpty) return;
+
     if (state.status == MyTasksStatus.initial && !fetching) {
       final tasks = await _fetchMyTasks(filterEntity?.selectedCampaign?.id, EnumToString.convertToString(filterEntity?.selectedSocial), userId, 0);
       emit(state.copyWith(
