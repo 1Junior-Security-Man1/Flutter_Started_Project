@@ -1,10 +1,11 @@
 import 'package:bounty_hub_client/data/models/api/request/auth_request.dart';
+import 'package:bounty_hub_client/data/models/api/response/basic_token.dart';
 import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
 import 'package:bounty_hub_client/data/source/login_data_source.dart';
 import 'package:bounty_hub_client/network/constants.dart';
 import 'package:bounty_hub_client/network/server_api.dart';
 
-class AuthRepository extends LoginDataSource {
+class AuthRepository extends AuthDataSource {
 
   final RestClient client;
 
@@ -18,5 +19,10 @@ class AuthRepository extends LoginDataSource {
   @override
   Future<TokenResponse> confirmCode(String email, String code) {
     return client.confirmCode(email, code, 'password');
+  }
+
+  @override
+  Future<BasicToken> getBasicToken() {
+    return client.getBasicToken();
   }
 }
