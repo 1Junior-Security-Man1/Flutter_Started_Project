@@ -87,7 +87,7 @@ class TasksListItem extends StatelessWidget {
 }
 
 String calculateUsdEquivalent(double trxAmount, double equivalent) {
-  double value = trxAmount ?? 0 * equivalent ?? 0;
+  double value = (trxAmount ?? 0) * (equivalent ?? 0);
   var usdEquivalent = NumberFormat.simpleCurrency(name: 'USD ').format(value);
 
   // If the equivalent value has 2 or more zero decimal digits
