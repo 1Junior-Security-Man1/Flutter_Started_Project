@@ -14,6 +14,11 @@ import 'bloc/profile_bloc.dart';
 import 'bloc/profile_event.dart';
 
 class ProfilePage extends StatefulWidget {
+
+  final showBackButton;
+
+  const ProfilePage({Key key, this.showBackButton = false}) : super(key: key);
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -33,9 +38,9 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: AppColors.pageBackgroundColor,
       appBar: CustomAppBar(
         title: 'Profile',
-        leftIcon: 'assets/images/edit_icon.png',
-        //rightIcon: 'assets/images/settings.png',
-        onLeftIconClick: () async {
+        rightIcon: 'assets/images/edit_icon.png',
+        leftIcon: widget.showBackButton ? 'assets/images/back.png' : '',
+        onRightIconClick: () async {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -46,8 +51,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
           _bloc.add(FetchProfileEvent());
         },
-        onRightIconClick: () {
-          _bloc.add(FetchProfileEvent());
+        onLeftIconClick: () {
+          Navigator.pop(context);
         },
       ),
       body: SingleChildScrollView(

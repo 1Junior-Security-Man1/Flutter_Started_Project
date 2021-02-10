@@ -83,7 +83,7 @@ class _SettingsDialogState extends State<SettingsMenuDialog> {
             onTap: () {
               TopSheetState.close(context);
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ProfilePage())
+                  builder: (context) => ProfilePage(showBackButton: true))
               );
             },
           ),
