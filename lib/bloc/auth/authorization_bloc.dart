@@ -51,11 +51,11 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     _userRepository.removeAccessData();
     _profileRepository.removeUserData();
 
-    BlocProvider.of<ActivityBadgeCubit>(context).destroy();
-    BlocProvider.of<ActivityCubit>(context).destroy();
-    BlocProvider.of<TasksListCubit>(context).destroy();
-    BlocProvider.of<MyTasksCubit>(context).destroy();
-    BlocProvider.of<ProfileBloc>(context).destroy();
+    BlocProvider.of<ActivityBadgeCubit>(context).clearState();
+    BlocProvider.of<ActivityCubit>(context).clearState();
+    BlocProvider.of<ProfileBloc>(context).clearState();
+    BlocProvider.of<TasksListCubit>(context).clearState();
+    BlocProvider.of<MyTasksCubit>(context).clearState();
   }
 }
 

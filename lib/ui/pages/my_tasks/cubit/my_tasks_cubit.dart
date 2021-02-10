@@ -19,17 +19,6 @@ class MyTasksCubit extends Cubit<MyTasksState> {
 
   MyTasksCubit(this._taskRepository, this._userRepository) : super(MyTasksState());
 
-  void destroy() {
-    page = 1;
-    fetching = false;
-
-    emit(state.copyWith(
-      status: MyTasksStatus.initial,
-      tasks: <UserTask>[],
-      hasReachedMax: false,
-    ));
-  }
-
   void fetchTasks({bool forceLoading = false}) async {
     if (state.hasReachedMax) {
       emit(state);
@@ -37,7 +26,7 @@ class MyTasksCubit extends Cubit<MyTasksState> {
     }
 
     String userId = await _userRepository.getUserId();
-    if (forceLoading || (state.status == MyTasksStatus.initial && !fetching)) {
+    if (forceLoading || (state.status == MyTasksStatus.refresh && !fetching)) {
       final tasks = await _fetchMyTasks(filterEntity?.selectedCampaign?.id, EnumToString.convertToString(filterEntity?.selectedSocial), userId, 0);
       emit(state.copyWith(
         status: MyTasksStatus.success,
@@ -76,5 +65,27 @@ class MyTasksCubit extends Cubit<MyTasksState> {
           fetching = false;
           emit(state.copyWith(status: MyTasksStatus.failure));
         });
+  }
+
+  void refresh() {
+    page = 1;
+    fetching = false;
+
+    emit(state.copyWith(
+      status: MyTasksStatus.refresh,
+      tasks: <UserTask>[],
+      hasReachedMax: false,
+    ));
+  }
+
+  void clearState() {
+    page = 1;
+    fetching = false;
+
+    emit(state.copyWith(
+      status: MyTasksStatus.initial,
+      tasks: <UserTask>[],
+      hasReachedMax: false,
+    ));
   }
 }

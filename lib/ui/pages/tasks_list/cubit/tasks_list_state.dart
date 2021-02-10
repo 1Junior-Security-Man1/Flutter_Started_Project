@@ -1,7 +1,7 @@
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
 import 'package:equatable/equatable.dart';
 
-enum TasksListStatus{ initial, success, failure }
+enum TasksListStatus{ initial, refresh, success, failure }
 
 class TasksListState extends Equatable {
 

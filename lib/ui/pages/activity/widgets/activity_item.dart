@@ -71,9 +71,14 @@ class _ActivityItemState extends State<ActivityItem> {
               context.bloc<ActivityBadgeCubit>().readNotification(widget.activity.id);
               widget.activity.read = true;
               setState(() {});
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => TaskDetailsPage(title: '', taskId: parseTaskIdFromHtml(widget.activity.content))),
-              );
+              if(widget.activity?.action == 'ITEM_RECONFIRMATION'
+                  || widget.activity?.action == 'ITEM_REJECTED'
+                  || widget.activity?.action == 'ITEM_PAID'
+                  || widget.activity?.action == 'ITEM_DELETED') {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    TaskDetailsPage(title: 'Task details', taskId: parseTaskIdFromHtml(widget.activity.content))),
+                );
+              }
             },
             child: Padding(
               padding: const EdgeInsets.only(bottom: 10, top: 10),

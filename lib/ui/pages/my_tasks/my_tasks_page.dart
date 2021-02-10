@@ -30,7 +30,7 @@ class _MyTasksPageState extends State<MyTasksPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<MyTasksCubit, MyTasksState>(
       listener: (context, state) {
-        if ((!state.hasReachedMax && _isBottom) || state.status == MyTasksStatus.initial) {
+        if ((!state.hasReachedMax && _isBottom) || state.status == MyTasksStatus.refresh) {
           _tasksCubit.fetchTasks();
         }
       },

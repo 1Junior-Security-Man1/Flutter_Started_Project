@@ -255,6 +255,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   showFlag: false,
                   initialSelection: user?.locationCountryCode,
                   showCountryOnly: true,
+                  hideSearch: true,
                   showOnlyCountryWhenClosed: true,
                   textStyle: AppTextStyles.defaultText,
                   onChanged: (code) {

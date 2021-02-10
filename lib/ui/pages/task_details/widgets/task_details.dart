@@ -63,13 +63,13 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
         }
 
         if(state.userTaskStatus == UserTaskStatus.take_success || state.userTaskStatus == UserTaskStatus.leave_success) {
-          _myTasksListCubit.destroy();
-          _tasksListCubit.destroy();
+          _myTasksListCubit.refresh();
+          _tasksListCubit.refresh();
         }
 
         if(state.userTaskStatus == UserTaskStatus.confirm_success) {
           _cubit.fetchUserTask(widget.taskId);
-          _tasksListCubit.destroy();
+          _tasksListCubit.refresh();
           if(state.link != null && state.link.isNotEmpty) {
             showSocialAccountAuthorizationDialog(state.link, false);
           }

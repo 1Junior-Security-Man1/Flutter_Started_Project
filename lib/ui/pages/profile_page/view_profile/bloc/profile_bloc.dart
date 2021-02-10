@@ -89,7 +89,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     add(SocialsReceivedEvent(socials));
   }
 
-  void destroy() {
+  void clearState() {
     add(DestroyProfileEvent());
   }
 }

@@ -56,7 +56,7 @@ class ActivityCubit extends Cubit<ActivityState> {
     });
   }
 
-  void destroy() {
+  void clearState() {
     page = 1;
     fetching = false;
 
