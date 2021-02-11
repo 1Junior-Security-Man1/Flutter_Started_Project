@@ -30,11 +30,13 @@ class _MainPageState extends State<MainPage> {
       context.bloc<ActivityBadgeCubit>().getCount();
       context.bloc<TasksCubit>().getCampaigns();
       context.bloc<ProfileBloc>().add(FetchProfileEvent());
-      context.bloc<ProfileBloc>().listen((state) {
-        BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
-          countryCode:  getLanguageCode(state.user?.language)[1],
-          languageCode: getLanguageCode(state.user?.language)[0],
-        ));
+      context?.bloc<ProfileBloc>()?.listen((state) {
+        if(context != null) {
+          BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
+            countryCode: getLanguageCode(state.user?.language)[1],
+            languageCode: getLanguageCode(state.user?.language)[0],
+          ));
+        }
       });
     });
     super.initState();
