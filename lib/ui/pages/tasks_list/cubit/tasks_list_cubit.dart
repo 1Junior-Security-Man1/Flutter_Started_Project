@@ -36,7 +36,7 @@ class TasksListCubit extends Cubit<TasksListState> {
       return;
     }
 
-    if(fetching) return;
+    if(fetching || state.status == TasksListStatus.initial) return;
     final tasks = await _fetchTasks(filterEntity?.selectedCampaign?.id, EnumToString.convertToString(filterEntity?.selectedSocial), userId, page);
     if(tasks == null || tasks.isEmpty) {
       emit(state.copyWith(hasReachedMax: true));
@@ -73,7 +73,6 @@ class TasksListCubit extends Cubit<TasksListState> {
 
     emit(state.copyWith(
       status: TasksListStatus.refresh,
-      tasks: <Task>[],
       hasReachedMax: false,
     ));
   }
@@ -81,6 +80,7 @@ class TasksListCubit extends Cubit<TasksListState> {
   void clearState() {
     page = 1;
     fetching = false;
+    filterEntity = null;
 
     emit(state.copyWith(
       status: TasksListStatus.initial,

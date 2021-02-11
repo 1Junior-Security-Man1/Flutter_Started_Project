@@ -53,47 +53,54 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     //todo использовать BlocConsumer
-    return BlocListener<TaskDetailsCubit, TaskDetailsState>(
-      listener: (context, state) {
-        if (state.userTaskStatus == UserTaskStatus.failure || state.status == TaskDetailsStatus.failure) {
-          showDialog(
-            context: context,
-            builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : AppStrings.defaultErrorMessage),
-          );
-        }
-
-        if(state.userTaskStatus == UserTaskStatus.take_success || state.userTaskStatus == UserTaskStatus.leave_success) {
-          _myTasksListCubit.refresh();
-          _tasksListCubit.refresh();
-        }
-
-        if(state.userTaskStatus == UserTaskStatus.confirm_success) {
-          _cubit.fetchUserTask(widget.taskId);
-          _tasksListCubit.refresh();
-          if(state.link != null && state.link.isNotEmpty) {
-            showSocialAccountAuthorizationDialog(state.link, false);
+    return Theme(data: Theme.of(context).copyWith(canvasColor: Colors.white),
+      child: BlocListener<TaskDetailsCubit, TaskDetailsState>(
+        listener: (context, state) {
+          if (state.userTaskStatus == UserTaskStatus.failure || state.status == TaskDetailsStatus.failure) {
+            showDialog(
+              context: context,
+              builder: (_) => AnimatedAlertBuilder(message: state.errorMessage != null ? state.errorMessage : AppStrings.defaultErrorMessage),
+            );
           }
-        }
 
-        if(state.userTaskStatus == UserTaskStatus.reconfirm) {
-          showSocialAccountAuthorizationDialog(state.link, true);
-        }
+          if(state.userTaskStatus == UserTaskStatus.take_success || state.userTaskStatus == UserTaskStatus.leave_success) {
+            _myTasksListCubit.refresh();
+            _tasksListCubit.refresh();
+          }
 
-        if(state.action == UserAction.logout) {
-          showConfirmActionDialog(context, 'To earn ' + (state.task?.finalRewardAmount ?? 0.0).toString() + ' ' + state.task?.rewardCurrency + ' please Log In!', () {
-            logout(context);
-          }, () {
-            Navigator.of(context).pop();
-          });
-        }
-      },
-      child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
-        builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: _buildContent(context, state),
-          );
+          if(state.userTaskStatus == UserTaskStatus.confirm_success) {
+            _cubit.fetchUserTask(widget.taskId);
+            _tasksListCubit.refresh();
+            if(state.link != null && state.link.isNotEmpty) {
+              showSocialAccountAuthorizationDialog(state.link, false);
+            }
+          }
+
+          if(state.userTaskStatus == UserTaskStatus.reconfirm) {
+            showSocialAccountAuthorizationDialog(state.link, true);
+          }
+
+          if(state.action == UserAction.logout) {
+            showConfirmActionDialog(context, 'To earn ' + (state.task?.finalRewardAmount ?? 0.0).toString() + ' ' + state.task?.rewardCurrency + ' please Log In!', () {
+              logout(context);
+            }, () {
+              Navigator.of(context).pop();
+            });
+          }
         },
+        child: RefreshIndicator(
+          onRefresh:() async {
+            _cubit.fetchTask(widget.taskId);
+          },
+          child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: _buildContent(context, state),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
@@ -169,6 +176,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
       return Loading();
     } else if(state.status == TaskDetailsStatus.success ||  state.userTaskStatus == UserTaskStatus.fetch_success) {
       return SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
             Container(

@@ -28,43 +28,51 @@ class _MyTasksPageState extends State<MyTasksPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MyTasksCubit, MyTasksState>(
-      listener: (context, state) {
-        if ((!state.hasReachedMax && _isBottom) || state.status == MyTasksStatus.refresh) {
-          _tasksCubit.fetchTasks();
-        }
-      },
-      builder: (context, state) {
-        switch (state.status) {
-          case MyTasksStatus.failure:
-            return const EmptyDataPlaceHolder();
-          case MyTasksStatus.success:
-            if (state.tasks.isEmpty) {
-              return const EmptyDataPlaceHolder();
+    return Theme(data: Theme.of(context).copyWith(canvasColor: Colors.white),
+      child: RefreshIndicator(
+        onRefresh:() async {
+          _tasksCubit.refresh();
+        },
+        child: BlocConsumer<MyTasksCubit, MyTasksState>(
+          listener: (context, state) {
+            if ((!state.hasReachedMax && _isBottom) || state.status == MyTasksStatus.refresh) {
+              _tasksCubit.fetchTasks();
             }
-            return Container(
-              margin: EdgeInsets.only(
-                left: Dimens.content_padding,
-                right: Dimens.content_padding,
-                bottom: Dimens.content_internal_padding,
-              ),
-              decoration: WidgetsDecoration.appCardStyle(),
-              child: ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  return index >= state.tasks.length
-                      ? state.tasks.length > 10 ? BottomLoader() : SizedBox()
-                      : MyTaskItem(task: state.tasks[index]);
-                  },
-                itemCount: state.hasReachedMax
-                    ? state.tasks.length
-                    : state.tasks.length + 1,
-                controller: _scrollController,
-              ),
-            );
-          default:
-            return const Center(child: CircularProgressIndicator());
-        }
-      },
+          },
+          builder: (context, state) {
+            switch (state.status) {
+              case MyTasksStatus.failure:
+                return const EmptyDataPlaceHolder();
+              case MyTasksStatus.success:
+                if (state.tasks.isEmpty) {
+                  return const EmptyDataPlaceHolder();
+                }
+                return Container(
+                  margin: EdgeInsets.only(
+                    left: Dimens.content_padding,
+                    right: Dimens.content_padding,
+                    bottom: Dimens.content_internal_padding,
+                  ),
+                  decoration: WidgetsDecoration.appCardStyle(),
+                  child: ListView.builder(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return index >= state.tasks.length
+                          ? state.tasks.length > 10 ? BottomLoader() : SizedBox()
+                          : MyTaskItem(task: state.tasks[index]);
+                      },
+                    itemCount: state.hasReachedMax
+                        ? state.tasks.length
+                        : state.tasks.length + 1,
+                    controller: _scrollController,
+                  ),
+                );
+              default:
+                return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+      ),
     );
   }
 

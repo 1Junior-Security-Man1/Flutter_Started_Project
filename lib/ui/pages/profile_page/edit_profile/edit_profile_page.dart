@@ -43,13 +43,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     var user = BlocProvider.of<EditProfileCubit>(context).state.user;
-
     return BlocBuilder<EditProfileCubit, EditProfileState>(
         builder: (context, state) {
-      return Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.white,
-        ),
+      return Theme(data: Theme.of(context).copyWith(canvasColor: Colors.white),
         child: Scaffold(
           backgroundColor: AppColors.pageBackgroundColor,
           appBar: CustomAppBar(
