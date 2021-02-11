@@ -1,6 +1,7 @@
 import 'package:bounty_hub_client/ui/widgets/app_list_bottom_loader.dart';
 import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
+import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _MyTasksPageState extends State<MyTasksPage> {
   Widget build(BuildContext context) {
     return Theme(data: Theme.of(context).copyWith(canvasColor: Colors.white),
       child: RefreshIndicator(
+        color: AppColors.accentColor,
         onRefresh:() async {
           _tasksCubit.refresh();
         },
