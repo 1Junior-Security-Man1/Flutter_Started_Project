@@ -53,8 +53,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     //todo использовать BlocConsumer
-    return Theme(data: Theme.of(context).copyWith(canvasColor: Colors.white),
-      child: BlocListener<TaskDetailsCubit, TaskDetailsState>(
+    return BlocListener<TaskDetailsCubit, TaskDetailsState>(
         listener: (context, state) {
           if (state.userTaskStatus == UserTaskStatus.failure || state.status == TaskDetailsStatus.failure) {
             showDialog(
@@ -89,6 +88,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
           }
         },
         child: RefreshIndicator(
+          color: AppColors.accentColor,
           onRefresh:() async {
             _cubit.fetchTask(widget.taskId);
           },
@@ -101,7 +101,6 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
             },
           ),
         ),
-      ),
     );
   }
 
