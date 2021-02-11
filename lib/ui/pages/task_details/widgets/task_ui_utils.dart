@@ -12,7 +12,7 @@ int calculateLeftBudgetPercentage(Task task) {
 }
 
 String getBalance(List<Balances> balances, String currency) {
-  var amount = balances?.firstWhere((balance) => balance.currencyName == currency)?.amount;
+  var amount = balances?.firstWhere((balance) => balance.currencyName == currency, orElse: () => null)?.amount;
   return amount == null ? '0.00' : amount.toString();
 }
 
