@@ -21,6 +21,12 @@ class TaskDetailsCubit extends Cubit<TaskDetailsState> {
 
   TaskDetailsCubit(this._taskRepository, this._campaignRepository, this._userRepository) : super(TaskDetailsState());
 
+  void onOpenedFromDeepLinkEvent(String taskId) {
+    Future.delayed(
+      Duration(seconds: 2), () => fetchTask(taskId),
+    );
+  }
+
   void fetchTask(String taskId) async {
     _taskRepository.getTask(taskId)
         .then((task) {

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
@@ -23,6 +24,7 @@ import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TaskDetailsWidget extends StatefulWidget {
@@ -40,6 +42,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   TasksListCubit _tasksListCubit;
   MyTasksCubit _myTasksListCubit;
   var logger = Logger();
+  StreamSubscription _sub;
 
   @override
   void initState() {
@@ -48,6 +51,19 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     _tasksListCubit = context.bloc<TasksListCubit>();
     _myTasksListCubit = context.bloc<MyTasksCubit>();
     _cubit.fetchTask(widget.taskId);
+    initPlatformState();
+  }
+
+  initPlatformState() async {
+    await initPlatformStateForUniLinks();
+  }
+
+  initPlatformStateForUniLinks() async {
+    _sub = getLinksStream().listen((String link) {
+      _cubit.onOpenedFromDeepLinkEvent(widget.taskId);
+    }, onError: (err) {
+      logger.e('initPlatformStateForUniLinks $err');
+    });
   }
 
   @override
@@ -87,19 +103,13 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
             });
           }
         },
-        child: RefreshIndicator(
-          color: AppColors.accentColor,
-          onRefresh:() async {
-            _cubit.fetchTask(widget.taskId);
+        child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: _buildContent(context, state),
+            );
           },
-          child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
-            builder: (context, state) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: _buildContent(context, state),
-              );
-            },
-          ),
         ),
     );
   }
@@ -304,5 +314,11 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     } else {
       return EmptyDataPlaceHolder(message: 'Task not found');
     }
+  }
+
+  @override
+  void dispose() {
+    if (_sub != null) _sub.cancel();
+    super.dispose();
   }
 }

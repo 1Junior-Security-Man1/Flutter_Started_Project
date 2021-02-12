@@ -69,7 +69,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
     int currentUserTaskStep = getTaskCompletionStepByStatus(widget.userTask.getTaskStatus(), widget.userTask.approveDate, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1));
     switch(currentUserTaskStep) {
       case 1: return _buildLeaveCompleteWidget(); // IN_PROGRESS
-      case 2: return showTimer ? _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1), null) : _buildContinueButton(); // VERIFYING
+      case 2: return _buildContinueButton(); // VERIFYING
       case 3: return _buildApproveRejectWidget(widget.userTask.getTaskStatus(), AppColors.accentColor, widget.task.confirmationDaysCount); // APPROVED or REJECTED
       case 4: return showTimer ? _buildVerifyingTimerWidget(widget.userTask, checkNullInt(widget.task.confirmationDaysCount, defaultValue: 1), null) : _buildReconfirmWidget(); // RECONFIRM
       case 5: return _buildEmptySpaceWidget(); // PAID or CANCELED
