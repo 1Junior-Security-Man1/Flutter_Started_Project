@@ -58,19 +58,20 @@ class WidgetsDecoration {
 
   static InputDecoration appTextFormStyle(String hint, String prefixIcon, String suffixIcon, bool enabled) {
     return InputDecoration(
-      contentPadding: const EdgeInsets.all(24.0),
+      contentPadding: const EdgeInsets.only(left: 24.0, top: 24.0, bottom: 24.0),
       prefixIcon: Padding(
           padding: const EdgeInsets.only(
               left: Dimens.input_text_prefix_icon_padding,
               right: Dimens.input_text_prefix_icon_padding),
           child: Image.asset(prefixIcon, width: 50)),
-      suffixIcon: Padding(
-          padding: const EdgeInsets.only(
-              left: Dimens.input_text_prefix_icon_padding,
-              right: Dimens.input_text_prefix_icon_padding),
-          child: suffixIcon != null
-              ? Image.asset(suffixIcon, width: 36)
-              : Container(width: 0)),
+      suffixIconConstraints: BoxConstraints(
+        minWidth: 2,
+        minHeight: 2,
+      ),
+      suffixIcon: suffixIcon != null ? Padding(
+        padding: const EdgeInsets.only(right: 12.0),
+        child: Image.asset(suffixIcon, width: 36),
+      ) : SizedBox(width: 0),
       fillColor: Colors.white,
       filled: true,
       isDense: true,
