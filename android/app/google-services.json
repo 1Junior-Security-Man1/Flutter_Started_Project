@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:15505145830:android:f60b4cdf6886776e4da027",
+        "mobilesdk_app_id": "1:15505145830:android:6b635d317709e5514da027",
         "android_client_info": {
-          "package_name": "de.lindenvalley.bounty_hub_client"
+          "package_name": "io.bountyhub.www"
         }
       },
       "oauth_client": [

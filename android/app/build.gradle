@@ -47,7 +47,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "de.lindenvalley.bounty_hub_client"
+        applicationId "io.bountyhub.www"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
