@@ -10,5 +10,5 @@ class Constants {
   static const String domain = 'APP';
   static const double equivalentTrxToUsd = 0.03;
   static const String basicToken = 'NmRlZ3JlZXMtYXBwOjZiZWFhYzdjMjk2NWMxYzBhMzc0YmI5ZDBhZjAzZTJi';
-  static const String redirectDeepLink = 'app://de.lindenvalley.bounty_hub_client';
+  static const String redirectDeepLink = 'app://io.bountyhub.www';
 }
