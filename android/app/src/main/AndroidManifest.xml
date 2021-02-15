@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:scheme="app"
-                    android:host="de.lindenvalley.bounty_hub_client" />
+                    android:host="io.bountyhub.www" />
             </intent-filter>
 
             <!-- Specifies an Android theme to apply to this Activity as soon as
