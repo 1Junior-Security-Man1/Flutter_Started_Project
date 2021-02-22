@@ -9,6 +9,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profil
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/profile_page.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_page.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
@@ -73,7 +74,7 @@ class _MainPageState extends State<MainPage> {
                       'assets/images/menu_item_tasks.png',
                       'assets/images/menu_item_tasks_active.png'),
                 ),
-                label: 'Do Tasks',
+                label: AppStrings.doTasks,
               ),
               BottomNavigationBarItem(
                 icon: Padding(
@@ -84,7 +85,7 @@ class _MainPageState extends State<MainPage> {
                       'assets/images/menu_item_profile.png',
                       'assets/images/menu_item_profile_active.png'),
                 ),
-                label: 'Profile',
+                label: AppStrings.profile,
               ),
               BottomNavigationBarItem(
                 icon: Padding(
@@ -109,7 +110,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                 ),
-                label: 'Notifications',
+                label: AppStrings.notifications,
               ),
             ],
             currentIndex: _selectedIndex,

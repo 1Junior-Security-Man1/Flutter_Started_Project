@@ -3,6 +3,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profil
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_event.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/widgets/social/social_description_widgets/social_ui_utils.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -150,8 +151,8 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
         child: AppButton(
           width: MediaQuery.of(context).size.width / 2 - 20,
           text: selectedSocial == SocialNetworkType.FACEBOOK
-              ? 'MAKE POST'
-              : 'NEXT',
+              ? AppStrings.makePost
+              : AppStrings.nextButton,
           onPressed: () {
             BlocProvider.of<ProfileBloc>(context).add(OnNextBtnPresEvent(selectedSocial));
           },

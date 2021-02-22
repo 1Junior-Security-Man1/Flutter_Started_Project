@@ -4,6 +4,7 @@ import 'package:bounty_hub_client/network/download/image_url_provider.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/ui/widgets/social_image.dart';
 import 'package:bounty_hub_client/ui/widgets/top_sheet_widget.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
@@ -74,7 +75,7 @@ class _FilterDialogState extends State<FilterDialog> {
         Column(
           children: [
             CustomAppBar(
-              title: 'Social Networks',
+              title: AppStrings.socialNetworks,
               leftIcon: 'assets/images/reject.png',
               rightIcon: 'assets/images/filter_clear.png',
               onLeftIconClick: () {
@@ -90,7 +91,7 @@ class _FilterDialogState extends State<FilterDialog> {
               height: 162,
             ),
             CustomAppBar(
-              title: 'Campaigns',
+              title: AppStrings.campaigns,
               color: Colors.white,
             )
           ],

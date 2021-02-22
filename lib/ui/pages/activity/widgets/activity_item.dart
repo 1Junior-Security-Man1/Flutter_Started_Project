@@ -2,6 +2,7 @@ import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
 import 'package:bounty_hub_client/data/models/entity/activity/notification.dart';
 import 'package:bounty_hub_client/ui/pages/activity/widgets/activity_utils.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/task_details_page.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,7 @@ class _ActivityItemState extends State<ActivityItem> {
                   || widget.activity?.action == 'ITEM_PAID'
                   || widget.activity?.action == 'ITEM_DELETED') {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    TaskDetailsPage(title: 'Task details', taskId: parseTaskIdFromHtml(widget.activity.content))),
+                    TaskDetailsPage(title: AppStrings.taskDetails, taskId: parseTaskIdFromHtml(widget.activity.content))),
                 );
               }
             },

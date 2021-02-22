@@ -2,6 +2,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profil
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_event.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_state.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
@@ -55,7 +56,7 @@ class _WalletCardWidgetState extends State<WalletCardWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Tron wallet',
+                  AppStrings.tronWallet,
                   style: AppTextStyles.titleTextStyle,
                 ),
                 Padding(
@@ -84,7 +85,7 @@ class _WalletCardWidgetState extends State<WalletCardWidget> {
                       focusNode: focusText,
                       decoration: InputDecoration(
                           enabled: state.user?.tronWallet == null,
-                          hintText: 'Enter wallet',
+                          hintText: AppStrings.enterWallet,
                           hintStyle: AppTextStyles.defaultThinText,
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: 16, vertical: 8),
@@ -96,7 +97,7 @@ class _WalletCardWidgetState extends State<WalletCardWidget> {
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: AppButton(
-                      text: 'save'.toUpperCase(),
+                      text: AppStrings.save.toUpperCase(),
                       width: 100,
                       enable: _editingController.text.length > 10 && state.user != null,
                       onPressed: () {

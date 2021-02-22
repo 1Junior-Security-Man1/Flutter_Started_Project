@@ -49,7 +49,7 @@ void showConfirmActionDialog(BuildContext context, String message, Function posi
                           child: AppButton(
                             height: 50,
                             type: AppButtonType.WHITE,
-                            text: 'Cancel',
+                            text: AppStrings.cancel,
                             width: MediaQuery.of(context).size.width / 2,
                             onPressed: negativeButtonClick,
                           ),

@@ -2,6 +2,7 @@ import 'package:bounty_hub_client/network/constants.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_state.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class BalancesWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12.0),
                   child: Text(
-                    'Your Balance',
+                    AppStrings.yourBalance,
                     style: AppTextStyles.titleTextStyle,
                   ),
                 ),
@@ -55,7 +56,7 @@ class BalancesWidget extends StatelessWidget {
                                 fontSize: 14
                             ),
                           ),
-                          Text('Bounty Coin',
+                          Text(AppStrings.bountyCoin,
                             style: TextStyle(
                                 color: AppColors.multiLineTextColor,
                                 fontWeight: FontWeight.w400,
@@ -103,7 +104,7 @@ class BalancesWidget extends StatelessWidget {
                                 fontSize: 14
                             ),
                           ),
-                          Text('Tron Coin',
+                          Text(AppStrings.tronCoin,
                             style: TextStyle(
                                 color: AppColors.multiLineTextColor,
                                 fontWeight: FontWeight.w400,
@@ -132,8 +133,8 @@ class BalancesWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 12.0),
                   child: AppButton(
                     enable: state.user != null && state.user.id != null,
-                    text: 'withdraw'.toUpperCase(),
-                    width: 150,
+                    text: AppStrings.withdraw.toUpperCase(),
+                    width: 180,
                     onPressed: () async {
                       var url = Constants.baseUrl + Constants.profileUrl;
                       if (await canLaunch(url)) {

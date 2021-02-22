@@ -5,6 +5,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/edit_profile/cubit/edit_
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:bounty_hub_client/utils/validation/string_utils.dart';
@@ -49,7 +50,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: Scaffold(
           backgroundColor: AppColors.pageBackgroundColor,
           appBar: CustomAppBar(
-            title: 'Edit Profile',
+            title: AppStrings.editProfile,
             leftIcon: 'assets/images/back.png',
             onLeftIconClick: Navigator.of(context).pop,
           ),
@@ -86,7 +87,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: AppButton(
           enable: BlocProvider.of<EditProfileCubit>(context).state.user != null && BlocProvider.of<EditProfileCubit>(context).state.user.id != null,
           width: MediaQuery.of(context).size.width / 2 - 20,
-          text: 'SAVE',
+          text: AppStrings.save,
           onPressed: () async {
             BlocProvider.of<EditProfileCubit>(context).state.user.name = nameEditController.text;
 
@@ -109,7 +110,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         Expanded(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            _buildLabel('Your Name', true),
+            _buildLabel(AppStrings.yourName, true),
             SizedBox(
               height: 4,
             ),
@@ -132,7 +133,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         Expanded(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            _buildLabel('Gender', true),
+            _buildLabel(AppStrings.gender, true),
             SizedBox(
               height: 4,
             ),
@@ -148,8 +149,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       });
                     },
                     items: <String>[
-                      'MALE',
-                      'FEMALE',
+                      AppStrings.male,
+                      AppStrings.female,
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -172,7 +173,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       SizedBox(
         height: 20,
       ),
-      _buildLabel('E-Mail', false),
+      _buildLabel(AppStrings.profileEmail, false),
       SizedBox(
         height: 4,
       ),
@@ -193,7 +194,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       SizedBox(
         height: 20,
       ),
-      _buildLabel('Language', false),
+      _buildLabel(AppStrings.language, false),
       SizedBox(
         height: 4,
       ),
@@ -215,7 +216,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             hint: Padding(
               padding: const EdgeInsets.only(left: 8),
               child: Text(
-                'Select',
+                AppStrings.select,
                 style: AppTextStyles.defaultThinText.copyWith(fontSize: 14),
               ),
             ),
@@ -240,7 +241,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         Expanded(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            _buildLabel('Your country', true),
+            _buildLabel(AppStrings.yourCountry, true),
             SizedBox(
               height: 4,
             ),
@@ -275,7 +276,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Expanded _buildBirthdayWidget(User user) {
     return Expanded(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        _buildLabel('Birthday', true),
+        _buildLabel(AppStrings.birthday, true),
         SizedBox(
           height: 4,
         ),

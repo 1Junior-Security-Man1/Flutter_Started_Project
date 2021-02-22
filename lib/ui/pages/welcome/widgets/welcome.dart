@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/welcome/widgets/social_button_widget.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +44,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      'Log In / Register to',
+                      AppStrings.logInRegister,
                       style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 14,
@@ -59,7 +59,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      'BountyHub Platform',
+                      AppStrings.appTitle,
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -119,7 +119,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                             alignment: Alignment.center,
                             height: 40,
                             child: Text(
-                              'OR CONTINUE AS GUEST',
+                              AppStrings.continueAsGuest,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 13,

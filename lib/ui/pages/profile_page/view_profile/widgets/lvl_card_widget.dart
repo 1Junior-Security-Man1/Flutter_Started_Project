@@ -1,5 +1,6 @@
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_state.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
@@ -56,7 +57,7 @@ class LvlCardWidget extends StatelessWidget {
                             ),
                             Center(
                                 child: Text(
-                                  'level',
+                                  AppStrings.level,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
@@ -73,8 +74,8 @@ class LvlCardWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(state.user?.name ?? 'Guest', style:AppTextStyles.titleTextStyle,overflow: TextOverflow.ellipsis,),
-                      Text(state.user?.email ?? 'guest mode', style:AppTextStyles.titleTextStyle.copyWith(fontSize: 14),overflow: TextOverflow.ellipsis,),
+                      Text(state.user?.name ?? AppStrings.guest, style:AppTextStyles.titleTextStyle,overflow: TextOverflow.ellipsis,),
+                      Text(state.user?.email ?? AppStrings.guestMode, style:AppTextStyles.titleTextStyle.copyWith(fontSize: 14),overflow: TextOverflow.ellipsis,),
                     ],),
                 )
               ],

@@ -106,29 +106,6 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                         true),
                   ),
                 ),
-                /**
-                    Row(
-                    children: [
-                    AppCheckBox(
-                    width: 36,
-                    height: 36,
-                    ),
-                    SizedBox(
-                    width: 16,
-                    ),
-                    Flexible(
-                    child: Text(
-                    AppStrings.emailUsedNextTime,
-                    style: TextStyle(
-                    color: AppColors.textColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15,
-                    ),
-                    ),
-                    ),
-                    ],
-                    ),
-                 **/
               ],
             ),
           ),

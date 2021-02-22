@@ -96,7 +96,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
           }
 
           if(state.action == UserAction.logout) {
-            showConfirmActionDialog(context, 'To earn ' + (state.task?.finalRewardAmount ?? 0.0).toString() + ' ' + state.task?.rewardCurrency + ' please Log In!', () {
+            showConfirmActionDialog(context, AppStrings.toEarn + ' ' + (state.task?.finalRewardAmount ?? 0.0).toString() + ' ' + state.task?.rewardCurrency + ' ' + AppStrings.pleaseLogIn, () {
               logout(context);
             }, () {
               Navigator.of(context).pop();
@@ -137,7 +137,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
                           Padding(
                             padding: const EdgeInsets.only(top: 24.0),
                             child: Text(
-                              'Bounty checking procedure:',
+                                AppStrings.bountyCheckingProcedure,
                               style: AppTextStyles.titleTextStyle,
                               textAlign: TextAlign.center,
                             ),
@@ -146,7 +146,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
                             padding: const EdgeInsets.only(top: 16.0),
                             child: Container(
                               child: Text(
-                                'Please authorize with the social network account which you performed this task for automatically check the status of completion.',
+                                AppStrings.authorizeWithSocialInstruction,
                                 style: AppTextStyles.greyContentTextStyle,
                                 textAlign: TextAlign.center,
                               ),
@@ -158,7 +158,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
                               child: AppButton(
                                 height: 50,
                                 type: AppButtonType.BLUE,
-                                text: 'Authorize',
+                                text: AppStrings.authorize,
                                 width: MediaQuery.of(context).size.width / 2,
                                 onPressed: () async {
                                   Navigator.of(context).pop();
@@ -312,7 +312,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
         ),
       );
     } else {
-      return EmptyDataPlaceHolder(message: 'Task not found');
+      return EmptyDataPlaceHolder(message: AppStrings.emptyTaskMessage);
     }
   }
 
