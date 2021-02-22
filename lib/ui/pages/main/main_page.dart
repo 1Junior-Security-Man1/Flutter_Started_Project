@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
       context.bloc<TasksCubit>().getCampaigns();
       context.bloc<ProfileBloc>().add(FetchProfileEvent());
       context?.bloc<ProfileBloc>()?.listen((state) {
-        if(context != null) {
+        if (context != null) {
           BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
             countryCode: getLanguageCode(state.user?.language)[1],
             languageCode: getLanguageCode(state.user?.language)[0],
@@ -60,7 +60,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: Container(
         decoration: WidgetsDecoration.appNavigationStyle(),
         child: SizedBox(
-          height: 70,
+          height: 70 + MediaQuery.of(context).padding.bottom,
           child: BottomNavigationBar(
             elevation: 0,
             items: <BottomNavigationBarItem>[
@@ -89,8 +89,8 @@ class _MainPageState extends State<MainPage> {
               BottomNavigationBarItem(
                 icon: Padding(
                   padding: const EdgeInsets.only(bottom: 5.0),
-                  child: BlocBuilder<ActivityBadgeCubit,ActivityBadgeState>(
-                    builder:(context,state)=> Stack(
+                  child: BlocBuilder<ActivityBadgeCubit, ActivityBadgeState>(
+                    builder: (context, state) => Stack(
                       alignment: Alignment.topRight,
                       children: [
                         buildNavigationBarIcon(
@@ -98,12 +98,17 @@ class _MainPageState extends State<MainPage> {
                             _selectedIndex,
                             'assets/images/menu_item_notification.png',
                             'assets/images/menu_item_notification_active.png'),
-                        if(state.unreadCount>0)
+                        if (state.unreadCount > 0)
                           Container(
                             decoration: WidgetsDecoration.appBlueButtonStyle(),
                             height: 14,
                             width: 14,
-                            child: Center(child: Text(state.unreadCount.toString(), style: AppTextStyles.defaultBold.copyWith(color: Colors.white,fontSize: 9),)),
+                            child: Center(
+                                child: Text(
+                              state.unreadCount.toString(),
+                              style: AppTextStyles.defaultBold
+                                  .copyWith(color: Colors.white, fontSize: 9),
+                            )),
                           )
                       ],
                     ),
