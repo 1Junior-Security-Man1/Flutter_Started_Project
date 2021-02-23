@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
 import 'package:bounty_hub_client/data/models/entity/user/social.dart';
 import 'package:bounty_hub_client/data/models/entity/user/user.dart';
 import 'package:bounty_hub_client/data/repositories/profile_local_repository.dart';
@@ -31,7 +32,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
 
     if (event is SocialsReceivedEvent) {
-      yield state.copyWith(socials: event.socials);
+      yield state.copyWith(socials: event.socials, nextBtnWasPressed: Map<SocialNetworkType, bool>());
     }
 
     if (event is SelectSocialProfileEvent) {

@@ -102,6 +102,16 @@ class _SocialCardWidgetState extends State<SocialCardWidget> {
                                           element.type ==
                                           SocialNetworkType.LINKEDIN,
                                       orElse: () => null)),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              SocialIconWidget(
+                                  socialNetworkType: SocialNetworkType.TIKTOK,
+                                  social: state.socials.firstWhere(
+                                          (element) =>
+                                      element.type ==
+                                          SocialNetworkType.TIKTOK,
+                                      orElse: () => null)),
                             ],
                           ),
                         ),

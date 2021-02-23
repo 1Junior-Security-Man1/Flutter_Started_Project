@@ -36,7 +36,7 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
         ),
         Text(
           selectedModel.subTitle,
-          style: AppTextStyles.defaultText,
+          style: AppTextStyles.defaultBold,
         ),
         SizedBox(
           height: 8,
@@ -53,7 +53,7 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
                       children: [
                         Text(
                           '  ${i + 1}. ',
-                          style: AppTextStyles.defaultText,
+                          style: AppTextStyles.defaultText.copyWith(height: 1.5),
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width - 137,
@@ -67,7 +67,7 @@ class SocialDescriptionPreNextWidget extends StatelessWidget {
                                       text: '${selectedModel.text[i][j]}',
                                       style: selectedModel.isTextBold[i][j]
                                           ? AppTextStyles.defaultBold
-                                          : AppTextStyles.defaultText),
+                                          : AppTextStyles.defaultText.copyWith(height: 1.5)),
                               ],
                             ),
                           ),

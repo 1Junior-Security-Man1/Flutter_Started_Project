@@ -18,6 +18,7 @@ class SocialIconWidget extends StatelessWidget {
     SocialNetworkType.TWITTER: 'assets/images/twitter.png',
     SocialNetworkType.VK: 'assets/images/vk.png',
     SocialNetworkType.LINKEDIN: 'assets/images/linkedin.png',
+    SocialNetworkType.TIKTOK: 'assets/images/tiktok.png',
   };
   static final iconsDisable = {
     SocialNetworkType.FACEBOOK: 'assets/images/facebook_disable.png',
@@ -25,6 +26,7 @@ class SocialIconWidget extends StatelessWidget {
     SocialNetworkType.TWITTER: 'assets/images/twitter_disable.png',
     SocialNetworkType.VK: 'assets/images/vk_disable.png',
     SocialNetworkType.LINKEDIN: 'assets/images/linkedin_disable.png',
+    SocialNetworkType.TIKTOK: 'assets/images/tiktok_disable.png',
   };
 
   final Socials social;

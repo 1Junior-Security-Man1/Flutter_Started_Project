@@ -10,6 +10,10 @@ String _getNeedMakeText(String name, {bool isSkill = false}) {
   return '${AppStrings.uNeedMake} ${isSkill ? AppStrings.skill : AppStrings.post} ${AppStrings.on} $name, ${AppStrings.withThisHashtag} ';
 }
 
+String _getNeedAddHashTagText(String name) {
+  return '${AppStrings.addHashtag} $name ${AppStrings.profileDescription} ';
+}
+
 String _getMastBeAvailableText({bool isSkill = false}) {
   return '${AppStrings.thisS} ${isSkill ? AppStrings.skill : AppStrings.post} ${AppStrings.mustBeAvailable}';
 }
@@ -125,12 +129,35 @@ Map<SocialNetworkType, SocialUIModel> initUIModels(int shortNumberInt) {
       nextText: _getGreatText(isSkill: true),
       example: 'https://www.linkedin.com/in/your_name');
 
+  var tiktokIUModel = SocialUIModel('TikTok',
+      title: 'TikTok',
+      subTitle: _getSubTitle('TikTok'),
+      text: [
+        [_getNeedAddHashTagText('TikTok'), shortNumber],
+        [AppStrings.tiktokDescriptionSecondStep],
+        ['${AppStrings.tiktokDescriptionFinalStep} ${AppStrings.hours24}']
+      ],
+      isTextBold: [
+        [false, true],
+        [false],
+        [false, true]
+      ],
+      images: [
+        'https://account.bountyhub.io/img/tiktok_instruction.jpg',
+        null,
+        null
+      ],
+      bottomText: AppStrings.tiktokDescriptionBottomText,
+      nextText: AppStrings.tiktokGreatText,
+      example: 'https://www.tiktok.com/@YOUR_PROFILE');
+
   Map<SocialNetworkType, SocialUIModel> models = {
     SocialNetworkType.FACEBOOK: facebookIUModel,
     SocialNetworkType.INSTAGRAM: instgramIUModel,
     SocialNetworkType.TWITTER: twitterIUModel,
     SocialNetworkType.VK: vkIUModel,
-    SocialNetworkType.LINKEDIN: linkedInIUModel
+    SocialNetworkType.LINKEDIN: linkedInIUModel,
+    SocialNetworkType.TIKTOK: tiktokIUModel
   };
   return models;
 }
