@@ -292,4 +292,6 @@ class AppStrings {
   static String get tiktokGreatText =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext)
           .tiktokGreatText;
+  static String get taskWarning =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).taskWarning;
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
+import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
 import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
@@ -9,6 +10,7 @@ import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_campaign_so
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_completion_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_description_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_header_widget.dart';
+import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_warning_widget.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_status_widget.dart';
 import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
@@ -94,12 +96,12 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
           _cubit.fetchUserTask(widget.taskId);
           _tasksListCubit.refresh();
           if (state.link != null && state.link.isNotEmpty) {
-            showSocialAccountAuthorizationDialog(state.link, false);
+            showSocialAccountAuthorizationDialog(state, false);
           }
         }
 
         if (state.userTaskStatus == UserTaskStatus.reconfirm) {
-          showSocialAccountAuthorizationDialog(state.link, true);
+          showSocialAccountAuthorizationDialog(state, true);
         }
 
           if(state.action == UserAction.logout) {
@@ -121,7 +123,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     );
   }
 
-  void showSocialAccountAuthorizationDialog(String authLink, bool reconfirm) {
+  void showSocialAccountAuthorizationDialog(TaskDetailsState taskState, bool reconfirm) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -129,7 +131,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter state) {
                 return Container(
-                  height: 300,
+                  height: 600,
                   color: Colors.transparent,
                   child: Container(
                     padding: EdgeInsets.only(left: 36.0, right: 36.0),
@@ -149,6 +151,11 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
                               textAlign: TextAlign.center,
                             ),
                           ),
+                          taskState.task.getSocialNetwork() == SocialNetworkType.YOUTUBE ?
+                          TaskWarningWidget(
+                            link: 'https://account.bountyhub.io/img/youtube_instruction.png',
+                            message:  AppStrings.taskWarning,
+                          ) : SizedBox(),
                           Padding(
                             padding: const EdgeInsets.only(top: 16.0),
                             child: Container(
@@ -170,8 +177,8 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
                                 onPressed: () async {
                                   Navigator.of(context).pop();
                                   _cubit.onSocialAccountAuthorization(reconfirm);
-                                  if (await canLaunch(authLink)) {
-                                    await launch(authLink);
+                                  if (await canLaunch(taskState.link)) {
+                                    await launch(taskState.link);
                                   }
                                 },
                               ),
