@@ -3,6 +3,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/profile_pag
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/add_dialogs.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/ui/widgets/top_sheet_widget.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +47,7 @@ class _SettingsDialogState extends State<SettingsMenuDialog> {
     return Column(
       children: [
         CustomAppBar(
-          title: 'Settings',
+          title: AppStrings.settings,
           rightIcon: 'assets/images/reject.png',
           onRightIconClick: () {
             TopSheetState.close(context);
@@ -61,9 +62,9 @@ class _SettingsDialogState extends State<SettingsMenuDialog> {
               width: 36,
               height: 36,
             ),
-            title: Text('Log Out', style: AppTextStyles.settingsTextStyle),
+            title: Text(AppStrings.logOut, style: AppTextStyles.settingsTextStyle),
             onTap: () {
-              showConfirmActionDialog(context, 'Are you sure you want to Log Out from your account?', () {
+              showConfirmActionDialog(context, AppStrings.logOutConfirm, () {
                 logout(context);
               }, () {
                 Navigator.of(context).pop();
@@ -79,7 +80,7 @@ class _SettingsDialogState extends State<SettingsMenuDialog> {
               width: 28,
               height: 28,
             ),
-            title: Text('Edit Account Data', style: AppTextStyles.settingsTextStyle),
+            title: Text(AppStrings.editAccountData, style: AppTextStyles.settingsTextStyle),
             onTap: () {
               TopSheetState.close(context);
               Navigator.push(context, MaterialPageRoute(

@@ -26,6 +26,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
+import 'package:url_launcher/url_launcher.dart';
 
 class TaskDetailsWidget extends StatefulWidget {
   final String taskId;
@@ -101,28 +102,22 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
           showSocialAccountAuthorizationDialog(state.link, true);
         }
 
-        if (state.action == UserAction.logout) {
-          showConfirmActionDialog(
-              context,
-              'To earn ' +
-                  (state.task?.finalRewardAmount ?? 0.0).toString() +
-                  ' ' +
-                  state.task?.rewardCurrency +
-                  ' please Log In!', () {
-            logout(context);
-          }, () {
-            Navigator.of(context).pop();
-          });
-        }
-      },
-      child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
-        builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: _buildContent(context, state),
-          );
+          if(state.action == UserAction.logout) {
+            showConfirmActionDialog(context, AppStrings.toEarn + ' ' + (state.task?.finalRewardAmount ?? 0.0).toString() + ' ' + state.task?.rewardCurrency + ' ' + AppStrings.pleaseLogIn, () {
+              logout(context);
+            }, () {
+              Navigator.of(context).pop();
+            });
+          }
         },
-      ),
+        child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: _buildContent(context, state),
+            );
+          },
+        ),
     );
   }
 
@@ -133,64 +128,63 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
         builder: (builder) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter state) {
-            return Container(
-              height: 300,
-              color: Colors.transparent,
-              child: Container(
-                padding: EdgeInsets.only(left: 36.0, right: 36.0),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: new BorderRadius.only(
-                        topLeft: const Radius.circular(
-                            Dimens.app_bottom_dialog_border_radius),
-                        topRight: const Radius.circular(
-                            Dimens.app_bottom_dialog_border_radius))),
-                child: Form(
-                  child: ListView(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 24.0),
-                        child: Text(
-                          'Bounty checking procedure:',
-                          style: AppTextStyles.titleTextStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Container(
-                          child: Text(
-                            'Please authorize with the social network account which you performed this task for automatically check the status of completion.',
-                            style: AppTextStyles.greyContentTextStyle,
-                            textAlign: TextAlign.center,
+                return Container(
+                  height: 300,
+                  color: Colors.transparent,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 36.0, right: 36.0),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.only(
+                            topLeft: const Radius.circular(Dimens.app_bottom_dialog_border_radius),
+                            topRight: const Radius.circular(Dimens.app_bottom_dialog_border_radius))),
+                    child: Form(
+                      child: ListView(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: Text(
+                                AppStrings.bountyCheckingProcedure,
+                              style: AppTextStyles.titleTextStyle,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 24.0, bottom: 200),
-                        child: Center(
-                          child: AppButton(
-                            height: 50,
-                            type: AppButtonType.BLUE,
-                            text: 'Authorize',
-                            width: MediaQuery.of(context).size.width / 2,
-                            onPressed: () async {
-                              Navigator.of(context).pop();
-                              _cubit.onSocialAccountAuthorization(reconfirm);
-                              if (await launcher.canLaunch(authLink)) {
-                                await launcher.launch(authLink);
-                              }
-                            },
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: Container(
+                              child: Text(
+                                AppStrings.authorizeWithSocialInstruction,
+                                style: AppTextStyles.greyContentTextStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0, bottom: 200),
+                            child: Center(
+                              child: AppButton(
+                                height: 50,
+                                type: AppButtonType.BLUE,
+                                text: AppStrings.authorize,
+                                width: MediaQuery.of(context).size.width / 2,
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                  _cubit.onSocialAccountAuthorization(reconfirm);
+                                  if (await canLaunch(authLink)) {
+                                    await launch(authLink);
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            );
-          });
-        });
+                );
+              });
+        }
+    );
   }
 
   _buildContent(BuildContext context, TaskDetailsState state) {
@@ -351,7 +345,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
         ),
       );
     } else {
-      return EmptyDataPlaceHolder(message: 'Task not found');
+      return EmptyDataPlaceHolder(message: AppStrings.emptyTaskMessage);
     }
   }
 

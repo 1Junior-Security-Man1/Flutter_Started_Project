@@ -3,6 +3,7 @@ import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_state.dart';
 import 'package:bounty_hub_client/ui/pages/tasks_list/tasks_list_page.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +40,7 @@ class _TasksContentState extends State<TasksContent> {
                     Expanded(
                       child: AppButton(
                         height: 42,
-                        text: 'All Tasks',
+                        text: AppStrings.allTasks,
                         withShadow: state.currentTab == 0,
                         type: state.currentTab == 0?AppButtonType.BLUE:AppButtonType.WHITE,
                         onPressed: () {
@@ -51,7 +52,7 @@ class _TasksContentState extends State<TasksContent> {
                     Expanded(
                       child: AppButton(
                         height: 42,
-                        text: 'My To Do',
+                        text: AppStrings.myToDo,
                         withShadow: state.currentTab == 1,
                         type: state.currentTab == 1?AppButtonType.BLUE:AppButtonType.WHITE,
                         onPressed: () {

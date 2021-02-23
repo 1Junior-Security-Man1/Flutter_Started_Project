@@ -79,6 +79,7 @@ class AppState extends State<App> {
               builder: (context, locale) {
                 intl.Intl.defaultLocale = locale.languageCode;
                 return MaterialApp(
+                  debugShowCheckedModeBanner: false,
                     navigatorKey: App.globalNavigatorKey,
                     title: 'BountyHub',
                     theme: ThemeData(

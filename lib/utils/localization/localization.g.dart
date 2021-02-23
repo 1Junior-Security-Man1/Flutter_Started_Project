@@ -85,10 +85,64 @@ class AppLocalizations {
       rejectComment: "Reject Comment:",
       retry: "Retry",
       waitTaskVerified: "Please wait till Your task will be verified",
-      taskIsBeingChecked: "Task is being checked",
+      taskIsBeingChecked: "Task is being verified",
       pleaseLoginTo: "In order to have your task verifying, please login to",
       followInstruction:
           "To complete task, please follow the \"Instruction\" section and then click \"Complete\" to confirm",
+      activity: "Activity",
+      taskDetails: "Task details",
+      notifications: "Notifications",
+      doTasks: "Do Tasks",
+      editProfile: "Edit Profile",
+      save: "SAVE",
+      yourName: "Your Name",
+      gender: "Gender",
+      male: "MALE",
+      female: "FEMALE",
+      profileEmail: "E-Mail",
+      language: "Language",
+      select: "Select",
+      yourCountry: "Your country",
+      birthday: "Birthday",
+      yourBalance: "Your Balance",
+      bountyCoin: "Bounty Coin",
+      tronCoin: "Tron Coin",
+      withdraw: "withdraw",
+      level: "level",
+      guest: "Guest",
+      guestMode: "guest mode",
+      tronWallet: "Tron wallet",
+      enterWallet: "Enter wallet",
+      cancel: "Cancel",
+      youWantLeaveTask: "Are you sure you want to leave the task?",
+      continueTask: "Continue Task",
+      continueText: "Continue",
+      toEarn: "To earn",
+      pleaseLogIn: "please Log In!",
+      authorizeWithSocialInstruction:
+          "Please authorize with the social network account which you performed this task for automatically check the status of completion.",
+      authorize: "Authorize",
+      emptyTaskMessage: "Task not found",
+      socialNetworks: "Social Networks",
+      campaigns: "Campaigns",
+      allTasks: "All Tasks",
+      myToDo: "My To Do",
+      logInRegister: "Log In / Register to",
+      appTitle: "BountyHub Platform",
+      continueAsGuest: "OR CONTINUE AS GUEST",
+      warning: "Warning:",
+      settings: "Settings",
+      logOut: "Log Out",
+      logOutConfirm: "Are you sure you want to Log Out from your account?",
+      editAccountData: "Edit Account Data",
+      makePost: "MAKE POST",
+      nextButton: "NEXT",
+      remove: "REMOVE",
+      mySocialNetworks: "My Social Networks",
+      socialNetworkPages: "My Social network Pages to complete tasks",
+      connectSocialNetworksEarn:
+          "Connect Your Social Networks to start Earn Money",
+      reconfirmationTaskTime: "Re-confirmation task time",
     ),
     Locale.fromSubtags(languageCode: "DE"): AppLocalizations_Labels(
       signInTo: "Sign in to",
@@ -131,7 +185,7 @@ class AppLocalizations {
       mustBeAvailable:
           "must be available for all users, otherwise you account won't be validated",
       sholdBeInTop: "should be in your top 5 news feed for",
-      hours24: "25 hours",
+      hours24: "24 hours",
       thisS: "This",
       post: "post",
       skill: "skill",
@@ -163,37 +217,91 @@ class AppLocalizations {
       rejectComment: "Reject Comment:",
       retry: "Retry",
       waitTaskVerified: "Please wait till Your task will be verified",
-      taskIsBeingChecked: "Task is being checked",
+      taskIsBeingChecked: "Task is being verified",
       pleaseLoginTo: "In order to have your task verifying, please login to",
       followInstruction:
           "To complete task, please follow the \"Instruction\" section and then click \"Complete\" to confirm",
+      activity: "Activity",
+      taskDetails: "Task details",
+      notifications: "Notifications",
+      doTasks: "Do Tasks",
+      editProfile: "Edit Profile",
+      save: "SAVE",
+      yourName: "Your Name",
+      gender: "Gender",
+      male: "MALE",
+      female: "FEMALE",
+      profileEmail: "E-Mail",
+      language: "Language",
+      select: "Select",
+      yourCountry: "Your country",
+      birthday: "Birthday",
+      yourBalance: "Your Balance",
+      bountyCoin: "Bounty Coin",
+      tronCoin: "Tron Coin",
+      withdraw: "withdraw",
+      level: "level",
+      guest: "Guest",
+      guestMode: "guest mode",
+      tronWallet: "Tron wallet",
+      enterWallet: "Enter wallet",
+      cancel: "Cancel",
+      youWantLeaveTask: "Are you sure you want to leave the task?",
+      continueTask: "Continue Task",
+      continueText: "Continue",
+      toEarn: "To earn",
+      pleaseLogIn: "please Log In!",
+      authorizeWithSocialInstruction:
+          "Please authorize with the social network account which you performed this task for automatically check the status of completion.",
+      authorize: "Authorize",
+      emptyTaskMessage: "Task not found",
+      socialNetworks: "Social Networks",
+      campaigns: "Campaigns",
+      allTasks: "All Tasks",
+      myToDo: "My To Do",
+      logInRegister: "Log In / Register to",
+      appTitle: "BountyHub Platform",
+      continueAsGuest: "OR CONTINUE AS GUEST",
+      warning: "Warning:",
+      settings: "Settings",
+      logOut: "Log Out",
+      logOutConfirm: "Are you sure you want to Log Out from your account?",
+      editAccountData: "Edit Account Data",
+      makePost: "MAKE POST",
+      nextButton: "NEXT",
+      remove: "REMOVE",
+      mySocialNetworks: "My Social Networks",
+      socialNetworkPages: "My Social network Pages to complete tasks",
+      connectSocialNetworksEarn:
+          "Connect Your Social Networks to start Earn Money",
+      reconfirmationTaskTime: "Re-confirmation task time",
     ),
     Locale.fromSubtags(languageCode: "RU"): AppLocalizations_Labels(
-      signInTo: "Sign in to",
+      signInTo: "Войти",
       appName: "Bountyhub Platform",
-      back: "BACK",
-      completeCaptcha: "Before continue, please complete the captcha below.",
-      email: "Your email",
-      getAuthorizationCode: "Get Authorization Code",
+      back: "НАЗАД",
+      completeCaptcha: "Для продолжения поставте галочку, что вы не робот",
+      email: "Ваш E-mail",
+      getAuthorizationCode: "Получить код авторизации",
       checkToConfirmAuthorization:
-          "Please check your email and confirm your Authorization",
-      backToLogin: "BACK TO LOGIN",
-      confirm: "CONFIRM",
+          "Пожалуйста, проверьте свою электронную почту и подтвердите авторизацию",
+      backToLogin: "ВЕРНУТЬСЯ НА СТРАНИЦУ ВХОДА",
+      confirm: "Подтвердить",
       sendAuthorizationCode:
-          "We will send authorization code to your Email address",
-      confirmationCode: "Authorization Code",
+          "Мы отправим код авторизации на ваш электронный адрес",
+      confirmationCode: "Код авторизации",
       emailUsedNextTime:
-          "This email will be used next time log in with this Social Network",
-      invalidEmail: "Invalid email",
-      invalidCode: "Invalid authorization code",
-      tasksList: "Tasks List",
-      emptyDataMessage: "No Data Found",
-      budgetLeft: "Budget Left",
-      takeTask: "Take task",
-      participants: "Participants",
-      cantDo: "What you can`t do:",
-      instruction: "Instruction",
-      socialLink: "Social link",
+          "Этот адрес электронной почты будет использован при следующем входе в эту социальную сеть.",
+      invalidEmail: "Неверный E-mail",
+      invalidCode: "Неверный код авторизации",
+      tasksList: "Список задач",
+      emptyDataMessage: "Нет данных",
+      budgetLeft: "Оставшийся бюджет",
+      takeTask: "Взять задание",
+      participants: "Участники",
+      cantDo: "Чего нельзя делать:",
+      instruction: "Инструкция",
+      socialLink: "Ссылка на соц. сеть",
       inProgress: "In progress",
       verifying: "Verifying",
       approved: "Approved",
@@ -201,50 +309,106 @@ class AppLocalizations {
       reConfirm: "Re-Confirm",
       paid: "Paid",
       canceled: "Canceled",
-      defaultErrorMessage: "Something went wrong, please try again later.",
-      inOrderToAuth: "In order to authenticate you on",
-      uMastFille: "you must fulfill a few conditions:",
-      uNeedMake: "You need to make a ",
-      withThisHashtag: "with this hashtag",
+      defaultErrorMessage:
+          "Что-то пошло не так. Пожалуйста, повторите попытку позже.",
+      inOrderToAuth: "Для аутентификации в",
+      uMastFille: "вы должны выполнить несколько условий:",
+      uNeedMake: "Вам нужно сделать",
+      withThisHashtag: "с этим хэштегом",
       mustBeAvailable:
-          "must be available for all users, otherwise you account won't be validated",
-      sholdBeInTop: "should be in your top 5 news feed for",
-      hours24: "26 hours",
-      thisS: "This",
-      post: "post",
-      skill: "skill",
-      on: "on",
-      haveUCopied: "Have you copied your hashtag and created a",
+          "должен быть доступен для всех пользователей, иначе ваш аккаунт не будет проверен",
+      sholdBeInTop: "должен быть в одном из 5 последних ваших постов",
+      hours24: "24 часа",
+      thisS: "Этот",
+      post: "пост",
+      skill: "навык",
+      on: "на",
+      haveUCopied: "Вы скопировали хештег и создали пост?",
       greatSocial:
-          "Great! Now, you need to provide a link to your profile so that we can find the",
-      thatUJust: "that you just made on your page.",
-      byClicking: "by clicking the button below:",
-      copiedAndCreate: "Have you copied your hashtag and created a",
-      profile: "Profile",
-      your: "Your",
-      account: "account",
-      completeTask: "Complete Task",
-      complete: "Complete",
-      leave: "Leave",
-      confirmAsCompleted: "Do you want to confirm this task as 'completed'?",
-      requiredField: "Required field",
-      comment: "Comment",
+          "Отлично! Теперь вам нужно предоставить ссылку на свой профиль, чтобы мы могли найти",
+      thatUJust: "который вы только что сделали на своей странице.",
+      byClicking: "нажав кнопку ниже:",
+      copiedAndCreate: "Вы скопировали хештег и создали",
+      profile: "Профиль",
+      your: "Ваш",
+      account: "учетная запись",
+      completeTask: "Завершить задачу",
+      complete: "Завершить",
+      leave: "Покинуть",
+      confirmAsCompleted: "Вы хотите подтвердить эту задачу как «выполненную»?",
+      requiredField: "Обязательное поле",
+      comment: "Комментарий",
       uploadScreenshot:
-          "Please upload screenshot to show that the task is complete",
-      goToService: "Go to service",
-      bountyCheckingProcedure: "Bounty checking procedure:",
-      reconfirmTask: "Reconfirm Task",
-      reconfirm: "Reconfirm Task",
-      rejectTask: "Reject Task",
+          "Загрузите скриншот, чтобы показать, что задача выполнена",
+      goToService: "Перейти к сервису",
+      bountyCheckingProcedure: "Процедура проверки таска:",
+      reconfirmTask: "Подтвердить задачу",
+      reconfirm: "Подтвердить задачу",
+      rejectTask: "Отклонено",
       taskCompletionChecked:
-          "Your task completion has been checked and was rejected",
-      rejectComment: "Reject Comment:",
-      retry: "Retry",
-      waitTaskVerified: "Please wait till Your task will be verified",
-      taskIsBeingChecked: "Task is being checked",
-      pleaseLoginTo: "In order to have your task verifying, please login to",
+          "Выполнение вашей задачи проверено и было отклонено",
+      rejectComment: "Причина отклонения:",
+      retry: "Повторить",
+      waitTaskVerified: "Подождите, пока Ваша задача будет проверена",
+      taskIsBeingChecked: "Задача проверяется",
+      pleaseLoginTo: "Чтобы проверить свою задачу, войдите в",
       followInstruction:
-          "To complete task, please follow the \"Instruction\" section and then click \"Complete\" to confirm",
+          "Чтобы выполнить задачу, пожалуйста, следуйте инструкциям, а затем нажмите «Завершить» для подтверждения.",
+      activity: "Уведомления",
+      taskDetails: "Детали задачи",
+      notifications: "Уведомления",
+      doTasks: "Выполнить задачи",
+      editProfile: "Редактировать профиль",
+      save: "СОХРАНИТЬ",
+      yourName: "Ваше имя",
+      gender: "Пол",
+      male: "MALE",
+      female: "FEMALE",
+      profileEmail: "E-Mail",
+      language: "Язык",
+      select: "Выбрать",
+      yourCountry: "Ваша страна",
+      birthday: "День рождения",
+      yourBalance: "Ваш баланс",
+      bountyCoin: "Bounty Coin",
+      tronCoin: "Tron Coin",
+      withdraw: "снять со счета",
+      level: "уровень",
+      guest: "Гость",
+      guestMode: "гостевой режим",
+      tronWallet: "Кошелек Tron",
+      enterWallet: "Введите кошелек",
+      cancel: "Отмена",
+      youWantLeaveTask: "Вы уверены, что хотите покинуть задание?",
+      continueTask: "Продолжить задачу",
+      continueText: "Продолжить",
+      toEarn: "Заработать",
+      pleaseLogIn: "пожалуйста, авторизируйтесь!",
+      authorizeWithSocialInstruction:
+          "Пожалуйста, авторизуйтесь с учетной записью социальной сети, в которой вы выполняли эту задачу, для автоматической проверки статуса выполнения.",
+      authorize: "Авторизоваться",
+      emptyTaskMessage: "Задача не найдена",
+      socialNetworks: "Социальные сети",
+      campaigns: "Кампании",
+      allTasks: "Все задачи",
+      myToDo: "Мой To Do",
+      logInRegister: "Войти / Зарегистрироваться",
+      appTitle: "BountyHub Platform",
+      continueAsGuest: "ИЛИ ПРОДОЛЖИТЬ КАК ГОСТЬ",
+      warning: "Предупреждение:",
+      settings: "Настройки",
+      logOut: "Выйти",
+      logOutConfirm: "Вы уверены, что хотите выйти из своей учетной записи?",
+      editAccountData: "Редактировать профиль",
+      makePost: "СДЕЛАТЬ ПОСТ",
+      nextButton: "ДАЛЕЕ",
+      remove: "УДАЛИТЬ",
+      mySocialNetworks: "Мои социальные сети",
+      socialNetworkPages:
+          "Мои страницы в социальных сетях, для выполнения задач",
+      connectSocialNetworksEarn:
+          "Подключите свои социальные сети, чтобы начать зарабатывать",
+      reconfirmationTaskTime: "Время до повторного подтверждения задачи",
     ),
   };
 
@@ -323,7 +487,59 @@ class AppLocalizations_Labels {
       this.waitTaskVerified,
       this.taskIsBeingChecked,
       this.pleaseLoginTo,
-      this.followInstruction});
+      this.followInstruction,
+      this.activity,
+      this.taskDetails,
+      this.notifications,
+      this.doTasks,
+      this.editProfile,
+      this.save,
+      this.yourName,
+      this.gender,
+      this.male,
+      this.female,
+      this.profileEmail,
+      this.language,
+      this.select,
+      this.yourCountry,
+      this.birthday,
+      this.yourBalance,
+      this.bountyCoin,
+      this.tronCoin,
+      this.withdraw,
+      this.level,
+      this.guest,
+      this.guestMode,
+      this.tronWallet,
+      this.enterWallet,
+      this.cancel,
+      this.youWantLeaveTask,
+      this.continueTask,
+      this.continueText,
+      this.toEarn,
+      this.pleaseLogIn,
+      this.authorizeWithSocialInstruction,
+      this.authorize,
+      this.emptyTaskMessage,
+      this.socialNetworks,
+      this.campaigns,
+      this.allTasks,
+      this.myToDo,
+      this.logInRegister,
+      this.appTitle,
+      this.continueAsGuest,
+      this.warning,
+      this.settings,
+      this.logOut,
+      this.logOutConfirm,
+      this.editAccountData,
+      this.makePost,
+      this.nextButton,
+      this.remove,
+      this.mySocialNetworks,
+      this.socialNetworkPages,
+      this.connectSocialNetworksEarn,
+      this.reconfirmationTaskTime});
 
   final String signInTo;
 
@@ -460,4 +676,108 @@ class AppLocalizations_Labels {
   final String pleaseLoginTo;
 
   final String followInstruction;
+
+  final String activity;
+
+  final String taskDetails;
+
+  final String notifications;
+
+  final String doTasks;
+
+  final String editProfile;
+
+  final String save;
+
+  final String yourName;
+
+  final String gender;
+
+  final String male;
+
+  final String female;
+
+  final String profileEmail;
+
+  final String language;
+
+  final String select;
+
+  final String yourCountry;
+
+  final String birthday;
+
+  final String yourBalance;
+
+  final String bountyCoin;
+
+  final String tronCoin;
+
+  final String withdraw;
+
+  final String level;
+
+  final String guest;
+
+  final String guestMode;
+
+  final String tronWallet;
+
+  final String enterWallet;
+
+  final String cancel;
+
+  final String youWantLeaveTask;
+
+  final String continueTask;
+
+  final String continueText;
+
+  final String toEarn;
+
+  final String pleaseLogIn;
+
+  final String authorizeWithSocialInstruction;
+
+  final String authorize;
+
+  final String emptyTaskMessage;
+
+  final String socialNetworks;
+
+  final String campaigns;
+
+  final String allTasks;
+
+  final String myToDo;
+
+  final String logInRegister;
+
+  final String appTitle;
+
+  final String continueAsGuest;
+
+  final String warning;
+
+  final String settings;
+
+  final String logOut;
+
+  final String logOutConfirm;
+
+  final String editAccountData;
+
+  final String makePost;
+
+  final String nextButton;
+
+  final String remove;
+
+  final String mySocialNetworks;
+
+  final String socialNetworkPages;
+
+  final String connectSocialNetworksEarn;
+
+  final String reconfirmationTaskTime;
 }

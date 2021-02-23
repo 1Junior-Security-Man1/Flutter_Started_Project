@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class AnimatedAlertBuilderState extends State<AnimatedAlertBuilder> with SingleT
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Warning:',
+                      AppStrings.warning,
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         color: AppColors.errorTextColor,

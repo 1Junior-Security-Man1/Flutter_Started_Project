@@ -2,13 +2,13 @@ import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_state.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/widgets/social/social_description_widgets/social_description_widget.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'social_icon_widget.dart';
 
 class SocialCardWidget extends StatefulWidget {
@@ -36,14 +36,14 @@ class _SocialCardWidgetState extends State<SocialCardWidget> {
                     child: Column(
                       children: [
                         Text(
-                          'My Social Networks',
+                          AppStrings.mySocialNetworks,
                           style: AppTextStyles.titleTextStyle,
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          'My Social network Pages to Share Your Activity with friends',
+                          AppStrings.socialNetworkPages,
                           textAlign: TextAlign.center,
                           style: AppTextStyles.greyContentTextStyle,
                         ),
@@ -115,7 +115,7 @@ class _SocialCardWidgetState extends State<SocialCardWidget> {
                                       state.selectedSocial == null ? 15 : 0),
                               child: state.selectedSocial == null
                                   ? Text(
-                                      'Connect Your Social Networks to start Earn Money',
+                                AppStrings.connectSocialNetworksEarn,
                                       style: AppTextStyles.titleTextStyle,
                                       textAlign: TextAlign.center,
                                     )

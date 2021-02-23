@@ -10,7 +10,6 @@ import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'social_description_post_next_widget.dart';
 import 'social_ui_utils.dart';
 
@@ -93,7 +92,7 @@ class _SocialDescriptionWidgetState extends State<SocialDescriptionWidget> {
         withShadow: false,
         type: AppButtonType.OUTLINE,
         child: Text(
-          'REMOVE',
+          AppStrings.remove,
           style: TextStyle(
             color: AppColors.navigationWidgetsColor,
             fontWeight: FontWeight.w400,

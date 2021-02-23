@@ -5,6 +5,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/widgets/soc
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/widgets/wallet_card_widget.dart';
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/widgets/balances_widget.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -37,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: AppColors.pageBackgroundColor,
       appBar: CustomAppBar(
-        title: 'Profile',
+        title: AppStrings.profile,
         rightIcon: 'assets/images/edit_icon.png',
         leftIcon: widget.showBackButton ? 'assets/images/back.png' : '',
         onRightIconClick: () async {

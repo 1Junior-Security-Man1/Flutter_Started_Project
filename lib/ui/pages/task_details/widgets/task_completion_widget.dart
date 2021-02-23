@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bounty_hub_client/data/enums/task_validation_type.dart';
 import 'package:bounty_hub_client/data/enums/user_task_status.dart';
 import 'package:bounty_hub_client/data/models/entity/task/task.dart';
@@ -129,7 +128,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
             text: AppStrings.leave,
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
-              showConfirmActionDialog(context, 'Are you sure you want to leave the task?',
+              showConfirmActionDialog(context, AppStrings.youWantLeaveTask,
                       () {
                         leaveTask();
                       },
@@ -376,12 +375,12 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
   String getCompletingTaskInformation(Task parentTask) {
     switch(parentTask.getTaskValidationType()) {
       case TaskValidationType.AUTO_CHECK:
-        return 'In order to have your task verifying, please login to ' + EnumToString.convertToString(parentTask.getSocialNetwork());
+        return AppStrings.pleaseLoginTo + ' ' + EnumToString.convertToString(parentTask.getSocialNetwork());
       case TaskValidationType.SOCIAL_PARSER:
         if(parentTask.brief != null && parentTask.brief.isNotEmpty) {
           return parentTask.brief;
         } else {
-          return 'To complete task, please follow the "Instruction" section and then click "Complete" to confirm';
+          return AppStrings.followInstruction;
         }
         break;
       default:
@@ -399,7 +398,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Text(
-            'Continue Task',
+            AppStrings.continueTask,
             style: AppTextStyles.titleTextStyle,
             textAlign: TextAlign.center,
           ),
@@ -417,7 +416,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
           AppButton(
             height: 50,
             type: AppButtonType.BLUE,
-            text: 'Continue',
+            text: AppStrings.continueText,
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
               showCompleteTaskDialog();
@@ -438,7 +437,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Text(
-            'Reconfirm Task',
+            AppStrings.reconfirmTask,
             style: AppTextStyles.titleTextStyle,
             textAlign: TextAlign.center,
           ),
@@ -456,7 +455,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
           AppButton(
             height: 50,
             type: AppButtonType.BLUE,
-            text: 'Reconfirm',
+            text: AppStrings.reconfirm,
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
               reconfirmAutoCheckTask();
@@ -468,7 +467,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
   }
 
   Widget _buildApproveRejectWidget(UserTaskStatusType statusType, Color backgroundColor, int confirmationDaysCount) {
-    return statusType == UserTaskStatusType.APPROVED ? _buildVerifyingTimerWidget(widget.userTask, confirmationDaysCount, 'Re-confirmation task time:') : _buildRejectedWidget();
+    return statusType == UserTaskStatusType.APPROVED ? _buildVerifyingTimerWidget(widget.userTask, confirmationDaysCount, AppStrings.reconfirmationTaskTime) : _buildRejectedWidget();
   }
 
   Widget _buildRejectedWidget() {
@@ -481,7 +480,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Text(
-            'Reject Task',
+            AppStrings.rejected,
             style: AppTextStyles.titleTextStyle,
             textAlign: TextAlign.center,
           ),
@@ -489,7 +488,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
             height: 12.0,
           ),
           Text(
-            'Your task completion has been checked and was rejected',
+            AppStrings.taskCompletionChecked,
             style: AppTextStyles.greyContentTextStyle,
             textAlign: TextAlign.center,
           ),
@@ -500,7 +499,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
             width: double.infinity,
             margin: EdgeInsets.only(bottom: Dimens.content_internal_padding),
             padding: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding),
-            child: Text('Reject Comment: ' + widget.userTask.rejectComment,
+            child: Text(AppStrings.rejectComment + ' ' + widget.userTask.rejectComment,
               textAlign: TextAlign.center,
               style: AppTextStyles.defaultErrorText,
             ),
@@ -508,7 +507,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
           AppButton(
             height: 50,
             type: AppButtonType.BLUE,
-            text: 'Retry',
+            text: AppStrings.retry,
             width: MediaQuery.of(context).size.width / 2,
             onPressed: () {
               retryTask();
@@ -529,7 +528,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Text(
-            'Verifying',
+            AppStrings.verifying,
             style: AppTextStyles.titleTextStyle,
             textAlign: TextAlign.center,
           ),
@@ -537,7 +536,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
             height: 12.0,
           ),
           Text(
-            message == null ? 'Please wait till Your task will be verified' : message,
+            message == null ? AppStrings.waitTaskVerified : message,
             style: AppTextStyles.greyContentTextStyle,
             textAlign: TextAlign.center,
           ),
@@ -554,7 +553,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
             ),
             child:  Center(
               child: CountdownTimer(
-                emptyWidget: Text('Task is being verified ...',
+                emptyWidget: Text(AppStrings.taskIsBeingChecked,
                   style: TextStyle(color: Colors.white),
                 ),
                 endTime: getTaskVerificationTime(confirmationDaysCount,

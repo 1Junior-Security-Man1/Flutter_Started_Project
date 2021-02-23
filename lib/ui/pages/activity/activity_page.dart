@@ -4,6 +4,7 @@ import 'package:bounty_hub_client/ui/widgets/app_list_bottom_loader.dart';
 import 'package:bounty_hub_client/ui/widgets/custom_appbar.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
 import 'package:bounty_hub_client/ui/widgets/settings_menu_dialog.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
@@ -35,7 +36,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
       appBar: CustomAppBar(
         //leftIcon: 'assets/images/filter.png',
         rightIcon: 'assets/images/settings.png',
-        title: 'Activity',
+        title: AppStrings.activity,
         onLeftIconClick: () {},
         onRightIconClick: () {
           SettingsMenuDialog.show(context, () {});

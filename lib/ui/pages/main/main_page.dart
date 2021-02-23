@@ -9,6 +9,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profil
 import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/profile_page.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/tasks_page.dart';
+import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
@@ -31,7 +32,7 @@ class _MainPageState extends State<MainPage> {
       context.bloc<TasksCubit>().getCampaigns();
       context.bloc<ProfileBloc>().add(FetchProfileEvent());
       context?.bloc<ProfileBloc>()?.listen((state) {
-        if(context != null) {
+        if (context != null) {
           BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
             countryCode: getLanguageCode(state.user?.language)[1],
             languageCode: getLanguageCode(state.user?.language)[0],
@@ -60,7 +61,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: Container(
         decoration: WidgetsDecoration.appNavigationStyle(),
         child: SizedBox(
-          height: 70,
+          height: 70 + MediaQuery.of(context).padding.bottom,
           child: BottomNavigationBar(
             elevation: 0,
             items: <BottomNavigationBarItem>[
@@ -73,7 +74,7 @@ class _MainPageState extends State<MainPage> {
                       'assets/images/menu_item_tasks.png',
                       'assets/images/menu_item_tasks_active.png'),
                 ),
-                label: 'Do Tasks',
+                label: AppStrings.doTasks,
               ),
               BottomNavigationBarItem(
                 icon: Padding(
@@ -84,13 +85,13 @@ class _MainPageState extends State<MainPage> {
                       'assets/images/menu_item_profile.png',
                       'assets/images/menu_item_profile_active.png'),
                 ),
-                label: 'Profile',
+                label: AppStrings.profile,
               ),
               BottomNavigationBarItem(
                 icon: Padding(
                   padding: const EdgeInsets.only(bottom: 5.0),
-                  child: BlocBuilder<ActivityBadgeCubit,ActivityBadgeState>(
-                    builder:(context,state)=> Stack(
+                  child: BlocBuilder<ActivityBadgeCubit, ActivityBadgeState>(
+                    builder: (context, state) => Stack(
                       alignment: Alignment.topRight,
                       children: [
                         buildNavigationBarIcon(
@@ -98,18 +99,23 @@ class _MainPageState extends State<MainPage> {
                             _selectedIndex,
                             'assets/images/menu_item_notification.png',
                             'assets/images/menu_item_notification_active.png'),
-                        if(state.unreadCount>0)
+                        if (state.unreadCount > 0)
                           Container(
                             decoration: WidgetsDecoration.appBlueButtonStyle(),
                             height: 14,
                             width: 14,
-                            child: Center(child: Text(state.unreadCount.toString(), style: AppTextStyles.defaultBold.copyWith(color: Colors.white,fontSize: 9),)),
+                            child: Center(
+                                child: Text(
+                              state.unreadCount.toString(),
+                              style: AppTextStyles.defaultBold
+                                  .copyWith(color: Colors.white, fontSize: 9),
+                            )),
                           )
                       ],
                     ),
                   ),
                 ),
-                label: 'Notifications',
+                label: AppStrings.notifications,
               ),
             ],
             currentIndex: _selectedIndex,

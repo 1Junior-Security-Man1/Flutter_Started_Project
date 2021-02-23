@@ -162,4 +162,117 @@ class AppStrings {
   static String get followInstruction =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext)
           .followInstruction;
+  static String get activity =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).activity;
+  static String get taskDetails =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).taskDetails;
+  static String get notifications =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).notifications;
+  static String get doTasks =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).doTasks;
+  static String get editProfile =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).editProfile;
+  static String get save =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).save;
+  static String get yourName =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).yourName;
+  static String get gender =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).gender;
+  static String get male =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).male;
+  static String get female =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).female;
+  static String get profileEmail =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).profileEmail;
+  static String get language =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).language;
+  static String get select =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).select;
+  static String get yourCountry =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).yourCountry;
+  static String get birthday =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).birthday;
+  static String get yourBalance =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).yourBalance;
+  static String get bountyCoin =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).bountyCoin;
+  static String get tronCoin =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).tronCoin;
+  static String get withdraw =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).withdraw;
+  static String get level =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).level;
+  static String get guest =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).guest;
+  static String get guestMode =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).guestMode;
+  static String get tronWallet =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).tronWallet;
+  static String get enterWallet =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).enterWallet;
+  static String get cancel =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).cancel;
+  static String get youWantLeaveTask =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .youWantLeaveTask;
+  static String get continueTask =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).continueTask;
+  static String get continueText =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).continueText;
+  static String get toEarn =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).toEarn;
+  static String get pleaseLogIn =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).pleaseLogIn;
+  static String get authorizeWithSocialInstruction =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .authorizeWithSocialInstruction;
+  static String get authorize =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).authorize;
+  static String get emptyTaskMessage =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .emptyTaskMessage;
+  static String get socialNetworks =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).socialNetworks;
+  static String get campaigns =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).campaigns;
+  static String get allTasks =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).allTasks;
+  static String get myToDo =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).myToDo;
+  static String get logInRegister =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).logInRegister;
+  static String get appTitle =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).appTitle;
+  static String get continueAsGuest =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .continueAsGuest;
+  static String get warning =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).warning;
+  static String get settings =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).settings;
+  static String get logOut =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).logOut;
+  static String get logOutConfirm =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).logOutConfirm;
+  static String get editAccountData =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .editAccountData;
+  static String get makePost =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).makePost;
+  static String get nextButton =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).nextButton;
+  static String get remove =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).remove;
+  static String get mySocialNetworks =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .mySocialNetworks;
+  static String get socialNetworkPages =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .socialNetworkPages;
+  static String get connectSocialNetworksEarn =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .connectSocialNetworksEarn;
+  static String get reconfirmationTaskTime =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .reconfirmationTaskTime;
 }
