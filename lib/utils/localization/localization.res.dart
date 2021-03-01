@@ -275,4 +275,23 @@ class AppStrings {
   static String get reconfirmationTaskTime =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext)
           .reconfirmationTaskTime;
+  static String get addHashtag =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).addHashtag;
+  static String get profileDescription =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .profileDescription;
+  static String get tiktokDescriptionSecondStep =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .tiktokDescriptionSecondStep;
+  static String get tiktokDescriptionFinalStep =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .tiktokDescriptionFinalStep;
+  static String get tiktokDescriptionBottomText =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .tiktokDescriptionBottomText;
+  static String get tiktokGreatText =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .tiktokGreatText;
+  static String get taskWarning =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).taskWarning;
 }

@@ -230,6 +230,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
                             Padding(
                               padding: const EdgeInsets.only(top: 24.0),
                               child: AppTextField(
+                                textInputAction: TextInputAction.done,
                                 controller: _commentController,
                                 maxLines: 4,
                                 withShadow: false,

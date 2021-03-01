@@ -143,6 +143,18 @@ class AppLocalizations {
       connectSocialNetworksEarn:
           "Connect Your Social Networks to start Earn Money",
       reconfirmationTaskTime: "Re-confirmation task time",
+      addHashtag: "You need to add Bountyhub hashtag on your",
+      profileDescription: "profile description",
+      tiktokDescriptionSecondStep:
+          "Description should be public to users, otherwise your account won't be able to complete verification",
+      tiktokDescriptionFinalStep:
+          "This description should be covered in your description for a short-term period",
+      tiktokDescriptionBottomText:
+          "Have you already copied the Bountyhub hashtag and involved it into your TikTok description?",
+      tiktokGreatText:
+          "Great! Now please provide your TikTok profile link, so we can find you!",
+      taskWarning:
+          "When you complete the task you will see the following window, don\'t worry, bountyhub.io application is at the validation stage, give it permission to finish the task validation.",
     ),
     Locale.fromSubtags(languageCode: "DE"): AppLocalizations_Labels(
       signInTo: "Sign in to",
@@ -275,6 +287,18 @@ class AppLocalizations {
       connectSocialNetworksEarn:
           "Connect Your Social Networks to start Earn Money",
       reconfirmationTaskTime: "Re-confirmation task time",
+      addHashtag: "You need to add Bountyhub hashtag on your",
+      profileDescription: "profile description",
+      tiktokDescriptionSecondStep:
+          "Description should be public to users, otherwise your account won't be able to complete verification",
+      tiktokDescriptionFinalStep:
+          "This description should be covered in your description for a short-term period",
+      tiktokDescriptionBottomText:
+          "Have you already copied the Bountyhub hashtag and involved it into your TikTok description?",
+      tiktokGreatText:
+          "Great! Now please provide your TikTok profile link, so we can find you!",
+      taskWarning:
+          "When you complete the task you will see the following window, don\'t worry, bountyhub.io application is at the validation stage, give it permission to finish the task validation.",
     ),
     Locale.fromSubtags(languageCode: "RU"): AppLocalizations_Labels(
       signInTo: "Войти",
@@ -409,6 +433,18 @@ class AppLocalizations {
       connectSocialNetworksEarn:
           "Подключите свои социальные сети, чтобы начать зарабатывать",
       reconfirmationTaskTime: "Время до повторного подтверждения задачи",
+      addHashtag: "Вам нужно добавить хэштег Bountyhub в",
+      profileDescription: "описание вашего профиля",
+      tiktokDescriptionSecondStep:
+          "Описание должно быть общедоступным для пользователей, иначе ваша учетная запись не сможет пройти проверку",
+      tiktokDescriptionFinalStep:
+          "Это описание должно быть включено в ваше описание на короткий период",
+      tiktokDescriptionBottomText:
+          "Вы уже скопировали хэштег Bountyhub и использовали его в своем описании в TikTok?",
+      tiktokGreatText:
+          "Отлично! А теперь предоставьте ссылку на свой профиль в TikTok, и мы сможем вас найти!",
+      taskWarning:
+          "После того, как Вы выполните задание, появится следующее окно, не волнуйтесь, приложение bountyhub.io находится на этапе проверки. Подтвердите действие для завершения валидации задания.",
     ),
   };
 
@@ -539,7 +575,14 @@ class AppLocalizations_Labels {
       this.mySocialNetworks,
       this.socialNetworkPages,
       this.connectSocialNetworksEarn,
-      this.reconfirmationTaskTime});
+      this.reconfirmationTaskTime,
+      this.addHashtag,
+      this.profileDescription,
+      this.tiktokDescriptionSecondStep,
+      this.tiktokDescriptionFinalStep,
+      this.tiktokDescriptionBottomText,
+      this.tiktokGreatText,
+      this.taskWarning});
 
   final String signInTo;
 
@@ -780,4 +823,18 @@ class AppLocalizations_Labels {
   final String connectSocialNetworksEarn;
 
   final String reconfirmationTaskTime;
+
+  final String addHashtag;
+
+  final String profileDescription;
+
+  final String tiktokDescriptionSecondStep;
+
+  final String tiktokDescriptionFinalStep;
+
+  final String tiktokDescriptionBottomText;
+
+  final String tiktokGreatText;
+
+  final String taskWarning;
 }
