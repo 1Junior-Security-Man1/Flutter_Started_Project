@@ -10,6 +10,7 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bounty_hub_client/utils/bloc_utils.dart';
 
 class TasksPage extends StatelessWidget {
   @override
@@ -48,7 +49,7 @@ class TasksPage extends StatelessWidget {
                         allTasksCubit.refresh();
                         myTasksCubit.refresh();
 
-                      }, campaign:state.campaigns, selectedEntity:FilterEntity(null, null));
+                      }, height: isDefaultMode() ? 580.0 : 340.0, campaign:state.campaigns, selectedEntity:FilterEntity(null, null));
                     },
                   ),
               ),
