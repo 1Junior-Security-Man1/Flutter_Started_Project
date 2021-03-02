@@ -2,10 +2,12 @@ import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
 import 'package:bounty_hub_client/bloc/locale/locale_bloc.dart';
 import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
+import 'package:bounty_hub_client/data/remote_app_data.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/authorization_page.dart';
 import 'package:bounty_hub_client/ui/pages/main/main_page.dart';
 import 'package:bounty_hub_client/ui/pages/splash/splash_page.dart';
 import 'package:bounty_hub_client/ui/pages/welcome/weclome_page.dart';
+import 'package:bounty_hub_client/utils/locator.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +43,8 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
 
   Future<void> _initializeFlutterFireFuture;
+  RemoteAppData _remoteAppData = locator<RemoteAppData>();
+
   static BuildContext _context;
 
   final List<LocalizationsDelegate<dynamic>> localizationsDelegates = const [
@@ -57,6 +61,7 @@ class AppState extends State<App> {
 
   @override
   void initState() {
+    _remoteAppData.init();
     getApplicationSupportDirectory().then((value) => Hive.init(value.path));
     super.initState();
     _context = context;

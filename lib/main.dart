@@ -1,4 +1,5 @@
 import 'package:bounty_hub_client/utils/flavors.dart';
+import 'package:bounty_hub_client/utils/locator.dart';
 import 'package:bounty_hub_client/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,7 @@ void main() {
 
   WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded(() {
+    setupLocator();
     runApp(MultiRepositoryProvider(
         providers: getRepositories(client),
         child: MultiBlocProvider(providers: getProviders(client), child: App(flavor))));
@@ -26,5 +28,6 @@ void main() {
 
 void appConfig() {
   SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 }
+
