@@ -42,7 +42,7 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
 
-  Future<void> _initializeFlutterFireFuture;
+  Future<void> _initialize;
   RemoteAppData _remoteAppData = locator<RemoteAppData>();
 
   static BuildContext _context;
@@ -61,22 +61,22 @@ class AppState extends State<App> {
 
   @override
   void initState() {
-    _remoteAppData.init();
     getApplicationSupportDirectory().then((value) => Hive.init(value.path));
     super.initState();
     _context = context;
-    _initializeFlutterFireFuture = _initializeFlutterFire();
+    _initialize = _initializeAsync();
   }
 
-  Future<void> _initializeFlutterFire() async {
+  Future<void> _initializeAsync() async {
     await Firebase.initializeApp();
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    await _remoteAppData.initialize();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initializeFlutterFireFuture,
+      future: _initialize,
       builder: (context, snapshot) {
         return BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {

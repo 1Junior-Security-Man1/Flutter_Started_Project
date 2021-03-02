@@ -9,13 +9,14 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'app.dart';
 import 'network/server_api.dart';
 
-void main() {
+Future main() async {
   Flavor flavor = DevFlavour();
   final RestClient client = RestClient(baseUrl: flavor.baseUrl);
 
   WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
+
   runZonedGuarded(() {
-    setupLocator();
     runApp(MultiRepositoryProvider(
         providers: getRepositories(client),
         child: MultiBlocProvider(providers: getProviders(client), child: App(flavor))));

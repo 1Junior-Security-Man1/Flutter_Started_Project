@@ -10,7 +10,6 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'bloc/profile_bloc.dart';
 import 'bloc/profile_event.dart';
 
@@ -26,10 +25,12 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   ProfileBloc _bloc;
+  //RemoteAppData _remoteAppData;
 
   @override
   void initState() {
     _bloc = context.bloc<ProfileBloc>();
+    //_remoteAppData = locator<RemoteAppData>();
     super.initState();
   }
 

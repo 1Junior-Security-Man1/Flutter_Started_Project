@@ -3,7 +3,6 @@ import 'package:get_it/get_it.dart';
 
 GetIt locator = GetIt.instance;
 
-void setupLocator() async  {
-  var remoteAppData = await RemoteAppData.getInstance();
-  locator.registerSingleton(remoteAppData);
+Future setupLocator() async  {
+  locator.registerSingleton(await RemoteAppData.getInstance());
 }

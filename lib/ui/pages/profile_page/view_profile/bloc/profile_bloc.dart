@@ -16,15 +16,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   final ProfileRepository _profileRepository;
   final ProfileLocalRepository _profileLocalRepository;
-  final RemoteAppData _remoteAppData = locator<RemoteAppData>();
   final log = Logger();
 
   @override
   Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
     if (event is FetchProfileEvent) {
       loadUserProfile();
-      var appType = _remoteAppData.appType;
-      log.d('');
     }
 
     if (event is DestroyProfileEvent) {
