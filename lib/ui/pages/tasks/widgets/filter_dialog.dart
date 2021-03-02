@@ -58,7 +58,7 @@ class _FilterDialogState extends State<FilterDialog> {
         Column(
           children: [
             CustomAppBar(
-              title: isDefaultMode() ? AppStrings.socialNetworks : AppStrings.campaigns,
+              title: isNoCryptoMode() ? AppStrings.campaigns : AppStrings.socialNetworks,
               leftIcon: 'assets/images/reject.png',
               rightIcon: 'assets/images/filter_clear.png',
               onLeftIconClick: () {
@@ -73,10 +73,10 @@ class _FilterDialogState extends State<FilterDialog> {
             SizedBox(
               height: 162,
             ),
-            isDefaultMode() ? CustomAppBar(
+            isNoCryptoMode() ? SizedBox() : CustomAppBar(
               title: AppStrings.campaigns,
               color: Colors.white,
-            ) : SizedBox()
+            ),
           ],
         ),
         Padding(
@@ -90,7 +90,7 @@ class _FilterDialogState extends State<FilterDialog> {
                 children: [
                   ..._buildSocialList(),
                   SizedBox(
-                    height: isDefaultMode() ? 60 : 0,
+                    height: isNoCryptoMode() ? 0 : 60,
                   ),
                   ..._buildCampaignsList(),
                 ],
@@ -134,7 +134,7 @@ class _FilterDialogState extends State<FilterDialog> {
 
   List<Widget> _buildSocialList() {
     var socialList = SocialNetworkType.values;
-    return isDefaultMode() ? [
+    return !isNoCryptoMode() ? [
       Row(
         children: [
           for (int i = 0; i < socialList.length / 2; i++)

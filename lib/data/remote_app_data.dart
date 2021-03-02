@@ -5,6 +5,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 class RemoteAppData {
 
   static const String APP_MODE_KEY = 'APP_MODE';
+  static const String CURRENT_APPLE_REVIEWING_VERSION_KEY = 'CURRENT_APPLE_REVIEWING_VERSION';
 
   final RemoteConfig _remoteConfig;
   final defaults = <String, dynamic>{};
@@ -23,6 +24,8 @@ class RemoteAppData {
   RemoteAppData({RemoteConfig remoteConfig}) : _remoteConfig = remoteConfig;
 
   AppType get appType => EnumToString.fromString(AppType.values, _remoteConfig.getString(APP_MODE_KEY)) ?? AppType.DEFAULT;
+
+  String get buildVersion => _remoteConfig.getString(CURRENT_APPLE_REVIEWING_VERSION_KEY) ?? '';
 
   Future initialize() async {
     await _remoteConfig.setDefaults(defaults);

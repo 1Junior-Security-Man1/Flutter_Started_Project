@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'bloc/auth/authorization_bloc.dart';
 import 'data/repositories/preferences_local_repository.dart';
@@ -42,10 +43,11 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
 
-  Future<void> _initialize;
   RemoteAppData _remoteAppData = locator<RemoteAppData>();
 
   static BuildContext _context;
+
+  static String buildVersion;
 
   final List<LocalizationsDelegate<dynamic>> localizationsDelegates = const [
     AppLocalizationsDelegate(),
@@ -64,19 +66,19 @@ class AppState extends State<App> {
     getApplicationSupportDirectory().then((value) => Hive.init(value.path));
     super.initState();
     _context = context;
-    _initialize = _initializeAsync();
   }
 
-  Future<void> _initializeAsync() async {
+  Future<void> _initialize() async {
     await Firebase.initializeApp();
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
     await _remoteAppData.initialize();
+    await PackageInfo.fromPlatform().then((packageInfo) => buildVersion = packageInfo.version);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initialize,
+      future: _initialize(),
       builder: (context, snapshot) {
         return BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
