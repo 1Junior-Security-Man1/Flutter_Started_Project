@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/widgets/task_ui_utils.dart';
+import 'package:bounty_hub_client/utils/bloc_utils.dart';
 
 class BalancesWidget extends StatelessWidget {
 
@@ -34,7 +35,7 @@ class BalancesWidget extends StatelessWidget {
                     style: AppTextStyles.titleTextStyle,
                   ),
                 ),
-                Row(
+                !isNoSocialMode() ? Row(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
@@ -80,7 +81,7 @@ class BalancesWidget extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                ) : SizedBox(),
                 SizedBox(height: 8),
                 Row(
                   children: [

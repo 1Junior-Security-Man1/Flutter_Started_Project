@@ -49,7 +49,7 @@ class TasksPage extends StatelessWidget {
                         allTasksCubit.refresh();
                         myTasksCubit.refresh();
 
-                      }, height: isNoCryptoMode() ? 340.0 : 580.0, campaign:state.campaigns, selectedEntity:FilterEntity(null, null));
+                      }, height: isNoSocialMode() ? 340.0 : 580.0, campaign:state.campaigns, selectedEntity:FilterEntity(null, null));
                     },
                   ),
               ),

@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/profile_bloc.dart';
 import 'bloc/profile_event.dart';
+import 'package:bounty_hub_client/utils/bloc_utils.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -25,12 +26,10 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   ProfileBloc _bloc;
-  //RemoteAppData _remoteAppData;
 
   @override
   void initState() {
     _bloc = context.bloc<ProfileBloc>();
-    //_remoteAppData = locator<RemoteAppData>();
     super.initState();
   }
 
@@ -66,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
             LvlCardWidget(),
             BalancesWidget(),
             WalletCardWidget(),
-            SocialCardWidget()
+            isNoSocialMode() ? SizedBox() : SocialCardWidget(),
           ],
         ),
       ),

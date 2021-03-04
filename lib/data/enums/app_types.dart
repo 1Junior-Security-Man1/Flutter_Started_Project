@@ -1,10 +1,10 @@
 
 enum AppType {
   DEFAULT,
-  NON_CRYPTO,
+  NO_SOCIAL,
 }
 
 const appTypeEnumMap = {
   AppType.DEFAULT: 'DEFAULT',
-  AppType.NON_CRYPTO: 'NON_CRYPTO',
+  AppType.NO_SOCIAL: 'NON_CRYPTO',
 };
