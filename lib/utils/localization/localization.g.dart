@@ -155,6 +155,9 @@ class AppLocalizations {
           "Great! Now please provide your TikTok profile link, so we can find you!",
       taskWarning:
           "When you complete the task you will see the following window, don\'t worry, bountyhub.io application is at the validation stage, give it permission to finish the task validation.",
+      serverErrorNoSocialNetworksAdded:
+          "Please add your social networks to continue",
+      goToProfile: "Go to profile",
     ),
     Locale.fromSubtags(languageCode: "DE"): AppLocalizations_Labels(
       signInTo: "Sign in to",
@@ -299,6 +302,9 @@ class AppLocalizations {
           "Great! Now please provide your TikTok profile link, so we can find you!",
       taskWarning:
           "When you complete the task you will see the following window, don\'t worry, bountyhub.io application is at the validation stage, give it permission to finish the task validation.",
+      serverErrorNoSocialNetworksAdded:
+          "Please add your social networks to continue",
+      goToProfile: "Go to profile",
     ),
     Locale.fromSubtags(languageCode: "RU"): AppLocalizations_Labels(
       signInTo: "Войти",
@@ -445,6 +451,9 @@ class AppLocalizations {
           "Отлично! А теперь предоставьте ссылку на свой профиль в TikTok, и мы сможем вас найти!",
       taskWarning:
           "После того, как Вы выполните задание, появится следующее окно, не волнуйтесь, приложение bountyhub.io находится на этапе проверки. Подтвердите действие для завершения валидации задания.",
+      serverErrorNoSocialNetworksAdded:
+          "Пожалуйста, добавьте свои социальные сети, чтобы продолжить",
+      goToProfile: "Перейти к профилю",
     ),
   };
 
@@ -582,7 +591,9 @@ class AppLocalizations_Labels {
       this.tiktokDescriptionFinalStep,
       this.tiktokDescriptionBottomText,
       this.tiktokGreatText,
-      this.taskWarning});
+      this.taskWarning,
+      this.serverErrorNoSocialNetworksAdded,
+      this.goToProfile});
 
   final String signInTo;
 
@@ -837,4 +848,8 @@ class AppLocalizations_Labels {
   final String tiktokGreatText;
 
   final String taskWarning;
+
+  final String serverErrorNoSocialNetworksAdded;
+
+  final String goToProfile;
 }

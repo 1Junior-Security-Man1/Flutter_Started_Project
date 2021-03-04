@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
@@ -7,8 +8,12 @@ class AnimatedAlertBuilder extends StatefulWidget {
 
   final String message;
 
+  final Function action;
+
+  final String buttonText;
+
   const AnimatedAlertBuilder({Key key,
-    this.message
+    this.message, this.action, this.buttonText
   }) : super(key: key);
 
   @override
@@ -53,7 +58,7 @@ class AnimatedAlertBuilderState extends State<AnimatedAlertBuilder> with SingleT
               padding: const EdgeInsets.all(Dimens.content_padding),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       AppStrings.warning,
@@ -68,6 +73,7 @@ class AnimatedAlertBuilderState extends State<AnimatedAlertBuilder> with SingleT
                       padding: const EdgeInsets.only(bottom: 4.0),
                       child: Text(
                         widget.message,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: AppColors.itemTextColor,
@@ -76,6 +82,16 @@ class AnimatedAlertBuilderState extends State<AnimatedAlertBuilder> with SingleT
                         ),
                       ),
                     ),
+                    widget.action != null ? Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: AppButton(
+                        height: 50,
+                        type: AppButtonType.BLUE,
+                        text: widget.buttonText,
+                        width: MediaQuery.of(context).size.width / 2,
+                        onPressed: widget.action,
+                      ),
+                    ) : SizedBox(),
                 ],
               ),
             ),

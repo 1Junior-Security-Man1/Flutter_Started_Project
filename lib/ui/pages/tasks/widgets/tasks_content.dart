@@ -54,7 +54,7 @@ class _TasksContentState extends State<TasksContent> {
                         height: 42,
                         text: AppStrings.myToDo,
                         withShadow: state.currentTab == 1,
-                        type: state.currentTab == 1?AppButtonType.BLUE:AppButtonType.WHITE,
+                        type: state.currentTab == 1 ? AppButtonType.BLUE : AppButtonType.WHITE,
                         onPressed: () {
                           _cubit.onTabClick(1);
                         },
