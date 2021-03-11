@@ -13,9 +13,11 @@ ServerErrorType getServerErrorType(String responseMessage) {
     return ServerErrorType.UNKNOWN;
   }
 
-  if(responseMessage.contains('You must connect one of these social networks')) {
+  if(responseMessage.contains('You must connect one of these social networks') || (responseMessage.contains('Social account for') && responseMessage.contains('not set'))) {
     return ServerErrorType.NO_SOCIAL_NETWORKS_ADDED_ERROR;
-   } else {
+  } else if(responseMessage.contains('Please wait for the time to complete')) {
+    return ServerErrorType.WAIT_TIME_TO_COMPLETE;
+  } else {
     return ServerErrorType.UNKNOWN;
   }
 }
@@ -24,6 +26,8 @@ String getErrorMessage(ServerErrorType errorType) {
   switch(errorType) {
     case ServerErrorType.NO_SOCIAL_NETWORKS_ADDED_ERROR:
       return AppStrings.serverErrorNoSocialNetworksAdded;
+    case ServerErrorType.WAIT_TIME_TO_COMPLETE:
+      return AppStrings.serverErrorWaitTimeToComplete;
       default:
         return AppStrings.defaultErrorMessage;
   }

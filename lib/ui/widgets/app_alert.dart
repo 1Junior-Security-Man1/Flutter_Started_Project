@@ -1,26 +1,28 @@
+import 'package:bounty_hub_client/data/enums/response_error_types.dart';
+import 'package:bounty_hub_client/ui/pages/main/cubit/main_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/app_button.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
+import 'package:bounty_hub_client/utils/localization/response_localization.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AnimatedAlertBuilder extends StatefulWidget {
+class AppAlertDialog extends StatefulWidget {
 
   final String message;
+  final ServerErrorType serverErrorType;
 
-  final Function action;
-
-  final String buttonText;
-
-  const AnimatedAlertBuilder({Key key,
-    this.message, this.action, this.buttonText
+  const AppAlertDialog({Key key,
+    this.message,
+    this.serverErrorType = ServerErrorType.UNKNOWN,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => AnimatedAlertBuilderState();
+  State<StatefulWidget> createState() => AppAlertDialogState();
 }
 
-class AnimatedAlertBuilderState extends State<AnimatedAlertBuilder> with SingleTickerProviderStateMixin {
+class AppAlertDialogState extends State<AppAlertDialog> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
 
@@ -72,7 +74,7 @@ class AnimatedAlertBuilderState extends State<AnimatedAlertBuilder> with SingleT
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
                       child: Text(
-                        widget.message,
+                        getLocalizedMessage(widget.message),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -82,16 +84,16 @@ class AnimatedAlertBuilderState extends State<AnimatedAlertBuilder> with SingleT
                         ),
                       ),
                     ),
-                    widget.action != null ? Padding(
+                    hasAction(widget.message) ? Padding(
                       padding: const EdgeInsets.only(top: 16.0),
                       child: AppButton(
                         height: 50,
                         type: AppButtonType.BLUE,
-                        text: widget.buttonText,
+                        text: AppStrings.goToProfile,
                         width: MediaQuery.of(context).size.width / 2,
-                        onPressed: widget.action,
+                        onPressed: onAlertButtonAction(context, widget.message),
                       ),
-                    ) : SizedBox(),
+                    ): SizedBox(),
                 ],
               ),
             ),
@@ -99,5 +101,23 @@ class AnimatedAlertBuilderState extends State<AnimatedAlertBuilder> with SingleT
         ),
       ),
     );
+  }
+
+  bool hasAction(String message) {
+    ServerErrorType errorType = getServerErrorType(message);
+    return errorType == ServerErrorType.NO_SOCIAL_NETWORKS_ADDED_ERROR; // add other error types here for which button action is needed
+  }
+
+  Function onAlertButtonAction(BuildContext context, String message) {
+    switch(getServerErrorType(message)) {
+      case ServerErrorType.NO_SOCIAL_NETWORKS_ADDED_ERROR:
+        return () {
+          context.bloc<MainCubit>().setCurrentNavigationItem(1);
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        };
+        break;
+      default:
+        return null;
+    }
   }
 }

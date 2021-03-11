@@ -158,6 +158,9 @@ class AppLocalizations {
       serverErrorNoSocialNetworksAdded:
           "Please add your social networks to continue",
       goToProfile: "Go to profile",
+      canDo: "What you can do:",
+      serverErrorWaitTimeToComplete:
+          "The task is not yet available, please try again later",
     ),
     Locale.fromSubtags(languageCode: "DE"): AppLocalizations_Labels(
       signInTo: "Sign in to",
@@ -305,6 +308,9 @@ class AppLocalizations {
       serverErrorNoSocialNetworksAdded:
           "Please add your social networks to continue",
       goToProfile: "Go to profile",
+      canDo: "What you can do:",
+      serverErrorWaitTimeToComplete:
+          "The task is not yet available, please try again later",
     ),
     Locale.fromSubtags(languageCode: "RU"): AppLocalizations_Labels(
       signInTo: "Войти",
@@ -454,6 +460,8 @@ class AppLocalizations {
       serverErrorNoSocialNetworksAdded:
           "Пожалуйста, добавьте свои социальные сети, чтобы продолжить",
       goToProfile: "Перейти к профилю",
+      canDo: "Что нужно сделать:",
+      serverErrorWaitTimeToComplete: "Таск еще недоступен, попробуйте позже",
     ),
   };
 
@@ -593,7 +601,9 @@ class AppLocalizations_Labels {
       this.tiktokGreatText,
       this.taskWarning,
       this.serverErrorNoSocialNetworksAdded,
-      this.goToProfile});
+      this.goToProfile,
+      this.canDo,
+      this.serverErrorWaitTimeToComplete});
 
   final String signInTo;
 
@@ -852,4 +862,8 @@ class AppLocalizations_Labels {
   final String serverErrorNoSocialNetworksAdded;
 
   final String goToProfile;
+
+  final String canDo;
+
+  final String serverErrorWaitTimeToComplete;
 }

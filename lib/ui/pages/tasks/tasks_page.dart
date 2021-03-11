@@ -33,7 +33,7 @@ class TasksPage extends StatelessWidget {
             children: [
               BlocBuilder<TasksCubit, TasksState>(
                  builder: (context, state) =>
-                  IconButton(
+                 !isNoSocialMode() ? IconButton(
                     icon: Image.asset(
                       'assets/images/filter.png',
                       width: 26,
@@ -51,7 +51,7 @@ class TasksPage extends StatelessWidget {
 
                       }, height: isNoSocialMode() ? 340.0 : 580.0, campaign:state.campaigns, selectedEntity:FilterEntity(null, null));
                     },
-                  ),
+                  ) : SizedBox(),
               ),
             ],
           ),

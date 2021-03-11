@@ -14,8 +14,9 @@ int generateSignature() {
 // Method gets the values application mode and build version from firebase remote config,
 // this is needed for hide some UI components, for approval in the Apple Store Connect
 bool isNoSocialMode() {
-  return Platform.isIOS
-      && locator<RemoteAppData>().appType == AppType.NO_SOCIAL
+  return
+    Platform.isIOS &&
+        locator<RemoteAppData>().appType == AppType.NO_SOCIAL
       && locator<RemoteAppData>().buildVersion == AppState.buildVersion;
 }
 

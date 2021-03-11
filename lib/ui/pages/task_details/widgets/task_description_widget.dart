@@ -85,6 +85,25 @@ class TaskDescriptionWidget extends StatelessWidget {
             height: 8.0,
           ),
           Text(
+            AppStrings.canDo,
+            style: TextStyle(
+              color: AppColors.itemTextColor,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
+          Text(
+            task.canDo ?? '-',
+            style: TextStyle(
+              color: AppColors.itemTextColor,
+              fontWeight: FontWeight.w500,
+              fontSize: 12,
+            ),
+          ),
+          SizedBox(
+            height: 8.0,
+          ),
+          Text(
             AppStrings.cantDo,
             style: TextStyle(
               color: AppColors.itemTextColor,
@@ -93,7 +112,7 @@ class TaskDescriptionWidget extends StatelessWidget {
             ),
           ),
           Text(
-            checkNullString(task.forbiddenDo),
+            task.forbiddenDo ?? '-',
             style: TextStyle(
               color: AppColors.itemTextColor,
               fontWeight: FontWeight.w500,

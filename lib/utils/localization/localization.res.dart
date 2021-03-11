@@ -299,4 +299,9 @@ class AppStrings {
           .serverErrorNoSocialNetworksAdded;
   static String get goToProfile =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext).goToProfile;
+  static String get canDo =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).canDo;
+  static String get serverErrorWaitTimeToComplete =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .serverErrorWaitTimeToComplete;
 }

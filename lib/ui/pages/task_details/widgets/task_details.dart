@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
-import 'package:bounty_hub_client/ui/pages/main/cubit/main_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/cubit/task_details_state.dart';
@@ -30,7 +29,6 @@ import 'package:logger/logger.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:bounty_hub_client/utils/localization/response_localization.dart';
 
 class TaskDetailsWidget extends StatefulWidget {
   final String taskId;
@@ -81,13 +79,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
             state.status == TaskDetailsStatus.failure) {
           showDialog(
             context: context,
-            builder: (_) => AnimatedAlertBuilder(
-                action: () {
-                  context.bloc<MainCubit>().setCurrentNavigationItem(1);
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                },
-                buttonText: AppStrings.goToProfile,
-                message: state.errorMessage != null ? getLocalizedMessage(state.errorMessage) : AppStrings.defaultErrorMessage),
+            builder: (_) => AppAlertDialog(message: state.errorMessage),
           );
         }
 
