@@ -294,4 +294,14 @@ class AppStrings {
           .tiktokGreatText;
   static String get taskWarning =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext).taskWarning;
+  static String get serverErrorNoSocialNetworksAdded =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .serverErrorNoSocialNetworksAdded;
+  static String get goToProfile =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).goToProfile;
+  static String get canDo =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).canDo;
+  static String get serverErrorWaitTimeToComplete =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .serverErrorWaitTimeToComplete;
 }

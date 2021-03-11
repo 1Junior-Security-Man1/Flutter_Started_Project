@@ -7,4 +7,8 @@ class MainCubit extends Cubit<MainState> {
   final TaskRepository _taskRepository;
 
   MainCubit(this._taskRepository) : super(MainState());
+
+  void setCurrentNavigationItem(int index) {
+    emit(state.copyWith(currentNavigationItem: index));
+  }
 }

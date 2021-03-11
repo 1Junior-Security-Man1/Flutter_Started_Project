@@ -7,6 +7,7 @@ import 'package:bounty_hub_client/data/repositories/user_repository.dart';
 import 'package:bounty_hub_client/data/source/task_data_source.dart';
 import 'package:bounty_hub_client/network/constants.dart';
 import 'package:bounty_hub_client/network/server_api.dart';
+import 'package:bounty_hub_client/utils/bloc_utils.dart';
 
 class TaskRepository extends TaskDataSource {
 
@@ -32,7 +33,11 @@ class TaskRepository extends TaskDataSource {
     queries.putIfAbsent('hasPermissions', () => false);
     queries.putIfAbsent('accessMode', () => 'PUBLIC');
 
-    return client.getTasks(queries);
+    if(isNoSocialMode()) {
+      return client.getNoSocialTasks(queries);
+    } else {
+      return  client.getTasks(queries);
+    }
   }
 
   @override

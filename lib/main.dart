@@ -1,4 +1,5 @@
 import 'package:bounty_hub_client/utils/flavors.dart';
+import 'package:bounty_hub_client/utils/locator.dart';
 import 'package:bounty_hub_client/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,11 +9,13 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'app.dart';
 import 'network/server_api.dart';
 
-void main() {
+Future main() async {
   Flavor flavor = DevFlavour();
   final RestClient client = RestClient(baseUrl: flavor.baseUrl);
 
   WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
+
   runZonedGuarded(() {
     runApp(MultiRepositoryProvider(
         providers: getRepositories(client),
@@ -26,5 +29,6 @@ void main() {
 
 void appConfig() {
   SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 }
+

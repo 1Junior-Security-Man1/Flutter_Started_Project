@@ -53,6 +53,9 @@ abstract class RestClient {
   @GET("/items/filtered")
   Future<TasksResponse> getTasks(@Queries() Map<String, dynamic> queries);
 
+  @GET("/items/filtered/items")
+  Future<TasksResponse> getNoSocialTasks(@Queries() Map<String, dynamic> queries);
+
   @GET("/items/{itemId}")
   Future<Task> getTask(@Path('itemId') String taskId);
 

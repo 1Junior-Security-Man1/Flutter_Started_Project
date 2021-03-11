@@ -17,7 +17,6 @@ class MyTaskItem extends StatelessWidget {
       type: MaterialType.transparency,
       child: InkWell(
         child: Container(
-          height: 80,
           child: ListTile(
             hoverColor: Colors.transparent,
             onTap: () {
@@ -48,7 +47,7 @@ class MyTaskItem extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
                     child: Text(
-                      task.finalRewardAmount.toString() + ' ' + task.rewardCurrency,
+                      (task.finalRewardAmount ?? task.rewardAmount ?? 0).toString() + ' ' + task.rewardCurrency,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: Colors.white,
@@ -61,7 +60,7 @@ class MyTaskItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 4.0),
                   child: Text(
-                    calculateUsdEquivalent(task.finalRewardAmount, task.usdEquivalent),
+                    calculateUsdEquivalent(task),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: AppColors.currencyTextColor,

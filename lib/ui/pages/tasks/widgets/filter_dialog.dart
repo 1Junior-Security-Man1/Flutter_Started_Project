@@ -10,25 +10,9 @@ import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:bounty_hub_client/utils/bloc_utils.dart';
 
 typedef void OnSelect(FilterEntity detail);
-
-//item h 45
-// item pad to text 8
-//text, 2 line max h - 22
-//text pad to next item - 12
-//item h 45
-//second item pad to title 30
-// =158
-
-//soc item - 78
-// 3 row - 234
-// indicator - 60
-// = 294
-
-//2 titles = 100
-
-// = 556
 
 class FilterDialog extends StatefulWidget {
   final OnSelect onSelect;
@@ -44,7 +28,6 @@ class FilterDialog extends StatefulWidget {
 
     selectedEntity.selectedCampaign = filtered?.selectedCampaign;
     selectedEntity.selectedSocial = filtered?.selectedSocial;
-
     return showDialog(
         context: context,
         builder: (context) =>
@@ -75,7 +58,7 @@ class _FilterDialogState extends State<FilterDialog> {
         Column(
           children: [
             CustomAppBar(
-              title: AppStrings.socialNetworks,
+              title: isNoSocialMode() ? AppStrings.campaigns : AppStrings.socialNetworks,
               leftIcon: 'assets/images/reject.png',
               rightIcon: 'assets/images/filter_clear.png',
               onLeftIconClick: () {
@@ -90,10 +73,10 @@ class _FilterDialogState extends State<FilterDialog> {
             SizedBox(
               height: 162,
             ),
-            CustomAppBar(
+            isNoSocialMode() ? SizedBox() : CustomAppBar(
               title: AppStrings.campaigns,
               color: Colors.white,
-            )
+            ),
           ],
         ),
         Padding(
@@ -107,7 +90,7 @@ class _FilterDialogState extends State<FilterDialog> {
                 children: [
                   ..._buildSocialList(),
                   SizedBox(
-                    height: 60,
+                    height: isNoSocialMode() ? 0 : 60,
                   ),
                   ..._buildCampaignsList(),
                 ],
@@ -151,7 +134,7 @@ class _FilterDialogState extends State<FilterDialog> {
 
   List<Widget> _buildSocialList() {
     var socialList = SocialNetworkType.values;
-    return [
+    return !isNoSocialMode() ? [
       Row(
         children: [
           for (int i = 0; i < socialList.length / 2; i++)
@@ -173,6 +156,13 @@ class _FilterDialogState extends State<FilterDialog> {
             )
         ],
       )
+    ] : [];
+  }
+
+  List<Widget> _buildEmptyList() {
+    return [
+      SizedBox(),
+      SizedBox()
     ];
   }
 
