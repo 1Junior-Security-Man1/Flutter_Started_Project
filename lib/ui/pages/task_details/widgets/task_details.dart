@@ -79,10 +79,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
             state.status == TaskDetailsStatus.failure) {
           showDialog(
             context: context,
-            builder: (_) => AnimatedAlertBuilder(
-                message: state.errorMessage != null
-                    ? state.errorMessage
-                    : AppStrings.defaultErrorMessage),
+            builder: (_) => AppAlertDialog(message: state.errorMessage),
           );
         }
 

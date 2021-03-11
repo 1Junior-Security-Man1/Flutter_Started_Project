@@ -10,9 +10,9 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'bloc/profile_bloc.dart';
 import 'bloc/profile_event.dart';
+import 'package:bounty_hub_client/utils/bloc_utils.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -65,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
             LvlCardWidget(),
             BalancesWidget(),
             WalletCardWidget(),
-            SocialCardWidget()
+            isNoSocialMode() ? SizedBox() : SocialCardWidget(),
           ],
         ),
       ),

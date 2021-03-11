@@ -4,7 +4,6 @@ import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_cub
 import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
 import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
 import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
-import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/widgets/authorization_form.dart';
@@ -30,10 +29,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
             state.status == AuthorizationStatus.confirmCodeError) {
           showDialog(
             context: context,
-            builder: (_) => AnimatedAlertBuilder(
-                message: state.errorMessage != null
-                    ? state.errorMessage
-                    : AppStrings.defaultErrorMessage),
+            builder: (_) => AppAlertDialog(message: state.errorMessage),
           );
         }
       },
