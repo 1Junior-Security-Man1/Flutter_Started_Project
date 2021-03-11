@@ -35,7 +35,7 @@ class BalancesWidget extends StatelessWidget {
                     style: AppTextStyles.titleTextStyle,
                   ),
                 ),
-                !isNoSocialMode() ? Row(
+                Row(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
@@ -81,7 +81,7 @@ class BalancesWidget extends StatelessWidget {
                       ),
                     ),
                   ],
-                ) : SizedBox(),
+                ),
                 SizedBox(height: 8),
                 Row(
                   children: [
@@ -130,7 +130,7 @@ class BalancesWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                Padding(
+                !isNoSocialMode() ? Padding(
                   padding: const EdgeInsets.only(top: 12.0),
                   child: AppButton(
                     enable: state.user != null && state.user.id != null,
@@ -143,7 +143,7 @@ class BalancesWidget extends StatelessWidget {
                       }
                     },
                   ),
-                ),
+                ) : SizedBox(),
               ],
             ),
           ),
