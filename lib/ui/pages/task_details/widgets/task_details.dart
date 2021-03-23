@@ -29,6 +29,9 @@ import 'package:logger/logger.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:bounty_hub_client/utils/ads/ad_helper.dart';
+import 'package:bounty_hub_client/app.dart';
 
 class TaskDetailsWidget extends StatefulWidget {
   final String taskId;
@@ -46,6 +49,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   MyTasksCubit _myTasksListCubit;
   var logger = Logger();
   StreamSubscription _sub;
+  InterstitialAd _interstitialAd;
 
   @override
   void initState() {
@@ -55,6 +59,44 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
     _myTasksListCubit = context.bloc<MyTasksCubit>();
     _cubit.fetchTask(widget.taskId);
     initPlatformState();
+    createInterstitialAd();
+  }
+
+  void createInterstitialAd() {
+    _interstitialAd ??= InterstitialAd(
+      adUnitId: AdHelper.interstitialAdUnitId,
+      request: AdRequest(),
+      listener: AdListener(
+        onAdLoaded: (Ad ad) {
+          if(isInterstitialAdNeedToShow()) {
+            showInterstitialAd();
+          }
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          ad.dispose();
+          _interstitialAd = null;
+          createInterstitialAd();
+        },
+        onAdClosed: (Ad ad) {
+          ad.dispose();
+        },
+      ),
+    )..load();
+  }
+
+  showInterstitialAd() {
+    _interstitialAd.show();
+    _interstitialAd = null;
+  }
+
+  bool isInterstitialAdNeedToShow() {
+      if(AdHelper.interstitialAdShowsCount < currentFlavour.interstitialBannerShowingPeriod - 1) {
+      AdHelper.interstitialAdShowsCount += 1;
+      return false;
+    } else {
+      AdHelper.interstitialAdShowsCount = 0;
+      return true;
+    }
   }
 
   initPlatformState() async {
@@ -87,6 +129,10 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
             state.userTaskStatus == UserTaskStatus.leave_success) {
           _myTasksListCubit.refresh();
           _tasksListCubit.refresh();
+
+          if(state.userTaskStatus == UserTaskStatus.take_success) {
+            showInterstitialAd();
+          }
         }
 
         if (state.userTaskStatus == UserTaskStatus.confirm_success) {
@@ -356,6 +402,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   @override
   void dispose() {
     if (_sub != null) _sub.cancel();
+    _interstitialAd?.dispose();
     super.dispose();
   }
 }

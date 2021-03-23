@@ -50,6 +50,7 @@ class _TasksListPageState extends State<TasksListPage> {
                   return const EmptyDataPlaceHolder();
                 }
                 return Container(
+                  padding: EdgeInsets.only(bottom: 42.0),
                   margin: EdgeInsets.only(
                     left: Dimens.content_padding,
                     right: Dimens.content_padding,
