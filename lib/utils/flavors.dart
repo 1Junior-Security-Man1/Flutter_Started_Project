@@ -19,6 +19,10 @@ abstract class Flavor{
 
   String get interstitialBannerIOSUnitId => '';
 
+  String get tasksNativeAdAndroidUnitId => '';
+
+  String get tasksNativeAdIOSUnitId => '';
+
   int get interstitialBannerShowingPeriod => 0; // show banner every 2nd view
 }
 
@@ -36,10 +40,16 @@ class ProdFlavour extends Flavor {
   String get interstitialBannerAndroidUnitId => 'ca-app-pub-7813571864928265/7086910030';
 
   @override
-  String get interstitialBannerIOSUnitId => '';
+  String get tasksNativeAdAndroidUnitId => 'ca-app-pub-7813571864928265/8719911124';
 
   @override
   String get bannerIOSUnitId => '';
+
+  @override
+  String get interstitialBannerIOSUnitId => '';
+
+  @override
+  String get tasksNativeAdIOSUnitId => '';
 
   @override
   int get interstitialBannerShowingPeriod => 2;
@@ -62,6 +72,12 @@ class DevFlavour extends Flavor  {
 
   @override
   String get interstitialBannerIOSUnitId => InterstitialAd.testAdUnitId;
+
+  @override
+  String get tasksNativeAdAndroidUnitId => NativeAd.testAdUnitId;
+
+  @override
+  String get tasksNativeAdIOSUnitId => NativeAd.testAdUnitId;
 
   @override
   int get interstitialBannerShowingPeriod => 2;

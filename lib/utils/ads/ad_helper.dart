@@ -4,6 +4,8 @@ import 'package:bounty_hub_client/app.dart';
 
 class AdHelper {
 
+  static final nativeAdStep = 4;
+
   static int interstitialAdShowsCount = 0;
 
   static String get bannerAdUnitId {
@@ -21,6 +23,16 @@ class AdHelper {
       return  currentFlavour.interstitialBannerAndroidUnitId;
     } else if (Platform.isIOS) {
       return currentFlavour.interstitialBannerIOSUnitId;
+    } else {
+      throw new UnsupportedError("Unsupported platform");
+    }
+  }
+
+  static String get tasksNativeAdUnitId {
+    if (Platform.isAndroid) {
+      return  currentFlavour.tasksNativeAdAndroidUnitId;
+    } else if (Platform.isIOS) {
+      return currentFlavour.tasksNativeAdIOSUnitId;
     } else {
       throw new UnsupportedError("Unsupported platform");
     }
