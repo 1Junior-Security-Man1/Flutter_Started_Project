@@ -4,15 +4,13 @@ import 'package:bounty_hub_client/app.dart';
 
 class AdHelper {
 
-  static const nativeAdStep = 4;
-
   static int interstitialAdShowsCount = 0;
 
   /*
   Calculates the current item position in the list in which to show native ad
    */
-  static bool isNeedShowAd(int itemPosition) {
-    return (itemPosition + 1) % nativeAdStep == 0;
+  static bool isNeedShowAd(int itemPosition, int step) {
+    return (itemPosition + 1) % step == 0;
   }
 
   static String get bannerAdUnitId {

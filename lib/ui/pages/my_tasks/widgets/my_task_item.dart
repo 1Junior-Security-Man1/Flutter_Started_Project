@@ -47,7 +47,7 @@ class _MyTasksItemState extends State<MyTaskItem> with AutomaticKeepAliveClientM
       ),
     );
 
-    if(AdHelper.isNeedShowAd(widget.index)) {
+    if(AdHelper.isNeedShowAd(widget.index, 4)) {
       _ad.load();
     }
   }

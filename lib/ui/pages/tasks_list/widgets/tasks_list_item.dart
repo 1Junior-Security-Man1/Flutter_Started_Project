@@ -48,7 +48,7 @@ class _TasksListItemState extends State<TasksListItem> with AutomaticKeepAliveCl
       ),
     );
 
-    if(AdHelper.isNeedShowAd(widget.index)) {
+    if(AdHelper.isNeedShowAd(widget.index, 4)) {
       _ad.load();
     }
   }
