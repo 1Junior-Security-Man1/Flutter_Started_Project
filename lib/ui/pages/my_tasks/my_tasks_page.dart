@@ -62,7 +62,7 @@ class _MyTasksPageState extends State<MyTasksPage> {
                     itemBuilder: (BuildContext context, int index) {
                       return index >= state.tasks.length
                           ? state.tasks.length > 10 ? BottomLoader() : SizedBox()
-                          : MyTaskItem(task: state.tasks[index]);
+                          : MyTaskItem(task: state.tasks[index], index: index);
                       },
                     itemCount: state.hasReachedMax
                         ? state.tasks.length

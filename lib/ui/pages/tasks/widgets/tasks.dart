@@ -10,12 +10,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bounty_hub_client/ui/widgets/ads/banner_ad_widget.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class TasksContent extends StatefulWidget {
+class Tasks extends StatefulWidget {
   @override
-  _TasksContentState createState() => _TasksContentState();
+  _TasksState createState() => _TasksState();
 }
 
-class _TasksContentState extends State<TasksContent> {
+class _TasksState extends State<Tasks> {
 
   TasksCubit _cubit;
 

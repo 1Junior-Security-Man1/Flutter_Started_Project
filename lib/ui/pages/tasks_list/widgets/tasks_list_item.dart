@@ -8,9 +8,10 @@ import 'package:intl/intl.dart';
 import 'package:bounty_hub_client/data/models/entity/task/base_task.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:bounty_hub_client/utils/ads/ad_helper.dart';
+import 'package:bounty_hub_client/ui/widgets/ads/native_ad_widget.dart';
 
 class TasksListItem extends StatefulWidget {
-  const TasksListItem({Key key, @required this.task, this.index}) : super(key: key);
+  const TasksListItem({Key key, @required this.task, @required this.index}) : super(key: key);
 
   final Task task;
   final int index;
@@ -47,7 +48,7 @@ class _TasksListItemState extends State<TasksListItem> with AutomaticKeepAliveCl
       ),
     );
 
-    if((widget.index + 1) % AdHelper.nativeAdStep == 0) {
+    if(AdHelper.isNeedShowAd(widget.index)) {
       _ad.load();
     }
   }
@@ -123,7 +124,7 @@ class _TasksListItemState extends State<TasksListItem> with AutomaticKeepAliveCl
                 ),
                 dense: true,
               ),
-              getNativeAdItem(_isAdLoaded, _ad),
+              NativeAdWidget(isAdLoaded: _isAdLoaded, ad: _ad),
             ],
           ),
         ),
@@ -139,19 +140,6 @@ class _TasksListItemState extends State<TasksListItem> with AutomaticKeepAliveCl
 
   @override
   bool get wantKeepAlive => true;
-}
-
-Widget getNativeAdItem(bool _isAdLoaded, NativeAd ad) {
-  if(_isAdLoaded) {
-    return Container(
-      padding: EdgeInsets.only(left: 4.0),
-      child: AdWidget(ad: ad),
-      height: 72.0,
-      alignment: Alignment.center,
-    );
-  } else {
-    return SizedBox();
-  }
 }
 
 String calculateUsdEquivalent(BaseTask task) {

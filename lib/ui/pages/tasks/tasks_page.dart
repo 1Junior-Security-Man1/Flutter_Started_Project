@@ -2,7 +2,7 @@ import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_state.dart';
 import 'package:bounty_hub_client/ui/pages/tasks/widgets/filter_dialog.dart';
-import 'package:bounty_hub_client/ui/pages/tasks/widgets/tasks_content.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/widgets/tasks.dart';
 import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/settings_menu_dialog.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
@@ -18,7 +18,7 @@ class TasksPage extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(context),
       backgroundColor: AppColors.pageBackgroundColor,
-      body: TasksContent(),
+      body: Tasks(),
     );
   }
 
