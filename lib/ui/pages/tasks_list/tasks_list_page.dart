@@ -50,6 +50,7 @@ class _TasksListPageState extends State<TasksListPage> {
                   return const EmptyDataPlaceHolder();
                 }
                 return Container(
+                  padding: EdgeInsets.only(bottom: 42.0),
                   margin: EdgeInsets.only(
                     left: Dimens.content_padding,
                     right: Dimens.content_padding,
@@ -59,8 +60,8 @@ class _TasksListPageState extends State<TasksListPage> {
                   child: ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
                       return index >= state.tasks.length
-                          ? state.tasks.length > 10 ? BottomLoader() : SizedBox()
-                          : TasksListItem(task: state.tasks[index]);
+                          ? state.tasks.length > 20 ? BottomLoader() : SizedBox()
+                          : TasksListItem(task: state.tasks[index], index: index);
                     },
                     itemCount: state.hasReachedMax
                         ? state.tasks.length

@@ -1,3 +1,4 @@
 image_picker
 firebase_crashlytics
 uni_links
+google_mobile_ads

@@ -6,84 +6,140 @@ import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:bounty_hub_client/data/models/entity/task/base_task.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:bounty_hub_client/utils/ads/ad_helper.dart';
+import 'package:bounty_hub_client/ui/widgets/ads/native_ad_widget.dart';
 
-class TasksListItem extends StatelessWidget {
-  const TasksListItem({Key key, @required this.task}) : super(key: key);
+class TasksListItem extends StatefulWidget {
+  const TasksListItem({Key key, @required this.task, @required this.index}) : super(key: key);
 
   final Task task;
+  final int index;
+
+  @override
+  _TasksListItemState createState() => _TasksListItemState();
+}
+
+class _TasksListItemState extends State<TasksListItem> with AutomaticKeepAliveClientMixin {
+
+  NativeAd _ad;
+  bool _isAdLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    createNativeAd();
+  }
+
+  void createNativeAd() {
+    _ad = NativeAd(
+      adUnitId: AdHelper.tasksNativeAdUnitId,
+      factoryId: 'listTile',
+      request: AdRequest(),
+      listener: AdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+        },
+      ),
+    );
+
+    if(AdHelper.isNeedShowAd(widget.index, 4)) {
+      _ad.load();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Material(
       type: MaterialType.transparency,
       child: InkWell(
         child: Container(
-          child: ListTile(
-            hoverColor: Colors.transparent,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => TaskDetailsPage(title: task.productName, taskId: task.id)
-              )
-              );
-            },
-            contentPadding: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding, top: 12.0, bottom: 12.0),
-            leading: Container(
-              decoration: BoxDecoration(
-                color: AppColors.secondaryColor,
-                shape: BoxShape.circle,
-              ),
-              width: 48,
-              height: 48,
-              alignment: Alignment.center,
-              child:  buildSocialImage(task.getSocialNetwork()),
-            ),
-            trailing: Column(
-              children: [
-                Container(
+          child: Column(
+            children: [
+              ListTile(
+                hoverColor: Colors.transparent,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => TaskDetailsPage(title: widget.task.productName, taskId: widget.task.id)
+                  )
+                  );
+                },
+                contentPadding: EdgeInsets.only(left: Dimens.content_padding, right: Dimens.content_padding, top: 12.0, bottom: 12.0),
+                leading: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: <Color>[AppColors.primarySwatch, AppColors.secondaryColor],
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    color: AppColors.secondaryColor,
+                    shape: BoxShape.circle,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
-                    child: Text(
-                      (task.finalRewardAmount ?? task.rewardAmount ?? 0).toString() + ' ' + task.rewardCurrency,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700
+                  width: 48,
+                  height: 48,
+                  alignment: Alignment.center,
+                  child:  buildSocialImage(widget.task.getSocialNetwork()),
+                ),
+                trailing: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: <Color>[AppColors.primarySwatch, AppColors.secondaryColor],
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
+                        child: Text(
+                          (widget.task.finalRewardAmount ?? widget.task.rewardAmount ?? 0).toString() + ' ' + widget.task.rewardCurrency,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0),
-                  child: Text(
-                    calculateUsdEquivalent(task),
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: AppColors.currencyTextColor,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        calculateUsdEquivalent(widget.task),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: AppColors.currencyTextColor,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w800
+                        ),
+                      ),
                     ),
+                  ],
+                ),
+                title: Text(widget.task.productName,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500, fontSize: 13, color: AppColors.itemTextColor
                   ),
                 ),
-              ],
-            ),
-            title: Text(task.productName,
-              style: TextStyle(
-                  fontWeight: FontWeight.w500, fontSize: 13, color: AppColors.itemTextColor
+                dense: true,
               ),
-            ),
-            dense: true,
+              NativeAdWidget(isAdLoaded: _isAdLoaded, ad: _ad),
+            ],
           ),
         ),
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _ad?.dispose();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 String calculateUsdEquivalent(BaseTask task) {

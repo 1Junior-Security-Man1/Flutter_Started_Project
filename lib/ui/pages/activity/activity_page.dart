@@ -66,7 +66,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                   itemBuilder: (BuildContext context, int index) {
                     return index >= state.activities.length
                         ? state.activities.length > 10 ? BottomLoader() : SizedBox()
-                        : ActivityItem(activity: state.activities[index]);
+                        : ActivityItem(activity: state.activities[index], index: index);
                   },
                   itemCount: state.hasReachedMax
                       ? state.activities.length

@@ -50,6 +50,7 @@ class _MyTasksPageState extends State<MyTasksPage> {
                   return const EmptyDataPlaceHolder();
                 }
                 return Container(
+                  padding: EdgeInsets.only(bottom: 42.0),
                   margin: EdgeInsets.only(
                     left: Dimens.content_padding,
                     right: Dimens.content_padding,
@@ -61,7 +62,7 @@ class _MyTasksPageState extends State<MyTasksPage> {
                     itemBuilder: (BuildContext context, int index) {
                       return index >= state.tasks.length
                           ? state.tasks.length > 10 ? BottomLoader() : SizedBox()
-                          : MyTaskItem(task: state.tasks[index]);
+                          : MyTaskItem(task: state.tasks[index], index: index);
                       },
                     itemCount: state.hasReachedMax
                         ? state.tasks.length

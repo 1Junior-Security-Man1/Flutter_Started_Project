@@ -7,13 +7,15 @@ import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bounty_hub_client/ui/widgets/ads/banner_ad_widget.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class TasksContent extends StatefulWidget {
+class Tasks extends StatefulWidget {
   @override
-  _TasksContentState createState() => _TasksContentState();
+  _TasksState createState() => _TasksState();
 }
 
-class _TasksContentState extends State<TasksContent> {
+class _TasksState extends State<Tasks> {
 
   TasksCubit _cubit;
 
@@ -63,9 +65,17 @@ class _TasksContentState extends State<TasksContent> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 42 + Dimens.content_internal_padding,),
-                child: state.currentTab == 0 ? TasksListPage() : MyTasksPage(),
+              Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 42 + Dimens.content_internal_padding,),
+                    child: state.currentTab == 0 ? TasksListPage() : MyTasksPage(),
+                  ),
+                  Align(
+                    child: BannerAdWidget(AdSize.banner),
+                    alignment: Alignment.bottomCenter,
+                  ),
+                ],
               ),
             ],
           ),

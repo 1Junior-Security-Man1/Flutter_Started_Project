@@ -26,7 +26,7 @@ class TaskRepository extends TaskDataSource {
     queries.putIfAbsent('campaignsIds', () => campaignId ?? '');
     queries.putIfAbsent('socialType', () => socialMediaType ?? '');
     queries.putIfAbsent('page', () => page);
-    queries.putIfAbsent('size', () => 10);
+    queries.putIfAbsent('size', () => 20);
     queries.putIfAbsent('status', () => 'APPROVED');
     queries.putIfAbsent('sort', () => 'rewardAmount,desc');
     queries.putIfAbsent('running', () => true);

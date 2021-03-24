@@ -12,6 +12,7 @@ import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:package_info/package_info.dart';
@@ -22,6 +23,7 @@ import 'utils/flavors.dart';
 import 'utils/localization/localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:advertising_id/advertising_id.dart';
 
 Flavor _currentFlavour;
 
@@ -72,7 +74,9 @@ class AppState extends State<App> {
     await Firebase.initializeApp();
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
     await _remoteAppData.initialize();
+    await MobileAds.instance.initialize();
     await PackageInfo.fromPlatform().then((packageInfo) => buildVersion = packageInfo.version);
+    print('Deice AdvertisingId for AdMob testing ' + await AdvertisingId.id);
   }
 
   @override
