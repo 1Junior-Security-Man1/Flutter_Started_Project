@@ -33,6 +33,11 @@
                 <data
                     android:scheme="app"
                     android:host="io.bountyhub.www" />
+
+                <data android:scheme="https"
+                    android:host="worldopo.bountyhub.io"
+                    android:pathPrefix="/confirm-login" />
+
             </intent-filter>
 
             <!-- Specifies an Android theme to apply to this Activity as soon as
@@ -41,8 +46,7 @@
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+              android:resource="@style/NormalTheme"/>
 
             <!-- Displays an Android View that continues showing the launch screen
                  Drawable until Flutter paints its first frame, then this splash

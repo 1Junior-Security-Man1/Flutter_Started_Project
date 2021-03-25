@@ -6,11 +6,21 @@ class AdHelper {
 
   static int interstitialAdShowsCount = 0;
 
-  /*
-  Calculates the current item position in the list in which to show native ad
-   */
-  static bool isNeedShowAd(int itemPosition, int step) {
+  ///  Calculates the current item position in the list in which to show native ad
+  static bool isNativeAdNeedShow(int itemPosition, int step) {
     return (itemPosition + 1) % step == 0;
+  }
+
+  ///  Calculates the frequency of Interstitial ads showing. Shows ads with
+  ///  a specified frequency of interstitialBannerShowingPeriod value
+  static bool isInterstitialAdNeedShow() {
+    if(AdHelper.interstitialAdShowsCount < currentFlavour.interstitialBannerShowingPeriod - 1) {
+      interstitialAdShowsCount += 1;
+      return false;
+    } else {
+      interstitialAdShowsCount = 0;
+      return true;
+    }
   }
 
   static String get bannerAdUnitId {
@@ -33,7 +43,7 @@ class AdHelper {
     }
   }
 
-  static String get tasksNativeAdUnitId {
+  static String get nativeAdUnitId {
     if (Platform.isAndroid) {
       return  currentFlavour.tasksNativeAdAndroidUnitId;
     } else if (Platform.isIOS) {

@@ -33,7 +33,7 @@ class _TasksListItemState extends State<TasksListItem> with AutomaticKeepAliveCl
 
   void createNativeAd() {
     _ad = NativeAd(
-      adUnitId: AdHelper.tasksNativeAdUnitId,
+      adUnitId: AdHelper.nativeAdUnitId,
       factoryId: 'listTile',
       request: AdRequest(),
       listener: AdListener(
@@ -48,7 +48,7 @@ class _TasksListItemState extends State<TasksListItem> with AutomaticKeepAliveCl
       ),
     );
 
-    if(AdHelper.isNeedShowAd(widget.index, 4)) {
+    if(AdHelper.isNativeAdNeedShow(widget.index, 4)) {
       _ad.load();
     }
   }
