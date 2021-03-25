@@ -304,4 +304,7 @@ class AppStrings {
   static String get serverErrorWaitTimeToComplete =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext)
           .serverErrorWaitTimeToComplete;
+  static String get serverErrorCodeNotFound =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext)
+          .serverErrorCodeNotFound;
 }

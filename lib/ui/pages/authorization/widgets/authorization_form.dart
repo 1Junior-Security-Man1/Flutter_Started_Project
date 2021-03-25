@@ -31,6 +31,8 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
     _emailTextController.text = widget.state.email;
     _confirmCodeTextController.text = widget.state.confirmCode;
 
+    context.bloc<AuthorizationCubit>().emailIsValid(FormValidation.email(context, _emailTextController.text) == null);
+
     _emailTextController.addListener(() {
       context.bloc<AuthorizationCubit>().emailIsValid(
           FormValidation.email(context, _emailTextController.text) == null);
@@ -115,7 +117,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
             child: Padding(
               padding: const EdgeInsets.only(left: 42.0, right: 42.0),
               child: AppButton(
-                disableOnlyUI: !widget.state.emailIsValid,
+                disableOnlyUI: widget.state.status == AuthorizationStatus.email && !widget.state.emailIsValid,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     if (widget.state.status == AuthorizationStatus.email ||

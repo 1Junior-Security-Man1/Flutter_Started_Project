@@ -13,17 +13,6 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
 
   AuthorizationCubit(this._loginRepository, this._userRepository) : super(AuthorizationState());
 
-  void onEmailSubmitted(String email) {
-    emit(state.copyWith(status: AuthorizationStatus.loading));
-    Future.delayed(Duration(seconds: 1), () {
-      emit(state.copyWith(status: AuthorizationStatus.captcha, email: email));
-    });
-  }
-
-  void onBack() {
-    emit(state.copyWith(status: AuthorizationStatus.email));
-  }
-
   void authenticate(String captchaCode) {
     emit(state.copyWith(status: AuthorizationStatus.loading));
     _loginRepository.getBasicToken()
@@ -48,6 +37,8 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
   }
 
   void confirmCode(String code) {
+    if(code == null || code.isEmpty) return;
+
     emit(state.copyWith(status: AuthorizationStatus.loading));
     _loginRepository.confirmCode(state.email, code)
         .then((value) => _userRepository.saveAccessToken(value))
@@ -68,7 +59,32 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
     });
   }
 
+  void setDeepLinkData(String email, String confirmCode) {
+      emit(state.copyWith(email: email,
+          confirmCode: confirmCode,
+          status: AuthorizationStatus.confirmCode));
+  }
+
   void emailIsValid(value) {
     emit(state.copyWith(emailIsValid: value));
+  }
+
+  void onEmailSubmitted(String email) {
+    emit(state.copyWith(status: AuthorizationStatus.loading));
+    Future.delayed(Duration(seconds: 1), () {
+      emit(state.copyWith(status: AuthorizationStatus.captcha, email: email));
+    });
+  }
+
+  void onBack() {
+    emit(state.copyWith(status: AuthorizationStatus.email));
+  }
+
+  void clearState() {
+    emit(state.copyWith(
+        email: '',
+        confirmCode: '',
+        status: AuthorizationStatus.email,
+        emailIsValid: false));
   }
 }

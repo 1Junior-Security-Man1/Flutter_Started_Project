@@ -17,7 +17,9 @@ ServerErrorType getServerErrorType(String responseMessage) {
     return ServerErrorType.NO_SOCIAL_NETWORKS_ADDED_ERROR;
   } else if(responseMessage.contains('Please wait for the time to complete')) {
     return ServerErrorType.WAIT_TIME_TO_COMPLETE;
-  } else {
+  } else if(responseMessage.contains('Verification code') && responseMessage.contains('not found')) {
+    return ServerErrorType.VERIFICATION_CODE_NOT_FOUND;
+  }  else {
     return ServerErrorType.UNKNOWN;
   }
 }
@@ -28,6 +30,8 @@ String getErrorMessage(ServerErrorType errorType) {
       return AppStrings.serverErrorNoSocialNetworksAdded;
     case ServerErrorType.WAIT_TIME_TO_COMPLETE:
       return AppStrings.serverErrorWaitTimeToComplete;
+    case ServerErrorType.VERIFICATION_CODE_NOT_FOUND:
+      return AppStrings.serverErrorCodeNotFound;
       default:
         return AppStrings.defaultErrorMessage;
   }

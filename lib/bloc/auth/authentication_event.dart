@@ -15,8 +15,15 @@ class AppStarted extends AuthenticationEvent {
 }
 
 class AppLoaded extends AuthenticationEvent {
+
+  final String deepLinkConfirmCode;
+
+  final String deepLinkEmail;
+
+  AppLoaded({this.deepLinkEmail, this.deepLinkConfirmCode});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [deepLinkConfirmCode, deepLinkEmail];
 
   @override
   String toString() => 'AppLoaded';
