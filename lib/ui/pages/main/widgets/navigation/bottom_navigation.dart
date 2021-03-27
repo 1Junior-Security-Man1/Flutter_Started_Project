@@ -28,11 +28,11 @@ class BottomNavigation extends StatelessWidget {
 
   BottomNavigationBarItem _buildItem(TabItem tabItem) {
     return BottomNavigationBarItem(
-      icon: Image.asset(tabIcon[tabItem],
+      icon: Image.asset(navigationTabIcons[tabItem],
         width: 24,
         color: _colorTabMatching(tabItem),
       ),
-      label: tabName[tabItem],
+      label: navigationTabNames[tabItem],
     );
   }
 
