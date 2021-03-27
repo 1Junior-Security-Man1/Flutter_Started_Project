@@ -1,6 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-enum AuthorizationStatus{ email, captcha, confirmCode, complete, emailError, confirmCodeError, loading }
+enum AuthorizationStatus {
+  email,
+  captcha,
+  confirmCode,
+  complete,
+  emailError,
+  confirmCodeError,
+  loading
+}
 
 class AuthorizationState extends Equatable {
   const AuthorizationState({
@@ -34,5 +42,6 @@ class AuthorizationState extends Equatable {
   }
 
   @override
-  List<Object> get props => [email, status, errorMessage, confirmCode,emailIsValid];
+  List<Object> get props =>
+      [email, status, errorMessage, confirmCode, emailIsValid];
 }

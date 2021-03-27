@@ -4,8 +4,6 @@ import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_links/uni_links.dart';
-import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 
 class SplashWidget extends StatefulWidget {
 
@@ -18,21 +16,15 @@ class _SplashWidgetState extends State<SplashWidget> {
   @override
   void initState() {
     super.initState();
-    getDeepLinks();
+    startNavigateWithDelay();
   }
 
-  getDeepLinks() async {
-    String email = parseUrl(await getInitialLink(), 'email');
-    String confirmCode = parseUrl(await getInitialLink(), 'code');
-    startNavigateWithDelay(email, confirmCode);
-  }
-
-  startNavigateWithDelay(String email, String confirmCode) async {
+  startNavigateWithDelay() async {
     var duration = new Duration(seconds: 3);
     return new Timer(duration, () {
       if(context != null) {
         BlocProvider.of<AuthenticationBloc>(context)
-            .add(AppLoaded(deepLinkEmail: email, deepLinkConfirmCode: confirmCode));
+            .add(AppLoaded());
       }
     });
   }

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_cubit.dart';
@@ -15,51 +14,37 @@ import 'package:bounty_hub_client/ui/pages/authorization/widgets/authorization_c
 import 'package:uni_links/uni_links.dart';
 
 class AuthorizationWidget extends StatefulWidget {
-
-  String confirmCode;
-  String email;
-
-  AuthorizationWidget({this.email, this.confirmCode});
-
   @override
   _AuthorizationWidgetState createState() => _AuthorizationWidgetState();
 }
 
 class _AuthorizationWidgetState extends State<AuthorizationWidget> {
-
   StreamSubscription _linksSub;
 
   @override
   void initState() {
     super.initState();
-    if(widget.email == null || widget.confirmCode == null) return;
-    context.bloc<AuthorizationCubit>().setDeepLinkData(
-        widget.email,
-        widget.confirmCode);
+    listenLinksStream();
   }
 
   listenLinksStream() async {
     _linksSub = getLinksStream().listen((link) {
       parseLinkAndConfirmAuthorization(link);
     });
-   }
+  }
 
   parseLinkAndConfirmAuthorization(String link) {
     String email = parseUrl(link, 'email');
     String confirmCode = parseUrl(link, 'code');
 
-    if(email != null && confirmCode != null) {
-      context.bloc<AuthorizationCubit>().setDeepLinkData(
-          widget.email,
-          widget.confirmCode);
-   }
+    if (email != null && confirmCode != null) {
+      context.bloc<AuthorizationCubit>().confirmCode(email, confirmCode);
+    }
   }
 
   @override
   void dispose() {
     if (_linksSub != null) _linksSub.cancel();
-    widget.confirmCode = null;
-    widget.email = null;
     super.dispose();
   }
 
