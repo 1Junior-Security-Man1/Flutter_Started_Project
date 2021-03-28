@@ -31,14 +31,20 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:scheme="app"
                     android:host="io.bountyhub.www" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
                     android:host="worldopo.bountyhub.io"
                     android:pathPrefix="/confirm-login" />
-
             </intent-filter>
 
             <!-- Specifies an Android theme to apply to this Activity as soon as
