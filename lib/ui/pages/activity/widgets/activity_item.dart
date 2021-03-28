@@ -2,6 +2,7 @@ import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
 import 'package:bounty_hub_client/data/models/entity/activity/notification.dart';
 import 'package:bounty_hub_client/ui/pages/activity/widgets/activity_utils.dart';
 import 'package:bounty_hub_client/ui/pages/task_details/task_details_page.dart';
+import 'package:bounty_hub_client/ui/pages/tasks/widgets/tasks_list_item.dart';
 import 'package:bounty_hub_client/utils/localization/localization.res.dart';
 import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:bounty_hub_client/utils/ui/text_styles.dart';
@@ -14,7 +15,8 @@ import 'package:bounty_hub_client/utils/ads/ad_helper.dart';
 import 'package:bounty_hub_client/ui/widgets/ads/native_ad_widget.dart';
 
 class ActivityItem extends StatefulWidget {
-  const ActivityItem({Key key, @required this.activity, @required this.index}) : super(key: key);
+  const ActivityItem({Key key, @required this.activity, @required this.index})
+      : super(key: key);
 
   final Activity activity;
   final int index;
@@ -23,10 +25,10 @@ class ActivityItem extends StatefulWidget {
   _ActivityItemState createState() => _ActivityItemState();
 }
 
-class _ActivityItemState extends State<ActivityItem> with AutomaticKeepAliveClientMixin {
-
+class _ActivityItemState extends State<ActivityItem>
+    with AutomaticKeepAliveClientMixin {
   NativeAd _ad;
-  bool _isAdLoaded = false;
+  TasksListAdsStatus _status = TasksListAdsStatus.no_ads;
 
   @override
   void initState() {
@@ -35,23 +37,27 @@ class _ActivityItemState extends State<ActivityItem> with AutomaticKeepAliveClie
   }
 
   void createNativeAd() {
-    _ad = NativeAd(
-      adUnitId: AdHelper.nativeAdUnitId,
-      factoryId: 'listTile',
-      request: AdRequest(),
-      listener: AdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
-      ),
-    );
+    if (AdHelper.isNativeAdNeedShow(widget.index, 8)) {
+      _status = TasksListAdsStatus.loading;
+      _ad = NativeAd(
+        adUnitId: AdHelper.nativeAdUnitId,
+        factoryId: 'listTile',
+        request: AdRequest(),
+        listener: AdListener(
+          onAdLoaded: (_) {
+            setState(() {
+              _status = TasksListAdsStatus.success;
+            });
+          },
+          onAdFailedToLoad: (ad, error) {
+            ad.dispose();
+            setState(() {
+              _status = TasksListAdsStatus.failed;
+            });
+          },
+        ),
+      );
 
-    if(AdHelper.isNativeAdNeedShow(widget.index, 8)) {
       _ad.load();
     }
   }
@@ -77,13 +83,13 @@ class _ActivityItemState extends State<ActivityItem> with AutomaticKeepAliveClie
                     decoration: WidgetsDecoration.appBlueButtonStyle(),
                     child: Center(
                         child: Image.asset(
-                          widget.activity.action == 'ITEM_RECONFIRMATION'
-                              ? 'assets/images/menu_item_tasks_active.png'
-                              : 'assets/images/menu_item_notification_active.png',
-                          color: Colors.white,
-                          height: 24,
-                          width: 24,
-                        )),
+                      widget.activity.action == 'ITEM_RECONFIRMATION'
+                          ? 'assets/images/menu_item_tasks_active.png'
+                          : 'assets/images/menu_item_notification_active.png',
+                      color: Colors.white,
+                      height: 24,
+                      width: 24,
+                    )),
                   ),
                   if (!widget.activity.read)
                     Transform.translate(
@@ -107,15 +113,22 @@ class _ActivityItemState extends State<ActivityItem> with AutomaticKeepAliveClie
                 highlightColor: Colors.black12,
                 splashColor: Colors.black12,
                 onTap: () {
-                  context.bloc<ActivityBadgeCubit>().readNotification(widget.activity.id);
+                  context
+                      .bloc<ActivityBadgeCubit>()
+                      .readNotification(widget.activity.id);
                   widget.activity.read = true;
                   setState(() {});
-                  if(widget.activity?.action == 'ITEM_RECONFIRMATION'
-                      || widget.activity?.action == 'ITEM_REJECTED'
-                      || widget.activity?.action == 'ITEM_PAID'
-                      || widget.activity?.action == 'ITEM_DELETED') {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                        TaskDetailsPage(title: AppStrings.taskDetails, taskId: parseTaskIdFromHtml(widget.activity.content))),
+                  if (widget.activity?.action == 'ITEM_RECONFIRMATION' ||
+                      widget.activity?.action == 'ITEM_REJECTED' ||
+                      widget.activity?.action == 'ITEM_PAID' ||
+                      widget.activity?.action == 'ITEM_DELETED') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TaskDetailsPage(
+                              title: AppStrings.taskDetails,
+                              taskId: parseTaskIdFromHtml(
+                                  widget.activity.content))),
                     );
                   }
                 },
@@ -142,8 +155,10 @@ class _ActivityItemState extends State<ActivityItem> with AutomaticKeepAliveClie
                               child: Html(
                                 renderNewlines: true,
                                 data: widget.activity.content,
-                                defaultTextStyle: AppTextStyles.defaultText.copyWith(
-                                    fontWeight: FontWeight.w600, fontSize: 12),
+                                defaultTextStyle: AppTextStyles.defaultText
+                                    .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12),
                                 onLinkTap: (link) {},
                               ),
                             ),
@@ -151,8 +166,11 @@ class _ActivityItemState extends State<ActivityItem> with AutomaticKeepAliveClie
                               padding: const EdgeInsets.only(right: 16),
                               child: Container(
                                 margin: const EdgeInsets.only(top: 8),
-                                child: Text(DateFormat('dd-MM-yyyy').format(widget.activity.updated),
-                                  style: AppTextStyles.defaultThinText.copyWith(fontSize: 12),
+                                child: Text(
+                                  DateFormat('dd-MM-yyyy')
+                                      .format(widget.activity.updated),
+                                  style: AppTextStyles.defaultThinText
+                                      .copyWith(fontSize: 12),
                                 ),
                               ),
                             ),
@@ -166,15 +184,19 @@ class _ActivityItemState extends State<ActivityItem> with AutomaticKeepAliveClie
             ),
           ],
         ),
-        NativeAdWidget(isAdLoaded: _isAdLoaded, ad: _ad),
+        _status == TasksListAdsStatus.no_ads ||
+                _status == TasksListAdsStatus.failed
+            ? SizedBox()
+            : NativeAdWidget(status: _status, ad: _ad),
       ],
     );
   }
 
   @override
   void dispose() {
-    super.dispose();
+    _status = TasksListAdsStatus.no_ads;
     _ad?.dispose();
+    super.dispose();
   }
 
   @override

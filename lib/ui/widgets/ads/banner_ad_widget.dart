@@ -44,9 +44,8 @@ class BannerAdState extends State<BannerAdWidget> {
 
   @override
   void dispose() {
-    super.dispose();
     _bannerAd?.dispose();
-    _bannerAd = null;
+    super.dispose();
   }
 
   @override
