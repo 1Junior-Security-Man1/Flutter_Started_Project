@@ -20,7 +20,13 @@ class NativeAdWidget extends StatelessWidget {
     } else {
       return Container(
         height: 72.0,
-        child: BottomLoader(),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BottomLoader(),
+              SizedBox(width: 4.0),
+              Text('Ad loading ...'),
+        ]),
       );
     }
   }
