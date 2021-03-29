@@ -65,130 +65,134 @@ class _ActivityItemState extends State<ActivityItem>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.centerLeft,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-              ),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    height: 45,
-                    width: 45,
-                    decoration: WidgetsDecoration.appBlueButtonStyle(),
-                    child: Center(
-                        child: Image.asset(
-                      widget.activity.action == 'ITEM_RECONFIRMATION'
-                          ? 'assets/images/menu_item_tasks_active.png'
-                          : 'assets/images/menu_item_notification_active.png',
-                      color: Colors.white,
-                      height: 24,
-                      width: 24,
-                    )),
-                  ),
-                  if (!widget.activity.read)
-                    Transform.translate(
-                      offset: Offset(4, -4),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                          border: Border.all(width: 1, color: Colors.white),
-                        ),
-                        height: 14,
-                        width: 14,
-                      ),
-                    )
-                ],
-              ),
-            ),
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                highlightColor: Colors.black12,
-                splashColor: Colors.black12,
-                onTap: () {
-                  context
-                      .bloc<ActivityBadgeCubit>()
-                      .readNotification(widget.activity.id);
-                  widget.activity.read = true;
-                  setState(() {});
-                  if (widget.activity?.action == 'ITEM_RECONFIRMATION' ||
-                      widget.activity?.action == 'ITEM_REJECTED' ||
-                      widget.activity?.action == 'ITEM_PAID' ||
-                      widget.activity?.action == 'ITEM_DELETED') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TaskDetailsPage(
-                              title: AppStrings.taskDetails,
-                              taskId: parseTaskIdFromHtml(
-                                  widget.activity.content))),
-                    );
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10, top: 10),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 20,
-                            right: 15,
+    return Container(
+      height: AdHelper.isNativeAdNeedShow(widget.index, 8) ? 216 : 128,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Stack(
+            alignment: Alignment.centerLeft,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                ),
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                      height: 45,
+                      width: 45,
+                      decoration: WidgetsDecoration.appBlueButtonStyle(),
+                      child: Center(
+                          child: Image.asset(
+                        widget.activity.action == 'ITEM_RECONFIRMATION'
+                            ? 'assets/images/menu_item_tasks_active.png'
+                            : 'assets/images/menu_item_notification_active.png',
+                        color: Colors.white,
+                        height: 24,
+                        width: 24,
+                      )),
+                    ),
+                    if (!widget.activity.read)
+                      Transform.translate(
+                        offset: Offset(4, -4),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 1, color: Colors.white),
                           ),
-                          child: Container(
-                            height: 45,
-                            width: 45,
-                          ),
+                          height: 14,
+                          width: 14,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width - 140,
-                              child: Html(
-                                renderNewlines: true,
-                                data: widget.activity.content,
-                                defaultTextStyle: AppTextStyles.defaultText
-                                    .copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12),
-                                onLinkTap: (link) {},
-                              ),
+                      )
+                  ],
+                ),
+              ),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  highlightColor: Colors.black12,
+                  splashColor: Colors.black12,
+                  onTap: () {
+                    context
+                        .bloc<ActivityBadgeCubit>()
+                        .readNotification(widget.activity.id);
+                    widget.activity.read = true;
+                    setState(() {});
+                    if (widget.activity?.action == 'ITEM_RECONFIRMATION' ||
+                        widget.activity?.action == 'ITEM_REJECTED' ||
+                        widget.activity?.action == 'ITEM_PAID' ||
+                        widget.activity?.action == 'ITEM_DELETED') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TaskDetailsPage(
+                                title: AppStrings.taskDetails,
+                                taskId: parseTaskIdFromHtml(
+                                    widget.activity.content))),
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10, top: 10),
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 20,
+                              right: 15,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 16),
-                              child: Container(
-                                margin: const EdgeInsets.only(top: 8),
+                            child: Container(
+                              height: 45,
+                              width: 45,
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width - 140,
                                 child: Text(
-                                  DateFormat('dd-MM-yyyy')
-                                      .format(widget.activity.updated),
-                                  style: AppTextStyles.defaultThinText
-                                      .copyWith(fontSize: 12),
+                                  widget.activity.message,
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                              Padding(
+                                padding: const EdgeInsets.only(right: 16),
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 8),
+                                  child: Text(
+                                    DateFormat('dd-MM-yyyy')
+                                        .format(widget.activity.updated),
+                                    style: AppTextStyles.defaultThinText
+                                        .copyWith(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        _status == TasksListAdsStatus.no_ads ||
-                _status == TasksListAdsStatus.failed
-            ? SizedBox()
-            : NativeAdWidget(status: _status, ad: _ad),
-      ],
+            ],
+          ),
+          _status == TasksListAdsStatus.no_ads ||
+                  _status == TasksListAdsStatus.failed
+              ? SizedBox()
+              : Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: NativeAdWidget(status: _status, ad: _ad),
+              ),
+        ],
+      ),
     );
   }
 

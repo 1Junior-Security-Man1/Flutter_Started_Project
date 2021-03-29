@@ -3,11 +3,11 @@ import 'package:bounty_hub_client/data/models/entity/activity/notification.dart'
 import 'package:bounty_hub_client/data/repositories/activities_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logger/logger.dart';
+import 'package:html/parser.dart';
 
 part 'activity_state.dart';
 
 class ActivityCubit extends Cubit<ActivityState> {
-
   final log = Logger();
   final ActivitiesRepository _activitiesRepository;
   int page = 1;
@@ -31,9 +31,9 @@ class ActivityCubit extends Cubit<ActivityState> {
       return;
     }
 
-    if(fetching) return;
+    if (fetching) return;
     final activities = await _fetchActivities(page);
-    if(activities == null || activities.isEmpty) {
+    if (activities == null || activities.isEmpty) {
       emit(state.copyWith(hasReachedMax: true));
     } else {
       emit(state.copyWith(
@@ -45,9 +45,23 @@ class ActivityCubit extends Cubit<ActivityState> {
     }
   }
 
+  String _mapHtmlContentToString(String htmlString) {
+    if(htmlString == null) return '';
+
+    final document = parse(htmlString);
+    htmlString = parse(document.body.text).documentElement.text;
+
+    return htmlString;
+  }
+
   Future<List<Activity>> _fetchActivities(int page) async {
     fetching = true;
-    return _activitiesRepository.getActivities(page)
+    return _activitiesRepository
+        .getActivities(page)
+        .then((activities) {
+          activities.forEach((activity) => activity.message = _mapHtmlContentToString(activity.content));
+          return activities;
+        })
         .whenComplete(() => fetching = false)
         .catchError((Object obj) {
       log.e(obj);
@@ -61,9 +75,8 @@ class ActivityCubit extends Cubit<ActivityState> {
     fetching = false;
 
     emit(state.copyWith(
-      activities: <Activity>[],
-      hasReachedMax: false,
-      status: ActivityStatus.initial
-    ));
+        activities: <Activity>[],
+        hasReachedMax: false,
+        status: ActivityStatus.initial));
   }
 }
