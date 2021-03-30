@@ -8,6 +8,7 @@ class Activity {
   bool read;
   bool receive;
   String content;
+  String message;
   String action;
   Extra extra;
   DateTime updated;

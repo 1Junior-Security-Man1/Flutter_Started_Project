@@ -124,20 +124,13 @@ class AppState extends State<App> {
       case AuthenticationStatus.authenticated:
         return MainPage();
       case AuthenticationStatus.unauthenticated:
-        return hasDeepLinkData(state) ? AuthorizationPage(email: state.deepLinkEmail, confirmCode: state.deepLinkConfirmCode) : WelcomePage();
+        return WelcomePage();
       case AuthenticationStatus.selectAuthentication:
         return getAuthenticatedRoute(state.authenticationType);
       default: {
         return WelcomePage();
       }
     }
-  }
-
-  bool hasDeepLinkData(AuthenticationState state) {
-    return state.deepLinkConfirmCode != null
-        && state.deepLinkConfirmCode.isNotEmpty
-        && state.deepLinkEmail != null
-        && state.deepLinkEmail.isNotEmpty;
   }
 
   Widget getAuthenticatedRoute(AuthenticationType type) {

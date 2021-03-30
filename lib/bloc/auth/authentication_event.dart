@@ -1,6 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-enum AuthenticationType{ uninitialized, credentials, facebook, google, twitter, telegram, guest }
+enum AuthenticationType {
+  uninitialized,
+  credentials,
+  facebook,
+  google,
+  twitter,
+  telegram,
+  guest
+}
 
 abstract class AuthenticationEvent extends Equatable {
   AuthenticationEvent([List props = const []]);
@@ -15,22 +23,14 @@ class AppStarted extends AuthenticationEvent {
 }
 
 class AppLoaded extends AuthenticationEvent {
-
-  final String deepLinkConfirmCode;
-
-  final String deepLinkEmail;
-
-  AppLoaded({this.deepLinkEmail, this.deepLinkConfirmCode});
-
   @override
-  List<Object> get props => [deepLinkConfirmCode, deepLinkEmail];
+  List<Object> get props => [];
 
   @override
   String toString() => 'AppLoaded';
 }
 
 class SelectAuthenticationType extends AuthenticationEvent {
-
   final AuthenticationType type;
 
   SelectAuthenticationType({this.type});

@@ -31,53 +31,55 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.pageBackgroundColor,
-      appBar: CustomAppBar(
-        //leftIcon: 'assets/images/filter.png',
-        rightIcon: 'assets/images/settings.png',
-        title: AppStrings.activity,
-        onLeftIconClick: () {},
-        onRightIconClick: () {
-          SettingsMenuDialog.show(context, () {});
-        },
-      ),
-      body: BlocConsumer<ActivityCubit, ActivityState>(
-        listener: (context, state) {
-          if (!state.hasReachedMax && _isBottom) {
-            _cubit.fetchActivities();
-          }
-        }, builder: (context, state) {
-          switch (state.status) {
-            case ActivityStatus.failure:
-              return const EmptyDataPlaceHolder();
-            case ActivityStatus.success:
-              if (state.activities.isEmpty) {
+    return Theme(data: Theme.of(context).copyWith(canvasColor: Colors.white),
+      child: Scaffold(
+        backgroundColor: AppColors.pageBackgroundColor,
+        appBar: CustomAppBar(
+          //leftIcon: 'assets/images/filter.png',
+          rightIcon: 'assets/images/settings.png',
+          title: AppStrings.activity,
+          onLeftIconClick: () {},
+          onRightIconClick: () {
+            SettingsMenuDialog.show(context, () {});
+          },
+        ),
+        body: BlocConsumer<ActivityCubit, ActivityState>(
+          listener: (context, state) {
+            if (!state.hasReachedMax && _isBottom) {
+              _cubit.fetchActivities();
+            }
+          }, builder: (context, state) {
+            switch (state.status) {
+              case ActivityStatus.failure:
                 return const EmptyDataPlaceHolder();
-              }
-              return Container(
-                margin: EdgeInsets.only(
-                  left: Dimens.content_padding,
-                  right: Dimens.content_padding,
-                  bottom: Dimens.content_internal_padding,
-                ),
-                decoration: WidgetsDecoration.appCardStyle(),
-                child: ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    return index >= state.activities.length
-                        ? state.activities.length > 10 ? BottomLoader() : SizedBox()
-                        : ActivityItem(activity: state.activities[index], index: index);
-                  },
-                  itemCount: state.hasReachedMax
-                      ? state.activities.length
-                      : state.activities.length + 1,
-                  controller: _scrollController,
-                ),
-              );
-            default:
-              return const Center(child: CircularProgressIndicator());
-          }
-        },
+              case ActivityStatus.success:
+                if (state.activities.isEmpty) {
+                  return const EmptyDataPlaceHolder();
+                }
+                return Container(
+                  margin: EdgeInsets.only(
+                    left: Dimens.content_padding,
+                    right: Dimens.content_padding,
+                    bottom: Dimens.content_internal_padding,
+                  ),
+                  decoration: WidgetsDecoration.appCardStyle(),
+                  child: ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      return index >= state.activities.length
+                          ? state.activities.length > 10 ? BottomLoader() : SizedBox()
+                          : ActivityItem(activity: state.activities[index], index: index);
+                    },
+                    itemCount: state.hasReachedMax
+                        ? state.activities.length
+                        : state.activities.length + 1,
+                    controller: _scrollController,
+                  ),
+                );
+              default:
+                return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
     );
   }

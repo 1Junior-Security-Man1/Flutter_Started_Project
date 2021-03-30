@@ -161,7 +161,7 @@ class TaskCompletionWidgetState extends State<TaskCompletionWidget> {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter state) {
                 return Container(
-                  height: MediaQuery.of(context).size.height - 100,
+                  height: MediaQuery.of(context).size.height - 240,
                   color: Colors.transparent,
                   child: Container(
                     padding: EdgeInsets.only(left: 36.0, right: 36.0),

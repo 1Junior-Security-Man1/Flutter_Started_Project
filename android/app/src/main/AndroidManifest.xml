@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.lindenvalley.bounty_hub_client"
     tools:ignore="MissingVersion">
+
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -19,7 +20,7 @@
         tools:replace="android:label">
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
@@ -30,14 +31,20 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:scheme="app"
                     android:host="io.bountyhub.www" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
                     android:host="worldopo.bountyhub.io"
                     android:pathPrefix="/confirm-login" />
-
             </intent-filter>
 
             <!-- Specifies an Android theme to apply to this Activity as soon as

@@ -14,39 +14,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'authentication_event.dart';
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
-
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository _userRepository;
 
   final ProfileLocalRepository _profileRepository;
 
-  AuthenticationBloc(this._userRepository, this._profileRepository) : super(AuthenticationState(status: AuthenticationStatus.uninitialized));
+  AuthenticationBloc(this._userRepository, this._profileRepository)
+      : super(AuthenticationState(status: AuthenticationStatus.uninitialized));
 
   @override
-  Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
+  Stream<AuthenticationState> mapEventToState(
+      AuthenticationEvent event) async* {
     if (event is AppStarted) {
       yield state.copyWith(status: AuthenticationStatus.loading);
     }
 
     if (event is SelectAuthenticationType) {
       _userRepository.saveGuestMode(event.type == AuthenticationType.guest);
-      yield state.copyWith(type: event.type, status: AuthenticationStatus.selectAuthentication);
+      yield state.copyWith(
+          type: event.type, status: AuthenticationStatus.selectAuthentication);
     }
 
     if (event is AppLoaded) {
       final String accessToken = await _userRepository.getAccessToken();
       if (accessToken != null && accessToken.isNotEmpty) {
-        yield state.copyWith(status: AuthenticationStatus.authenticated, token: accessToken);
+        yield state.copyWith(
+            status: AuthenticationStatus.authenticated, token: accessToken);
       } else {
-        yield state.copyWith(deepLinkEmail: event.deepLinkEmail,
-            deepLinkConfirmCode: event.deepLinkConfirmCode,
+        yield state.copyWith(
             status: AuthenticationStatus.unauthenticated, token: '');
       }
     }
 
     if (event is LoggedOut) {
       clearAppData(AppState.getContext());
-      yield state.copyWith(status: AuthenticationStatus.unauthenticated,
+      yield state.copyWith(
+          status: AuthenticationStatus.unauthenticated,
           deepLinkConfirmCode: '',
           deepLinkEmail: '',
           token: '',
@@ -54,7 +58,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
 
     if (event is LoggedIn) {
-      yield state.copyWith(status: AuthenticationStatus.authenticated, signature: generateSignature());
+      yield state.copyWith(
+          status: AuthenticationStatus.authenticated,
+          signature: generateSignature());
     }
   }
 
