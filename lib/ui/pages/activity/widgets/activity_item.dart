@@ -37,7 +37,7 @@ class _ActivityItemState extends State<ActivityItem>
   }
 
   void createNativeAd() {
-    if (AdHelper.isNativeAdNeedShow(widget.index, 8)) {
+    if (AdHelper.isNativeAdNeedShow(widget.index, 15)) {
       _status = TasksListAdsStatus.loading;
       _ad = NativeAd(
         adUnitId: AdHelper.nativeAdUnitId,
@@ -66,7 +66,7 @@ class _ActivityItemState extends State<ActivityItem>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-      height: AdHelper.isNativeAdNeedShow(widget.index, 8) ? 216 : 128,
+      height: AdHelper.isNativeAdNeedShow(widget.index, 15) ? 216 : 128,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

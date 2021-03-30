@@ -34,7 +34,7 @@ class _TasksListItemState extends State<TasksListItem>
   }
 
   void createNativeAd() {
-    if (AdHelper.isNativeAdNeedShow(widget.index, 4)) {
+    if (AdHelper.isNativeAdNeedShow(widget.index, 7)) {
       _status = TasksListAdsStatus.loading;
       _ad = NativeAd(
         adUnitId: AdHelper.nativeAdUnitId,
@@ -62,96 +62,103 @@ class _TasksListItemState extends State<TasksListItem>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Column(
-      children: [
-        Material(
-          child: InkWell(
-            child: Container(
-              child: ListTile(
-                hoverColor: Colors.transparent,
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TaskDetailsPage(
-                              title: widget.task.productName,
-                              taskId: widget.task.itemId ?? widget.task.id)));
-                },
-                contentPadding: EdgeInsets.only(
-                    left: Dimens.content_padding,
-                    right: Dimens.content_padding,
-                    top: 12.0,
-                    bottom: 12.0),
-                leading: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.secondaryColor,
-                    shape: BoxShape.circle,
+    return Container(
+      height: AdHelper.isNativeAdNeedShow(widget.index, 7) ? 156 : 84,
+      child: Column(
+        children: [
+          Material(
+            child: InkWell(
+              child: Container(
+                child: ListTile(
+                  hoverColor: Colors.transparent,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TaskDetailsPage(
+                                title: widget.task.productName,
+                                taskId: widget.task.itemId ?? widget.task.id)));
+                  },
+                  contentPadding: EdgeInsets.only(
+                      left: Dimens.content_padding,
+                      right: Dimens.content_padding,
+                      top: 12.0,
+                      bottom: 12.0),
+                  leading: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.secondaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                    width: 48,
+                    height: 48,
+                    alignment: Alignment.center,
+                    child: buildSocialImage(widget.task.getSocialNetwork()),
                   ),
-                  width: 48,
-                  height: 48,
-                  alignment: Alignment.center,
-                  child: buildSocialImage(widget.task.getSocialNetwork()),
-                ),
-                trailing: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: <Color>[
-                            AppColors.primarySwatch,
-                            AppColors.secondaryColor
-                          ],
+                  trailing: Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: <Color>[
+                                AppColors.primarySwatch,
+                                AppColors.secondaryColor
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
+                            child: Text(
+                              (widget.task.finalRewardAmount ??
+                                          widget.task.rewardAmount ??
+                                          0)
+                                      .toString() +
+                                  ' ' +
+                                  widget.task.rewardCurrency,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ),
                         ),
-                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
-                        child: Text(
-                          (widget.task.finalRewardAmount ??
-                                      widget.task.rewardAmount ??
-                                      0)
-                                  .toString() +
-                              ' ' +
-                              widget.task.rewardCurrency,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Text(
+                            calculateUsdEquivalent(widget.task),
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: AppColors.currencyTextColor,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w800),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Text(
-                        calculateUsdEquivalent(widget.task),
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: AppColors.currencyTextColor,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w800),
-                      ),
-                    ),
-                  ],
+                  ),
+                  title: Text(
+                    widget.task.productName,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        color: AppColors.itemTextColor),
+                  ),
+                  dense: true,
                 ),
-                title: Text(
-                  widget.task.productName,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 13,
-                      color: AppColors.itemTextColor),
-                ),
-                dense: true,
               ),
             ),
           ),
-        ),
-        _status == TasksListAdsStatus.no_ads ||
-                _status == TasksListAdsStatus.failed
-            ? SizedBox()
-            : NativeAdWidget(status: _status, ad: _ad),
-      ],
+          _status == TasksListAdsStatus.no_ads ||
+                  _status == TasksListAdsStatus.failed
+              ? SizedBox()
+              : NativeAdWidget(status: _status, ad: _ad),
+        ],
+      ),
     );
   }
 
