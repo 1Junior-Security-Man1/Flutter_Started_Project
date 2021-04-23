@@ -20,6 +20,8 @@ class AuthenticationState extends Equatable {
   AuthenticationState copyWith({
     AuthenticationStatus status,
     String token,
+    String deepLinkEmail,
+    String deepLinkConfirmCode,
     int signature,
     AuthenticationType type,
   }) {

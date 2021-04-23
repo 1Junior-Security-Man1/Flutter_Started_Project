@@ -19,6 +19,7 @@ import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profil
 import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_cubit.dart';
 
 getRepositories(RestClient client) {
   return [
@@ -33,6 +34,7 @@ getRepositories(RestClient client) {
 
 getProviders(RestClient client) {
   return [
+    BlocProvider(create: (context) => AuthorizationCubit(AuthRepository(client), UserRepository(client))),
     BlocProvider(create: (context) => WelcomeCubit(AuthRepository(client), UserRepository(client))),
     BlocProvider(create: (context) => AuthenticationBloc(UserRepository(client), ProfileLocalRepository())..add(AppStarted())),
     BlocProvider(create: (context) => ProfileBloc(ProfileRepository(client), ProfileLocalRepository())),

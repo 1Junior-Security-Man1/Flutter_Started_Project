@@ -31,7 +31,6 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:bounty_hub_client/utils/ads/ad_helper.dart';
-import 'package:bounty_hub_client/app.dart';
 
 class TaskDetailsWidget extends StatefulWidget {
   final String taskId;
@@ -68,7 +67,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
       request: AdRequest(),
       listener: AdListener(
         onAdLoaded: (Ad ad) {
-          if(isInterstitialAdNeedToShow()) {
+          if(AdHelper.isInterstitialAdNeedShow()) {
             showInterstitialAd();
           }
         },
@@ -87,16 +86,6 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
   showInterstitialAd() {
     _interstitialAd.show();
     _interstitialAd = null;
-  }
-
-  bool isInterstitialAdNeedToShow() {
-      if(AdHelper.interstitialAdShowsCount < currentFlavour.interstitialBannerShowingPeriod - 1) {
-      AdHelper.interstitialAdShowsCount += 1;
-      return false;
-    } else {
-      AdHelper.interstitialAdShowsCount = 0;
-      return true;
-    }
   }
 
   initPlatformState() async {
@@ -121,7 +110,7 @@ class TaskDetailsWidgetState extends State<TaskDetailsWidget> {
             state.status == TaskDetailsStatus.failure) {
           showDialog(
             context: context,
-            builder: (_) => AppAlertDialog(message: state.errorMessage),
+            builder: (_) => AppAlertDialog(parent: context, message: state.errorMessage),
           );
         }
 

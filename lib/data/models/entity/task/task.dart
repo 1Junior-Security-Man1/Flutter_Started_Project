@@ -42,6 +42,8 @@ class Task implements BaseTask {
   int campaignEndTime;
   String uri;
   double usdEquivalent;
+  @override
+  String itemId;
 
   Task.fromJson(dynamic json) {
     id = json["id"];

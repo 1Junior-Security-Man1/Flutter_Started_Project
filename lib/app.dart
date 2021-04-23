@@ -107,7 +107,7 @@ class AppState extends State<App> {
                     locale: locale,
                     localizationsDelegates: localizationsDelegates,
                     supportedLocales: AppLocalizations.languages.keys.toList(),
-                    home: navigateToHomeRoute(context, state.authenticationType, state.status)
+                    home: navigateToHomeWidget(context, state)
                 );
               },
             );
@@ -117,8 +117,8 @@ class AppState extends State<App> {
     );
   }
 
-  Widget navigateToHomeRoute(BuildContext context, AuthenticationType authenticationType, AuthenticationStatus status) {
-    switch (status) {
+  Widget navigateToHomeWidget(BuildContext context, AuthenticationState state) {
+    switch (state.status) {
       case AuthenticationStatus.loading:
         return SplashPage();
       case AuthenticationStatus.authenticated:
@@ -126,14 +126,14 @@ class AppState extends State<App> {
       case AuthenticationStatus.unauthenticated:
         return WelcomePage();
       case AuthenticationStatus.selectAuthentication:
-        return getAuthenticationDirection(authenticationType);
+        return getAuthenticatedRoute(state.authenticationType);
       default: {
         return WelcomePage();
       }
     }
   }
 
-  Widget getAuthenticationDirection(AuthenticationType type) {
+  Widget getAuthenticatedRoute(AuthenticationType type) {
     switch (type) {
       case AuthenticationType.credentials:
         return AuthorizationPage();

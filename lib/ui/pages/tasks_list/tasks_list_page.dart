@@ -1,6 +1,6 @@
+import 'package:bounty_hub_client/ui/pages/tasks/widgets/tasks_list_item.dart';
 import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_state.dart';
-import 'package:bounty_hub_client/ui/pages/tasks_list/widgets/tasks_list_item.dart';
 import 'package:bounty_hub_client/ui/widgets/app_list_bottom_loader.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
 import 'package:bounty_hub_client/utils/ui/colors.dart';

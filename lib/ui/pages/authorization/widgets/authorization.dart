@@ -1,14 +1,17 @@
+import 'dart:async';
 import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
 import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_cubit.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
 import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
 import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
+import 'package:bounty_hub_client/utils/validation/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/widgets/authorization_form.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/widgets/authorization_header_widget.dart';
 import 'package:bounty_hub_client/ui/pages/authorization/widgets/authorization_captcha_widget.dart';
+import 'package:uni_links/uni_links.dart';
 
 class AuthorizationWidget extends StatefulWidget {
   @override
@@ -16,6 +19,35 @@ class AuthorizationWidget extends StatefulWidget {
 }
 
 class _AuthorizationWidgetState extends State<AuthorizationWidget> {
+  StreamSubscription _linksSub;
+
+  @override
+  void initState() {
+    super.initState();
+    listenLinksStream();
+  }
+
+  listenLinksStream() async {
+    _linksSub = getLinksStream().listen((link) {
+      parseLinkAndConfirmAuthorization(link);
+    });
+  }
+
+  parseLinkAndConfirmAuthorization(String link) {
+    String email = parseUrl(link, 'email');
+    String confirmCode = parseUrl(link, 'code');
+
+    if (email != null && confirmCode != null) {
+      context.bloc<AuthorizationCubit>().confirmCode(email, confirmCode);
+    }
+  }
+
+  @override
+  void dispose() {
+    if (_linksSub != null) _linksSub.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthorizationCubit, AuthorizationState>(

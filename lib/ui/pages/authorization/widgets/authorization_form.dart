@@ -17,7 +17,8 @@ class AuthorizationFormWidget extends StatefulWidget {
   AuthorizationFormWidget(this.state);
 
   @override
-  _AuthorizationFormWidgetState createState() => _AuthorizationFormWidgetState();
+  _AuthorizationFormWidgetState createState() =>
+      _AuthorizationFormWidgetState();
 }
 
 class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
@@ -30,6 +31,9 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
     super.initState();
     _emailTextController.text = widget.state.email;
     _confirmCodeTextController.text = widget.state.confirmCode;
+
+    context.bloc<AuthorizationCubit>().emailIsValid(
+        FormValidation.email(context, _emailTextController.text) == null);
 
     _emailTextController.addListener(() {
       context.bloc<AuthorizationCubit>().emailIsValid(
@@ -52,11 +56,14 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding:
-            const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0, bottom: Dimens.content_padding),
+            padding: const EdgeInsets.only(
+                top: 8.0,
+                left: 16.0,
+                right: 16.0,
+                bottom: Dimens.content_padding),
             child: Text(
               widget.state.status == AuthorizationStatus.email ||
-                  widget.state.status == AuthorizationStatus.emailError
+                      widget.state.status == AuthorizationStatus.emailError
                   ? AppStrings.sendAuthorizationCode
                   : AppStrings.checkToConfirmAuthorization,
               style: TextStyle(
@@ -72,7 +79,8 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
             child: Column(
               children: [
                 Visibility(
-                  visible: widget.state.status == AuthorizationStatus.email || widget.state.status == AuthorizationStatus.emailError,
+                  visible: widget.state.status == AuthorizationStatus.email ||
+                      widget.state.status == AuthorizationStatus.emailError,
                   child: AppTextField(
                     controller: _emailTextController,
                     textInputType: TextInputType.emailAddress,
@@ -91,14 +99,17 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   height: Dimens.content_internal_padding,
                 ),
                 Visibility(
-                  visible: widget.state.status == AuthorizationStatus.confirmCode || widget.state.status == AuthorizationStatus.confirmCodeError,
+                  visible:
+                      widget.state.status == AuthorizationStatus.confirmCode ||
+                          widget.state.status ==
+                              AuthorizationStatus.confirmCodeError,
                   child: AppTextField(
                     controller: _confirmCodeTextController,
                     inputFormatters: [UpperCaseTextFormatter()],
                     textInputType: TextInputType.text,
                     textInputAction: TextInputAction.done,
-                    validator: (value) =>
-                        FormValidation.confirmCode(context, value, widget.state),
+                    validator: (value) => FormValidation.confirmCode(
+                        context, value, widget.state),
                     decoration: WidgetsDecoration.appTextFormStyle(
                         AppStrings.confirmationCode,
                         'assets/images/confirm_code_key.png',
@@ -115,7 +126,9 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
             child: Padding(
               padding: const EdgeInsets.only(left: 42.0, right: 42.0),
               child: AppButton(
-                disableOnlyUI: !widget.state.emailIsValid,
+                disableOnlyUI:
+                    widget.state.status == AuthorizationStatus.email &&
+                        !widget.state.emailIsValid,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     if (widget.state.status == AuthorizationStatus.email ||
@@ -126,14 +139,13 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                     } else {
                       context
                           .bloc<AuthorizationCubit>()
-                          .confirmCode(_confirmCodeTextController.value.text);
+                          .confirmCode(_emailTextController.value.text, _confirmCodeTextController.value.text);
                     }
                   }
                 },
                 textColor: AppColors.white,
-
                 text: widget.state.status == AuthorizationStatus.email ||
-                    widget.state.status == AuthorizationStatus.emailError
+                        widget.state.status == AuthorizationStatus.emailError
                     ? AppStrings.getAuthorizationCode
                     : AppStrings.confirm,
                 height: Dimens.app_button_height,

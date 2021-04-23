@@ -1,3 +1,4 @@
+import 'package:bounty_hub_client/ui/pages/tasks/widgets/tasks_list_item.dart';
 import 'package:bounty_hub_client/ui/widgets/app_list_bottom_loader.dart';
 import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
 import 'package:bounty_hub_client/ui/widgets/empty_data_place_holder.dart';
@@ -7,10 +8,8 @@ import 'package:bounty_hub_client/utils/ui/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'cubit/my_tasks_state.dart';
-import 'widgets/my_task_item.dart';
 
 class MyTasksPage extends StatefulWidget {
-
   @override
   _MyTasksPageState createState() => _MyTasksPageState();
 }
@@ -29,15 +28,17 @@ class _MyTasksPageState extends State<MyTasksPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(data: Theme.of(context).copyWith(canvasColor: Colors.white),
+    return Theme(
+      data: Theme.of(context).copyWith(canvasColor: Colors.white),
       child: RefreshIndicator(
         color: AppColors.accentColor,
-        onRefresh:() async {
+        onRefresh: () async {
           _tasksCubit.refresh();
         },
         child: BlocConsumer<MyTasksCubit, MyTasksState>(
           listener: (context, state) {
-            if ((!state.hasReachedMax && _isBottom) || state.status == MyTasksStatus.refresh) {
+            if ((!state.hasReachedMax && _isBottom) ||
+                state.status == MyTasksStatus.refresh) {
               _tasksCubit.fetchTasks();
             }
           },
@@ -61,9 +62,12 @@ class _MyTasksPageState extends State<MyTasksPage> {
                     physics: AlwaysScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       return index >= state.tasks.length
-                          ? state.tasks.length > 10 ? BottomLoader() : SizedBox()
-                          : MyTaskItem(task: state.tasks[index], index: index);
-                      },
+                          ? state.tasks.length > 10
+                              ? BottomLoader()
+                              : SizedBox()
+                          : TasksListItem(
+                              task: state.tasks[index], index: index);
+                    },
                     itemCount: state.hasReachedMax
                         ? state.tasks.length
                         : state.tasks.length + 1,
@@ -86,8 +90,7 @@ class _MyTasksPageState extends State<MyTasksPage> {
   }
 
   bool get _isBottom {
-    if (!_scrollController.hasClients)
-      return false;
+    if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
