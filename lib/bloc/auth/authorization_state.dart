@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
+import 'package:flutter_starter/bloc/auth/authentication_event.dart';
 import 'package:equatable/equatable.dart';
 
 enum AuthenticationStatus{ uninitialized, loading, selectAuthentication, authenticated, unauthenticated }

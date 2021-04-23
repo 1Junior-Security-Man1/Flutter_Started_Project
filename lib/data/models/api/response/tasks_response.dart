@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/data/models/entity/task/task.dart';
+import 'package:flutter_starter/data/models/entity/task/task.dart';
 
 class TasksResponse {
   List<Task> _content;

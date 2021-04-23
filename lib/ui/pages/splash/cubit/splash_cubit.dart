@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:bounty_hub_client/data/app_data.dart';
-import 'package:bounty_hub_client/data/models/api/response/trx_exchange_response.dart';
-import 'package:bounty_hub_client/data/repositories/campaigns_repository.dart';
-import 'package:bounty_hub_client/ui/pages/splash/cubit/splash_state.dart';
+import 'package:flutter_starter/data/app_data.dart';
+import 'package:flutter_starter/data/models/api/response/trx_exchange_response.dart';
+import 'package:flutter_starter/data/repositories/campaigns_repository.dart';
+import 'package:flutter_starter/ui/pages/splash/cubit/splash_state.dart';
 import 'package:logger/logger.dart';
 
 class SplashCubit extends Cubit<SplashState> {

@@ -1,5 +1,5 @@
-import 'package:bounty_hub_client/data/models/api/response/trx_exchange_response.dart';
-import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
+import 'package:flutter_starter/data/models/api/response/trx_exchange_response.dart';
+import 'package:flutter_starter/data/models/entity/campaign/campaign.dart';
 
 abstract class CampaignDataSource {
 

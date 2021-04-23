@@ -1,5 +1,5 @@
-import 'package:bounty_hub_client/data/models/entity/campaign/campaign_period.dart';
-import 'package:bounty_hub_client/data/models/entity/campaign/campaign_socials.dart';
+import 'package:flutter_starter/data/models/entity/campaign/campaign_period.dart';
+import 'package:flutter_starter/data/models/entity/campaign/campaign_socials.dart';
 
 class Campaign {
   String id;

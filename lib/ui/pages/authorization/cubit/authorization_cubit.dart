@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:bounty_hub_client/data/app_data.dart';
-import 'package:bounty_hub_client/data/repositories/auth_repository.dart';
-import 'package:bounty_hub_client/data/repositories/user_repository.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
+import 'package:flutter_starter/data/app_data.dart';
+import 'package:flutter_starter/data/repositories/auth_repository.dart';
+import 'package:flutter_starter/data/repositories/user_repository.dart';
+import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_state.dart';
 import 'package:dio/dio.dart';
 
 class AuthorizationCubit extends Cubit<AuthorizationState> {
@@ -12,29 +12,15 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
   AuthorizationCubit(this._loginRepository, this._userRepository)
       : super(AuthorizationState());
 
-  void authenticate(String captchaCode) {
+  void authenticate(String email, String password) {
     emit(state.copyWith(status: AuthorizationStatus.loading));
-    _loginRepository
-        .getBasicToken()
-        .then((basicToken) => AppData.instance.saveBasicToken(basicToken))
-        .then((it) => _loginRepository.authenticate(state.email, captchaCode))
+    _loginRepository.authenticate(state.email, password)
         .whenComplete(() {
-      emit(state.copyWith(status: AuthorizationStatus.confirmCode));
+      emit(state.copyWith(status: AuthorizationStatus.complete));
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
           final response = (obj as DioError).response;
-          if (response != null && response.data['message'] != null) {
-            emit(state.copyWith(
-                status: AuthorizationStatus.emailError,
-                errorMessage: response.data['message']));
-          } else {
-            emit(state.copyWith(
-                status: AuthorizationStatus.emailError,
-                errorMessage: 'Something went wrong, please try later'));
-          }
-          break;
-        default:
           emit(state.copyWith(
               status: AuthorizationStatus.emailError,
               errorMessage: 'Something went wrong, please try later'));
@@ -42,45 +28,8 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
     });
   }
 
-  void confirmCode(String email, String code) {
-    if (code == null || code.isEmpty) return;
-
-    emit(state.copyWith(status: AuthorizationStatus.loading));
-    _loginRepository
-        .confirmCode(email, code)
-        .then((value) => _userRepository.saveAccessToken(value))
-        .then((value) => emit(state.copyWith(status: AuthorizationStatus.complete)))
-        .catchError((Object obj) {
-      switch (obj.runtimeType) {
-        case DioError:
-          final response = (obj as DioError).response;
-          if (response != null && response.data['message'] != null) {
-            emit(state.copyWith(
-                status: AuthorizationStatus.confirmCodeError,
-                errorMessage: response.data['message']));
-          } else {
-            emit(state.copyWith(
-                status: AuthorizationStatus.confirmCodeError,
-                errorMessage: 'Something went wrong, please try later'));
-          }
-          break;
-        default:
-          emit(state.copyWith(
-              status: AuthorizationStatus.confirmCodeError,
-              errorMessage: 'Something went wrong, please try later'));
-      }
-    });
-  }
-
   void emailIsValid(value) {
     emit(state.copyWith(emailIsValid: value));
-  }
-
-  void onEmailSubmitted(String email) {
-    emit(state.copyWith(status: AuthorizationStatus.loading));
-    Future.delayed(Duration(seconds: 1), () {
-      emit(state.copyWith(status: AuthorizationStatus.captcha, email: email));
-    });
   }
 
   void onBack() {

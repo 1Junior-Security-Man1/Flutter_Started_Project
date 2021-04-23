@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/network/constants.dart';
+import 'package:flutter_starter/network/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

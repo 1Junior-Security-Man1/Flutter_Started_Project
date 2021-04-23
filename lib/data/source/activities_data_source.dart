@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/data/models/entity/activity/notification.dart';
+import 'package:flutter_starter/data/models/entity/activity/notification.dart';
 
 abstract class ActivitiesDataSource {
 

@@ -1,5 +1,5 @@
-import 'package:bounty_hub_client/utils/localization/localization.res.dart';
-import 'package:bounty_hub_client/utils/ui/colors.dart';
+import 'package:flutter_starter/utils/localization/localization.res.dart';
+import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
 class EmptyDataPlaceHolder extends StatelessWidget {

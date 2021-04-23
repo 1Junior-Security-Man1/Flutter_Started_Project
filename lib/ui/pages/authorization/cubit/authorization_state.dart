@@ -2,11 +2,8 @@ import 'package:equatable/equatable.dart';
 
 enum AuthorizationStatus {
   email,
-  captcha,
-  confirmCode,
-  complete,
   emailError,
-  confirmCodeError,
+  complete,
   loading
 }
 

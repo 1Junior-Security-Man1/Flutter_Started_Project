@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/data/enums/app_types.dart';
+import 'package:flutter_starter/data/enums/app_types.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 

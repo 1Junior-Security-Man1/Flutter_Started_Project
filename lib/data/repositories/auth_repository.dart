@@ -1,9 +1,9 @@
-import 'package:bounty_hub_client/data/models/api/request/auth_request.dart';
-import 'package:bounty_hub_client/data/models/api/response/basic_token.dart';
-import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
-import 'package:bounty_hub_client/data/source/login_data_source.dart';
-import 'package:bounty_hub_client/network/constants.dart';
-import 'package:bounty_hub_client/network/server_api.dart';
+import 'package:flutter_starter/data/models/api/request/auth_request.dart';
+import 'package:flutter_starter/data/models/api/response/basic_token.dart';
+import 'package:flutter_starter/data/models/api/response/token_response.dart';
+import 'package:flutter_starter/data/source/login_data_source.dart';
+import 'package:flutter_starter/network/constants.dart';
+import 'package:flutter_starter/network/server_api.dart';
 
 class AuthRepository extends AuthDataSource {
 
@@ -12,8 +12,8 @@ class AuthRepository extends AuthDataSource {
   AuthRepository(this.client);
 
   @override
-  Future<void> authenticate(String email, String captchaCode) {
-    return client.authenticate(AuthRequest(email, captchaCode, Constants.captchaType, Constants.captchaSecret, Constants.domain));
+  Future<void> authenticate(String email, String password) {
+    return Future.delayed(const Duration(milliseconds: 2000));
   }
 
   @override

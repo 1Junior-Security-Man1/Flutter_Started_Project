@@ -1,7 +1,5 @@
-import 'package:bounty_hub_client/ui/pages/activity/activity_page.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/profile_page.dart';
-import 'package:bounty_hub_client/ui/pages/tasks/tasks_page.dart';
-import 'package:bounty_hub_client/utils/localization/localization.res.dart';
+import 'package:flutter_starter/ui/pages/template/template_page.dart';
+import 'package:flutter_starter/utils/localization/localization.res.dart';
 import 'package:flutter/material.dart';
 
 enum TabItem { tasks, profile, notifications }
@@ -19,7 +17,7 @@ const Map<TabItem, String> navigationTabIcons = {
 };
 
 Map<TabItem, Widget> navigationTabPages = {
-  TabItem.tasks: TasksPage(),
-  TabItem.profile: ProfilePage(),
-  TabItem.notifications: ActivitiesPage(),
+  TabItem.tasks: TemplatePage('Dashboard'),
+  TabItem.profile: TemplatePage('Profile'),
+  TabItem.notifications: TemplatePage('Settings'),
 };

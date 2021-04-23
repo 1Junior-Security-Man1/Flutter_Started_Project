@@ -1,13 +1,13 @@
-import 'package:bounty_hub_client/data/models/api/response/confirm_task_response.dart';
-import 'package:bounty_hub_client/data/models/api/response/tasks_response.dart';
-import 'package:bounty_hub_client/data/models/api/response/user_tasks_response.dart';
-import 'package:bounty_hub_client/data/models/entity/task/task.dart';
-import 'package:bounty_hub_client/data/models/entity/user_task/user_task.dart';
-import 'package:bounty_hub_client/data/repositories/user_repository.dart';
-import 'package:bounty_hub_client/data/source/task_data_source.dart';
-import 'package:bounty_hub_client/network/constants.dart';
-import 'package:bounty_hub_client/network/server_api.dart';
-import 'package:bounty_hub_client/utils/bloc_utils.dart';
+import 'package:flutter_starter/data/models/api/response/confirm_task_response.dart';
+import 'package:flutter_starter/data/models/api/response/tasks_response.dart';
+import 'package:flutter_starter/data/models/api/response/user_tasks_response.dart';
+import 'package:flutter_starter/data/models/entity/task/task.dart';
+import 'package:flutter_starter/data/models/entity/user_task/user_task.dart';
+import 'package:flutter_starter/data/repositories/user_repository.dart';
+import 'package:flutter_starter/data/source/task_data_source.dart';
+import 'package:flutter_starter/network/constants.dart';
+import 'package:flutter_starter/network/server_api.dart';
+import 'package:flutter_starter/utils/bloc_utils.dart';
 
 class TaskRepository extends TaskDataSource {
 

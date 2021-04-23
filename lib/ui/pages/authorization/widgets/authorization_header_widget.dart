@@ -1,8 +1,8 @@
-import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
-import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
-import 'package:bounty_hub_client/utils/ui/dimens.dart';
+import 'package:flutter_starter/bloc/auth/authentication_event.dart';
+import 'package:flutter_starter/bloc/auth/authorization_bloc.dart';
+import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_cubit.dart';
+import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_state.dart';
+import 'package:flutter_starter/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,10 +34,7 @@ class HeaderWidget extends StatelessWidget {
             }
           },
           child: Opacity(
-            opacity: state.status == AuthorizationStatus.email ||
-                state.status == AuthorizationStatus.captcha ||
-                state.status == AuthorizationStatus.confirmCode ||
-                state.status == AuthorizationStatus.confirmCodeError
+            opacity: state.status == AuthorizationStatus.email
                 ? 1.0
                 : 0.0,
             child: Container(

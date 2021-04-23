@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/data/enums/enum_decode.dart';
-import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
-import 'package:bounty_hub_client/data/enums/social_status_types.dart';
+import 'package:flutter_starter/data/enums/enum_decode.dart';
+import 'package:flutter_starter/data/enums/social_networks_types.dart';
+import 'package:flutter_starter/data/enums/social_status_types.dart';
 
 class Socials {
   String id;

@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/utils/flavors.dart';
-import 'package:bounty_hub_client/utils/locator.dart';
-import 'package:bounty_hub_client/utils/providers.dart';
+import 'package:flutter_starter/utils/flavors.dart';
+import 'package:flutter_starter/utils/locator.dart';
+import 'package:flutter_starter/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

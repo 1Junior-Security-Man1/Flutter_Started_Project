@@ -1,5 +1,5 @@
-import 'package:bounty_hub_client/data/enums/response_error_types.dart';
-import 'package:bounty_hub_client/utils/localization/localization.res.dart';
+import 'package:flutter_starter/data/enums/response_error_types.dart';
+import 'package:flutter_starter/utils/localization/localization.res.dart';
 
 /// The backend does not have error classification, so that it
 /// would be possible to identify the error type and return a localized translation

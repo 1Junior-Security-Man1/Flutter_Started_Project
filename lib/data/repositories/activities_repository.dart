@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/data/models/entity/activity/notification.dart';
-import 'package:bounty_hub_client/data/source/activities_data_source.dart';
-import 'package:bounty_hub_client/network/server_api.dart';
+import 'package:flutter_starter/data/models/entity/activity/notification.dart';
+import 'package:flutter_starter/data/source/activities_data_source.dart';
+import 'package:flutter_starter/network/server_api.dart';
 
 class ActivitiesRepository extends ActivitiesDataSource {
   final RestClient client;

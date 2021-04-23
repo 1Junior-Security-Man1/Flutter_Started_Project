@@ -1,13 +1,13 @@
-import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
-import 'package:bounty_hub_client/ui/widgets/app_button.dart';
-import 'package:bounty_hub_client/ui/widgets/app_text_field.dart';
-import 'package:bounty_hub_client/utils/localization/localization.res.dart';
-import 'package:bounty_hub_client/utils/ui/colors.dart';
-import 'package:bounty_hub_client/utils/ui/dimens.dart';
-import 'package:bounty_hub_client/utils/ui/styles.dart';
-import 'package:bounty_hub_client/utils/validation/form_validation.dart';
-import 'package:bounty_hub_client/utils/validation/upper_case_text_formatter.dart';
+import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_cubit.dart';
+import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_state.dart';
+import 'package:flutter_starter/ui/widgets/app_button.dart';
+import 'package:flutter_starter/ui/widgets/app_text_field.dart';
+import 'package:flutter_starter/utils/localization/localization.res.dart';
+import 'package:flutter_starter/utils/ui/colors.dart';
+import 'package:flutter_starter/utils/ui/dimens.dart';
+import 'package:flutter_starter/utils/ui/styles.dart';
+import 'package:flutter_starter/utils/validation/form_validation.dart';
+import 'package:flutter_starter/utils/validation/upper_case_text_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -98,24 +98,16 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                 SizedBox(
                   height: Dimens.content_internal_padding,
                 ),
-                Visibility(
-                  visible:
-                      widget.state.status == AuthorizationStatus.confirmCode ||
-                          widget.state.status ==
-                              AuthorizationStatus.confirmCodeError,
-                  child: AppTextField(
-                    controller: _confirmCodeTextController,
-                    inputFormatters: [UpperCaseTextFormatter()],
-                    textInputType: TextInputType.text,
-                    textInputAction: TextInputAction.done,
-                    validator: (value) => FormValidation.confirmCode(
-                        context, value, widget.state),
-                    decoration: WidgetsDecoration.appTextFormStyle(
-                        AppStrings.confirmationCode,
-                        'assets/images/confirm_code_key.png',
-                        null,
-                        true),
-                  ),
+                AppTextField(
+                  controller: _confirmCodeTextController,
+                  inputFormatters: [UpperCaseTextFormatter()],
+                  textInputType: TextInputType.text,
+                  textInputAction: TextInputAction.done,
+                  decoration: WidgetsDecoration.appTextFormStyle(
+                      AppStrings.confirmationCode,
+                      'assets/images/confirm_code_key.png',
+                      null,
+                      true),
                 ),
               ],
             ),
@@ -135,11 +127,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                         widget.state.status == AuthorizationStatus.emailError) {
                       context
                           .bloc<AuthorizationCubit>()
-                          .onEmailSubmitted(_emailTextController.value.text);
-                    } else {
-                      context
-                          .bloc<AuthorizationCubit>()
-                          .confirmCode(_emailTextController.value.text, _confirmCodeTextController.value.text);
+                          .authenticate(_emailTextController.value.text, _confirmCodeTextController.value.text);
                     }
                   }
                 },

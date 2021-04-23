@@ -1,5 +1,5 @@
-import 'package:bounty_hub_client/utils/ui/colors.dart';
-import 'package:bounty_hub_client/utils/ui/dimens.dart';
+import 'package:flutter_starter/utils/ui/colors.dart';
+import 'package:flutter_starter/utils/ui/dimens.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

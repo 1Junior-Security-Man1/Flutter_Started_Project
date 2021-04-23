@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:bounty_hub_client/data/app_data.dart';
-import 'package:bounty_hub_client/data/models/api/response/image_response.dart';
-import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
-import 'package:bounty_hub_client/data/source/user_data_source.dart';
-import 'package:bounty_hub_client/network/server_api.dart';
+import 'package:flutter_starter/data/app_data.dart';
+import 'package:flutter_starter/data/models/api/response/image_response.dart';
+import 'package:flutter_starter/data/models/api/response/token_response.dart';
+import 'package:flutter_starter/data/source/user_data_source.dart';
+import 'package:flutter_starter/network/server_api.dart';
 
 class UserRepository extends UserDataSource {
 

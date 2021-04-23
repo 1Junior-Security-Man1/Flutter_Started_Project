@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/data/models/entity/user/wallets.dart';
+import 'package:flutter_starter/data/models/entity/user/wallets.dart';
 
 class Balances {
   String id;

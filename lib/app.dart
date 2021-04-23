@@ -1,14 +1,13 @@
-import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
-import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
-import 'package:bounty_hub_client/bloc/locale/locale_bloc.dart';
-import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
-import 'package:bounty_hub_client/data/remote_app_data.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/authorization_page.dart';
-import 'package:bounty_hub_client/ui/pages/main/main_page.dart';
-import 'package:bounty_hub_client/ui/pages/splash/splash_page.dart';
-import 'package:bounty_hub_client/ui/pages/welcome/weclome_page.dart';
-import 'package:bounty_hub_client/utils/locator.dart';
-import 'package:bounty_hub_client/utils/ui/colors.dart';
+import 'package:flutter_starter/bloc/auth/authentication_event.dart';
+import 'package:flutter_starter/bloc/auth/authorization_state.dart';
+import 'package:flutter_starter/bloc/locale/locale_bloc.dart';
+import 'package:flutter_starter/bloc/locale/locale_event.dart';
+import 'package:flutter_starter/data/remote_app_data.dart';
+import 'package:flutter_starter/ui/pages/authorization/authorization_page.dart';
+import 'package:flutter_starter/ui/pages/main/main_page.dart';
+import 'package:flutter_starter/ui/pages/splash/splash_page.dart';
+import 'package:flutter_starter/utils/locator.dart';
+import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -76,7 +75,7 @@ class AppState extends State<App> {
     await _remoteAppData.initialize();
     await MobileAds.instance.initialize();
     await PackageInfo.fromPlatform().then((packageInfo) => buildVersion = packageInfo.version);
-    print('Deice AdvertisingId for AdMob testing ' + await AdvertisingId.id);
+    print('Deice advertisingId for AdMob testing: ' + await AdvertisingId.id);
   }
 
   @override
@@ -124,11 +123,11 @@ class AppState extends State<App> {
       case AuthenticationStatus.authenticated:
         return MainPage();
       case AuthenticationStatus.unauthenticated:
-        return WelcomePage();
+        return AuthorizationPage();
       case AuthenticationStatus.selectAuthentication:
         return getAuthenticatedRoute(state.authenticationType);
       default: {
-        return WelcomePage();
+        return AuthorizationPage();
       }
     }
   }
@@ -140,7 +139,7 @@ class AppState extends State<App> {
       case AuthenticationType.guest:
         return MainPage();
       default: {
-        return WelcomePage();
+        return AuthorizationPage();
       }
     }
   }

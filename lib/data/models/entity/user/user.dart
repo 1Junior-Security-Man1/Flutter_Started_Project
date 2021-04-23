@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/data/models/entity/user/balance.dart';
-import 'package:bounty_hub_client/data/models/entity/user/roles.dart';
-import 'package:bounty_hub_client/data/models/entity/user/social.dart';
+import 'package:flutter_starter/data/models/entity/user/balance.dart';
+import 'package:flutter_starter/data/models/entity/user/roles.dart';
+import 'package:flutter_starter/data/models/entity/user/social.dart';
 
 import 'level.dart';
 

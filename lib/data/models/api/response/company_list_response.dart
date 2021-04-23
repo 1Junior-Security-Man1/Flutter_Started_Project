@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/data/models/entity/campaign/campaign.dart';
+import 'package:flutter_starter/data/models/entity/campaign/campaign.dart';
 
 class CompanyListResponse {
   List<Campaign> content;

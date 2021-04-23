@@ -1,10 +1,9 @@
-import 'package:bounty_hub_client/data/enums/response_error_types.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/profile_page.dart';
-import 'package:bounty_hub_client/ui/widgets/app_button.dart';
-import 'package:bounty_hub_client/utils/localization/localization.res.dart';
-import 'package:bounty_hub_client/utils/localization/response_localization.dart';
-import 'package:bounty_hub_client/utils/ui/colors.dart';
-import 'package:bounty_hub_client/utils/ui/dimens.dart';
+import 'package:flutter_starter/data/enums/response_error_types.dart';
+import 'package:flutter_starter/ui/widgets/app_button.dart';
+import 'package:flutter_starter/utils/localization/localization.res.dart';
+import 'package:flutter_starter/utils/localization/response_localization.dart';
+import 'package:flutter_starter/utils/ui/colors.dart';
+import 'package:flutter_starter/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
 
 class AppAlertDialog extends StatefulWidget {
@@ -120,11 +119,7 @@ class AppAlertDialogState extends State<AppAlertDialog>
   Function onAlertButtonAction(BuildContext context, String message) {
     switch (getServerErrorType(message)) {
       case ServerErrorType.NO_SOCIAL_NETWORKS_ADDED_ERROR:
-        return () {
-          Navigator.of(context).popUntil((route) => route.isFirst);
-          Navigator.push(
-              widget.parent, MaterialPageRoute(builder: (parent) => ProfilePage()));
-        };
+        return () {};
         break;
       default:
         return null;

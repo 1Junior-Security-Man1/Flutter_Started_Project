@@ -1,17 +1,14 @@
 import 'dart:async';
-import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
-import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
-import 'package:bounty_hub_client/ui/widgets/app_alert.dart';
-import 'package:bounty_hub_client/ui/widgets/app_progress_bar.dart';
-import 'package:bounty_hub_client/utils/validation/string_utils.dart';
+import 'package:flutter_starter/bloc/auth/authentication_event.dart';
+import 'package:flutter_starter/bloc/auth/authorization_bloc.dart';
+import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_cubit.dart';
+import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_state.dart';
+import 'package:flutter_starter/ui/widgets/app_alert.dart';
+import 'package:flutter_starter/ui/widgets/app_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/widgets/authorization_form.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/widgets/authorization_header_widget.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/widgets/authorization_captcha_widget.dart';
-import 'package:uni_links/uni_links.dart';
+import 'package:flutter_starter/ui/pages/authorization/widgets/authorization_form.dart';
+import 'package:flutter_starter/ui/pages/authorization/widgets/authorization_header_widget.dart';
 
 class AuthorizationWidget extends StatefulWidget {
   @override
@@ -24,22 +21,6 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
   @override
   void initState() {
     super.initState();
-    listenLinksStream();
-  }
-
-  listenLinksStream() async {
-    _linksSub = getLinksStream().listen((link) {
-      parseLinkAndConfirmAuthorization(link);
-    });
-  }
-
-  parseLinkAndConfirmAuthorization(String link) {
-    String email = parseUrl(link, 'email');
-    String confirmCode = parseUrl(link, 'code');
-
-    if (email != null && confirmCode != null) {
-      context.bloc<AuthorizationCubit>().confirmCode(email, confirmCode);
-    }
   }
 
   @override
@@ -57,8 +38,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           return;
         }
 
-        if (state.status == AuthorizationStatus.emailError ||
-            state.status == AuthorizationStatus.confirmCodeError) {
+        if (state.status == AuthorizationStatus.emailError) {
           showDialog(
             context: context,
             builder: (_) => AppAlertDialog(message: state.errorMessage),
@@ -100,8 +80,6 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
   _buildContent(BuildContext context, AuthorizationState state) {
     if (state.status == AuthorizationStatus.loading) {
       return Loading();
-    } else if (state.status == AuthorizationStatus.captcha) {
-      return CaptchaWidget();
     } else {
       return AuthorizationFormWidget(state);
     }

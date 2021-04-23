@@ -23,11 +23,11 @@ class AppStringGenerator extends Generator {
             ..lambda = true
             ..type = MethodType.getter
             ..returns =
-                refer('String', 'package:bounty_hub_client/utils/localization/localization.dart')
+                refer('String', 'package:flutter_starter/utils/localization/localization.dart')
             ..body = refer('AppLocalizations')
                 .property('of')
                 .call([
-                  refer('App', 'package:bounty_hub_client/app.dart')
+                  refer('App', 'package:flutter_starter/app.dart')
                       .property('globalNavigatorKey')
                       .property('currentContext')
                       .expression

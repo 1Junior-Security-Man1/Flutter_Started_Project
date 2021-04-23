@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/utils/ui/colors.dart';
+import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
 enum AppButtonType { WHITE, BLUE, OUTLINE }

@@ -1,8 +1,8 @@
-import 'package:bounty_hub_client/app.dart';
-import 'package:bounty_hub_client/bloc/auth/authentication_event.dart';
-import 'package:bounty_hub_client/bloc/auth/authorization_bloc.dart';
-import 'package:bounty_hub_client/data/app_data.dart';
-import 'package:bounty_hub_client/network/constants.dart';
+import 'package:flutter_starter/app.dart';
+import 'package:flutter_starter/bloc/auth/authentication_event.dart';
+import 'package:flutter_starter/bloc/auth/authorization_bloc.dart';
+import 'package:flutter_starter/data/app_data.dart';
+import 'package:flutter_starter/network/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';

@@ -1,9 +1,9 @@
-import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
-import 'package:bounty_hub_client/data/enums/user_task_status.dart';
-import 'package:bounty_hub_client/data/models/entity/task/task_category.dart';
-import 'package:bounty_hub_client/data/models/entity/user_task/user_task_payload.dart';
+import 'package:flutter_starter/data/enums/social_networks_types.dart';
+import 'package:flutter_starter/data/enums/user_task_status.dart';
+import 'package:flutter_starter/data/models/entity/task/task_category.dart';
+import 'package:flutter_starter/data/models/entity/user_task/user_task_payload.dart';
 import 'package:enum_to_string/enum_to_string.dart';
-import 'package:bounty_hub_client/data/models/entity/task/base_task.dart';
+import 'package:flutter_starter/data/models/entity/task/base_task.dart';
 
 class UserTask implements BaseTask  {
   String id;

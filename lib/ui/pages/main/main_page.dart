@@ -1,14 +1,7 @@
-import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
-import 'package:bounty_hub_client/bloc/locale/locale_bloc.dart';
-import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
-import 'package:bounty_hub_client/ui/pages/main/cubit/main_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/main/cubit/main_state.dart';
-import 'package:bounty_hub_client/ui/pages/main/widgets/navigation/bottom_navigation.dart';
-import 'package:bounty_hub_client/ui/pages/main/widgets/navigation/navigation_tab_item.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_event.dart';
-import 'package:bounty_hub_client/ui/pages/tasks/cubit/tasks_cubit.dart';
-import 'package:bounty_hub_client/utils/validation/string_utils.dart';
+import 'package:flutter_starter/ui/pages/main/cubit/main_cubit.dart';
+import 'package:flutter_starter/ui/pages/main/cubit/main_state.dart';
+import 'package:flutter_starter/ui/pages/main/widgets/navigation/bottom_navigation.dart';
+import 'package:flutter_starter/ui/pages/main/widgets/navigation/navigation_tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,19 +30,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    Future.microtask(() {
-      context.bloc<ActivityBadgeCubit>().getCount();
-      context.bloc<TasksCubit>().getCampaigns();
-      context.bloc<ProfileBloc>().add(FetchProfileEvent());
-      context?.bloc<ProfileBloc>()?.listen((state) {
-        if (context != null) {
-          BlocProvider.of<LocaleBloc>(context).add(ChangeLocaleEvent(
-            countryCode: getLanguageCode(state.user?.language)[1],
-            languageCode: getLanguageCode(state.user?.language)[0],
-          ));
-        }
-      });
-    });
     super.initState();
   }
 

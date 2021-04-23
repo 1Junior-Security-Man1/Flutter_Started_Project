@@ -4,8 +4,8 @@
 // AppStringGenerator
 // **************************************************************************
 
-import 'package:bounty_hub_client/app.dart';
-import 'package:bounty_hub_client/utils/localization/localization.dart';
+import 'package:flutter_starter/app.dart';
+import 'package:flutter_starter/utils/localization/localization.dart';
 
 class AppStrings {
   static String get signInTo =>

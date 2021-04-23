@@ -1,15 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:bounty_hub_client/app.dart';
-import 'package:bounty_hub_client/bloc/auth/authorization_state.dart';
-import 'package:bounty_hub_client/data/repositories/user_repository.dart';
-import 'package:bounty_hub_client/data/repositories/profile_local_repository.dart';
-import 'package:bounty_hub_client/ui/pages/my_tasks/cubit/my_tasks_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/profile_page/view_profile/bloc/profile_bloc.dart';
-import 'package:bounty_hub_client/ui/pages/tasks_list/cubit/tasks_list_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_cubit.dart';
-import 'package:bounty_hub_client/ui/pages/activity/cubit/activity_cubit.dart';
-import 'package:bounty_hub_client/bloc/badge/badge_cubit.dart';
-import 'package:bounty_hub_client/utils/bloc_utils.dart';
+import 'package:flutter_starter/app.dart';
+import 'package:flutter_starter/bloc/auth/authorization_state.dart';
+import 'package:flutter_starter/data/repositories/user_repository.dart';
+import 'package:flutter_starter/data/repositories/profile_local_repository.dart';
+import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_cubit.dart';
+import 'package:flutter_starter/utils/bloc_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'authentication_event.dart';
@@ -69,11 +64,6 @@ class AuthenticationBloc
     _profileRepository.removeUserData();
 
     BlocProvider.of<AuthorizationCubit>(context).clearState();
-    BlocProvider.of<ActivityBadgeCubit>(context).clearState();
-    BlocProvider.of<ActivityCubit>(context).clearState();
-    BlocProvider.of<ProfileBloc>(context).clearState();
-    BlocProvider.of<TasksListCubit>(context).clearState();
-    BlocProvider.of<MyTasksCubit>(context).clearState();
   }
 }
 

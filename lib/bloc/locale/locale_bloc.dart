@@ -1,5 +1,5 @@
-import 'package:bounty_hub_client/bloc/locale/locale_event.dart';
-import 'package:bounty_hub_client/data/repositories/locale_repository.dart';
+import 'package:flutter_starter/bloc/locale/locale_event.dart';
+import 'package:flutter_starter/data/repositories/locale_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,10 +1,10 @@
-import 'package:bounty_hub_client/data/app_data.dart';
-import 'package:bounty_hub_client/data/enums/social_networks_types.dart';
-import 'package:bounty_hub_client/data/models/api/request/set_social.dart';
-import 'package:bounty_hub_client/data/models/entity/user/social.dart';
-import 'package:bounty_hub_client/data/models/entity/user/user.dart';
-import 'package:bounty_hub_client/data/source/profile_data_source.dart';
-import 'package:bounty_hub_client/network/server_api.dart';
+import 'package:flutter_starter/data/app_data.dart';
+import 'package:flutter_starter/data/enums/social_networks_types.dart';
+import 'package:flutter_starter/data/models/api/request/set_social.dart';
+import 'package:flutter_starter/data/models/entity/user/social.dart';
+import 'package:flutter_starter/data/models/entity/user/user.dart';
+import 'package:flutter_starter/data/source/profile_data_source.dart';
+import 'package:flutter_starter/network/server_api.dart';
 
 class ProfileRepository extends ProfileDataSource {
   final RestClient client;

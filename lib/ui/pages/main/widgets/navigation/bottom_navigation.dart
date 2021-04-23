@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/ui/pages/main/widgets/navigation/navigation_tab_item.dart';
+import 'package:flutter_starter/ui/pages/main/widgets/navigation/navigation_tab_item.dart';
 import 'package:flutter/material.dart';
-import 'package:bounty_hub_client/utils/ui/colors.dart';
+import 'package:flutter_starter/utils/ui/colors.dart';
 
 class BottomNavigation extends StatelessWidget {
   BottomNavigation({@required this.currentTab, @required this.onSelectTab});

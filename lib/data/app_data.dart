@@ -1,6 +1,6 @@
-import 'package:bounty_hub_client/data/models/api/response/basic_token.dart';
-import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
-import 'package:bounty_hub_client/network/constants.dart';
+import 'package:flutter_starter/data/models/api/response/basic_token.dart';
+import 'package:flutter_starter/data/models/api/response/token_response.dart';
+import 'package:flutter_starter/network/constants.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AppData {

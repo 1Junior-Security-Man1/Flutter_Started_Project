@@ -1,7 +1,7 @@
-name: bounty_hub_client
-description:  Client application for the Bountyhub portal
+name: flutter_starter
+description: Starter project containing all basic dependencies and busines logic
 
-version: 1.0.0+32
+version: 1.0.0+1
 
 environment:
   sdk: ">=2.10.5 <3.0.0"

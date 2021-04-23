@@ -1,4 +1,4 @@
-import 'package:bounty_hub_client/utils/validation/upper_case_text_formatter.dart';
+import 'package:flutter_starter/utils/validation/upper_case_text_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

@@ -1,5 +1,5 @@
-import 'package:bounty_hub_client/ui/pages/authorization/cubit/authorization_state.dart';
-import 'package:bounty_hub_client/utils/localization/localization.res.dart';
+import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_state.dart';
+import 'package:flutter_starter/utils/localization/localization.res.dart';
 import 'package:flutter/material.dart';
 
 class FormValidation {
@@ -11,13 +11,6 @@ class FormValidation {
     }else {
       return null;
     }
-  }
-
-  static String confirmCode(BuildContext context, String value, AuthorizationState state) {
-    if ((state.status == AuthorizationStatus.confirmCode || state.status == AuthorizationStatus.confirmCodeError) && value.length != 5)
-      return AppStrings.invalidCode;
-    else
-      return null;
   }
 
   static String isEmpty(String value) {

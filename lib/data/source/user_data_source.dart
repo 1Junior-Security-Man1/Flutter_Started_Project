@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:bounty_hub_client/data/models/api/response/image_response.dart';
-import 'package:bounty_hub_client/data/models/api/response/token_response.dart';
+import 'package:flutter_starter/data/models/api/response/image_response.dart';
+import 'package:flutter_starter/data/models/api/response/token_response.dart';
 
 abstract class UserDataSource {
 
