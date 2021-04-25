@@ -1,15 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-enum AuthorizationStatus {
-  email,
-  error,
-  complete,
-  loading
-}
+enum AuthorizationStatus { initial, error, complete, loading }
 
 class AuthorizationState extends Equatable {
   const AuthorizationState({
-    this.status = AuthorizationStatus.email,
+    this.status = AuthorizationStatus.initial,
     this.errorMessage,
     this.email,
     this.confirmCode,

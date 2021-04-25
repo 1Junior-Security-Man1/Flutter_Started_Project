@@ -1,4 +1,3 @@
-import 'package:flutter_starter/data/models/api/response/basic_token.dart';
 import 'package:flutter_starter/data/models/api/response/token_response.dart';
 import 'package:flutter_starter/network/constants.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -17,14 +16,6 @@ class AppData {
     _storage.write(key: 'USER_ID', value: data.userId);
   }
 
-  void saveGuestMode(bool guest) {
-    _storage.write(key: 'GUEST_MODE', value: (guest ? 'true' : 'false'));
-  }
-
-  Future<bool> isGuestMode() async {
-    return await _storage.read(key: 'GUEST_MODE') == 'true';
-  }
-
   void saveToken(String token) {
     _storage.write(key: 'ACCESS_TOKEN', value: token);
   }
@@ -40,22 +31,5 @@ class AppData {
   void clearAccessData() {
     _storage.write(key: 'ACCESS_TOKEN', value: '');
     _storage.write(key: 'USER_ID', value: '');
-  }
-
-  void saveTrxEquivalent(double value) {
-    _storage.write(key: 'TRX_TO_USD', value: value?.toString());
-  }
-
-  Future<double> getTrxEquivalent() async {
-    String value = await _storage.read(key: 'TRX_TO_USD');
-    return value != null && value.isNotEmpty ? double.parse(value) : Constants.equivalentTrxToUsd;
-  }
-
-  void saveBasicToken(BasicToken basicToken) {
-    _storage.write(key: 'BASIC_TOKEN', value: basicToken?.token ?? '');
-  }
-
-  Future<String> getBasicToken() async {
-    return _storage.read(key: 'BASIC_TOKEN');
   }
 }

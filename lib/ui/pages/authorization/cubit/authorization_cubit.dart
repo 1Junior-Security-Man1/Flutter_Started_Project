@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_starter/data/app_data.dart';
 import 'package:flutter_starter/data/repositories/auth_repository.dart';
 import 'package:flutter_starter/data/repositories/user_repository.dart';
 import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_state.dart';
@@ -14,8 +13,7 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
 
   void authenticate(String email, String password) {
     emit(state.copyWith(status: AuthorizationStatus.loading));
-    _loginRepository.authenticate(state.email, password)
-        .whenComplete(() {
+    _loginRepository.authenticate(state.email, password).whenComplete(() {
       emit(state.copyWith(status: AuthorizationStatus.complete));
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
@@ -32,15 +30,11 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
     emit(state.copyWith(emailIsValid: value));
   }
 
-  void onBack() {
-    emit(state.copyWith(status: AuthorizationStatus.email));
-  }
-
   void clearState() {
     emit(state.copyWith(
         email: '',
         confirmCode: '',
-        status: AuthorizationStatus.email,
+        status: AuthorizationStatus.initial,
         emailIsValid: false));
   }
 }

@@ -60,152 +60,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getTasks(queries) async {
-    ArgumentError.checkNotNull(queries, 'queries');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.addAll(queries ?? <String, dynamic>{});
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/items/filtered',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = TasksResponse.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
-  getNoSocialTasks(queries) async {
-    ArgumentError.checkNotNull(queries, 'queries');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.addAll(queries ?? <String, dynamic>{});
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/items/filtered/items',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = TasksResponse.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
-  getTask(taskId) async {
-    ArgumentError.checkNotNull(taskId, 'taskId');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/items/$taskId',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = Task.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
-  getCampaign(campaignId) async {
-    ArgumentError.checkNotNull(campaignId, 'campaignId');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/campaigns/$campaignId',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = Campaign.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
-  getAllCampaign() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/campaigns/filtered?statusType=APPROVED&sort=position,desc&accessMode=PUBLIC',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = CompanyListResponse.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
-  getUserTask(userId, taskId, redirectUrl) async {
-    ArgumentError.checkNotNull(userId, 'userId');
-    ArgumentError.checkNotNull(taskId, 'taskId');
-    ArgumentError.checkNotNull(redirectUrl, 'redirectUrl');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{'redirectUrl': redirectUrl};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/users/$userId/item/$taskId',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = UserTask.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
-  getUserTasks(campaignId, socialType, userId, page, size) async {
-    ArgumentError.checkNotNull(campaignId, 'campaignId');
-    ArgumentError.checkNotNull(socialType, 'socialType');
-    ArgumentError.checkNotNull(userId, 'userId');
-    ArgumentError.checkNotNull(page, 'page');
-    ArgumentError.checkNotNull(size, 'size');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      'campaignId': campaignId,
-      'socialNetwork': socialType,
-      'userId': userId,
-      'page': page,
-      'size': size
-    };
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/user-items/list',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = UserTasksResponse.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
   confirmSocialParserTask(
       userId, userTaskId, redirectUrl, comment, imageId) async {
     ArgumentError.checkNotNull(userId, 'userId');
@@ -234,31 +88,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  confirmAutoCheckTask(userId, userTaskId, redirectUrl, comment) async {
-    ArgumentError.checkNotNull(userId, 'userId');
-    ArgumentError.checkNotNull(userTaskId, 'userTaskId');
-    ArgumentError.checkNotNull(redirectUrl, 'redirectUrl');
-    ArgumentError.checkNotNull(comment, 'comment');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      'redirectUrl': redirectUrl,
-      'comment': comment
-    };
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/user-items/$userId/complete/$userTaskId',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = ConfirmTaskResponse.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
   reconfirmAutoCheckTask(userId, userTaskId, redirectUrl, comment) async {
     ArgumentError.checkNotNull(userId, 'userId');
     ArgumentError.checkNotNull(userTaskId, 'userTaskId');
@@ -280,49 +109,6 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = _result.data;
-    return Future.value(value);
-  }
-
-  @override
-  takeTask(userId, taskId) async {
-    ArgumentError.checkNotNull(userId, 'userId');
-    ArgumentError.checkNotNull(taskId, 'taskId');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/user-items/$userId/reserve/$taskId',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = UserTask.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
-  uploadImage(image) async {
-    ArgumentError.checkNotNull(image, 'image');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-        'image',
-        MultipartFile.fromFileSync(image.path,
-            filename: image.path.split(Platform.pathSeparator).last)));
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/images/upload/user',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = ImageResponse.fromJson(_result.data);
     return Future.value(value);
   }
 
@@ -365,26 +151,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getMySocialAccounts() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request(
-        '/users/my-social-accounts',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    var value = _result.data
-        .map((dynamic i) => Socials.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return Future.value(value);
-  }
-
-  @override
   setSocial(body) async {
     ArgumentError.checkNotNull(body, 'body');
     const _extra = <String, dynamic>{};
@@ -417,44 +183,6 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     return Future.value(null);
-  }
-
-  @override
-  getActivities(page, size) async {
-    ArgumentError.checkNotNull(page, 'page');
-    ArgumentError.checkNotNull(size, 'size');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{'page': page, 'size': size};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/notifications/list',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = NotificationResponse.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
-  getUnreadActivitiesCount() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/notifications/unread',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = NotificationCountResponse.fromJson(_result.data);
-    return Future.value(value);
   }
 
   @override
@@ -491,64 +219,6 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = _result.data;
-    return Future.value(value);
-  }
-
-  @override
-  retryTask(userItemId) async {
-    ArgumentError.checkNotNull(userItemId, 'userItemId');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{'userItemId': userItemId};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/user-items/retry',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = UserTask.fromJson(_result.data);
-    return Future.value(value);
-  }
-
-  @override
-  getTrxExchange() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request(
-        '/payments/methods/calculate?amount=1&currency=TRX',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    var value = _result.data
-        .map((dynamic i) =>
-            TrxExchangeResponse.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return Future.value(value);
-  }
-
-  @override
-  getBasicToken() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/oauth/basic-token',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = BasicToken.fromJson(_result.data);
     return Future.value(value);
   }
 }

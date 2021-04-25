@@ -32,12 +32,13 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
     _emailTextController.text = widget.state.email;
     _confirmCodeTextController.text = widget.state.confirmCode;
 
-    context.bloc<AuthorizationCubit>().emailIsValid(
-        FormValidation.email(context, _emailTextController.text) == null);
+    context
+        .bloc<AuthorizationCubit>()
+        .emailIsValid(FormValidation.email(_emailTextController.text) == null);
 
     _emailTextController.addListener(() {
       context.bloc<AuthorizationCubit>().emailIsValid(
-          FormValidation.email(context, _emailTextController.text) == null);
+          FormValidation.email(_emailTextController.text) == null);
     });
   }
 
@@ -62,10 +63,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                 right: 16.0,
                 bottom: Dimens.content_padding),
             child: Text(
-              widget.state.status == AuthorizationStatus.email ||
-                      widget.state.status == AuthorizationStatus.error
-                  ? AppStrings.sendAuthorizationCode
-                  : AppStrings.checkToConfirmAuthorization,
+              AppStrings.sendAuthorizationCode,
               style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
@@ -78,22 +76,18 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
             key: _formKey,
             child: Column(
               children: [
-                Visibility(
-                  visible: widget.state.status == AuthorizationStatus.email ||
-                      widget.state.status == AuthorizationStatus.error,
-                  child: AppTextField(
-                    controller: _emailTextController,
-                    textInputType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.done,
-                    validator: (value) => FormValidation.email(context, value),
-                    decoration: WidgetsDecoration.appTextFormStyle(
-                        AppStrings.email,
-                        'assets/images/email.png',
-                        widget.state.email != null
-                            ? 'assets/images/complete.png'
-                            : null,
-                        true),
-                  ),
+                AppTextField(
+                  controller: _emailTextController,
+                  textInputType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.done,
+                  validator: (value) => FormValidation.email(value),
+                  decoration: WidgetsDecoration.appTextFormStyle(
+                      AppStrings.email,
+                      'assets/images/email.png',
+                      widget.state.email != null
+                          ? 'assets/images/complete.png'
+                          : null,
+                      true),
                 ),
                 SizedBox(
                   height: Dimens.content_internal_padding,
@@ -118,24 +112,16 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
             child: Padding(
               padding: const EdgeInsets.only(left: 42.0, right: 42.0),
               child: AppButton(
-                disableOnlyUI:
-                    widget.state.status == AuthorizationStatus.email &&
-                        !widget.state.emailIsValid,
+                disableOnlyUI: !widget.state.emailIsValid,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    if (widget.state.status == AuthorizationStatus.email ||
-                        widget.state.status == AuthorizationStatus.error) {
-                      context
-                          .bloc<AuthorizationCubit>()
-                          .authenticate(_emailTextController.value.text, _confirmCodeTextController.value.text);
-                    }
+                    context.bloc<AuthorizationCubit>().authenticate(
+                        _emailTextController.value.text,
+                        _confirmCodeTextController.value.text);
                   }
                 },
                 textColor: AppColors.white,
-                text: widget.state.status == AuthorizationStatus.email ||
-                        widget.state.status == AuthorizationStatus.error
-                    ? AppStrings.getAuthorizationCode
-                    : AppStrings.confirm,
+                text: AppStrings.confirm,
                 height: Dimens.app_button_height,
               ),
             ),

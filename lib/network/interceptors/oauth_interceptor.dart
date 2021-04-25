@@ -8,18 +8,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 
 class OauthInterceptor extends InterceptorsWrapper {
-
   final log = Logger();
 
   @override
   Future onRequest(RequestOptions options) async {
-    if(options.path.contains('/users/authenticate') || options.path.contains('/oauth/code')) {
-      final String basicToken = await AppData.instance.getBasicToken();
-      options.headers["Authorization"] = 'Basic ' + basicToken ?? Constants.basicToken;
+    if (options.path.contains('/users/authenticate') ||
+        options.path.contains('/oauth/code')) {
+      options.headers["Authorization"] = 'Basic ' + Constants.basicToken;
       log.d('Basic token: ' + options.headers["Authorization"]);
     } else {
       final String accessToken = await AppData.instance.getAccessToken();
-      if(accessToken != null && accessToken.isNotEmpty) {
+      if (accessToken != null && accessToken.isNotEmpty) {
         options.headers["Authorization"] = "Bearer $accessToken";
       }
     }
@@ -28,8 +27,9 @@ class OauthInterceptor extends InterceptorsWrapper {
 
   @override
   Future onError(DioError error) async {
-    if (error.response?.statusCode == 401 && !await AppData.instance.isGuestMode()) {
-      BlocProvider.of<AuthenticationBloc>(AppState.getContext()).add(LoggedOut());
+    if (error.response?.statusCode == 401) {
+      BlocProvider.of<AuthenticationBloc>(AppState.getContext())
+          .add(LoggedOut());
     }
     return super.onError(error);
   }

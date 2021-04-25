@@ -23,7 +23,6 @@ class AuthenticationBloc
     }
 
     if (event is SelectAuthenticationType) {
-      _userRepository.saveGuestMode(event.type == AuthenticationType.guest);
       yield state.copyWith(
           type: event.type, status: AuthenticationStatus.selectAuthentication);
     }
@@ -60,7 +59,7 @@ class AuthenticationBloc
     _userRepository.removeAccessData();
 
     BlocProvider.of<AuthorizationCubit>(context).clearState();
-    // clear states here if neededw
+    // clear states here if needed
   }
 }
 
