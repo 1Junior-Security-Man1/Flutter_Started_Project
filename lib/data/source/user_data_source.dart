@@ -11,7 +11,5 @@ abstract class UserDataSource {
 
   void removeAccessData();
 
-  Future<ImageResponse> uploadImage(File image);
-
   saveGuestMode(bool value);
 }

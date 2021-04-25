@@ -1,31 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_starter/data/app_data.dart';
-import 'package:flutter_starter/data/models/api/response/trx_exchange_response.dart';
-import 'package:flutter_starter/data/repositories/campaigns_repository.dart';
 import 'package:flutter_starter/ui/pages/splash/cubit/splash_state.dart';
 import 'package:logger/logger.dart';
 
 class SplashCubit extends Cubit<SplashState> {
 
-  final CampaignRepository _campaignRepository;
   var logger = Logger();
 
-  SplashCubit(this._campaignRepository) : super(InitialState());
-
-  void fetchTrxUsdExchange() async {
-    _campaignRepository.getTrxUsdExchange()
-        .then((values) {
-          var equivalent = values.firstWhere((response) =>
-              isUsdToTrxElement(response)).values?.firstWhere((element) => element.currencyCode == 'USD', orElse: () => null)?.value;
-          AppData.instance.saveTrxEquivalent(equivalent);
-          logger.d('TRX to USD equivalent: ' + equivalent.toString());
-        })
-        .catchError((Object obj) {
-          logger.e(obj);
-        });
-  }
-
-  bool isUsdToTrxElement(TrxExchangeResponse response) {
-    return response.values.firstWhere((item) => item.currencyCode == 'USD', orElse: () => null) != null;
-  }
+  SplashCubit() : super(InitialState());
 }

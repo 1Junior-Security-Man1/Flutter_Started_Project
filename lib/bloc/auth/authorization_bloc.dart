@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_starter/app.dart';
 import 'package:flutter_starter/bloc/auth/authorization_state.dart';
 import 'package:flutter_starter/data/repositories/user_repository.dart';
-import 'package:flutter_starter/data/repositories/profile_local_repository.dart';
 import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_cubit.dart';
 import 'package:flutter_starter/utils/bloc_utils.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +12,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository _userRepository;
 
-  final ProfileLocalRepository _profileRepository;
-
-  AuthenticationBloc(this._userRepository, this._profileRepository)
+  AuthenticationBloc(this._userRepository)
       : super(AuthenticationState(status: AuthenticationStatus.uninitialized));
 
   @override
@@ -61,9 +58,9 @@ class AuthenticationBloc
 
   void clearAppData(BuildContext context) {
     _userRepository.removeAccessData();
-    _profileRepository.removeUserData();
 
     BlocProvider.of<AuthorizationCubit>(context).clearState();
+    // clear states here if neededw
   }
 }
 

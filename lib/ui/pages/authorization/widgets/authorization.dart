@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter_starter/bloc/auth/authentication_event.dart';
 import 'package:flutter_starter/bloc/auth/authorization_bloc.dart';
 import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_cubit.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_starter/ui/widgets/app_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_starter/ui/pages/authorization/widgets/authorization_form.dart';
-import 'package:flutter_starter/ui/pages/authorization/widgets/authorization_header_widget.dart';
 
 class AuthorizationWidget extends StatefulWidget {
   @override
@@ -16,8 +14,6 @@ class AuthorizationWidget extends StatefulWidget {
 }
 
 class _AuthorizationWidgetState extends State<AuthorizationWidget> {
-  StreamSubscription _linksSub;
-
   @override
   void initState() {
     super.initState();
@@ -25,7 +21,6 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
 
   @override
   void dispose() {
-    if (_linksSub != null) _linksSub.cancel();
     super.dispose();
   }
 
@@ -38,7 +33,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           return;
         }
 
-        if (state.status == AuthorizationStatus.emailError) {
+        if (state.status == AuthorizationStatus.error) {
           showDialog(
             context: context,
             builder: (_) => AppAlertDialog(message: state.errorMessage),
@@ -62,7 +57,6 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
                 Container(
                   child: SingleChildScrollView(
                     child: Column(children: <Widget>[
-                      HeaderWidget(state: state),
                       Container(
                         child: _buildContent(context, state),
                       )

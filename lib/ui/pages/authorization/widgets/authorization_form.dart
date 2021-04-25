@@ -63,7 +63,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                 bottom: Dimens.content_padding),
             child: Text(
               widget.state.status == AuthorizationStatus.email ||
-                      widget.state.status == AuthorizationStatus.emailError
+                      widget.state.status == AuthorizationStatus.error
                   ? AppStrings.sendAuthorizationCode
                   : AppStrings.checkToConfirmAuthorization,
               style: TextStyle(
@@ -80,7 +80,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
               children: [
                 Visibility(
                   visible: widget.state.status == AuthorizationStatus.email ||
-                      widget.state.status == AuthorizationStatus.emailError,
+                      widget.state.status == AuthorizationStatus.error,
                   child: AppTextField(
                     controller: _emailTextController,
                     textInputType: TextInputType.emailAddress,
@@ -124,7 +124,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     if (widget.state.status == AuthorizationStatus.email ||
-                        widget.state.status == AuthorizationStatus.emailError) {
+                        widget.state.status == AuthorizationStatus.error) {
                       context
                           .bloc<AuthorizationCubit>()
                           .authenticate(_emailTextController.value.text, _confirmCodeTextController.value.text);
@@ -133,7 +133,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                 },
                 textColor: AppColors.white,
                 text: widget.state.status == AuthorizationStatus.email ||
-                        widget.state.status == AuthorizationStatus.emailError
+                        widget.state.status == AuthorizationStatus.error
                     ? AppStrings.getAuthorizationCode
                     : AppStrings.confirm,
                 height: Dimens.app_button_height,

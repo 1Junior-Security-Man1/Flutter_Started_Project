@@ -1,5 +1,4 @@
 import 'package:flutter_starter/utils/flavors.dart';
-import 'package:flutter_starter/utils/locator.dart';
 import 'package:flutter_starter/utils/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,8 +13,6 @@ Future main() async {
   final RestClient client = RestClient(baseUrl: flavor.baseUrl);
 
   WidgetsFlutterBinding.ensureInitialized();
-  await setupLocator();
-
   runZonedGuarded(() {
     runApp(MultiRepositoryProvider(
         providers: getRepositories(client),

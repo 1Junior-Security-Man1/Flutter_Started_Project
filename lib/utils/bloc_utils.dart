@@ -1,37 +1,5 @@
-import 'dart:io';
-
-import 'package:flutter_starter/app.dart';
-import 'package:flutter_starter/data/remote_app_data.dart';
-import 'package:flutter_starter/data/enums/app_types.dart';
-import 'package:flutter_starter/utils/locator.dart';
-
 // TODO hardcode solution. Block does not respond to the change of the enum values
 //  like ui/pages/authorization/cubit/authorization_state.dart:3 - like AuthorizationStatus enum.
 int generateSignature() {
   return DateTime.now().millisecondsSinceEpoch;
 }
-
-// Method gets the values application mode and build version from firebase remote config,
-// this is needed for hide some UI components, for approval in the Apple Store Connect
-bool isNoSocialMode() {
-  return
-    Platform.isIOS &&
-        locator<RemoteAppData>().appType == AppType.NO_SOCIAL
-      && locator<RemoteAppData>().buildVersion == AppState.buildVersion;
-}
-
-/* Current store version: 1.0.12
-
-1.0.12 в стор
-включаем NO_SOCIAL и 1.0.12
-получаем апрув
-включаем DEFAULT и 1.0.12
-выпускаем релиз
-
-1.0.13 в стор
-включаем NO_SOCIAL и 1.0.13
-получаем апрув
-включаем DEFAULT и 1.0.13
-выпускаем релиз
-
-При этом версия 1.0.12 не переключится на NO_SOCIAL из за разности версий с remote config*/

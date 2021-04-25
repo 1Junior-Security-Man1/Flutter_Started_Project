@@ -2,11 +2,11 @@ import 'package:flutter_starter/utils/localization/localization.res.dart';
 import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
-class EmptyDataPlaceHolder extends StatelessWidget {
+class EmptyDataWidget extends StatelessWidget {
 
   final String message;
 
-  const EmptyDataPlaceHolder({Key key,
+  const EmptyDataWidget({Key key,
     this.message,
   }) : super(key: key);
 

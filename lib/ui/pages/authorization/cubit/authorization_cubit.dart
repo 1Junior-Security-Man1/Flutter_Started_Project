@@ -22,7 +22,7 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
         case DioError:
           final response = (obj as DioError).response;
           emit(state.copyWith(
-              status: AuthorizationStatus.emailError,
+              status: AuthorizationStatus.error,
               errorMessage: 'Something went wrong, please try later'));
       }
     });

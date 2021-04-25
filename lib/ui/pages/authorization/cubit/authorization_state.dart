@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 enum AuthorizationStatus {
   email,
-  emailError,
+  error,
   complete,
   loading
 }
