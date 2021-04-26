@@ -16,7 +16,7 @@ class BottomNavigation extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       backgroundColor: AppColors.navigationBackgroundColor,
       items: [
-        _buildItem(TabItem.tasks),
+        _buildItem(TabItem.dashboard),
         _buildItem(TabItem.profile),
         _buildItem(TabItem.notifications),
       ],

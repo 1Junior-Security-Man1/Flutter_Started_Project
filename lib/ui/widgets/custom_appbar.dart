@@ -26,7 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      backgroundColor:color?? AppColors.pageBackgroundColor,
+      backgroundColor:color?? Colors.white,
       elevation: 0,
       leading: Center(
         child: Container(

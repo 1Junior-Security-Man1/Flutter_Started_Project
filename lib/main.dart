@@ -18,7 +18,6 @@ Future main() async {
         providers: getRepositories(client),
         child: MultiBlocProvider(providers: getProviders(client), child: App(flavor))));
   }, (error, stackTrace) {
-    print('runZonedGuarded: Caught error in my root zone.');
     FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });
   appConfig();

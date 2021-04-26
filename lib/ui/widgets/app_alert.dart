@@ -1,14 +1,10 @@
-import 'package:flutter_starter/data/enums/response_error_types.dart';
-import 'package:flutter_starter/ui/widgets/app_button.dart';
 import 'package:flutter_starter/utils/localization/localization.res.dart';
-import 'package:flutter_starter/utils/localization/response_localization.dart';
 import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter_starter/utils/ui/dimens.dart';
 import 'package:flutter/material.dart';
 
 class AppAlertDialog extends StatefulWidget {
   final String message;
-  final ServerErrorType serverErrorType;
   final Function onClick;
   final BuildContext parent;
 
@@ -17,7 +13,6 @@ class AppAlertDialog extends StatefulWidget {
     this.message,
     this.parent,
     this.onClick,
-    this.serverErrorType = ServerErrorType.UNKNOWN,
   }) : super(key: key);
 
   @override
@@ -77,7 +72,7 @@ class AppAlertDialogState extends State<AppAlertDialog>
                   Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),
                     child: Text(
-                      getLocalizedMessage(widget.message),
+                      widget.message,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -87,19 +82,6 @@ class AppAlertDialogState extends State<AppAlertDialog>
                       ),
                     ),
                   ),
-                  hasAction(widget.message)
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: AppButton(
-                            height: 50,
-                            type: AppButtonType.BLUE,
-                            text: AppStrings.goToProfile,
-                            width: MediaQuery.of(context).size.width / 2,
-                            onPressed:
-                                onAlertButtonAction(context, widget.message),
-                          ),
-                        )
-                      : SizedBox(),
                 ],
               ),
             ),
@@ -107,22 +89,5 @@ class AppAlertDialogState extends State<AppAlertDialog>
         ),
       ),
     );
-  }
-
-  bool hasAction(String message) {
-    ServerErrorType errorType = getServerErrorType(message);
-    return errorType ==
-        ServerErrorType
-            .NO_SOCIAL_NETWORKS_ADDED_ERROR; // add other error types here for which button action is needed
-  }
-
-  Function onAlertButtonAction(BuildContext context, String message) {
-    switch (getServerErrorType(message)) {
-      case ServerErrorType.NO_SOCIAL_NETWORKS_ADDED_ERROR:
-        return () {};
-        break;
-      default:
-        return null;
-    }
   }
 }

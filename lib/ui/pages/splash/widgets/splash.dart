@@ -6,13 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashWidget extends StatefulWidget {
-
   @override
-  State<StatefulWidget> createState()=> _SplashWidgetState();
+  State<StatefulWidget> createState() => _SplashWidgetState();
 }
 
 class _SplashWidgetState extends State<SplashWidget> {
-
   @override
   void initState() {
     super.initState();
@@ -20,11 +18,10 @@ class _SplashWidgetState extends State<SplashWidget> {
   }
 
   startNavigateWithDelay() async {
-    var duration = new Duration(seconds: 3);
+    var duration = new Duration(seconds: 2);
     return new Timer(duration, () {
-      if(context != null) {
-        BlocProvider.of<AuthenticationBloc>(context)
-            .add(AppLoaded());
+      if (context != null) {
+        BlocProvider.of<AuthenticationBloc>(context).add(AppLoaded());
       }
     });
   }
@@ -33,38 +30,30 @@ class _SplashWidgetState extends State<SplashWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          color: AppColors.white,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('assets/images/page_bg.png'),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Center(
-                        child: Image.asset('assets/images/bountyhub.png', width: MediaQuery.of(context).size.width / 3),
-                      ),
-                    ),
-                  ],
+      color: AppColors.white,
+      child: Column(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Stack(
+              children: [
+                Container(
+                  child: Center(
+                    child: Image.asset('assets/images/logo.png',
+                        width: MediaQuery.of(context).size.width / 2),
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        )
-    );
+          Expanded(
+            flex: 1,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 }

@@ -11,10 +11,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  TabItem _currentTab = TabItem.tasks;
+  TabItem _currentTab = TabItem.dashboard;
 
   final _navigatorKeys = {
-    TabItem.tasks: GlobalKey<NavigatorState>(),
+    TabItem.dashboard: GlobalKey<NavigatorState>(),
     TabItem.profile: GlobalKey<NavigatorState>(),
     TabItem.notifications: GlobalKey<NavigatorState>(),
   };
@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
         onWillPop: () async => onBack(),
         child: Scaffold(
           body: Stack(children: <Widget>[
-            _buildOffstageNavigator(TabItem.tasks),
+            _buildOffstageNavigator(TabItem.dashboard),
             _buildOffstageNavigator(TabItem.profile),
             _buildOffstageNavigator(TabItem.notifications),
           ]),
@@ -72,8 +72,8 @@ class _MainPageState extends State<MainPage> {
     final isFirstRouteInCurrentTab =
         !await _navigatorKeys[_currentTab].currentState.maybePop();
     if (isFirstRouteInCurrentTab) {
-      if (_currentTab != TabItem.tasks) {
-        _selectTab(TabItem.tasks);
+      if (_currentTab != TabItem.dashboard) {
+        _selectTab(TabItem.dashboard);
         // back button handled by app
         return false;
       }

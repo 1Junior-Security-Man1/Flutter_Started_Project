@@ -84,9 +84,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   decoration: WidgetsDecoration.appTextFormStyle(
                       'Email',
                       'assets/images/email.png',
-                      widget.state.email != null
-                          ? 'assets/images/complete.png'
-                          : null,
+                      null,
                       true),
                 ),
                 SizedBox(
