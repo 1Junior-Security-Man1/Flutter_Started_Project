@@ -51,7 +51,7 @@ class AppAlertDialogState extends State<AppAlertDialog>
             width: double.infinity,
             margin: EdgeInsets.all(Dimens.content_padding),
             decoration: ShapeDecoration(
-                color: AppColors.white,
+                color: AppColors.backgroundColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0))),
             child: Padding(

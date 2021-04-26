@@ -3,15 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'dimens.dart';
 
-class WidgetsDecoration {
-  static final appShadow = BoxShadow(
-    color: Colors.grey[300].withOpacity(0.1),
-    spreadRadius: 5,
-    blurRadius: 7,
-    offset: Offset(1, 10),
-  );
-
-  static BoxDecoration appCardStyle({Color color = Colors.white, double opacity = 0.1}) {
+class Styles {
+  static BoxDecoration appCardStyle(
+      {Color color = Colors.white, double opacity = 0.1}) {
     return BoxDecoration(
       boxShadow: [
         BoxShadow(
@@ -23,42 +17,18 @@ class WidgetsDecoration {
       ],
       color: color,
       border: Border.all(
-        color: AppColors.borderColor,
+        color: Colors.grey[200],
         width: 1,
       ),
       borderRadius: BorderRadius.circular(12),
     );
   }
 
-  static BoxDecoration appBlueButtonStyle() {
-    return BoxDecoration(
-      gradient: LinearGradient(
-        colors: <Color>[AppColors.primaryColor, AppColors.accentColor],
-      ),
-      borderRadius: BorderRadius.all(Radius.circular(12.0)),
-    );
-  }
-
-  static BoxDecoration appWhiteButtonStyle() {
-    return BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.all(Radius.circular(12.0)),
-    );
-  }
-
-  static BoxDecoration appNavigationStyle() {
-    return BoxDecoration(
-      borderRadius: BorderRadius.only(
-          topRight: Radius.circular(20), topLeft: Radius.circular(22.0)),
-      boxShadow: [
-        BoxShadow(color: Colors.grey[200], spreadRadius: 0, blurRadius: 6),
-      ],
-    );
-  }
-
-  static InputDecoration appTextFormStyle(String hint, String prefixIcon, String suffixIcon, bool enabled) {
+  static InputDecoration appTextFormStyle(
+      String hint, String prefixIcon, String suffixIcon, bool enabled) {
     return InputDecoration(
-      contentPadding: const EdgeInsets.only(left: 24.0, top: 24.0, bottom: 24.0),
+      contentPadding:
+          const EdgeInsets.only(left: 24.0, top: 24.0, bottom: 24.0),
       prefixIcon: Padding(
           padding: const EdgeInsets.only(
               left: Dimens.input_text_prefix_icon_padding,
@@ -68,10 +38,12 @@ class WidgetsDecoration {
         minWidth: 2,
         minHeight: 2,
       ),
-      suffixIcon: suffixIcon != null ? Padding(
-        padding: const EdgeInsets.only(right: 12.0),
-        child: Image.asset(suffixIcon, width: 36),
-      ) : SizedBox(width: 0),
+      suffixIcon: suffixIcon != null
+          ? Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: Image.asset(suffixIcon, width: 36),
+            )
+          : SizedBox(width: 0),
       fillColor: Colors.white,
       filled: true,
       isDense: true,
@@ -84,35 +56,9 @@ class WidgetsDecoration {
       hintStyle: TextStyle(
         color: enabled
             ? AppColors.itemTextColor
-            : AppColors.inputDisabledTextColor,
+            : AppColors.buttonDisabledTextColor,
         fontSize: 18,
         fontWeight: FontWeight.w600,
-      ),
-      border: buildInputBorderStyle(),
-      focusedBorder: buildInputBorderStyle(),
-      enabledBorder: buildInputBorderStyle(),
-      disabledBorder: buildInputBorderStyle(),
-      errorBorder: buildInputBorderStyle(),
-      focusedErrorBorder: buildInputBorderStyle(),
-      hintText: hint,
-    );
-  }
-
-  static InputDecoration appMultiLineTextFormStyle(String hint) {
-    return InputDecoration(
-      contentPadding: const EdgeInsets.all(24.0),
-      fillColor: AppColors.multiLineTextBackgroundColor,
-      filled: true,
-      isDense: true,
-      labelStyle: TextStyle(
-        color: AppColors.multiLineTextColor,
-        fontSize:  Dimens.app_bar_text_size,
-        fontWeight: FontWeight.w500,
-      ),
-      hintStyle: TextStyle(
-        color: AppColors.multiLineTextColor,
-        fontSize:  Dimens.app_bar_text_size,
-        fontWeight: FontWeight.w500,
       ),
       border: buildInputBorderStyle(),
       focusedBorder: buildInputBorderStyle(),
@@ -128,7 +74,7 @@ class WidgetsDecoration {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(
-        color: AppColors.textFormBorderColor,
+        color: Colors.black12,
         width: 0.7,
       ),
     );

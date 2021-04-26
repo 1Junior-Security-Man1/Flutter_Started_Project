@@ -68,7 +68,7 @@ class AppState extends State<App> {
               intl.Intl.defaultLocale = locale.languageCode;
               return MaterialApp(
                   navigatorKey: App.globalNavigatorKey,
-                  title: 'BountyHub',
+                  title: 'Flutter app',
                   theme: ThemeData(
                     fontFamily: 'Montserrat',
                     primarySwatch: Colors.lightBlue,

@@ -15,7 +15,7 @@ class AppButton extends StatefulWidget {
   final Widget child;
   final BorderRadius borderRadius;
 
-  final bool disableOnlyUI ;
+  final bool disableOnlyUI;
 
   const AppButton({
     Key key,
@@ -47,7 +47,7 @@ class _AppButtonState extends State<AppButton> {
           ? LinearGradient(
               colors: <Color>[
                 AppColors.primaryColor,
-                AppColors.socialBorderColor
+                AppColors.buttonBorderColor
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -90,10 +90,8 @@ class _AppButtonState extends State<AppButton> {
                             ? (widget.textColor ??
                                 (widget.type == AppButtonType.BLUE
                                     ? Colors.white
-                                    : widget.type == AppButtonType.OUTLINE
-                                        ? AppColors.buttonOutline
-                                        : AppColors.navigationWidgetsColor))
-                            : AppColors.inputDisabledTextColor,
+                                    : AppColors.buttonOutline))
+                            : AppColors.buttonDisabledTextColor,
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                       ),
@@ -106,10 +104,10 @@ class _AppButtonState extends State<AppButton> {
                       widget.borderRadius ?? BorderRadius.circular(12),
                   splashColor: (!widget.enable || widget.disableOnlyUI)?Colors.transparent:widget.type == AppButtonType.BLUE
                       ? Colors.white24
-                      : AppColors.socialBorderColor.withOpacity(0.2),
+                      : AppColors.buttonBorderColor.withOpacity(0.2),
                   highlightColor:(!widget.enable || widget.disableOnlyUI)?Colors.transparent: widget.type == AppButtonType.BLUE
                       ? Colors.white24
-                      : AppColors.socialBorderColor.withOpacity(0.2),
+                      : AppColors.buttonBorderColor.withOpacity(0.2),
                 ),
               )
             ],

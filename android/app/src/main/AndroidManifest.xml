@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
 
     <application
-        android:label="@string/app_name"
+        android:label="Starter App"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
         tools:replace="android:label">

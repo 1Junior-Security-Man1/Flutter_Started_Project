@@ -81,7 +81,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   textInputType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.email(value),
-                  decoration: WidgetsDecoration.appTextFormStyle(
+                  decoration: Styles.appTextFormStyle(
                       'Email',
                       'assets/images/email.png',
                       null,
@@ -95,7 +95,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   inputFormatters: [UpperCaseTextFormatter()],
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.done,
-                  decoration: WidgetsDecoration.appTextFormStyle(
+                  decoration: Styles.appTextFormStyle(
                       'Password',
                       'assets/images/confirm_code_key.png',
                       null,
@@ -118,7 +118,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                         _confirmCodeTextController.value.text);
                   }
                 },
-                textColor: AppColors.white,
+                textColor: AppColors.backgroundColor,
                 text: AppStrings.confirm,
                 height: Dimens.app_button_height,
               ),

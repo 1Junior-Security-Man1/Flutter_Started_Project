@@ -16,7 +16,7 @@ class TemplatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppBar(title: title),
       body: BlocProvider(
         create: (_) => TemplateCubit(context.repository<AuthRepository>(), context.repository<UserRepository>()),
