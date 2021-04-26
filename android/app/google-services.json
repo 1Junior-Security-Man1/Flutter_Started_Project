@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:15505145830:android:6b635d317709e5514da027",
         "android_client_info": {
-          "package_name": "io.bountyhub.www"
+          "package_name": "io.example.starter"
         }
       },
       "oauth_client": [

@@ -34,7 +34,7 @@
 
                 <data
                     android:scheme="app"
-                    android:host="io.bountyhub.www" />
+                    android:host="io.example.starter" />
             </intent-filter>
 
             <intent-filter>
