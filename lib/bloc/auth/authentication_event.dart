@@ -30,21 +30,6 @@ class AppLoaded extends AuthenticationEvent {
   String toString() => 'AppLoaded';
 }
 
-class SelectAuthenticationType extends AuthenticationEvent {
-  final AuthenticationType type;
-
-  SelectAuthenticationType({this.type});
-
-  SelectAuthenticationType copyWith({AuthenticationType type, int signature}) {
-    return SelectAuthenticationType(
-      type: type ?? this.type,
-    );
-  }
-
-  @override
-  List<Object> get props => [type];
-}
-
 class LoggedOut extends AuthenticationEvent {
   @override
   List<Object> get props => [];

@@ -82,7 +82,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.email(value),
                   decoration: WidgetsDecoration.appTextFormStyle(
-                      AppStrings.email,
+                      'Email',
                       'assets/images/email.png',
                       widget.state.email != null
                           ? 'assets/images/complete.png'
@@ -98,7 +98,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                   decoration: WidgetsDecoration.appTextFormStyle(
-                      AppStrings.confirmationCode,
+                      'Password',
                       'assets/images/confirm_code_key.png',
                       null,
                       true),

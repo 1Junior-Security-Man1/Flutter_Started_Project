@@ -1,4 +1,3 @@
-import 'package:flutter_starter/bloc/auth/authentication_event.dart';
 import 'package:flutter_starter/bloc/auth/authorization_state.dart';
 import 'package:flutter_starter/ui/pages/authorization/authorization_page.dart';
 import 'package:flutter_starter/ui/pages/main/main_page.dart';
@@ -83,7 +82,6 @@ class AppState extends State<App> {
         return BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
             return MaterialApp(
-                debugShowCheckedModeBanner: false,
                 navigatorKey: App.globalNavigatorKey,
                 title: 'BountyHub',
                 theme: ThemeData(
@@ -112,25 +110,8 @@ class AppState extends State<App> {
         return MainPage();
       case AuthenticationStatus.unauthenticated:
         return AuthorizationPage();
-      case AuthenticationStatus.selectAuthentication:
-        return getAuthenticatedRoute(state.authenticationType);
       default:
-        {
-          return AuthorizationPage();
-        }
-    }
-  }
-
-  Widget getAuthenticatedRoute(AuthenticationType type) {
-    switch (type) {
-      case AuthenticationType.credentials:
         return AuthorizationPage();
-      case AuthenticationType.guest:
-        return MainPage();
-      default:
-        {
-          return AuthorizationPage();
-        }
     }
   }
 }

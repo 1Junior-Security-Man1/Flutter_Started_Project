@@ -3,13 +3,11 @@ import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
-
   @override
   _SplashPageState createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {
-
   @override
   void initState() {
     super.initState();

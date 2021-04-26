@@ -1,7 +1,7 @@
 import 'package:flutter_starter/bloc/auth/authentication_event.dart';
 import 'package:equatable/equatable.dart';
 
-enum AuthenticationStatus{ uninitialized, loading, selectAuthentication, authenticated, unauthenticated }
+enum AuthenticationStatus{ uninitialized, loading, authenticated, unauthenticated }
 
 class AuthenticationState extends Equatable {
 

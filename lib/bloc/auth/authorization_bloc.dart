@@ -22,11 +22,6 @@ class AuthenticationBloc
       yield state.copyWith(status: AuthenticationStatus.loading);
     }
 
-    if (event is SelectAuthenticationType) {
-      yield state.copyWith(
-          type: event.type, status: AuthenticationStatus.selectAuthentication);
-    }
-
     if (event is AppLoaded) {
       final String accessToken = await _userRepository.getAccessToken();
       if (accessToken != null && accessToken.isNotEmpty) {
