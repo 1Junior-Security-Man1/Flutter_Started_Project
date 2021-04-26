@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 enum TabItem { dashboard, profile, notifications }
 
 Map<TabItem, String> navigationTabNames = {
-  TabItem.dashboard: AppStrings.tasksList,
+  TabItem.dashboard: AppStrings.dashboard,
   TabItem.profile: AppStrings.profile,
   TabItem.notifications: AppStrings.notifications,
 };

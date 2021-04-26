@@ -54,7 +54,7 @@ class AuthenticationBloc
     _userRepository.removeAccessData();
 
     BlocProvider.of<AuthorizationCubit>(context).clearState();
-    // clear states here if needed
+    // clear other states here if needed
   }
 }
 

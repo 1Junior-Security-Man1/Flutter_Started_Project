@@ -1,5 +1,4 @@
 import 'package:flutter_starter/ui/pages/splash/widgets/splash.dart';
-import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -16,7 +15,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.accentColor,
       body: SplashWidget(),
     );
   }

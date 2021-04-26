@@ -4,13 +4,12 @@ import 'package:flutter_starter/data/source/user_data_source.dart';
 import 'package:flutter_starter/network/server_api.dart';
 
 class UserRepository extends UserDataSource {
-
   final RestClient client;
 
   UserRepository(this.client);
 
   @override
-  Future<String> getAccessToken() async{
+  Future<String> getAccessToken() async {
     return AppData.instance.getAccessToken();
   }
 

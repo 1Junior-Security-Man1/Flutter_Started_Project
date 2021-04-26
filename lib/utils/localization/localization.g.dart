@@ -162,6 +162,7 @@ class AppLocalizations {
       serverErrorWaitTimeToComplete:
           "The task is not yet available, please try again later",
       serverErrorCodeNotFound: "Invalid verification code",
+      dashboard: "Dashboard",
     ),
     Locale.fromSubtags(languageCode: "DE"): AppLocalizations_Labels(
       signInTo: "Sign in to",
@@ -313,6 +314,7 @@ class AppLocalizations {
       serverErrorWaitTimeToComplete:
           "The task is not yet available, please try again later",
       serverErrorCodeNotFound: "Invalid verification code",
+      dashboard: "Dashboard",
     ),
     Locale.fromSubtags(languageCode: "RU"): AppLocalizations_Labels(
       signInTo: "Войти",
@@ -465,6 +467,7 @@ class AppLocalizations {
       canDo: "Что нужно сделать:",
       serverErrorWaitTimeToComplete: "Таск еще недоступен, попробуйте позже",
       serverErrorCodeNotFound: "Недействительный код подтверждения",
+      dashboard: "Главная",
     ),
   };
 
@@ -607,7 +610,8 @@ class AppLocalizations_Labels {
       this.goToProfile,
       this.canDo,
       this.serverErrorWaitTimeToComplete,
-      this.serverErrorCodeNotFound});
+      this.serverErrorCodeNotFound,
+      this.dashboard});
 
   final String signInTo;
 
@@ -872,4 +876,6 @@ class AppLocalizations_Labels {
   final String serverErrorWaitTimeToComplete;
 
   final String serverErrorCodeNotFound;
+
+  final String dashboard;
 }

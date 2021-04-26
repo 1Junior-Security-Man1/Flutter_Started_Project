@@ -307,4 +307,6 @@ class AppStrings {
   static String get serverErrorCodeNotFound =>
       AppLocalizations.of(App.globalNavigatorKey.currentContext)
           .serverErrorCodeNotFound;
+  static String get dashboard =>
+      AppLocalizations.of(App.globalNavigatorKey.currentContext).dashboard;
 }

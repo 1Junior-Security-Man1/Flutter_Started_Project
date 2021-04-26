@@ -7,7 +7,7 @@ abstract class AppColors {
   static const Color navigationBackgroundColor = Color(0xFFFDFEFF);
   static const Color appBarTextColor = Color(0xFF4B57AA);
   static const Color primaryColor = Color(0xff9271FF);
-  static const Color accentColor = Color(0xff67A3F7);
+  static const Color accentColor = Color(0xFF4B57AA);
 
   static const Color textColor = Color(0xFFa9a6bf);
   static const Color itemTextColor = Color(0xFF484848);

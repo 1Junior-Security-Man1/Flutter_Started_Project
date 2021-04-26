@@ -25,7 +25,7 @@ class Styles {
   }
 
   static InputDecoration appTextFormStyle(
-      String hint, String prefixIcon, String suffixIcon, bool enabled) {
+      {String hint, String prefixIconAsset, IconData prefixIcon, String suffixIcon, bool enabled}) {
     return InputDecoration(
       contentPadding:
           const EdgeInsets.only(left: 24.0, top: 24.0, bottom: 24.0),
@@ -33,7 +33,9 @@ class Styles {
           padding: const EdgeInsets.only(
               left: Dimens.input_text_prefix_icon_padding,
               right: Dimens.input_text_prefix_icon_padding),
-          child: Image.asset(prefixIcon, width: 50)),
+          child: prefixIconAsset != null
+              ? Image.asset(prefixIconAsset, width: 50)
+              : Icon(prefixIcon, size: 32)),
       suffixIconConstraints: BoxConstraints(
         minWidth: 2,
         minHeight: 2,

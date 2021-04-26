@@ -11,6 +11,8 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
       selectedItemColor: Colors.grey,
       unselectedItemColor: Colors.grey,
       type: BottomNavigationBarType.fixed,
@@ -28,7 +30,8 @@ class BottomNavigation extends StatelessWidget {
 
   BottomNavigationBarItem _buildItem(TabItem tabItem) {
     return BottomNavigationBarItem(
-      icon: Image.asset(navigationTabIcons[tabItem],
+      icon: Image.asset(
+        navigationTabIcons[tabItem],
         width: 24,
         color: _colorTabMatching(tabItem),
       ),
@@ -37,6 +40,6 @@ class BottomNavigation extends StatelessWidget {
   }
 
   Color _colorTabMatching(TabItem item) {
-    return currentTab == item ? Colors.deepPurpleAccent : Colors.grey;
+    return currentTab == item ? AppColors.accentColor : Colors.grey;
   }
 }

@@ -82,10 +82,9 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   textInputAction: TextInputAction.done,
                   validator: (value) => FormValidation.email(value),
                   decoration: Styles.appTextFormStyle(
-                      'Email',
-                      'assets/images/email.png',
-                      null,
-                      true),
+                      hint: 'Email',
+                      prefixIcon: Icons.email,
+                      enabled: true),
                 ),
                 SizedBox(
                   height: Dimens.content_internal_padding,
@@ -96,10 +95,9 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                   decoration: Styles.appTextFormStyle(
-                      'Password',
-                      'assets/images/confirm_code_key.png',
-                      null,
-                      true),
+                      hint: 'Password',
+                      prefixIcon: Icons.lock,
+                      enabled: true),
                 ),
               ],
             ),
