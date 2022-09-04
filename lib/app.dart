@@ -6,7 +6,7 @@ import 'package:flutter_starter/ui/pages/splash/splash_page.dart';
 import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+//import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'bloc/auth/authorization_bloc.dart';
@@ -16,9 +16,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:intl/intl.dart' as intl;
 
-Flavor _currentFlavour;
+Flavor? _currentFlavour;
 
-Flavor get currentFlavour => _currentFlavour;
+Flavor get currentFlavour => _currentFlavour!;
 
 class App extends StatefulWidget {
   App(
@@ -36,9 +36,9 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  static BuildContext _context;
+  static BuildContext? _context;
 
-  static String buildVersion;
+  static String? buildVersion;
 
   @override
   void initState() {
@@ -50,11 +50,11 @@ class AppState extends State<App> {
   Future<void> _initialize() async {
     await Firebase.initializeApp();
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    await MobileAds.instance.initialize();
+    //await MobileAds.instance.initialize();
   }
 
   static BuildContext getContext() {
-    return _context;
+    return _context!;
   }
 
   @override
@@ -79,8 +79,8 @@ class AppState extends State<App> {
                       localeResolutionCallback(
                           deviceLocale, supportedLocales, locale, context),
                   locale: locale,
-                  localizationsDelegates: localizationsDelegates,
-                  supportedLocales: AppLocalizations.languages.keys.toList(),
+                  //localizationsDelegates: localizationsDelegates,
+                  //supportedLocales: AppLocalizations.languages.keys.toList(),
                   home: navigateToHomeWidget(context, state));
             });
           },
@@ -101,4 +101,6 @@ class AppState extends State<App> {
         return AuthorizationPage();
     }
   }
+
+  localeResolutionCallback(Locale? deviceLocale, Iterable<Locale>? supportedLocales, Locale? locale, BuildContext? context) {}
 }

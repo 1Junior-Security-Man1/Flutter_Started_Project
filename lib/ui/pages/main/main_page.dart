@@ -22,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   void _selectTab(TabItem tabItem) {
     if (tabItem == _currentTab) {
       // pop to first page in current tab
-      _navigatorKeys[tabItem].currentState.popUntil((route) => route.isFirst);
+      _navigatorKeys[tabItem]?.currentState?.popUntil((route) => route.isFirst);
     } else {
       setState(() => _currentTab = tabItem);
     }
@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
         initialRoute: '/',
         onGenerateRoute: (routeSettings) {
           return MaterialPageRoute(
-            builder: (context) => navigationTabPages[tabItem],
+            builder: (context) => navigationTabPages[tabItem]!,
           );
         },
       ),
@@ -70,7 +70,7 @@ class _MainPageState extends State<MainPage> {
 
   Future<bool> onBack() async {
     final isFirstRouteInCurrentTab =
-        !await _navigatorKeys[_currentTab].currentState.maybePop();
+        !await _navigatorKeys[_currentTab]!.currentState!.maybePop();
     if (isFirstRouteInCurrentTab) {
       if (_currentTab != TabItem.dashboard) {
         _selectTab(TabItem.dashboard);

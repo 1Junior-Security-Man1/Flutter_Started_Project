@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-  final VoidCallback onActionClick;
-
-  final Color color;
+  final String? title;
+  final VoidCallback? onActionClick;
+  final Color? color;
 
   const CustomAppBar(
-      {Key key,
+      {Key?key,
       this.title,
       this.color,
       this.onActionClick})
@@ -24,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor:color?? Colors.white,
       elevation: 0,
       title: Text(
-        title,
+        title!,
         style: AppTextStyles.titleTextStyle,
       ),
       actions: <Widget>[
@@ -44,7 +43,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   void onSelected(String value) {
-    onActionClick.call();
+    onActionClick!.call();
   }
 
   @override

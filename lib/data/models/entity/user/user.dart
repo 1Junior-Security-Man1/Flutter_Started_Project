@@ -1,7 +1,7 @@
 class User {
-  String id;
-  String name;
-  String email;
+  String? id;
+  String? name;
+  String? email;
 
   User({
     this.id,

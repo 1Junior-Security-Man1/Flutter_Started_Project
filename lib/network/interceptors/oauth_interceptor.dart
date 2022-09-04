@@ -10,14 +10,14 @@ class OauthInterceptor extends InterceptorsWrapper {
   final log = Logger();
 
   @override
-  Future onRequest(RequestOptions options) async {
+  Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     if (options.path.contains('/users/authenticate') ||
         options.path.contains('/oauth/code')) {
       options.headers["Authorization"] =
           'Basic ' + '<basic token>'; // add basic token here
       log.d('Basic token: ' + options.headers["Authorization"]);
     } else {
-      final String accessToken = await AppData.instance.getAccessToken();
+      final String? accessToken = await AppData.instance.getAccessToken();
       if (accessToken != null && accessToken.isNotEmpty) {
         options.headers["Authorization"] = "Bearer $accessToken";
       }
@@ -26,11 +26,11 @@ class OauthInterceptor extends InterceptorsWrapper {
   }
 
   @override
-  Future onError(DioError error) async {
-    if (error.response?.statusCode == 401) {
+  Future onError(DioError err, ErrorInterceptorHandler handler) async {
+    if (err.response?.statusCode == 401) {
       BlocProvider.of<AuthenticationBloc>(AppState.getContext())
           .add(LoggedOut());
     }
-    return super.onError(error);
+    return super.onError(err, handler);
   }
 }

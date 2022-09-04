@@ -7,7 +7,9 @@ import 'package:flutter_starter/ui/widgets/custom_appbar.dart';
 import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+///
+import '../../../network/server_api.dart';
+///
 class TemplatePage extends StatelessWidget {
   final String title;
 
@@ -21,8 +23,8 @@ class TemplatePage extends StatelessWidget {
         title: title,
         onActionClick: () => logout(context)),
       body: BlocProvider(
-        create: (_) => TemplateCubit(context.repository<AuthRepository>(),
-            context.repository<UserRepository>()),
+        create: (_) => TemplateCubit(AuthRepository(RestClient()), UserRepository(RestClient())),
+        // TemplateCubit(context.repository<AuthRepository>(), context.repository<UserRepository>()),
         child: TemplateWidget(title),
       ),
     );

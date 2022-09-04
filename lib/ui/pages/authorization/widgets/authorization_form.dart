@@ -2,7 +2,6 @@ import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_cubit
 import 'package:flutter_starter/ui/pages/authorization/cubit/authorization_state.dart';
 import 'package:flutter_starter/ui/widgets/app_button.dart';
 import 'package:flutter_starter/ui/widgets/app_text_field.dart';
-import 'package:flutter_starter/utils/localization/localization.res.dart';
 import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter_starter/utils/ui/dimens.dart';
 import 'package:flutter_starter/utils/ui/styles.dart';
@@ -29,15 +28,14 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
   @override
   void initState() {
     super.initState();
-    _emailTextController.text = widget.state.email;
-    _confirmCodeTextController.text = widget.state.confirmCode;
+    _emailTextController.text = widget.state.email!;
+    _confirmCodeTextController.text = widget.state.confirmCode!;
 
-    context
-        .bloc<AuthorizationCubit>()
-        .emailIsValid(FormValidation.email(_emailTextController.text) == null);
+    BlocProvider.of<AuthorizationCubit>(context)
+        .emailIsValid(FormValidation.email(_emailTextController.text).isEmpty);
 
     _emailTextController.addListener(() {
-      context.bloc<AuthorizationCubit>().emailIsValid(
+      BlocProvider.of<AuthorizationCubit>(context).emailIsValid(
           FormValidation.email(_emailTextController.text) == null);
     });
   }
@@ -62,15 +60,16 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                 left: 16.0,
                 right: 16.0,
                 bottom: Dimens.content_padding),
-            child: Text(
-              AppStrings.sendAuthorizationCode,
-              style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 15,
-                  color: Colors.white,
-                  height: 1.5),
-              textAlign: TextAlign.center,
-            ),
+            child: Text('Text'),
+            // Text(
+            //   AppStrings.sendAuthorizationCode,
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.w500,
+            //       fontSize: 15,
+            //       color: Colors.white,
+            //       height: 1.5),
+            //   textAlign: TextAlign.center,
+            // ),
           ),
           Form(
             key: _formKey,
@@ -80,7 +79,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   controller: _emailTextController,
                   textInputType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.done,
-                  validator: (value) => FormValidation.email(value),
+                  validator: (value) => FormValidation.email(value!),
                   decoration: Styles.appTextFormStyle(
                       hint: 'Email',
                       prefixIcon: Icons.email,
@@ -108,16 +107,17 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
             child: Padding(
               padding: const EdgeInsets.only(left: 42.0, right: 42.0),
               child: AppButton(
-                disableOnlyUI: !widget.state.emailIsValid,
+                disableOnlyUI: widget.state.emailIsValid!,
                 onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    context.bloc<AuthorizationCubit>().authenticate(
+                  if (_formKey.currentState!.validate()) {
+                    BlocProvider.of<AuthorizationCubit>(context).authenticate(
                         _emailTextController.value.text,
                         _confirmCodeTextController.value.text);
                   }
                 },
                 textColor: AppColors.backgroundColor,
-                text: AppStrings.confirm,
+                // text: AppStrings.confirm,
+                text: 'AppStrings.confirm',
                 height: Dimens.app_button_height,
               ),
             ),

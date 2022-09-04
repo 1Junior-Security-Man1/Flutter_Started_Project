@@ -12,18 +12,18 @@ class AuthenticationState extends Equatable {
     this.signature,
   });
 
-  final AuthenticationStatus status;
-  final AuthenticationType authenticationType;
-  final String token;
-  final int signature;
+  final AuthenticationStatus? status;
+  final AuthenticationType? authenticationType;
+  final String? token;
+  final int? signature;
 
   AuthenticationState copyWith({
-    AuthenticationStatus status,
-    String token,
-    String deepLinkEmail,
-    String deepLinkConfirmCode,
-    int signature,
-    AuthenticationType type,
+    AuthenticationStatus? status,
+    String? token,
+    String? deepLinkEmail,
+    String? deepLinkConfirmCode,
+    int? signature,
+    AuthenticationType? type,
   }) {
     return AuthenticationState(
       authenticationType: type ?? this.authenticationType,
@@ -34,5 +34,5 @@ class AuthenticationState extends Equatable {
   }
 
   @override
-  List<Object> get props => [authenticationType, signature, status, token];
+  List<Object> get props => [authenticationType!, signature!, status!, token!];
 }

@@ -21,7 +21,7 @@ class LocaleBloc extends Bloc<LocaleEvent, Locale> {
     if (event is ChangeLocaleEvent) {
       _localeRepository.setLanguage(
           languageCode: event.languageCode, countryCode: event.countryCode);
-      var locale = Locale(event.languageCode, event.countryCode);
+      var locale = Locale(event.languageCode!, event.countryCode);
       LocaleBloc.locale = locale;
       yield locale;
     }

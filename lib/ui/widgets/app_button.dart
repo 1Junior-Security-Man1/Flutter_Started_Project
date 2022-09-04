@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 enum AppButtonType { WHITE, BLUE, OUTLINE }
 
 class AppButton extends StatefulWidget {
-  final double width;
-  final double height;
-  final String text;
-  final Function onPressed;
-  final Color textColor;
-  final bool enable;
-  final AppButtonType type;
-  final bool withShadow;
-  final Widget child;
-  final BorderRadius borderRadius;
+  final double? width;
+  final double? height;
+  final String? text;
+  final Function? onPressed;
+  final Color? textColor;
+  final bool? enable;
+  final AppButtonType? type;
+  final bool? withShadow;
+  final Widget? child;
+  final BorderRadius? borderRadius;
 
   final bool disableOnlyUI;
 
   const AppButton({
-    Key key,
+    Key? key,
     this.width = double.infinity,
     this.height = 40,
     this.onPressed,
@@ -53,7 +53,7 @@ class _AppButtonState extends State<AppButton> {
               end: Alignment.bottomRight,
             )
           : null,
-      boxShadow: widget.withShadow
+      boxShadow: widget.withShadow!
           ? [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.1),
@@ -81,12 +81,12 @@ class _AppButtonState extends State<AppButton> {
             alignment: Alignment.center,
             children: [
               widget.child != null
-                  ? widget.child
+                  ? widget.child!
                   : Text(
-                      widget.text,
+                      widget.text!,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: (widget.enable && !widget.disableOnlyUI)
+                        color: (widget.enable! && !widget.disableOnlyUI)
                             ? (widget.textColor ??
                                 (widget.type == AppButtonType.BLUE
                                     ? Colors.white
@@ -99,13 +99,13 @@ class _AppButtonState extends State<AppButton> {
               Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: widget.enable ? widget.onPressed : () {},
+                  //onTap: widget.enable! ? widget.onPressed : () {},
                   borderRadius:
                       widget.borderRadius ?? BorderRadius.circular(12),
-                  splashColor: (!widget.enable || widget.disableOnlyUI)?Colors.transparent:widget.type == AppButtonType.BLUE
+                  splashColor: (widget.enable! || widget.disableOnlyUI)?Colors.transparent:widget.type == AppButtonType.BLUE
                       ? Colors.white24
                       : AppColors.buttonBorderColor.withOpacity(0.2),
-                  highlightColor:(!widget.enable || widget.disableOnlyUI)?Colors.transparent: widget.type == AppButtonType.BLUE
+                  highlightColor:(widget.enable! || widget.disableOnlyUI)?Colors.transparent: widget.type == AppButtonType.BLUE
                       ? Colors.white24
                       : AppColors.buttonBorderColor.withOpacity(0.2),
                 ),

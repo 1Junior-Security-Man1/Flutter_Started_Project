@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_starter/utils/ui/colors.dart';
 
 class BottomNavigation extends StatelessWidget {
-  BottomNavigation({@required this.currentTab, @required this.onSelectTab});
+  BottomNavigation({required this.currentTab, required this.onSelectTab});
 
   final TabItem currentTab;
   final ValueChanged<TabItem> onSelectTab;
@@ -31,7 +31,7 @@ class BottomNavigation extends StatelessWidget {
   BottomNavigationBarItem _buildItem(TabItem tabItem) {
     return BottomNavigationBarItem(
       icon: Image.asset(
-        navigationTabIcons[tabItem],
+        navigationTabIcons[tabItem]!,
         width: 24,
         color: _colorTabMatching(tabItem),
       ),

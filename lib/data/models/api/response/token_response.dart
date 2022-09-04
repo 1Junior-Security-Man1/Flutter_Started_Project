@@ -1,28 +1,28 @@
 class TokenResponse {
-  String _accessToken;
-  String _tokenType;
-  int _expiresIn;
-  bool _emailConfirmed;
-  List<String> _roles;
-  String _userId;
-  String _jti;
+  String? _accessToken;
+  String? _tokenType;
+  int? _expiresIn;
+  bool? _emailConfirmed;
+  List<String>? _roles;
+  String? _userId;
+  String? _jti;
 
-  String get accessToken => _accessToken;
-  String get tokenType => _tokenType;
-  int get expiresIn => _expiresIn;
-  bool get emailConfirmed => _emailConfirmed;
-  List<String> get roles => _roles;
-  String get userId => _userId;
-  String get jti => _jti;
+  String get accessToken => _accessToken!;
+  String get tokenType => _tokenType!;
+  int get expiresIn => _expiresIn!;
+  bool get emailConfirmed => _emailConfirmed!;
+  List<String> get roles => _roles!;
+  String get userId => _userId!;
+  String get jti => _jti!;
 
   TokenResponse({
-      String accessToken, 
-      String tokenType, 
-      int expiresIn, 
-      bool emailConfirmed, 
-      List<String> roles, 
-      String userId, 
-      String jti}){
+      String? accessToken,
+      String? tokenType,
+      int? expiresIn,
+      bool? emailConfirmed,
+      List<String>? roles,
+      String? userId,
+      String? jti}){
     _accessToken = accessToken;
     _tokenType = tokenType;
     _expiresIn = expiresIn;
@@ -53,5 +53,4 @@ class TokenResponse {
     map["jti"] = _jti;
     return map;
   }
-
 }

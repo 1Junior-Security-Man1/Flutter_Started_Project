@@ -11,18 +11,18 @@ class AuthorizationState extends Equatable {
     this.emailIsValid = false,
   });
 
-  final AuthorizationStatus status;
-  final String errorMessage;
-  final String email;
-  final String confirmCode;
-  final bool emailIsValid;
+  final AuthorizationStatus? status;
+  final String? errorMessage;
+  final String? email;
+  final String? confirmCode;
+  final bool? emailIsValid;
 
   AuthorizationState copyWith({
-    AuthorizationStatus status,
-    String errorMessage,
-    String email,
-    String confirmCode,
-    bool emailIsValid,
+    AuthorizationStatus? status,
+    String? errorMessage,
+    String? email,
+    String? confirmCode,
+    bool? emailIsValid,
   }) {
     return AuthorizationState(
       status: status ?? this.status,
@@ -35,5 +35,5 @@ class AuthorizationState extends Equatable {
 
   @override
   List<Object> get props =>
-      [email, status, errorMessage, confirmCode, emailIsValid];
+      [email!, status!, errorMessage!, confirmCode!, emailIsValid!];
 }

@@ -9,6 +9,6 @@ class LocaleRepository {
 
   String get country => (locale ?? ('de_DE')).split('_')[1];
 
-  void setLanguage({String languageCode, String countryCode}) =>
+  void setLanguage({String? languageCode, String? countryCode}) =>
       locale = '${languageCode}_$countryCode';
 }

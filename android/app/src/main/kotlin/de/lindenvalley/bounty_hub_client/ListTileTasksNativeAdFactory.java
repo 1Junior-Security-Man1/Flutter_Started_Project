@@ -22,7 +22,7 @@ class ListTileTasksNativeAdFactory implements GoogleMobileAdsPlugin.NativeAdFact
         this.context = context;
     }
 
-    @Override
+    //@Override
     public UnifiedNativeAdView createNativeAd(
             UnifiedNativeAd nativeAd, Map<String, Object> customOptions) {
         UnifiedNativeAdView nativeAdView = (UnifiedNativeAdView) LayoutInflater.from(context)

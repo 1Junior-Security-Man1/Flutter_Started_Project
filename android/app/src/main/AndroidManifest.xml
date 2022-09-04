@@ -19,6 +19,7 @@
         android:requestLegacyExternalStorage="true"
         tools:replace="android:label">
         <activity
+            android:exported="true"
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/LaunchTheme"

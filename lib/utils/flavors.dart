@@ -1,5 +1,3 @@
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-
 abstract class Flavor{
   const Flavor();
 
@@ -61,23 +59,23 @@ class DevFlavour extends Flavor  {
   @override
   String get baseUrl => 'https://api.bountyhub.io/api';
 
-  @override
-  String get bannerAndroidUnitId => BannerAd.testAdUnitId;
+  //@override
+  //String get bannerAndroidUnitId => BannerAd.testAdUnitId;
 
   @override
-  String get bannerIOSUnitId => BannerAd.testAdUnitId;
+  //String get bannerIOSUnitId => BannerAd.testAdUnitId;
 
   @override
-  String get interstitialBannerAndroidUnitId => InterstitialAd.testAdUnitId;
+  //String get interstitialBannerAndroidUnitId => InterstitialAd.testAdUnitId;
 
   @override
-  String get interstitialBannerIOSUnitId => InterstitialAd.testAdUnitId;
+  //String get interstitialBannerIOSUnitId => InterstitialAd.testAdUnitId;
 
   @override
-  String get tasksNativeAdAndroidUnitId => NativeAd.testAdUnitId;
+  //String get tasksNativeAdAndroidUnitId => NativeAd.testAdUnitId;
 
   @override
-  String get tasksNativeAdIOSUnitId => NativeAd.testAdUnitId;
+  //String get tasksNativeAdIOSUnitId => NativeAd.testAdUnitId;
 
   @override
   int get interstitialBannerShowingPeriod => 2;

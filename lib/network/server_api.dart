@@ -1,16 +1,13 @@
 import 'package:flutter_starter/data/models/api/request/auth_request.dart';
-import 'package:flutter_starter/data/models/api/response/token_response.dart';
 import 'package:flutter_starter/data/models/entity/user/user.dart';
 import 'package:flutter_starter/network/interceptors/oauth_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
 
-part 'server_api.g.dart';
-
 @RestApi(baseUrl: "https://api.domain.io/api")
 abstract class RestClient {
-  factory RestClient({String baseUrl}) {
+  factory RestClient({String? baseUrl}) {
     Dio dio = Dio();
 
     dio.interceptors.add(PrettyDioLogger(
@@ -25,7 +22,7 @@ abstract class RestClient {
     dio.interceptors.add(OauthInterceptor());
 
     dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);
-    return _RestClient(dio, baseUrl: baseUrl);
+    return RestClient(baseUrl: baseUrl);
   }
 
   @POST("/users/authenticate")

@@ -1,12 +1,11 @@
-import 'package:flutter_starter/utils/localization/localization.res.dart';
 import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 
 class EmptyDataWidget extends StatelessWidget {
 
-  final String message;
+  final String? message;
 
-  const EmptyDataWidget({Key key,
+  const EmptyDataWidget({Key? key,
     this.message,
   }) : super(key: key);
 
@@ -22,7 +21,8 @@ class EmptyDataWidget extends StatelessWidget {
             height: 180,
           ),
           Text(
-            message != null ? message : AppStrings.emptyDataMessage,
+            // message != null ? message! : AppStrings.emptyDataMessage,
+            message != null ? message! : 'AppStrings.emptyDataMessage',
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textColor),
           ),
          ],

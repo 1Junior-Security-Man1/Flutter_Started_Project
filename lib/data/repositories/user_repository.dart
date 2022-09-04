@@ -9,7 +9,7 @@ class UserRepository extends UserDataSource {
   UserRepository(this.client);
 
   @override
-  Future<String> getAccessToken() async {
+  Future<String?> getAccessToken() async {
     return AppData.instance.getAccessToken();
   }
 
@@ -19,7 +19,7 @@ class UserRepository extends UserDataSource {
     return response;
   }
 
-  Future<String> getUserId() async {
+  Future<String?> getUserId() async {
     return AppData.instance.getUserId();
   }
 

@@ -10,7 +10,7 @@ class TemplateState extends Equatable {
   final TemplateStatus status;
 
   TemplateState copyWith({
-    TemplateStatus status,
+    TemplateStatus? status,
   }) {
     return TemplateState(
       status: status ?? this.status,

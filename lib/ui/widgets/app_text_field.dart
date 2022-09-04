@@ -3,17 +3,17 @@ import 'package:flutter/services.dart';
 
 class AppTextField extends StatefulWidget {
 
-  final TextEditingController controller;
-  final TextInputType textInputType;
-  final TextInputAction textInputAction;
-  final FormFieldValidator<String> validator;
-  final InputDecoration decoration;
-  final List<TextInputFormatter> inputFormatters;
-  final int maxLines;
-  final bool withShadow;
+  final TextEditingController? controller;
+  final TextInputType? textInputType;
+  final TextInputAction? textInputAction;
+  final FormFieldValidator<String>? validator;
+  final InputDecoration? decoration;
+  final List<TextInputFormatter>? inputFormatters;
+  final int? maxLines;
+  final bool? withShadow;
 
   const AppTextField(
-      {Key key,
+      {Key? key,
         this.maxLines = 1,
         this.controller,
         this.textInputType,
@@ -34,7 +34,7 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: widget.withShadow ? BoxDecoration(
+      decoration: widget.withShadow! ? BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.1),

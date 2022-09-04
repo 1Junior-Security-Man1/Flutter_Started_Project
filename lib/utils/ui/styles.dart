@@ -9,7 +9,7 @@ class Styles {
     return BoxDecoration(
       boxShadow: [
         BoxShadow(
-          color: Colors.grey[300].withOpacity(opacity),
+          color: Colors.grey[300]!.withOpacity(opacity),
           spreadRadius: 5,
           blurRadius: 7,
           offset: Offset(1, 10),
@@ -17,7 +17,7 @@ class Styles {
       ],
       color: color,
       border: Border.all(
-        color: Colors.grey[200],
+        color: Colors.grey[200]!,
         width: 1,
       ),
       borderRadius: BorderRadius.circular(12),
@@ -25,7 +25,7 @@ class Styles {
   }
 
   static InputDecoration appTextFormStyle(
-      {String hint, String prefixIconAsset, IconData prefixIcon, String suffixIcon, bool enabled}) {
+      {String? hint, String? prefixIconAsset, IconData? prefixIcon, String? suffixIcon, bool? enabled}) {
     return InputDecoration(
       contentPadding:
           const EdgeInsets.only(left: 24.0, top: 24.0, bottom: 24.0),
@@ -49,7 +49,7 @@ class Styles {
       fillColor: Colors.white,
       filled: true,
       isDense: true,
-      enabled: enabled,
+      enabled: enabled!,
       labelStyle: TextStyle(
         color: AppColors.itemTextColor,
         fontSize: 18,

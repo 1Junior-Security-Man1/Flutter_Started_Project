@@ -34,7 +34,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -46,10 +46,22 @@ android {
 
     }
 
+    ///
+    configurations.all {
+        resolutionStrategy {
+            force "com.google.android.gms:play-services-basement:17.0.0"
+            force "com.google.android.gms:play-services-base:17.1.0"
+            force "com.google.android.gms:play-services-stats:17.0.0"
+            force "com.google.android.gms:play-services-gcm:17.0.0"
+            force "com.google.android.gms:play-services-ads:19.7.0"
+        }
+    }
+    ///
+
     defaultConfig {
         applicationId "io.example.starter"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         versionName "1.0." + versionCode

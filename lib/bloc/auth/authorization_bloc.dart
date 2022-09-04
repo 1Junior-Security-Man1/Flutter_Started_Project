@@ -23,7 +23,7 @@ class AuthenticationBloc
     }
 
     if (event is AppLoaded) {
-      final String accessToken = await _userRepository.getAccessToken();
+      final String? accessToken = await _userRepository.getAccessToken();
       if (accessToken != null && accessToken.isNotEmpty) {
         yield state.copyWith(
             status: AuthenticationStatus.authenticated, token: accessToken);

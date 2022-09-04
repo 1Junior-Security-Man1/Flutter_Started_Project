@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 enum TabItem { dashboard, profile, notifications }
 
 Map<TabItem, String> navigationTabNames = {
-  TabItem.dashboard: AppStrings.dashboard,
-  TabItem.profile: AppStrings.profile,
-  TabItem.notifications: AppStrings.notifications,
+  // TabItem.dashboard: AppStrings.dashboard,
+  // TabItem.profile: AppStrings.profile,
+  // TabItem.notifications: AppStrings.notifications,
+  TabItem.dashboard: 'Text1',
+  TabItem.profile: 'Text2',
+  TabItem.notifications: 'Text3',
 };
 
 const Map<TabItem, String> navigationTabIcons = {

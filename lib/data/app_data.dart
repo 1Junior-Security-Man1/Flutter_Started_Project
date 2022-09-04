@@ -19,11 +19,11 @@ class AppData {
     _storage.write(key: 'ACCESS_TOKEN', value: token);
   }
 
-  Future<String> getAccessToken() async {
+  Future<String?> getAccessToken() async {
     return _storage.read(key: 'ACCESS_TOKEN');
   }
 
-  Future<String> getUserId() async{
+  Future<String?> getUserId() async{
     return _storage.read(key: 'USER_ID');
   }
 

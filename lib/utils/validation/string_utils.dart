@@ -24,7 +24,7 @@ List<String> getLanguageCode(String language) {
 String parseUrl(String url, String key) {
   if(url != null && url.isNotEmpty) {
     var uri = Uri.parse(url);
-    return uri.queryParameters[key];
+    return uri.queryParameters[key]!;
   } else {
     return '';
   }
