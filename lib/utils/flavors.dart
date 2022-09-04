@@ -62,23 +62,23 @@ class DevFlavour extends Flavor  {
   //@override
   //String get bannerAndroidUnitId => BannerAd.testAdUnitId;
 
-  @override
+  //@override
   //String get bannerIOSUnitId => BannerAd.testAdUnitId;
 
-  @override
+  //@override
   //String get interstitialBannerAndroidUnitId => InterstitialAd.testAdUnitId;
 
-  @override
+  //@override
   //String get interstitialBannerIOSUnitId => InterstitialAd.testAdUnitId;
 
-  @override
+  //@override
   //String get tasksNativeAdAndroidUnitId => NativeAd.testAdUnitId;
 
-  @override
+  //@override
   //String get tasksNativeAdIOSUnitId => NativeAd.testAdUnitId;
 
-  @override
-  int get interstitialBannerShowingPeriod => 2;
+  //@override
+  //int get interstitialBannerShowingPeriod => 2;
 }
 
 

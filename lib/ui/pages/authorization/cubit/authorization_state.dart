@@ -3,6 +3,12 @@ import 'package:equatable/equatable.dart';
 enum AuthorizationStatus { initial, error, complete, loading }
 
 class AuthorizationState extends Equatable {
+  final AuthorizationStatus? status;
+  final String? errorMessage;
+  final String? email;
+  final String? confirmCode;
+  final bool? emailIsValid;
+
   const AuthorizationState({
     this.status = AuthorizationStatus.initial,
     this.errorMessage,
@@ -10,12 +16,6 @@ class AuthorizationState extends Equatable {
     this.confirmCode,
     this.emailIsValid = false,
   });
-
-  final AuthorizationStatus? status;
-  final String? errorMessage;
-  final String? email;
-  final String? confirmCode;
-  final bool? emailIsValid;
 
   AuthorizationState copyWith({
     AuthorizationStatus? status,

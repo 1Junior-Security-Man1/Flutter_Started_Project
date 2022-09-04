@@ -10,7 +10,8 @@ class ProfileRepository extends ProfileDataSource {
 
   @override
   Future<User> getUser() async {
-    return client.getUser(userId: await AppData.instance.getUserId()?? '');
+    String? userId = await AppData.instance.getUserId();
+    return client.getUser(userId!);
   }
 
   @override

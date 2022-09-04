@@ -23,7 +23,7 @@ class TemplatePage extends StatelessWidget {
         title: title,
         onActionClick: () => logout(context)),
       body: BlocProvider(
-        create: (_) => TemplateCubit(AuthRepository(RestClient()), UserRepository(RestClient())),
+        create: (_) => TemplateCubit(RepositoryProvider.of<AuthRepository>(context), RepositoryProvider.of<UserRepository>(context)),
         // TemplateCubit(context.repository<AuthRepository>(), context.repository<UserRepository>()),
         child: TemplateWidget(title),
       ),

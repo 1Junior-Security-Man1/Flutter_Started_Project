@@ -1,5 +1,4 @@
 import 'package:flutter_starter/ui/pages/template/template_page.dart';
-import 'package:flutter_starter/utils/localization/localization.res.dart';
 import 'package:flutter/material.dart';
 
 enum TabItem { dashboard, profile, notifications }

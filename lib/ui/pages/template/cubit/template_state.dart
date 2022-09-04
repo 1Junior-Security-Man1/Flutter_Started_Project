@@ -3,11 +3,11 @@ import 'package:equatable/equatable.dart';
 enum TemplateStatus{ loading }
 
 class TemplateState extends Equatable {
+  final TemplateStatus status;
+
   const TemplateState({
     this.status = TemplateStatus.loading,
   });
-
-  final TemplateStatus status;
 
   TemplateState copyWith({
     TemplateStatus? status,

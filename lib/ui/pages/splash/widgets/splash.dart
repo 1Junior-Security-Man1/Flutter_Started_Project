@@ -20,9 +20,7 @@ class _SplashWidgetState extends State<SplashWidget> {
   startNavigateWithDelay() async {
     var duration = new Duration(seconds: 2);
     return new Timer(duration, () {
-      if (context != null) {
-        BlocProvider.of<AuthenticationBloc>(context).add(AppLoaded());
-      }
+      BlocProvider.of<AuthenticationBloc>(context).add(AppLoaded());
     });
   }
 

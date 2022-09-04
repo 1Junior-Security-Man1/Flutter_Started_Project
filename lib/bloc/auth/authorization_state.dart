@@ -4,6 +4,10 @@ import 'package:equatable/equatable.dart';
 enum AuthenticationStatus{ uninitialized, loading, authenticated, unauthenticated }
 
 class AuthenticationState extends Equatable {
+  final AuthenticationStatus? status;
+  final AuthenticationType? authenticationType;
+  final String? token;
+  final int? signature;
 
   const AuthenticationState({
     this.token,
@@ -11,11 +15,6 @@ class AuthenticationState extends Equatable {
     this.authenticationType,
     this.signature,
   });
-
-  final AuthenticationStatus? status;
-  final AuthenticationType? authenticationType;
-  final String? token;
-  final int? signature;
 
   AuthenticationState copyWith({
     AuthenticationStatus? status,
