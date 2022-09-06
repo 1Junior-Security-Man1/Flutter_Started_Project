@@ -3,17 +3,17 @@ import 'package:equatable/equatable.dart';
 enum AuthorizationStatus { initial, error, complete, loading }
 
 class AuthorizationState extends Equatable {
-  final AuthorizationStatus? status;
-  final String? errorMessage;
-  final String? email;
-  final String? confirmCode;
-  final bool? emailIsValid;
+  final AuthorizationStatus status;
+  final String errorMessage;
+  final String email;
+  final String confirmCode;
+  final bool emailIsValid;
 
   const AuthorizationState({
     this.status = AuthorizationStatus.initial,
-    this.errorMessage,
-    this.email,
-    this.confirmCode,
+    this.errorMessage = '',
+    this.email = '',
+    this.confirmCode = '',
     this.emailIsValid = false,
   });
 
@@ -35,5 +35,5 @@ class AuthorizationState extends Equatable {
 
   @override
   List<Object> get props =>
-      [email!, status!, errorMessage!, confirmCode!, emailIsValid!];
+      [email, status, errorMessage, confirmCode, emailIsValid];
 }

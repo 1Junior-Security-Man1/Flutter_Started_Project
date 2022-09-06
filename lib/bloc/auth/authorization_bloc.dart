@@ -13,41 +13,32 @@ class AuthenticationBloc
   final UserRepository _userRepository;
 
   AuthenticationBloc(this._userRepository)
-      : super(AuthenticationState(status: AuthenticationStatus.uninitialized));
-
-  @override
-  Stream<AuthenticationState> mapEventToState(
-      AuthenticationEvent event) async* {
-    if (event is AppStarted) {
-      yield state.copyWith(status: AuthenticationStatus.loading);
-    }
-
-    if (event is AppLoaded) {
+      : super(AuthenticationState(status: AuthenticationStatus.uninitialized)){
+    on<AppStarted>((event, emit) async{
+      emit(state.copyWith(status: AuthenticationStatus.loading));
+    });
+    on<AppLoaded>((event, emit) async{
       final String? accessToken = await _userRepository.getAccessToken();
       if (accessToken != null && accessToken.isNotEmpty) {
-        yield state.copyWith(
-            status: AuthenticationStatus.authenticated, token: accessToken);
+         emit(state.copyWith(status: AuthenticationStatus.authenticated, token: accessToken));
       } else {
-        yield state.copyWith(
-            status: AuthenticationStatus.unauthenticated, token: '');
+        emit(state.copyWith(status: AuthenticationStatus.unauthenticated, token: ''));
       }
-    }
-
-    if (event is LoggedOut) {
+    });
+    on<LoggedOut>((event, emit) async{
       clearAppData(AppState.getContext());
-      yield state.copyWith(
+      emit(state.copyWith(
           status: AuthenticationStatus.unauthenticated,
           deepLinkConfirmCode: '',
           deepLinkEmail: '',
           token: '',
-          signature: generateSignature());
-    }
-
-    if (event is LoggedIn) {
-      yield state.copyWith(
+          signature: generateSignature()));
+    });
+    on<LoggedIn>((event, emit) async{
+      emit(state.copyWith(
           status: AuthenticationStatus.authenticated,
-          signature: generateSignature());
-    }
+          signature: generateSignature()));
+    });
   }
 
   void clearAppData(BuildContext context) {

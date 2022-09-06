@@ -60,7 +60,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                 left: 16.0,
                 right: 16.0,
                 bottom: Dimens.content_padding),
-            child: Text('Text'),
+            child: Text('Authorization Page'),
             // Text(
             //   AppStrings.sendAuthorizationCode,
             //   style: TextStyle(

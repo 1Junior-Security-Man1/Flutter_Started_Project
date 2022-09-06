@@ -45,10 +45,9 @@ class AppState extends State<App> {
     _context = context;
   }
 
-  Future<void> _initialize() async {
+  Future _initialize() async {
     await Firebase.initializeApp();
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    //await MobileAds.instance.initialize();
   }
 
   static BuildContext getContext() {

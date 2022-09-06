@@ -4,16 +4,16 @@ import 'package:equatable/equatable.dart';
 enum AuthenticationStatus{ uninitialized, loading, authenticated, unauthenticated }
 
 class AuthenticationState extends Equatable {
-  final AuthenticationStatus? status;
-  final AuthenticationType? authenticationType;
-  final String? token;
-  final int? signature;
+  final AuthenticationStatus status;
+  final AuthenticationType authenticationType;
+  final String token;
+  //final int signature;
 
   const AuthenticationState({
-    this.token,
+    this.token = '',
     this.status = AuthenticationStatus.uninitialized,
-    this.authenticationType,
-    this.signature,
+    this.authenticationType = AuthenticationType.uninitialized,
+    //this.signature = 0,
   });
 
   AuthenticationState copyWith({
@@ -26,12 +26,12 @@ class AuthenticationState extends Equatable {
   }) {
     return AuthenticationState(
       authenticationType: type ?? this.authenticationType,
-      signature: signature ?? this.signature,
+      //signature: signature ?? this.signature,
       status: status ?? this.status,
       token: token ?? this.token,
     );
   }
 
   @override
-  List<Object> get props => [authenticationType!, signature!, status!, token!];
+  List<Object> get props => [authenticationType, status, token];
 }

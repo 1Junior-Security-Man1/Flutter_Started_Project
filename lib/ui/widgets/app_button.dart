@@ -7,7 +7,7 @@ class AppButton extends StatefulWidget {
   final double? width;
   final double? height;
   final String? text;
-  final Function? onPressed;
+  final VoidCallback? onPressed;
   final Color? textColor;
   final bool? enable;
   final AppButtonType? type;
@@ -99,7 +99,7 @@ class _AppButtonState extends State<AppButton> {
               Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  //onTap: widget.enable! ? widget.onPressed : () {},
+                  onTap: widget.enable! ? widget.onPressed : () {},
                   borderRadius:
                       widget.borderRadius ?? BorderRadius.circular(12),
                   splashColor: (widget.enable! || widget.disableOnlyUI)?Colors.transparent:widget.type == AppButtonType.BLUE

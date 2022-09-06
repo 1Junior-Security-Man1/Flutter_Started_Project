@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_starter/utils/flavors.dart';
 import 'package:flutter_starter/utils/providers.dart';
 import 'package:flutter/material.dart';
