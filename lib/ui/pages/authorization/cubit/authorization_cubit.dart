@@ -13,7 +13,7 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
 
   void authenticate(String email, String password) {
     emit(state.copyWith(status: AuthorizationStatus.loading));
-    _loginRepository.authenticate(state.email!, password).whenComplete(() {
+    _loginRepository.authenticate(state.email, password).whenComplete(() {
       emit(state.copyWith(status: AuthorizationStatus.complete));
     }).catchError((Object obj) {
       switch (obj.runtimeType) {

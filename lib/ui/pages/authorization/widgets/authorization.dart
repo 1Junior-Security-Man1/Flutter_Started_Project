@@ -36,7 +36,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
         if (state.status == AuthorizationStatus.error) {
           showDialog(
             context: context,
-            builder: (_) => AppAlertDialog(message: state.errorMessage!),
+            builder: (_) => AppAlertDialog(message: state.errorMessage),
           );
         }
       },

@@ -7,9 +7,7 @@ import 'package:flutter_starter/ui/widgets/custom_appbar.dart';
 import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-///
-import '../../../network/server_api.dart';
-///
+
 class TemplatePage extends StatelessWidget {
   final String title;
 

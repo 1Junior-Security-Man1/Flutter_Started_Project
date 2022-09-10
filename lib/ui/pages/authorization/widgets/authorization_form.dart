@@ -28,8 +28,8 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
   @override
   void initState() {
     super.initState();
-    _emailTextController.text = widget.state.email!;
-    _confirmCodeTextController.text = widget.state.confirmCode!;
+    _emailTextController.text = widget.state.email;
+    _confirmCodeTextController.text = widget.state.confirmCode;
 
     BlocProvider.of<AuthorizationCubit>(context)
         .emailIsValid(FormValidation.email(_emailTextController.text).isEmpty);
@@ -107,7 +107,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
             child: Padding(
               padding: const EdgeInsets.only(left: 42.0, right: 42.0),
               child: AppButton(
-                disableOnlyUI: widget.state.emailIsValid!,
+                disableOnlyUI: widget.state.emailIsValid,
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     BlocProvider.of<AuthorizationCubit>(context).authenticate(
