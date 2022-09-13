@@ -16,7 +16,6 @@ class LocaleBloc extends Bloc<LocaleEvent, Locale> {
     Locale.fromSubtags(countryCode: 'US', languageCode: 'en'): 'English',
   };
 
-  @override
   Stream<Locale> mapEventToState(LocaleEvent event) async* {
     if (event is ChangeLocaleEvent) {
       _localeRepository.setLanguage(

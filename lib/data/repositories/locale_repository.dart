@@ -5,7 +5,7 @@ class LocaleRepository {
 
   set locale(String value) => AppPreferences().locale = value;
 
-  String get language => (locale ?? ('de_DE')).split('_')[0];
+  String get language => (locale ?? 'de_DE').split('_')[0];
 
   String get country => (locale ?? ('de_DE')).split('_')[1];
 

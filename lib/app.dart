@@ -21,8 +21,7 @@ Flavor get currentFlavour => _currentFlavour!;
 class App extends StatefulWidget {
   App(
     Flavor flavour,
-  )   : assert(flavour != null),
-        super() {
+  )   : super() {
     _currentFlavour = flavour;
   }
 
@@ -68,9 +67,8 @@ class AppState extends State<App> {
                   title: 'Flutter app',
                   theme: ThemeData(
                     fontFamily: 'Montserrat',
-                    primarySwatch: Colors.lightBlue,
                     primaryColor: AppColors.primaryColor,
-                    accentColor: AppColors.accentColor,
+                    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.lightBlue).copyWith(secondary: AppColors.accentColor),
                   ),
                   localeResolutionCallback: (deviceLocale, supportedLocales) =>
                       localeResolutionCallback(

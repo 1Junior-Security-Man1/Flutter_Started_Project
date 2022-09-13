@@ -32,7 +32,6 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
           return;
         }
-
         if (state.status == AuthorizationStatus.error) {
           showDialog(
             context: context,
@@ -47,7 +46,8 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _buildContent(context, state),
-            ]);
+            ],
+          );
         },
       ),
     );

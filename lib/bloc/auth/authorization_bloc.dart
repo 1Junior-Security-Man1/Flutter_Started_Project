@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter_starter/app.dart';
 import 'package:flutter_starter/bloc/auth/authorization_state.dart';
 import 'package:flutter_starter/data/repositories/user_repository.dart';

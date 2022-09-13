@@ -8,8 +8,7 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
   final AuthRepository _loginRepository;
   final UserRepository _userRepository;
 
-  AuthorizationCubit(this._loginRepository, this._userRepository)
-      : super(AuthorizationState());
+  AuthorizationCubit(this._loginRepository, this._userRepository) : super(AuthorizationState());
 
   void authenticate(String email, String password) {
     emit(state.copyWith(status: AuthorizationStatus.loading));
@@ -21,7 +20,7 @@ class AuthorizationCubit extends Cubit<AuthorizationState> {
           final response = (obj as DioError).response;
           emit(state.copyWith(
               status: AuthorizationStatus.error,
-              errorMessage: 'Something went wrong, please try later'));
+              errorMessage: 'Something went wrong, please try later $response'));
       }
     });
   }

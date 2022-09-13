@@ -16,8 +16,7 @@ class AuthorizationFormWidget extends StatefulWidget {
   AuthorizationFormWidget(this.state);
 
   @override
-  _AuthorizationFormWidgetState createState() =>
-      _AuthorizationFormWidgetState();
+  _AuthorizationFormWidgetState createState() => _AuthorizationFormWidgetState();
 }
 
 class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
@@ -30,14 +29,6 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
     super.initState();
     _emailTextController.text = widget.state.email;
     _confirmCodeTextController.text = widget.state.confirmCode;
-
-    BlocProvider.of<AuthorizationCubit>(context)
-        .emailIsValid(FormValidation.email(_emailTextController.text).isEmpty);
-
-    _emailTextController.addListener(() {
-      BlocProvider.of<AuthorizationCubit>(context).emailIsValid(
-          FormValidation.email(_emailTextController.text) == null);
-    });
   }
 
   @override
@@ -61,15 +52,6 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                 right: 16.0,
                 bottom: Dimens.content_padding),
             child: Text('Authorization Page'),
-            // Text(
-            //   AppStrings.sendAuthorizationCode,
-            //   style: TextStyle(
-            //       fontWeight: FontWeight.w500,
-            //       fontSize: 15,
-            //       color: Colors.white,
-            //       height: 1.5),
-            //   textAlign: TextAlign.center,
-            // ),
           ),
           Form(
             key: _formKey,
@@ -79,7 +61,7 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   controller: _emailTextController,
                   textInputType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.done,
-                  validator: (value) => FormValidation.email(value!),
+                  validator: (value) => FormValidation.email(value!) ? null : "You didn't put @",
                   decoration: Styles.appTextFormStyle(
                       hint: 'Email',
                       prefixIcon: Icons.email,
@@ -116,7 +98,6 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   }
                 },
                 textColor: AppColors.backgroundColor,
-                // text: AppStrings.confirm,
                 text: 'AppStrings.confirm',
                 height: Dimens.app_button_height,
               ),
