@@ -1,5 +1,4 @@
 import 'package:flutter_starter/bloc/auth/authorization_state.dart';
-import 'package:flutter_starter/bloc/locale/locale_bloc.dart';
 import 'package:flutter_starter/ui/pages/authorization/authorization_page.dart';
 import 'package:flutter_starter/ui/pages/main/main_page.dart';
 import 'package:flutter_starter/ui/pages/splash/splash_page.dart';
@@ -12,7 +11,6 @@ import 'bloc/auth/authorization_bloc.dart';
 import 'utils/flavors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:intl/intl.dart' as intl;
 
 Flavor? _currentFlavour;
 
@@ -21,7 +19,7 @@ Flavor get currentFlavour => _currentFlavour!;
 class App extends StatefulWidget {
   App(
     Flavor flavour,
-  )   : super() {
+  ) : super() {
     _currentFlavour = flavour;
   }
 
@@ -60,24 +58,17 @@ class AppState extends State<App> {
       builder: (context, snapshot) {
         return BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
-            return BlocBuilder<LocaleBloc, Locale>(builder: (context, locale) {
-              intl.Intl.defaultLocale = locale.languageCode;
-              return MaterialApp(
-                  navigatorKey: App.globalNavigatorKey,
-                  title: 'Flutter app',
-                  theme: ThemeData(
-                    fontFamily: 'Montserrat',
-                    primaryColor: AppColors.primaryColor,
-                    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.lightBlue).copyWith(secondary: AppColors.accentColor),
-                  ),
-                  localeResolutionCallback: (deviceLocale, supportedLocales) =>
-                      localeResolutionCallback(
-                          deviceLocale, supportedLocales, locale, context),
-                  locale: locale,
-                  //localizationsDelegates: localizationsDelegates,
-                  //supportedLocales: AppLocalizations.languages.keys.toList(),
-                  home: navigateToHomeWidget(context, state));
-            });
+            return MaterialApp(
+                navigatorKey: App.globalNavigatorKey,
+                title: 'Flutter app',
+                theme: ThemeData(
+                  fontFamily: 'Montserrat',
+                  primaryColor: AppColors.primaryColor,
+                  colorScheme:
+                      ColorScheme.fromSwatch(primarySwatch: Colors.lightBlue)
+                          .copyWith(secondary: AppColors.accentColor),
+                ),
+                home: navigateToHomeWidget(context, state));
           },
         );
       },
@@ -97,5 +88,9 @@ class AppState extends State<App> {
     }
   }
 
-  localeResolutionCallback(Locale? deviceLocale, Iterable<Locale>? supportedLocales, Locale? locale, BuildContext? context) {}
+  localeResolutionCallback(
+      Locale? deviceLocale,
+      Iterable<Locale>? supportedLocales,
+      Locale? locale,
+      BuildContext? context) {}
 }

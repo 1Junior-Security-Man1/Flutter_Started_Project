@@ -1,8 +1,6 @@
 import 'package:flutter_starter/bloc/auth/authentication_event.dart';
 import 'package:flutter_starter/bloc/auth/authorization_bloc.dart';
-import 'package:flutter_starter/bloc/locale/locale_bloc.dart';
 import 'package:flutter_starter/data/repositories/auth_repository.dart';
-import 'package:flutter_starter/data/repositories/locale_repository.dart';
 import 'package:flutter_starter/data/repositories/profile_repository.dart';
 import 'package:flutter_starter/data/repositories/user_repository.dart';
 import 'package:flutter_starter/network/server_api.dart';
@@ -21,7 +19,6 @@ getRepositories(RestClient client) {
 
 getProviders(RestClient client) {
   return [
-    BlocProvider(create: (context) => LocaleBloc(LocaleRepository())),
     BlocProvider(create: (context) => AuthorizationCubit(AuthRepository(client), UserRepository(client))),
     BlocProvider(create: (context) => AuthenticationBloc(UserRepository(client))..add(AppStarted())),
     BlocProvider(create: (context) => MainCubit()),
