@@ -1,4 +1,3 @@
-
 enum ServerErrorType {
   NO_SOCIAL_NETWORKS_ADDED_ERROR,
   UNKNOWN,

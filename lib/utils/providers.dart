@@ -19,7 +19,7 @@ getRepositories(RestClient client) {
 
 getProviders(RestClient client) {
   return [
-    BlocProvider(create: (context) => AuthorizationCubit(AuthRepository(client), UserRepository(client))),
+    BlocProvider(create: (context) => AuthorizationCubit(AuthRepository(client))),
     BlocProvider(create: (context) => AuthenticationBloc(UserRepository(client))..add(AppStarted())),
     BlocProvider(create: (context) => MainCubit()),
     BlocProvider(create: (context) => SplashCubit()),

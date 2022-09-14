@@ -11,10 +11,8 @@ class OauthInterceptor extends InterceptorsWrapper {
 
   @override
   Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    if (options.path.contains('/users/authenticate') ||
-        options.path.contains('/oauth/code')) {
-      options.headers["Authorization"] =
-          'Basic ' + '<basic token>'; // add basic token here
+    if (options.path.contains('/users/authenticate') || options.path.contains('/oauth/code')) {
+      options.headers["Authorization"] = 'Basic ' + '<basic token>'; // add basic token here
       log.d('Basic token: ' + options.headers["Authorization"]);
     } else {
       final String? accessToken = await AppData.instance.getAccessToken();

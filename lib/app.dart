@@ -13,26 +13,20 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 Flavor? _currentFlavour;
-
 Flavor get currentFlavour => _currentFlavour!;
 
 class App extends StatefulWidget {
-  App(
-    Flavor flavour,
-  ) : super() {
+  App(Flavor flavour) : super() {
     _currentFlavour = flavour;
   }
 
   @override
   AppState createState() => AppState();
-
-  static final GlobalKey<NavigatorState> globalNavigatorKey =
-      GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 }
 
 class AppState extends State<App> {
   static BuildContext? _context;
-
   static String? buildVersion;
 
   @override
@@ -58,24 +52,22 @@ class AppState extends State<App> {
       builder: (context, snapshot) {
         return BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
-            return MaterialApp(
-                navigatorKey: App.globalNavigatorKey,
-                title: 'Flutter app',
-                theme: ThemeData(
-                  fontFamily: 'Montserrat',
-                  primaryColor: AppColors.primaryColor,
-                  colorScheme:
-                      ColorScheme.fromSwatch(primarySwatch: Colors.lightBlue)
-                          .copyWith(secondary: AppColors.accentColor),
-                ),
-                home: navigateToHomeWidget(context, state));
+              return MaterialApp(
+                  navigatorKey: App.globalNavigatorKey,
+                  title: 'Flutter app',
+                  theme: ThemeData(
+                    fontFamily: 'Montserrat',
+                    primaryColor: AppColors.primaryColor,
+                    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.lightBlue).copyWith(secondary: AppColors.accentColor),
+                  ),
+                  home: navigateToHomeWidget(state));
           },
         );
       },
     );
   }
 
-  Widget navigateToHomeWidget(BuildContext context, AuthenticationState state) {
+  Widget navigateToHomeWidget(AuthenticationState state) {
     switch (state.status) {
       case AuthenticationStatus.loading:
         return SplashPage();
@@ -87,10 +79,4 @@ class AppState extends State<App> {
         return AuthorizationPage();
     }
   }
-
-  localeResolutionCallback(
-      Locale? deviceLocale,
-      Iterable<Locale>? supportedLocales,
-      Locale? locale,
-      BuildContext? context) {}
 }

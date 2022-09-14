@@ -16,18 +16,13 @@ class TemplateWidget extends StatefulWidget {
 class _TemplateWidgetState extends State<TemplateWidget> {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthorizationCubit, AuthorizationState>(
-      listener: (context, state) {
-
-      },
-      child: BlocBuilder<AuthorizationCubit, AuthorizationState>(
+    return BlocBuilder<AuthorizationCubit, AuthorizationState>(
         builder: (context, state) {
           return Container(
             child: _buildContent(context, state),
           );
         },
-      ),
-    );
+      );
   }
 
   _buildContent(BuildContext context, AuthorizationState state) {

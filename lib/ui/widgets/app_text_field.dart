@@ -22,8 +22,7 @@ class AppTextField extends StatefulWidget {
         this.decoration,
         this.inputFormatters,
         this.withShadow = true,
-      })
-      : super(key: key);
+      }) : super(key: key);
 
   @override
   _AppTextFieldState createState() => _AppTextFieldState();

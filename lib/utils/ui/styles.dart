@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'dimens.dart';
 
 class Styles {
-  static BoxDecoration appCardStyle(
-      {Color color = Colors.white, double opacity = 0.1}) {
+  static BoxDecoration appCardStyle({Color color = Colors.white, double opacity = 0.1}) {
     return BoxDecoration(
       boxShadow: [
         BoxShadow(
@@ -33,9 +32,7 @@ class Styles {
           padding: const EdgeInsets.only(
               left: Dimens.input_text_prefix_icon_padding,
               right: Dimens.input_text_prefix_icon_padding),
-          child: prefixIconAsset != null
-              ? Image.asset(prefixIconAsset, width: 50)
-              : Icon(prefixIcon, size: 32)),
+          child: prefixIconAsset != null ? Image.asset(prefixIconAsset, width: 50) : Icon(prefixIcon, size: 32)),
       suffixIconConstraints: BoxConstraints(
         minWidth: 2,
         minHeight: 2,

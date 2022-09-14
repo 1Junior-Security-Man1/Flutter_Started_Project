@@ -30,8 +30,7 @@ class AppButton extends StatefulWidget {
     this.child,
     this.borderRadius,
     this.disableOnlyUI = false,
-  })  : assert(
-            (child != null && text == null) || (child == null && text != null)),
+  })  : assert((child != null && text == null) || (child == null && text != null)),
         super(key: key);
 
   @override

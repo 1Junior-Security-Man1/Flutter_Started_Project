@@ -4,7 +4,6 @@ import 'package:flutter_starter/data/app_data.dart';
 
 class AuthRepository extends AuthDataSource {
   final RestClient client;
-
   AuthRepository(this.client);
 
   @override

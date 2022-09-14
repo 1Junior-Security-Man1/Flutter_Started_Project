@@ -6,9 +6,8 @@ import 'package:dio/dio.dart';
 
 class AuthorizationCubit extends Cubit<AuthorizationState> {
   final AuthRepository _loginRepository;
-  final UserRepository _userRepository;
 
-  AuthorizationCubit(this._loginRepository, this._userRepository) : super(AuthorizationState());
+  AuthorizationCubit(this._loginRepository) : super(AuthorizationState());
 
   void authenticate(String email, String password) {
     emit(state.copyWith(status: AuthorizationStatus.loading));

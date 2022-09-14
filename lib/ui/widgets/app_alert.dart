@@ -27,15 +27,11 @@ class AppAlertDialogState extends State<AppAlertDialog>
   void initState() {
     super.initState();
 
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
-    scaleAnimation =
-        CurvedAnimation(parent: controller!, curve: Curves.easeInOut);
-
+    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    scaleAnimation = CurvedAnimation(parent: controller!, curve: Curves.easeInOut);
     controller!.addListener(() {
       setState(() {});
     });
-
     controller!.forward();
   }
 
@@ -60,14 +56,6 @@ class AppAlertDialogState extends State<AppAlertDialog>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Text'),
-                  // Text(
-                  //   AppStrings.warning,
-                  //   style: TextStyle(
-                  //     fontWeight: FontWeight.w700,
-                  //     color: AppColors.errorTextColor,
-                  //     fontSize: 16.0,
-                  //   ),
-                  // ),
                   SizedBox(height: 8.0),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),
