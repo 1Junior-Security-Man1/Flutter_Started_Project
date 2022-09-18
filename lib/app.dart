@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_starter/bloc/auth/authorization_state.dart';
 import 'package:flutter_starter/ui/pages/authorization/authorization_page.dart';
 import 'package:flutter_starter/ui/pages/main/main_page.dart';
@@ -60,6 +61,8 @@ class AppState extends State<App> {
                     primaryColor: AppColors.primaryColor,
                     colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.lightBlue).copyWith(secondary: AppColors.accentColor),
                   ),
+                  localizationsDelegates: AppLocalizations.localizationsDelegates,
+                  supportedLocales: AppLocalizations.supportedLocales,
                   home: navigateToHomeWidget(state));
           },
         );

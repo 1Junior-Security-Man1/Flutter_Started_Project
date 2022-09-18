@@ -19,7 +19,7 @@ dependencies:
   #localisation
   flutter_localizations:
     sdk: flutter
-  flutter_sheet_localization: ^5.1.1
+  intl: ^0.17.0
 
   #architecture
   bloc: ^8.1.0
@@ -84,6 +84,7 @@ dependency_overrides:
 # following page: https://dart.dev/tools/pub/pubspec
 
 flutter:
+  generate: true
   uses-material-design: true
 
   assets:
@@ -114,3 +115,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true

@@ -7,6 +7,7 @@ import 'package:flutter_starter/ui/widgets/custom_appbar.dart';
 import 'package:flutter_starter/utils/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TemplatePage extends StatelessWidget {
   final String title;
@@ -15,6 +16,7 @@ class TemplatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var loc = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppBar(
@@ -23,7 +25,7 @@ class TemplatePage extends StatelessWidget {
       body: BlocProvider(
         create: (_) => TemplateCubit(RepositoryProvider.of<AuthRepository>(context), RepositoryProvider.of<UserRepository>(context)),
         // TemplateCubit(context.repository<AuthRepository>(), context.repository<UserRepository>()),
-        child: TemplateWidget(title),
+        child: TemplateWidget(loc.helloWorld),
       ),
     );
   }

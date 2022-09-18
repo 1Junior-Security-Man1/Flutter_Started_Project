@@ -61,7 +61,8 @@ class _AuthorizationFormWidgetState extends State<AuthorizationFormWidget> {
                   controller: _emailTextController,
                   textInputType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.done,
-                  validator: (value) => FormValidation.email(value!) ? null : "You didn't put @",
+                  // validator: (value) => FormValidation.email(value!) ? null : "You didn't put @",
+                  validator: (value) => FormValidation.email1(value!),
                   decoration: Styles.appTextFormStyle(
                       hint: 'Email',
                       prefixIcon: Icons.email,
